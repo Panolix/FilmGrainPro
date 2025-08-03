@@ -4,9 +4,9 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/pano/Documents/GitHub/FilmGrainPro/src -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -isystem /opt/homebrew/include
+CXX_INCLUDES = -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -isystem /opt/homebrew/include
 
-CXX_FLAGSarm64 =  -stdlib=libc++ -O3 -DNDEBUG -std=c++20 -arch arm64 -mmacosx-version-min=10.15 -Wall -Wextra -Wpedantic -Wno-unused-parameter
+CXX_FLAGSarm64 = -std=gnu++20 -arch arm64 -Wall -Wextra
 
-CXX_FLAGS =  -stdlib=libc++ -O3 -DNDEBUG -std=c++20 -arch arm64 -mmacosx-version-min=10.15 -Wall -Wextra -Wpedantic -Wno-unused-parameter
+CXX_FLAGS = -std=gnu++20 -arch arm64 -Wall -Wextra
 
