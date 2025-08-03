@@ -41,10 +41,11 @@ private:
     FilmGrainEngine* engine_;
     GLFWwindow* window_;
     
-    // UI panels (will be implemented later)
-    // std::unique_ptr<FilmStockLibrary> film_library_;
-    // std::unique_ptr<PreviewCanvas> preview_canvas_;
-    // std::unique_ptr<ControlPanel> control_panel_;
+    // UI state
+    int selected_film_stock_;
+    bool film_stock_dropdown_open_;
+    double mouse_x_, mouse_y_;
+    bool mouse_pressed_;
     
     // Window state
     int window_width_;
@@ -66,8 +67,20 @@ private:
     void RenderMenuBar();
     void RenderStatusBar();
     void RenderMainDockSpace();
-    void RenderTestPattern();
-    void RenderGrainControls();
+    void RenderProfessionalUI();
+    void RenderControlPanel();
+    void RenderMainPreview();
+    void RenderFilmStockSelector();
+    void DrawRect(float x, float y, float w, float h, float r, float g, float b);
+    void DrawText(float x, float y, const std::string& text, float r = 1.0f, float g = 1.0f, float b = 1.0f);
+    void DrawSlider(float x, float y, float w, float h, float value, float min_val, float max_val, const std::string& label);
+    void DrawButton(float x, float y, float w, float h, const std::string& text, bool pressed = false);
+    bool IsMouseInRect(float x, float y, float w, float h);
+    
+    // Mouse interaction
+    void HandleMouseClick(double x, double y);
+    static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+    static void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
     void HandleKeyboardShortcuts();
     void LoadUISettings();
     void SaveUISettings();

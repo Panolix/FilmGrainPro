@@ -44,10 +44,10 @@ bool FilmStockDatabase::LoadFromFile(const std::string& filepath) {
 bool FilmStockDatabase::LoadDefaults() {
     std::cout << "Loading default film stocks..." << std::endl;
     
-    // Load both JSON files
+    // Load both JSON files from bin directory
     bool success = true;
-    success &= LoadFromFile("stocks5.json");
-    success &= LoadFromFile("advanced-shapeetc.json");
+    success &= LoadFromFile("bin/stocks5.json");
+    success &= LoadFromFile("bin/advanced-shapeetc.json");
     
     if (!success) {
         std::cout << "Warning: Some film stock files could not be loaded" << std::endl;
@@ -80,15 +80,77 @@ bool FilmStockDatabase::ParseBasicFilmStockJSON(const std::string& json_content)
         for (auto& [stock_id, stock_data] : j.items()) {
             if (stock_id == "metadata") continue;
             
-            auto film_stock = CreateFilmStockFromBasicJSON(stock_id, stock_data);
-            if (film_stock) {
-                film_stocks_[stock_id] = std::unique_ptr<FilmStock>(film_stock);
-                std::cout << "Loaded film stock: " << film_stock->display_name << std::endl;
+            // Create film stock from JSON data
+            auto film_stock = new FilmStock();
+            film_stock->id = stock_id;
+            
+            // Parse basic info
+            if (stock_data.contains("basic_info")) {
+                auto& basic = stock_data["basic_info"];
+                film_stock->display_name = basic.value("name", stock_id);
+                film_stock->iso_speed = basic.value("iso", 400);
+                std::string type_str = basic.value("type", "bw");
+                if (type_str == "bw" || type_str == "black_and_white") {
+                    film_stock->type = FilmStock::Type::BlackAndWhite;
+                } else if (type_str == "color_negative") {
+                    film_stock->type = FilmStock::Type::ColorNegative;
+                } else if (type_str == "color_slide") {
+                    film_stock->type = FilmStock::Type::ColorSlide;
+                }
+            } else {
+                film_stock->display_name = stock_id;
+                film_stock->iso_speed = 400;
+                film_stock->type = FilmStock::Type::BlackAndWhite;
             }
+            
+            // Parse grain properties
+            if (stock_data.contains("size_metrics")) {
+                auto& size = stock_data["size_metrics"];
+                film_stock->grain_properties.min_size_um = size.value("min_size_um", 0.5f);
+                film_stock->grain_properties.max_size_um = size.value("max_size_um", 3.0f);
+                film_stock->grain_properties.avg_size_um = size.value("avg_size_um", 1.5f);
+                film_stock->grain_properties.size_variation_coeff = size.value("size_variation_coeff", 0.5f);
+                film_stock->grain_properties.density_per_mm2 = size.value("density_per_mm2", 10000);
+            }
+            
+            if (stock_data.contains("grain_structure")) {
+                auto& grain = stock_data["grain_structure"];
+                film_stock->grain_properties.crystal_type = grain.value("crystal_type", "cubic");
+                film_stock->grain_properties.shape = grain.value("shape", "irregular");
+                film_stock->grain_properties.clustering = grain.value("clustering", "moderate");
+            }
+            
+            // Parse visual properties
+            if (stock_data.contains("visual_properties")) {
+                auto& visual = stock_data["visual_properties"];
+                if (visual.contains("opacity_range") && visual["opacity_range"].is_array()) {
+                    auto opacity = visual["opacity_range"];
+                    film_stock->visual_properties.opacity_min = opacity[0];
+                    film_stock->visual_properties.opacity_max = opacity[1];
+                } else {
+                    film_stock->visual_properties.opacity_min = 0.2f;
+                    film_stock->visual_properties.opacity_max = 0.8f;
+                }
+                film_stock->visual_properties.opacity_variation = visual.value("opacity_variation", 0.5f);
+                film_stock->visual_properties.contrast_level = visual.value("contrast_level", "medium");
+                film_stock->visual_properties.edge_definition = visual.value("edge_definition", "soft");
+            }
+            
+            // Parse algorithmic data
+            if (stock_data.contains("algorithmic_data")) {
+                auto& algo = stock_data["algorithmic_data"];
+                film_stock->algorithmic_data.clustering_algorithm = algo.value("clustering_algorithm", "gaussian");
+                film_stock->algorithmic_data.distribution_function = algo.value("distribution_function", "normal");
+                film_stock->algorithmic_data.spatial_correlation = algo.value("spatial_correlation", 0.3f);
+                film_stock->algorithmic_data.fractal_dimension = algo.value("fractal_dimension", 1.7f);
+            }
+            
+            film_stocks_[stock_id] = std::unique_ptr<FilmStock>(film_stock);
+            std::cout << "✅ Loaded: " << film_stock->display_name << " (ISO " << film_stock->iso_speed << ")" << std::endl;
         }
         return true;
     } catch (const json::exception& e) {
-        std::cerr << "Error parsing basic film stock JSON: " << e.what() << std::endl;
+        std::cerr << "Error parsing film stock JSON: " << e.what() << std::endl;
         return false;
     }
 }
