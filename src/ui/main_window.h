@@ -9,6 +9,8 @@ class FilmStockLibrary;
 class PreviewCanvas;
 class ControlPanel;
 struct GLFWwindow;
+struct Image;
+struct GrainParams;
 
 /**
  * Main application window using Dear ImGui
@@ -39,10 +41,10 @@ private:
     FilmGrainEngine* engine_;
     GLFWwindow* window_;
     
-    // UI panels
-    std::unique_ptr<FilmStockLibrary> film_library_;
-    std::unique_ptr<PreviewCanvas> preview_canvas_;
-    std::unique_ptr<ControlPanel> control_panel_;
+    // UI panels (will be implemented later)
+    // std::unique_ptr<FilmStockLibrary> film_library_;
+    // std::unique_ptr<PreviewCanvas> preview_canvas_;
+    // std::unique_ptr<ControlPanel> control_panel_;
     
     // Window state
     int window_width_;
@@ -58,15 +60,24 @@ private:
     bool show_status_bar_;
     
     // Internal methods
-    void InitializeGLFW();
+    bool InitializeGLFW();
     void InitializeImGui();
     void SetupDocking();
     void RenderMenuBar();
     void RenderStatusBar();
     void RenderMainDockSpace();
+    void RenderTestPattern();
+    void RenderGrainControls();
     void HandleKeyboardShortcuts();
     void LoadUISettings();
     void SaveUISettings();
+    
+    // Grain testing
+    void ApplyGrainToTestImage(Image& test_image, const std::string& film_stock, const GrainParams& params);
+    void UpdateGrainParameters();
+    void CyclePreviousFilmStock();
+    void CycleNextFilmStock();
+    void ShowGrainControls();
     
     // Event handlers
     static void WindowSizeCallback(GLFWwindow* window, int width, int height);

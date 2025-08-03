@@ -61,8 +61,8 @@ bool FilmGrainEngine::Initialize() {
         LoadDefaultFilmStocks();
         
         // Initialize preview images
-        preview_image_ = std::make_unique<Image>(1920, 1080, PixelFormat::RGBA8);
-        processed_preview_ = std::make_unique<Image>(1920, 1080, PixelFormat::RGBA8);
+        preview_image_ = std::make_unique<Image>(1920, 1080, 4);
+        processed_preview_ = std::make_unique<Image>(1920, 1080, 4);
         
         std::cout << "FilmGrain Engine initialized successfully\n";
         return true;
@@ -101,10 +101,10 @@ bool FilmGrainEngine::ProcessImage(const Image& input, Image& output,
         }
         
         // Ensure output image is correct size
-        output.Resize(input.GetWidth(), input.GetHeight(), input.GetFormat());
+        output.Allocate(input.width, input.height, input.channels);
         
         // Copy input to output as base
-        output.CopyFrom(input);
+        output.data = input.data;
         
         // Apply color processing first
         color_processor_->ProcessImage(output, *stock, params);
@@ -166,10 +166,10 @@ bool FilmGrainEngine::LoadFilmStockDatabase(const std::string& path) {
 
 void FilmGrainEngine::SetPreviewImage(const Image& image) {
     if (!preview_image_) {
-        preview_image_ = std::make_unique<Image>(image.GetWidth(), image.GetHeight(), image.GetFormat());
+        preview_image_ = std::make_unique<Image>(image.width, image.height, image.channels);
     }
     
-    preview_image_->CopyFrom(image);
+    preview_image_->data = image.data;
     preview_needs_update_ = true;
 }
 

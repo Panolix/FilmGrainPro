@@ -1,0 +1,2666 @@
+{
+  "Kodak Tri-X 400": {
+    "basic_info": {
+      "name": "Kodak Tri-X 400",
+      "iso": 400,
+      "type": "bw"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.5,
+      "max_size_um": 2.0,
+      "avg_size_um": 0.8,
+      "size_distribution": "bimodal",
+      "size_variation_coeff": 0.5,
+      "density_per_mm2": 800000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.2, 0.8],
+      "contrast_level": "high",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.7,
+      "highlight_visibility": "low",
+      "shadow_visibility": "high",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [200, 255],
+          "g": [200, 255],
+          "b": [200, 255],
+          "weight": 1.0
+        }
+      ],
+      "color_variation": "low",
+      "saturation_level": "low"
+    },
+    "special_effects": {
+      "halation": "mild",
+      "halation_color": "#ffffff",
+      "halation_radius": 1.0,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.6,
+        "density_change": 1.4,
+        "contrast_change": "high_contrast"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.8, 0.5)",
+      "spatial_correlation": 0.2,
+      "fractal_dimension": 1.2
+    },
+    "professional_notes": {
+      "distinctive_characteristics": [
+        "Classic coarse grain structure of older emulsion [oai_citation:0‡l-camera-forum.com](https://www.l-camera-forum.com/topic/52068-exposure-latitude-question-tri-x-v-t-grain-films/#:~:text=I%20do%20not%20agree%20that,commensurately%20greater%20ability%20to%20enlarge)",
+        "Silver-halide crystals ~0.2–2.0μm form visible grains ~10–30μm [oai_citation:1‡tmax100.com](https://www.tmax100.com/photo/pdf/film.pdf#:~:text=EEEvvvaaallluuuaaatttiiinnngggPPPr%20rrooopppeeerrrtttyyy%20MMMeeeaaasssuuurrreeeddd%3F%3F%3F%20Fundamental%20Particles,Human%20Vision%20Details) [oai_citation:2‡tmax100.com](https://www.tmax100.com/photo/pdf/film.pdf#:~:text=being%20real,grain%20is%20far%20larger%20than)"
+      ],
+      "common_uses": ["street", "documentary", "low-light"],
+      "grain_reputation": "coarse",
+      "comparison_films": ["Ilford HP5 Plus", "Kodak Plus-X"]
+    }
+  },
+  "Ilford HP5 Plus": {
+    "basic_info": {
+      "name": "Ilford HP5 Plus",
+      "iso": 400,
+      "type": "bw"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.5,
+      "max_size_um": 2.0,
+      "avg_size_um": 0.8,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.5,
+      "density_per_mm2": 900000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.2, 0.9],
+      "contrast_level": "medium",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.6,
+      "highlight_visibility": "low",
+      "shadow_visibility": "high",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [200, 255],
+          "g": [200, 255],
+          "b": [200, 255],
+          "weight": 1.0
+        }
+      ],
+      "color_variation": "none",
+      "saturation_level": "low"
+    },
+    "special_effects": {
+      "halation": "mild",
+      "halation_color": "#ffffff",
+      "halation_radius": 1.0,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.7,
+        "density_change": 1.4,
+        "contrast_change": "high_contrast"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.8, 0.5)",
+      "spatial_correlation": 0.25,
+      "fractal_dimension": 1.2
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["HP5 Plus uses a traditional cubic grain structure, giving a gritty, organic look [oai_citation:3‡timlaytonfineart.com](https://timlaytonfineart.com/2025/06/08/ilford-hp5-plus-400-film-guide/#:~:text=,%E2%80%9Catmospheric%E2%80%9D%20character%2C%20especially%20when%20pushed)"],
+      "common_uses": ["journalism", "general purpose", "low-light"],
+      "grain_reputation": "coarse",
+      "comparison_films": ["Kodak Tri-X 400", "Kodak T-Max 400"]
+    }
+  },
+  "Kodak T-Max 400": {
+    "basic_info": {
+      "name": "Kodak T-Max 400",
+      "iso": 400,
+      "type": "bw"
+    },
+    "grain_structure": {
+      "crystal_type": "tabular",
+      "shape": "flat",
+      "aspect_ratio": [3.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.4,
+      "max_size_um": 1.5,
+      "avg_size_um": 0.7,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.3,
+      "density_per_mm2": 1000000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.1, 0.7],
+      "contrast_level": "medium",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.5,
+      "highlight_visibility": "medium",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [200, 255],
+          "g": [200, 255],
+          "b": [200, 255],
+          "weight": 1.0
+        }
+      ],
+      "color_variation": "low",
+      "saturation_level": "low"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 0.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.2,
+        "density_change": 1.1,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.4,
+        "density_change": 1.2,
+        "contrast_change": "high_contrast"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.7, 0.3)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.3
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Kodak T-Max 400 uses T-Grain (tabular) emulsion for extremely fine grain and sharp detail [oai_citation:4‡timlaytonfineart.com](https://timlaytonfineart.com/2025/06/08/ilford-hp5-plus-400-film-guide/#:~:text=%2A%20Look%20%26%20Feel%3A%20T,midtone%20separation%20and%20detail%20retention)"],
+      "common_uses": ["portraits", "fine art", "high resolution"],
+      "grain_reputation": "fine",
+      "comparison_films": ["Ilford HP5 Plus", "Kodak Tri-X 400"]
+    }
+  },
+  "Kodak T-Max 100": {
+    "basic_info": {
+      "name": "Kodak T-Max 100",
+      "iso": 100,
+      "type": "bw"
+    },
+    "grain_structure": {
+      "crystal_type": "tabular",
+      "shape": "flat",
+      "aspect_ratio": [3.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.3,
+      "max_size_um": 1.0,
+      "avg_size_um": 0.5,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.2,
+      "density_per_mm2": 1200000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.1, 0.6],
+      "contrast_level": "medium",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.4,
+      "highlight_visibility": "high",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "high"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [200, 255],
+          "g": [200, 255],
+          "b": [200, 255],
+          "weight": 1.0
+        }
+      ],
+      "color_variation": "none",
+      "saturation_level": "low"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 0.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.1,
+        "density_change": 1.1,
+        "contrast_change": "slightly increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.5, 0.2)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.3
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["T-Max 100 delivers extremely fine grain (T-Grain) and very high sharpness"],
+      "common_uses": ["landscape", "product", "fine art"],
+      "grain_reputation": "very_fine",
+      "comparison_films": ["Ilford FP4 Plus", "Kodak Plus-X"]
+    }
+  },
+  "Ilford Delta 400": {
+    "basic_info": {
+      "name": "Ilford Delta 400",
+      "iso": 400,
+      "type": "bw"
+    },
+    "grain_structure": {
+      "crystal_type": "tabular core-shell",
+      "shape": "triangular",
+      "aspect_ratio": [5.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.4,
+      "max_size_um": 1.2,
+      "avg_size_um": 0.7,
+      "size_distribution": "log-normal",
+      "size_variation_coeff": 0.3,
+      "density_per_mm2": 1000000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.2, 0.8],
+      "contrast_level": "medium",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.5,
+      "highlight_visibility": "medium",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [200, 255],
+          "g": [200, 255],
+          "b": [200, 255],
+          "weight": 1.0
+        }
+      ],
+      "color_variation": "low",
+      "saturation_level": "low"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 0.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.2,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.5,
+        "density_change": 1.4,
+        "contrast_change": "high_contrast"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.7, 0.3)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.4
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Delta 400 uses tabular (T-Grain) emulsion with core-shell technology for fine grain [oai_citation:5‡bluemooncameracodex.com](https://bluemooncameracodex.com/film-fridays/ffilforddelta400#:~:text=qualities%20it%20brings%20to%20your,at%20least%20twice%20their%20thickness) [oai_citation:6‡bluemooncameracodex.com](https://bluemooncameracodex.com/film-fridays/ffilforddelta400#:~:text=with%20less%20grain%20and%20great,in%20a%20finer%20grained%20appearance)"],
+      "common_uses": ["portrait", "landscape", "general"],
+      "grain_reputation": "fine",
+      "comparison_films": ["Kodak T-Max 400", "Ilford HP5 Plus"]
+    }
+  },
+  "Ilford FP4 Plus": {
+    "basic_info": {
+      "name": "Ilford FP4 Plus",
+      "iso": 125,
+      "type": "bw"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "round",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.3,
+      "max_size_um": 1.5,
+      "avg_size_um": 0.6,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.4,
+      "density_per_mm2": 1100000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.1, 0.7],
+      "contrast_level": "low",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.5,
+      "highlight_visibility": "high",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "high"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [200, 255],
+          "g": [200, 255],
+          "b": [200, 255],
+          "weight": 1.0
+        }
+      ],
+      "color_variation": "none",
+      "saturation_level": "low"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 0.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.1,
+        "density_change": 1.1,
+        "contrast_change": "slightly increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.6, 0.4)",
+      "spatial_correlation": 0.25,
+      "fractal_dimension": 1.3
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["FP4 Plus is a classical moderate-speed film with fine grain and low contrast"],
+      "common_uses": ["portraits", "landscapes", "studio"],
+      "grain_reputation": "fine",
+      "comparison_films": ["Kodak Plus-X", "Ilford Pan F Plus"]
+    }
+  },
+  "Ilford Pan F Plus": {
+    "basic_info": {
+      "name": "Ilford Pan F Plus",
+      "iso": 50,
+      "type": "bw"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.2,
+      "max_size_um": 1.0,
+      "avg_size_um": 0.4,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.2,
+      "density_per_mm2": 1300000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.1, 0.5],
+      "contrast_level": "low",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.4,
+      "highlight_visibility": "high",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "high"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [200, 255],
+          "g": [200, 255],
+          "b": [200, 255],
+          "weight": 1.0
+        }
+      ],
+      "color_variation": "none",
+      "saturation_level": "low"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 0.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.0,
+        "density_change": 1.0,
+        "contrast_change": "slightly increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.1,
+        "density_change": 1.1,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.4, 0.2)",
+      "spatial_correlation": 0.2,
+      "fractal_dimension": 1.2
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Pan F Plus is known for its extremely fine grain and high sharpness"],
+      "common_uses": ["landscape", "product", "fine art"],
+      "grain_reputation": "very_fine",
+      "comparison_films": ["Ilford Delta 100", "Kodak T-Max 100"]
+    }
+  },
+  "Fuji Acros 100": {
+    "basic_info": {
+      "name": "Fuji Acros 100",
+      "iso": 100,
+      "type": "bw"
+    },
+    "grain_structure": {
+      "crystal_type": "tabular",
+      "shape": "flat",
+      "aspect_ratio": [4.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.3,
+      "max_size_um": 0.8,
+      "avg_size_um": 0.4,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.2,
+      "density_per_mm2": 1200000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.1, 0.6],
+      "contrast_level": "low",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.4,
+      "highlight_visibility": "high",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "high"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [200, 255],
+          "g": [200, 255],
+          "b": [200, 255],
+          "weight": 1.0
+        }
+      ],
+      "color_variation": "none",
+      "saturation_level": "low"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 0.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.1,
+        "density_change": 1.1,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.2,
+        "contrast_change": "high_contrast"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.4, 0.2)",
+      "spatial_correlation": 0.25,
+      "fractal_dimension": 1.3
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Acros 100 is prized for its ultra-fine grain and high sharpness"],
+      "common_uses": ["landscape", "nature", "fine art"],
+      "grain_reputation": "ultra_fine",
+      "comparison_films": ["Ilford Delta 100", "Kodak T-Max 100"]
+    }
+  },
+  "Fuji Neopan 400": {
+    "basic_info": {
+      "name": "Fuji Neopan 400",
+      "iso": 400,
+      "type": "bw"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.4,
+      "max_size_um": 1.5,
+      "avg_size_um": 0.7,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.4,
+      "density_per_mm2": 950000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.2, 0.8],
+      "contrast_level": "medium",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.6,
+      "highlight_visibility": "medium",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [200, 255],
+          "g": [200, 255],
+          "b": [200, 255],
+          "weight": 1.0
+        }
+      ],
+      "color_variation": "none",
+      "saturation_level": "low"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 0.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.6,
+        "density_change": 1.4,
+        "contrast_change": "high_contrast"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.7, 0.4)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.3
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Neopan 400 provides classic grain structure with moderate speed"],
+      "common_uses": ["general purpose", "indoor", "night shots"],
+      "grain_reputation": "moderate",
+      "comparison_films": ["Ilford HP5 Plus", "Kodak Tri-X 400"]
+    }
+  },
+  "Fuji Neopan 1600": {
+    "basic_info": {
+      "name": "Fuji Neopan 1600",
+      "iso": 1600,
+      "type": "bw"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "heavy",
+      "edge_type": "soft"
+    },
+    "size_metrics": {
+      "min_size_um": 0.6,
+      "max_size_um": 2.5,
+      "avg_size_um": 1.2,
+      "size_distribution": "log-normal",
+      "size_variation_coeff": 0.6,
+      "density_per_mm2": 800000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.3, 0.9],
+      "contrast_level": "high",
+      "edge_definition": "soft",
+      "opacity_variation": 0.8,
+      "highlight_visibility": "low",
+      "shadow_visibility": "high",
+      "midtone_prominence": "high"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [200, 255],
+          "g": [200, 255],
+          "b": [200, 255],
+          "weight": 1.0
+        }
+      ],
+      "color_variation": "none",
+      "saturation_level": "low"
+    },
+    "special_effects": {
+      "halation": "moderate",
+      "halation_color": "#ffffff",
+      "halation_radius": 1.5,
+      "unique_artifacts": ["grain patterns at high ISO"],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.4,
+        "density_change": 1.3,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.8,
+        "density_change": 1.6,
+        "contrast_change": "high_contrast"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(1.2, 0.6)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.5
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Neopan 1600 yields heavy grain but preserves high speed"],
+      "common_uses": ["night", "action", "journalism"],
+      "grain_reputation": "coarse",
+      "comparison_films": ["Ilford Delta 3200", "Kodak Tri-X 400"]
+    }
+  },
+  "Fuji Acros II 100": {
+    "basic_info": {
+      "name": "Fuji Acros II 100",
+      "iso": 100,
+      "type": "bw"
+    },
+    "grain_structure": {
+      "crystal_type": "tabular",
+      "shape": "flat",
+      "aspect_ratio": [4.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.3,
+      "max_size_um": 1.0,
+      "avg_size_um": 0.5,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.2,
+      "density_per_mm2": 1250000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.1, 0.6],
+      "contrast_level": "low",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.4,
+      "highlight_visibility": "high",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "high"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [200, 255],
+          "g": [200, 255],
+          "b": [200, 255],
+          "weight": 1.0
+        }
+      ],
+      "color_variation": "none",
+      "saturation_level": "low"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 0.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.2,
+        "density_change": 1.1,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.2,
+        "contrast_change": "high_contrast"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.5, 0.2)",
+      "spatial_correlation": 0.25,
+      "fractal_dimension": 1.3
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Acros II 100 provides very fine grain and smooth tonal gradations"],
+      "common_uses": ["landscape", "architecture", "fine art"],
+      "grain_reputation": "ultra_fine",
+      "comparison_films": ["Ilford Delta 100", "Kodak T-Max 100"]
+    }
+  },
+  "Kodak Portra 160": {
+    "basic_info": {
+      "name": "Kodak Portra 160",
+      "iso": 160,
+      "type": "color_negative"
+    },
+    "grain_structure": {
+      "crystal_type": "t-grain",
+      "shape": "flat",
+      "aspect_ratio": [4.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.3,
+      "max_size_um": 1.2,
+      "avg_size_um": 0.6,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.25,
+      "density_per_mm2": 900000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.2, 0.9],
+      "contrast_level": "low",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.3,
+      "highlight_visibility": "high",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "high"
+    },
+    "color_properties": {
+      "primary_cast": "warm",
+      "rgb_ranges": [
+        {
+          "r": [230, 255],
+          "g": [220, 245],
+          "b": [210, 240],
+          "weight": 0.6
+        },
+        {
+          "r": [200, 230],
+          "g": [190, 220],
+          "b": [180, 210],
+          "weight": 0.4
+        }
+      ],
+      "color_variation": "medium",
+      "saturation_level": "medium"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 0.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.2,
+        "density_change": 1.1,
+        "contrast_change": "slightly increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.4,
+        "density_change": 1.3,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.6, 0.25)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.4
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Portra 160 offers fine grain and neutral color reproduction (Kodak: 'world’s finest-grain' [oai_citation:7‡business.kodakmoments.com](https://business.kodakmoments.com/sites/default/files/files/resources/e4050_portra_400.pdf#:~:text=%E2%80%A2%20Micro,speed%20color%20negative%20film))"],
+      "common_uses": ["portraits", "wedding", "travel"],
+      "grain_reputation": "fine",
+      "comparison_films": ["Fuji Pro 160S", "Kodak Portra 400"]
+    }
+  },
+  "Kodak Portra 400": {
+    "basic_info": {
+      "name": "Kodak Portra 400",
+      "iso": 400,
+      "type": "color_negative"
+    },
+    "grain_structure": {
+      "crystal_type": "t-grain",
+      "shape": "flat",
+      "aspect_ratio": [4.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.4,
+      "max_size_um": 1.5,
+      "avg_size_um": 0.8,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.3,
+      "density_per_mm2": 850000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.2, 0.9],
+      "contrast_level": "low",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.4,
+      "highlight_visibility": "high",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "high"
+    },
+    "color_properties": {
+      "primary_cast": "warm",
+      "rgb_ranges": [
+        {
+          "r": [235, 255],
+          "g": [225, 250],
+          "b": [220, 245],
+          "weight": 0.7
+        },
+        {
+          "r": [200, 234],
+          "g": [190, 224],
+          "b": [180, 219],
+          "weight": 0.3
+        }
+      ],
+      "color_variation": "medium",
+      "saturation_level": "medium"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 0.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.6,
+        "density_change": 1.4,
+        "contrast_change": "high_contrast"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.8, 0.4)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.4
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Portra 400 uses T-Grain emulsions for very fine grain and excellent scanning compatibility [oai_citation:8‡business.kodakmoments.com](https://business.kodakmoments.com/sites/default/files/files/resources/e4050_portra_400.pdf#:~:text=%E2%80%A2%20Micro,speed%20color%20negative%20film)"],
+      "common_uses": ["portraits", "general", "wedding"],
+      "grain_reputation": "very_fine",
+      "comparison_films": ["Fuji Pro 400H", "Kodak Portra 800"]
+    }
+  },
+  "Kodak Portra 800": {
+    "basic_info": {
+      "name": "Kodak Portra 800",
+      "iso": 800,
+      "type": "color_negative"
+    },
+    "grain_structure": {
+      "crystal_type": "t-grain",
+      "shape": "flat",
+      "aspect_ratio": [3.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.5,
+      "max_size_um": 1.8,
+      "avg_size_um": 1.0,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.4,
+      "density_per_mm2": 700000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.3, 0.9],
+      "contrast_level": "low",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.5,
+      "highlight_visibility": "medium",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "high"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [230, 255],
+          "g": [220, 250],
+          "b": [210, 240],
+          "weight": 0.6
+        },
+        {
+          "r": [200, 229],
+          "g": [190, 219],
+          "b": [180, 209],
+          "weight": 0.4
+        }
+      ],
+      "color_variation": "medium",
+      "saturation_level": "medium"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 1.0,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.4,
+        "density_change": 1.3,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.7,
+        "density_change": 1.5,
+        "contrast_change": "high_contrast"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(1.0, 0.4)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.4
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Portra 800 maintains surprisingly fine grain for ISO 800, producing natural colors"],
+      "common_uses": ["low-light portraiture", "indoor", "event"],
+      "grain_reputation": "fine",
+      "comparison_films": ["Cinestill 800T", "Kodak Portra 400"]
+    }
+  },
+  "Kodak Ektar 100": {
+    "basic_info": {
+      "name": "Kodak Ektar 100",
+      "iso": 100,
+      "type": "color_negative"
+    },
+    "grain_structure": {
+      "crystal_type": "t-grain",
+      "shape": "flat",
+      "aspect_ratio": [4.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.3,
+      "max_size_um": 1.2,
+      "avg_size_um": 0.6,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.25,
+      "density_per_mm2": 1000000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.2, 0.9],
+      "contrast_level": "high",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.4,
+      "highlight_visibility": "medium",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "cool",
+      "rgb_ranges": [
+        {
+          "r": [220, 250],
+          "g": [200, 240],
+          "b": [190, 230],
+          "weight": 0.6
+        },
+        {
+          "r": [180, 219],
+          "g": [160, 199],
+          "b": [150, 189],
+          "weight": 0.4
+        }
+      ],
+      "color_variation": "low",
+      "saturation_level": "high"
+    },
+    "special_effects": {
+      "halation": "mild",
+      "halation_color": "#ffffff",
+      "halation_radius": 1.0,
+      "unique_artifacts": ["very high saturation"],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.2,
+        "density_change": 1.1,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.6, 0.25)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.3
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Kodak Ektar 100 is noted for extremely fine grain and vivid color rendition"],
+      "common_uses": ["landscape", "nature", "macro"],
+      "grain_reputation": "ultra_fine",
+      "comparison_films": ["Fuji Velvia 50", "Kodak Portra 160"]
+    }
+  },
+  "Kodak Gold 200": {
+    "basic_info": {
+      "name": "Kodak Gold 200",
+      "iso": 200,
+      "type": "color_negative"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "soft"
+    },
+    "size_metrics": {
+      "min_size_um": 0.4,
+      "max_size_um": 1.8,
+      "avg_size_um": 0.9,
+      "size_distribution": "log-normal",
+      "size_variation_coeff": 0.4,
+      "density_per_mm2": 800000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.2, 0.8],
+      "contrast_level": "medium",
+      "edge_definition": "soft",
+      "opacity_variation": 0.5,
+      "highlight_visibility": "medium",
+      "shadow_visibility": "high",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "warm",
+      "rgb_ranges": [
+        {
+          "r": [230, 255],
+          "g": [220, 250],
+          "b": [210, 240],
+          "weight": 0.7
+        },
+        {
+          "r": [190, 229],
+          "g": [180, 219],
+          "b": [170, 209],
+          "weight": 0.3
+        }
+      ],
+      "color_variation": "low",
+      "saturation_level": "medium"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 1.0,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.2,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.4,
+        "density_change": 1.3,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.9, 0.4)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.4
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Kodak Gold 200 is a consumer film with noticeable grain and warm colors"],
+      "common_uses": ["snapshots", "travel", "everyday"],
+      "grain_reputation": "coarse",
+      "comparison_films": ["Fuji Superia 400", "Kodak ColorPlus 200"]
+    }
+  },
+  "Kodak UltraMax 400": {
+    "basic_info": {
+      "name": "Kodak UltraMax 400",
+      "iso": 400,
+      "type": "color_negative"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "soft"
+    },
+    "size_metrics": {
+      "min_size_um": 0.5,
+      "max_size_um": 2.0,
+      "avg_size_um": 1.1,
+      "size_distribution": "log-normal",
+      "size_variation_coeff": 0.5,
+      "density_per_mm2": 750000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.3, 0.9],
+      "contrast_level": "medium",
+      "edge_definition": "soft",
+      "opacity_variation": 0.6,
+      "highlight_visibility": "medium",
+      "shadow_visibility": "high",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [225, 255],
+          "g": [215, 250],
+          "b": [205, 245],
+          "weight": 0.6
+        },
+        {
+          "r": [180, 224],
+          "g": [170, 214],
+          "b": [160, 204],
+          "weight": 0.4
+        }
+      ],
+      "color_variation": "medium",
+      "saturation_level": "medium"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 1.0,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.6,
+        "density_change": 1.5,
+        "contrast_change": "high_contrast"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(1.1, 0.5)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.4
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Kodak UltraMax 400 is a budget 400-speed film with relatively coarse grain"],
+      "common_uses": ["general snapshot", "low light casual"],
+      "grain_reputation": "coarse",
+      "comparison_films": ["Kodak Portra 400", "Kodak Gold 200"]
+    }
+  },
+  "Fuji Pro 400H": {
+    "basic_info": {
+      "name": "Fuji Pro 400H",
+      "iso": 400,
+      "type": "color_negative"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "soft"
+    },
+    "size_metrics": {
+      "min_size_um": 0.4,
+      "max_size_um": 1.5,
+      "avg_size_um": 0.8,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.3,
+      "density_per_mm2": 850000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.2, 0.9],
+      "contrast_level": "low",
+      "edge_definition": "soft",
+      "opacity_variation": 0.4,
+      "highlight_visibility": "high",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "high"
+    },
+    "color_properties": {
+      "primary_cast": "cool",
+      "rgb_ranges": [
+        {
+          "r": [210, 245],
+          "g": [200, 240],
+          "b": [190, 235],
+          "weight": 0.6
+        },
+        {
+          "r": [170, 209],
+          "g": [160, 199],
+          "b": [150, 189],
+          "weight": 0.4
+        }
+      ],
+      "color_variation": "medium",
+      "saturation_level": "medium"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 1.0,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.1,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.5,
+        "density_change": 1.3,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.8, 0.3)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.4
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Fuji Pro 400H yields pastel green hues and moderate grain"],
+      "common_uses": ["wedding", "portrait", "outdoor"],
+      "grain_reputation": "moderate",
+      "comparison_films": ["Kodak Portra 400", "Fuji Superia 400"]
+    }
+  },
+  "Fuji Pro 160S": {
+    "basic_info": {
+      "name": "Fuji Pro 160S",
+      "iso": 160,
+      "type": "color_negative"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "soft"
+    },
+    "size_metrics": {
+      "min_size_um": 0.3,
+      "max_size_um": 1.2,
+      "avg_size_um": 0.6,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.25,
+      "density_per_mm2": 900000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.2, 0.8],
+      "contrast_level": "low",
+      "edge_definition": "soft",
+      "opacity_variation": 0.4,
+      "highlight_visibility": "high",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "high"
+    },
+    "color_properties": {
+      "primary_cast": "cool",
+      "rgb_ranges": [
+        {
+          "r": [205, 245],
+          "g": [195, 235],
+          "b": [185, 225],
+          "weight": 0.6
+        },
+        {
+          "r": [160, 204],
+          "g": [150, 194],
+          "b": [140, 184],
+          "weight": 0.4
+        }
+      ],
+      "color_variation": "low",
+      "saturation_level": "medium"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 1.0,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.2,
+        "density_change": 1.1,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.6, 0.25)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.3
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Fuji Pro 160S is a daylight-balanced film with mild grain and natural colors"],
+      "common_uses": ["portrait", "wedding", "outdoor"],
+      "grain_reputation": "fine",
+      "comparison_films": ["Kodak Portra 160", "Fuji C200"]
+    }
+  },
+  "Fuji Superia 400": {
+    "basic_info": {
+      "name": "Fuji Superia 400",
+      "iso": 400,
+      "type": "color_negative"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "soft"
+    },
+    "size_metrics": {
+      "min_size_um": 0.5,
+      "max_size_um": 2.0,
+      "avg_size_um": 1.1,
+      "size_distribution": "log-normal",
+      "size_variation_coeff": 0.5,
+      "density_per_mm2": 700000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.3, 0.9],
+      "contrast_level": "medium",
+      "edge_definition": "soft",
+      "opacity_variation": 0.5,
+      "highlight_visibility": "medium",
+      "shadow_visibility": "high",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [220, 250],
+          "g": [210, 245],
+          "b": [200, 240],
+          "weight": 0.6
+        },
+        {
+          "r": [170, 219],
+          "g": [160, 209],
+          "b": [150, 199],
+          "weight": 0.4
+        }
+      ],
+      "color_variation": "medium",
+      "saturation_level": "medium"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 1.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.6,
+        "density_change": 1.4,
+        "contrast_change": "high_contrast"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(1.1, 0.5)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.4
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Fuji Superia 400 is a consumer film known for its balanced colors and moderate grain"],
+      "common_uses": ["general purpose", "everyday", "low light"],
+      "grain_reputation": "moderate",
+      "comparison_films": ["Kodak Gold 200", "Fuji C200"]
+    }
+  },
+  "Fuji C200": {
+    "basic_info": {
+      "name": "Fuji C200",
+      "iso": 200,
+      "type": "color_negative"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "soft"
+    },
+    "size_metrics": {
+      "min_size_um": 0.4,
+      "max_size_um": 1.5,
+      "avg_size_um": 0.8,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.35,
+      "density_per_mm2": 850000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.2, 0.8],
+      "contrast_level": "medium",
+      "edge_definition": "soft",
+      "opacity_variation": 0.4,
+      "highlight_visibility": "high",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "high"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [220, 250],
+          "g": [210, 245],
+          "b": [200, 240],
+          "weight": 0.7
+        },
+        {
+          "r": [180, 219],
+          "g": [170, 209],
+          "b": [160, 199],
+          "weight": 0.3
+        }
+      ],
+      "color_variation": "low",
+      "saturation_level": "low"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 1.0,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.2,
+        "density_change": 1.1,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.8, 0.35)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.3
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Fuji C200 (Reala) yields natural colors with fine grain"],
+      "common_uses": ["portrait", "nature", "interiors"],
+      "grain_reputation": "fine",
+      "comparison_films": ["Kodak Portra 160", "Fuji Pro 160S"]
+    }
+  },
+  "Fuji Natura 1600": {
+    "basic_info": {
+      "name": "Fuji Natura 1600",
+      "iso": 1600,
+      "type": "color_negative"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "heavy",
+      "edge_type": "soft"
+    },
+    "size_metrics": {
+      "min_size_um": 0.6,
+      "max_size_um": 2.5,
+      "avg_size_um": 1.3,
+      "size_distribution": "log-normal",
+      "size_variation_coeff": 0.6,
+      "density_per_mm2": 600000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.3, 0.9],
+      "contrast_level": "medium",
+      "edge_definition": "soft",
+      "opacity_variation": 0.6,
+      "highlight_visibility": "medium",
+      "shadow_visibility": "high",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "cool",
+      "rgb_ranges": [
+        {
+          "r": [210, 250],
+          "g": [200, 245],
+          "b": [190, 240],
+          "weight": 0.6
+        },
+        {
+          "r": [160, 209],
+          "g": [150, 199],
+          "b": [140, 189],
+          "weight": 0.4
+        }
+      ],
+      "color_variation": "medium",
+      "saturation_level": "medium"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 1.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.4,
+        "density_change": 1.3,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.7,
+        "density_change": 1.5,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(1.3, 0.6)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.5
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Fuji Natura 1600 is an ultra high-speed film with noticeable grain"],
+      "common_uses": ["night", "indoor", "low light"],
+      "grain_reputation": "coarse",
+      "comparison_films": ["Kodak Portra 800", "Fuji Superia 800"]
+    }
+  },
+  "Fuji Velvia 50": {
+    "basic_info": {
+      "name": "Fuji Velvia 50",
+      "iso": 50,
+      "type": "slide"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.2,
+      "max_size_um": 1.2,
+      "avg_size_um": 0.5,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.2,
+      "density_per_mm2": 1300000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.1, 0.5],
+      "contrast_level": "high",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.3,
+      "highlight_visibility": "high",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "high"
+    },
+    "color_properties": {
+      "primary_cast": "cool",
+      "rgb_ranges": [
+        {
+          "r": [190, 230],
+          "g": [180, 220],
+          "b": [200, 240],
+          "weight": 0.7
+        },
+        {
+          "r": [150, 189],
+          "g": [140, 179],
+          "b": [160, 199],
+          "weight": 0.3
+        }
+      ],
+      "color_variation": "high",
+      "saturation_level": "high"
+    },
+    "special_effects": {
+      "halation": "mild",
+      "halation_color": "#ffffff",
+      "halation_radius": 2.0,
+      "unique_artifacts": ["extreme color saturation"],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.1,
+        "density_change": 1.1,
+        "contrast_change": "slightly increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.2,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.5, 0.2)",
+      "spatial_correlation": 0.25,
+      "fractal_dimension": 1.3
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Velvia 50 is renowned for its extremely fine grain and vivid colors [oai_citation:9‡ishootfujifilm.com](https://www.ishootfujifilm.com/uploads/VELVIA%2050%20Data%20Guide.pdf#:~:text=%E2%80%A2%20Fine%20Grain%20Quality%2F%20,as%20with%20the%20current%20Velvia)"],
+      "common_uses": ["landscape", "nature", "scenic"],
+      "grain_reputation": "fine",
+      "comparison_films": ["Fuji Velvia 100", "Fuji Provia 100F"]
+    }
+  },
+  "Fuji Velvia 100": {
+    "basic_info": {
+      "name": "Fuji Velvia 100",
+      "iso": 100,
+      "type": "slide"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.2,
+      "max_size_um": 1.5,
+      "avg_size_um": 0.6,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.25,
+      "density_per_mm2": 1200000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.1, 0.6],
+      "contrast_level": "high",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.4,
+      "highlight_visibility": "high",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "high"
+    },
+    "color_properties": {
+      "primary_cast": "cool",
+      "rgb_ranges": [
+        {
+          "r": [180, 230],
+          "g": [170, 220],
+          "b": [190, 240],
+          "weight": 0.7
+        },
+        {
+          "r": [140, 179],
+          "g": [130, 169],
+          "b": [150, 189],
+          "weight": 0.3
+        }
+      ],
+      "color_variation": "high",
+      "saturation_level": "high"
+    },
+    "special_effects": {
+      "halation": "mild",
+      "halation_color": "#ffffff",
+      "halation_radius": 2.0,
+      "unique_artifacts": ["saturated greens and reds"],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.2,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.3,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.6, 0.25)",
+      "spatial_correlation": 0.25,
+      "fractal_dimension": 1.3
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Velvia 100 delivers high saturation and fine grain suitable for landscapes"],
+      "common_uses": ["nature", "sunset", "color photography"],
+      "grain_reputation": "fine",
+      "comparison_films": ["Fuji Velvia 50", "Fuji Provia 100F"]
+    }
+  },
+  "Fuji Provia 100F": {
+    "basic_info": {
+      "name": "Fuji Provia 100F",
+      "iso": 100,
+      "type": "slide"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.2,
+      "max_size_um": 1.5,
+      "avg_size_um": 0.7,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.3,
+      "density_per_mm2": 1100000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.1, 0.6],
+      "contrast_level": "medium",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.4,
+      "highlight_visibility": "high",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [180, 230],
+          "g": [180, 230],
+          "b": [180, 230],
+          "weight": 0.5
+        },
+        {
+          "r": [150, 179],
+          "g": [150, 179],
+          "b": [150, 179],
+          "weight": 0.5
+        }
+      ],
+      "color_variation": "low",
+      "saturation_level": "medium"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 0.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.1,
+        "density_change": 1.1,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.2,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.7, 0.3)",
+      "spatial_correlation": 0.25,
+      "fractal_dimension": 1.3
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Provia 100F is a professional slide film with high neutrality and fine grain"],
+      "common_uses": ["studio", "travel", "event"],
+      "grain_reputation": "fine",
+      "comparison_films": ["Fuji Velvia 50", "Kodak Ektachrome E100"]
+    }
+  },
+  "Fuji Provia 400X": {
+    "basic_info": {
+      "name": "Fuji Provia 400X",
+      "iso": 400,
+      "type": "slide"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "soft"
+    },
+    "size_metrics": {
+      "min_size_um": 0.4,
+      "max_size_um": 1.8,
+      "avg_size_um": 0.9,
+      "size_distribution": "log-normal",
+      "size_variation_coeff": 0.4,
+      "density_per_mm2": 800000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.2, 0.7],
+      "contrast_level": "medium",
+      "edge_definition": "soft",
+      "opacity_variation": 0.5,
+      "highlight_visibility": "medium",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [190, 240],
+          "g": [180, 230],
+          "b": [170, 220],
+          "weight": 0.5
+        },
+        {
+          "r": [150, 189],
+          "g": [140, 179],
+          "b": [130, 169],
+          "weight": 0.5
+        }
+      ],
+      "color_variation": "medium",
+      "saturation_level": "medium"
+    },
+    "special_effects": {
+      "halation": "mild",
+      "halation_color": "#ffffff",
+      "halation_radius": 1.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.6,
+        "density_change": 1.4,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.9, 0.4)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.4
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Provia 400X is a rare high-speed slide film with grainier appearance"],
+      "common_uses": ["action", "indoor", "experimental"],
+      "grain_reputation": "moderate",
+      "comparison_films": ["Fuji Provia 100F", "Kodak E100"]
+    }
+  },
+  "Kodak Ektachrome E100": {
+    "basic_info": {
+      "name": "Kodak Ektachrome E100",
+      "iso": 100,
+      "type": "slide"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.3,
+      "max_size_um": 1.5,
+      "avg_size_um": 0.6,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.3,
+      "density_per_mm2": 1100000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.1, 0.6],
+      "contrast_level": "medium",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.4,
+      "highlight_visibility": "high",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "warm",
+      "rgb_ranges": [
+        {
+          "r": [200, 240],
+          "g": [190, 230],
+          "b": [180, 220],
+          "weight": 0.6
+        },
+        {
+          "r": [150, 199],
+          "g": [140, 189],
+          "b": [130, 179],
+          "weight": 0.4
+        }
+      ],
+      "color_variation": "medium",
+      "saturation_level": "high"
+    },
+    "special_effects": {
+      "halation": "mild",
+      "halation_color": "#ffffff",
+      "halation_radius": 1.0,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.2,
+        "density_change": 1.1,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.4,
+        "density_change": 1.3,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.6, 0.3)",
+      "spatial_correlation": 0.25,
+      "fractal_dimension": 1.3
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Kodak Ektachrome E100 provides vivid colors and relatively fine grain"],
+      "common_uses": ["nature", "landscape", "color slide presentation"],
+      "grain_reputation": "fine",
+      "comparison_films": ["Fuji Velvia 50", "Fuji Provia 100F"]
+    }
+  },
+  "Cinestill 50D": {
+    "basic_info": {
+      "name": "Cinestill 50D",
+      "iso": 50,
+      "type": "color_negative"
+    },
+    "grain_structure": {
+      "crystal_type": "t-grain",
+      "shape": "flat",
+      "aspect_ratio": [4.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.3,
+      "max_size_um": 1.2,
+      "avg_size_um": 0.5,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.2,
+      "density_per_mm2": 1200000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.1, 0.6],
+      "contrast_level": "low",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.3,
+      "highlight_visibility": "high",
+      "shadow_visibility": "high",
+      "midtone_prominence": "high"
+    },
+    "color_properties": {
+      "primary_cast": "warm",
+      "rgb_ranges": [
+        {
+          "r": [240, 255],
+          "g": [230, 250],
+          "b": [220, 240],
+          "weight": 0.7
+        },
+        {
+          "r": [220, 239],
+          "g": [210, 229],
+          "b": [200, 219],
+          "weight": 0.3
+        }
+      ],
+      "color_variation": "low",
+      "saturation_level": "medium"
+    },
+    "special_effects": {
+      "halation": "mild",
+      "halation_color": "#FF0000",
+      "halation_radius": 2.0,
+      "unique_artifacts": ["Red halation around bright highlights [oai_citation:10‡analog.cafe](https://www.analog.cafe/r/cinestill-50d-35mm-c-41-film-review-l0tw#:~:text=CineStill%2050D%20is%20a%20relatively,red%20halos%20around%20bright%20highlights)"],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.1,
+        "density_change": 1.1,
+        "contrast_change": "slightly increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.2,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.5, 0.2)",
+      "spatial_correlation": 0.25,
+      "fractal_dimension": 1.3
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Cinestill 50D is a fine-grained color film (Kodak Vision 3 50D) with prominent red halation [oai_citation:11‡analog.cafe](https://www.analog.cafe/r/cinestill-50d-35mm-c-41-film-review-l0tw#:~:text=CineStill%2050D%20is%20a%20relatively,red%20halos%20around%20bright%20highlights)"],
+      "common_uses": ["daylight flash", "slow shutter", "landscape"],
+      "grain_reputation": "fine",
+      "comparison_films": ["Fuji Provia 50 (obsolete)", "Cinestill 800T"]
+    }
+  },
+  "Cinestill 800T": {
+    "basic_info": {
+      "name": "Cinestill 800T",
+      "iso": 800,
+      "type": "color_negative"
+    },
+    "grain_structure": {
+      "crystal_type": "t-grain",
+      "shape": "flat",
+      "aspect_ratio": [4.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.4,
+      "max_size_um": 1.8,
+      "avg_size_um": 1.0,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.4,
+      "density_per_mm2": 900000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.2, 0.9],
+      "contrast_level": "medium",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.5,
+      "highlight_visibility": "medium",
+      "shadow_visibility": "high",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [230, 255],
+          "g": [220, 250],
+          "b": [210, 240],
+          "weight": 0.5
+        },
+        {
+          "r": [190, 229],
+          "g": [180, 219],
+          "b": [170, 209],
+          "weight": 0.5
+        }
+      ],
+      "color_variation": "low",
+      "saturation_level": "medium"
+    },
+    "special_effects": {
+      "halation": "strong",
+      "halation_color": "#FF0000",
+      "halation_radius": 3.0,
+      "unique_artifacts": ["Known for strong red halation around lights [oai_citation:12‡analog.cafe](https://www.analog.cafe/r/cinestill-800t-film-review-dske#:~:text=CineStill%20800T%20is%20the%20world%E2%80%99s,range%2C%20and%20accurate%20colour%20reproduction) [oai_citation:13‡analog.cafe](https://www.analog.cafe/r/cinestill-800t-film-review-dske#:~:text=You%20may%20also%20notice%20that,red%20halos%20around%20bright%20light)"],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.6,
+        "density_change": 1.4,
+        "contrast_change": "high_contrast"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(1.0, 0.4)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.4
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Cinestill 800T has very fine grain (Kodak Vision 3 500T base) and distinct red halation [oai_citation:14‡analog.cafe](https://www.analog.cafe/r/cinestill-800t-film-review-dske#:~:text=CineStill%20800T%20is%20the%20world%E2%80%99s,range%2C%20and%20accurate%20colour%20reproduction)"],
+      "common_uses": ["night", "street", "neon"],
+      "grain_reputation": "fine",
+      "comparison_films": ["Kodak Portra 800", "Cinestill 50D"]
+    }
+  },
+  "Lomography Color 800": {
+    "basic_info": {
+      "name": "Lomography Color 800",
+      "iso": 800,
+      "type": "color_negative"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "soft"
+    },
+    "size_metrics": {
+      "min_size_um": 0.5,
+      "max_size_um": 1.8,
+      "avg_size_um": 1.0,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.4,
+      "density_per_mm2": 800000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.3, 0.9],
+      "contrast_level": "medium",
+      "edge_definition": "soft",
+      "opacity_variation": 0.5,
+      "highlight_visibility": "medium",
+      "shadow_visibility": "high",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "warm",
+      "rgb_ranges": [
+        {
+          "r": [230, 255],
+          "g": [225, 250],
+          "b": [220, 245],
+          "weight": 0.6
+        },
+        {
+          "r": [190, 229],
+          "g": [185, 224],
+          "b": [180, 219],
+          "weight": 0.4
+        }
+      ],
+      "color_variation": "high",
+      "saturation_level": "high"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 1.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.4,
+        "density_change": 1.3,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.7,
+        "density_change": 1.5,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(1.0, 0.4)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.4
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Lomography Color 800 is known to resemble Kodak Portra 800 in performance"],
+      "common_uses": ["creative", "low-light", "experimental"],
+      "grain_reputation": "moderate",
+      "comparison_films": ["Kodak Portra 800", "Cinestill 800T"]
+    }
+  },
+  "Agfa Vista 200": {
+    "basic_info": {
+      "name": "Agfa Vista 200",
+      "iso": 200,
+      "type": "color_negative"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "soft"
+    },
+    "size_metrics": {
+      "min_size_um": 0.5,
+      "max_size_um": 2.0,
+      "avg_size_um": 1.0,
+      "size_distribution": "log-normal",
+      "size_variation_coeff": 0.5,
+      "density_per_mm2": 800000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.3, 0.9],
+      "contrast_level": "medium",
+      "edge_definition": "soft",
+      "opacity_variation": 0.6,
+      "highlight_visibility": "medium",
+      "shadow_visibility": "high",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "warm",
+      "rgb_ranges": [
+        {
+          "r": [230, 255],
+          "g": [220, 250],
+          "b": [210, 240],
+          "weight": 0.7
+        },
+        {
+          "r": [180, 229],
+          "g": [170, 219],
+          "b": [160, 209],
+          "weight": 0.3
+        }
+      ],
+      "color_variation": "medium",
+      "saturation_level": "low"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 1.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.3,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.6,
+        "density_change": 1.4,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(1.0, 0.5)",
+      "spatial_correlation": 0.3,
+      "fractal_dimension": 1.4
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Agfa Vista 200 is a budget film (Kodak ColorPlus rebrand) with noticeable grain"],
+      "common_uses": ["snapshots", "travel", "general"],
+      "grain_reputation": "coarse",
+      "comparison_films": ["Kodak Gold 200", "Fuji Superia 200"]
+    }
+  },
+  "Ferrania P30": {
+    "basic_info": {
+      "name": "Ferrania P30",
+      "iso": 80,
+      "type": "bw"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.3,
+      "max_size_um": 1.5,
+      "avg_size_um": 0.6,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.3,
+      "density_per_mm2": 1000000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.1, 0.6],
+      "contrast_level": "high",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.4,
+      "highlight_visibility": "low",
+      "shadow_visibility": "high",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [200, 255],
+          "g": [200, 255],
+          "b": [200, 255],
+          "weight": 1.0
+        }
+      ],
+      "color_variation": "low",
+      "saturation_level": "low"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 0.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.1,
+        "density_change": 1.1,
+        "contrast_change": "increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.2,
+        "density_change": 1.2,
+        "contrast_change": "high_contrast"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.6, 0.3)",
+      "spatial_correlation": 0.2,
+      "fractal_dimension": 1.3
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Ferrania P30 is famous for its extreme sharpness and very fine grain [oai_citation:15‡oldtimefocus.com](https://oldtimefocus.com/ferrania-p30-film-review-with-sample-photos-analysis/#:~:text=Ferrania%20P30%20is%20famous%20for,On) [oai_citation:16‡oldtimefocus.com](https://oldtimefocus.com/ferrania-p30-film-review-with-sample-photos-analysis/#:~:text=,gives%20a%20really%20unique%20look)"],
+      "common_uses": ["fine art", "landscape", "architectural"],
+      "grain_reputation": "ultra_fine",
+      "comparison_films": ["Ilford Pan F Plus", "Ilford Delta 100"]
+    }
+  },
+  "Kodak Plus-X": {
+    "basic_info": {
+      "name": "Kodak Plus-X",
+      "iso": 125,
+      "type": "bw"
+    },
+    "grain_structure": {
+      "crystal_type": "cubic",
+      "shape": "irregular",
+      "aspect_ratio": [1.0, 1.0],
+      "orientation": "random",
+      "clustering": "moderate",
+      "edge_type": "sharp"
+    },
+    "size_metrics": {
+      "min_size_um": 0.3,
+      "max_size_um": 1.2,
+      "avg_size_um": 0.6,
+      "size_distribution": "normal",
+      "size_variation_coeff": 0.3,
+      "density_per_mm2": 1000000,
+      "spacing_pattern": "random"
+    },
+    "visual_properties": {
+      "opacity_range": [0.2, 0.8],
+      "contrast_level": "medium",
+      "edge_definition": "sharp",
+      "opacity_variation": 0.4,
+      "highlight_visibility": "medium",
+      "shadow_visibility": "medium",
+      "midtone_prominence": "medium"
+    },
+    "color_properties": {
+      "primary_cast": "neutral",
+      "rgb_ranges": [
+        {
+          "r": [200, 255],
+          "g": [200, 255],
+          "b": [200, 255],
+          "weight": 1.0
+        }
+      ],
+      "color_variation": "none",
+      "saturation_level": "low"
+    },
+    "special_effects": {
+      "halation": "none",
+      "halation_color": "#ffffff",
+      "halation_radius": 0.5,
+      "unique_artifacts": [],
+      "light_interaction": "normal"
+    },
+    "processing_variations": {
+      "push_1_stop": {
+        "size_increase": 1.2,
+        "density_change": 1.1,
+        "contrast_change": "slightly increased"
+      },
+      "push_2_stop": {
+        "size_increase": 1.4,
+        "density_change": 1.2,
+        "contrast_change": "increased"
+      }
+    },
+    "algorithmic_data": {
+      "clustering_algorithm": "poisson",
+      "distribution_function": "normal(0.6, 0.3)",
+      "spatial_correlation": 0.25,
+      "fractal_dimension": 1.3
+    },
+    "professional_notes": {
+      "distinctive_characteristics": ["Kodak Plus-X is a classic mid-speed film with fine grain and smooth tonal gradation"],
+      "common_uses": ["studio", "portrait", "archival"],
+      "grain_reputation": "fine",
+      "comparison_films": ["Ilford FP4 Plus", "Kodak Tri-X 400"]
+    }
+  }
+}
