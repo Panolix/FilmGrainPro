@@ -170,10 +170,24 @@ CMakeFiles/FilmGrainPro.dir/src/ui/main_window.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/FilmGrainPro.dir/src/ui/main_window.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/pano/Documents/GitHub/FilmGrainPro/src/ui/main_window.cpp -o CMakeFiles/FilmGrainPro.dir/src/ui/main_window.cpp.s
 
+CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.o: CMakeFiles/FilmGrainPro.dir/flags.make
+CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.o: /Users/pano/Documents/GitHub/FilmGrainPro/src/ui/html_like_ui.cpp
+CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.o: CMakeFiles/FilmGrainPro.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/pano/Documents/GitHub/FilmGrainPro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.o -MF CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.o.d -o CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.o -c /Users/pano/Documents/GitHub/FilmGrainPro/src/ui/html_like_ui.cpp
+
+CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/pano/Documents/GitHub/FilmGrainPro/src/ui/html_like_ui.cpp > CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.i
+
+CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/pano/Documents/GitHub/FilmGrainPro/src/ui/html_like_ui.cpp -o CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.s
+
 CMakeFiles/FilmGrainPro.dir/src/utils/image.cpp.o: CMakeFiles/FilmGrainPro.dir/flags.make
 CMakeFiles/FilmGrainPro.dir/src/utils/image.cpp.o: /Users/pano/Documents/GitHub/FilmGrainPro/src/utils/image.cpp
 CMakeFiles/FilmGrainPro.dir/src/utils/image.cpp.o: CMakeFiles/FilmGrainPro.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/pano/Documents/GitHub/FilmGrainPro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/FilmGrainPro.dir/src/utils/image.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/pano/Documents/GitHub/FilmGrainPro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/FilmGrainPro.dir/src/utils/image.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/FilmGrainPro.dir/src/utils/image.cpp.o -MF CMakeFiles/FilmGrainPro.dir/src/utils/image.cpp.o.d -o CMakeFiles/FilmGrainPro.dir/src/utils/image.cpp.o -c /Users/pano/Documents/GitHub/FilmGrainPro/src/utils/image.cpp
 
 CMakeFiles/FilmGrainPro.dir/src/utils/image.cpp.i: cmake_force
@@ -187,7 +201,7 @@ CMakeFiles/FilmGrainPro.dir/src/utils/image.cpp.s: cmake_force
 CMakeFiles/FilmGrainPro.dir/src/utils/performance_monitor.cpp.o: CMakeFiles/FilmGrainPro.dir/flags.make
 CMakeFiles/FilmGrainPro.dir/src/utils/performance_monitor.cpp.o: /Users/pano/Documents/GitHub/FilmGrainPro/src/utils/performance_monitor.cpp
 CMakeFiles/FilmGrainPro.dir/src/utils/performance_monitor.cpp.o: CMakeFiles/FilmGrainPro.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/pano/Documents/GitHub/FilmGrainPro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/FilmGrainPro.dir/src/utils/performance_monitor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/pano/Documents/GitHub/FilmGrainPro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/FilmGrainPro.dir/src/utils/performance_monitor.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/FilmGrainPro.dir/src/utils/performance_monitor.cpp.o -MF CMakeFiles/FilmGrainPro.dir/src/utils/performance_monitor.cpp.o.d -o CMakeFiles/FilmGrainPro.dir/src/utils/performance_monitor.cpp.o -c /Users/pano/Documents/GitHub/FilmGrainPro/src/utils/performance_monitor.cpp
 
 CMakeFiles/FilmGrainPro.dir/src/utils/performance_monitor.cpp.i: cmake_force
@@ -207,6 +221,7 @@ FilmGrainPro_OBJECTS = \
 "CMakeFiles/FilmGrainPro.dir/src/core/pattern_library.cpp.o" \
 "CMakeFiles/FilmGrainPro.dir/src/core/grain_renderer.cpp.o" \
 "CMakeFiles/FilmGrainPro.dir/src/ui/main_window.cpp.o" \
+"CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.o" \
 "CMakeFiles/FilmGrainPro.dir/src/utils/image.cpp.o" \
 "CMakeFiles/FilmGrainPro.dir/src/utils/performance_monitor.cpp.o"
 
@@ -220,12 +235,13 @@ bin/FilmGrainPro: CMakeFiles/FilmGrainPro.dir/src/core/color_processor.cpp.o
 bin/FilmGrainPro: CMakeFiles/FilmGrainPro.dir/src/core/pattern_library.cpp.o
 bin/FilmGrainPro: CMakeFiles/FilmGrainPro.dir/src/core/grain_renderer.cpp.o
 bin/FilmGrainPro: CMakeFiles/FilmGrainPro.dir/src/ui/main_window.cpp.o
+bin/FilmGrainPro: CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.o
 bin/FilmGrainPro: CMakeFiles/FilmGrainPro.dir/src/utils/image.cpp.o
 bin/FilmGrainPro: CMakeFiles/FilmGrainPro.dir/src/utils/performance_monitor.cpp.o
 bin/FilmGrainPro: CMakeFiles/FilmGrainPro.dir/build.make
 bin/FilmGrainPro: /opt/homebrew/lib/libglfw.3.4.dylib
 bin/FilmGrainPro: CMakeFiles/FilmGrainPro.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/pano/Documents/GitHub/FilmGrainPro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable bin/FilmGrainPro"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/pano/Documents/GitHub/FilmGrainPro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable bin/FilmGrainPro"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/FilmGrainPro.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

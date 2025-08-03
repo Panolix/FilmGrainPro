@@ -3,14 +3,12 @@
 #include <memory>
 #include <string>
 
+#include <memory>
+
 // Forward declarations
 class FilmGrainEngine;
-class FilmStockLibrary;
-class PreviewCanvas;
-class ControlPanel;
+class HTMLLikeUI;
 struct GLFWwindow;
-struct Image;
-struct GrainParams;
 
 /**
  * Main application window using Dear ImGui
@@ -41,11 +39,8 @@ private:
     FilmGrainEngine* engine_;
     GLFWwindow* window_;
     
-    // UI state
-    int selected_film_stock_;
-    bool film_stock_dropdown_open_;
-    double mouse_x_, mouse_y_;
-    bool mouse_pressed_;
+    // HTML-like UI
+    std::unique_ptr<HTMLLikeUI> html_ui_;
     
     // Window state
     int window_width_;
@@ -85,12 +80,7 @@ private:
     void LoadUISettings();
     void SaveUISettings();
     
-    // Grain testing
-    void ApplyGrainToTestImage(Image& test_image, const std::string& film_stock, const GrainParams& params);
-    void UpdateGrainParameters();
-    void CyclePreviousFilmStock();
-    void CycleNextFilmStock();
-    void ShowGrainControls();
+    // Removed old grain testing methods
     
     // Event handlers
     static void WindowSizeCallback(GLFWwindow* window, int width, int height);

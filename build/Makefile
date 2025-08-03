@@ -273,6 +273,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/FilmGrainPro.dir/build.make CMakeFiles/FilmGrainPro.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/ui/html_like_ui.o: src/ui/html_like_ui.cpp.o
+.PHONY : src/ui/html_like_ui.o
+
+# target to build an object file
+src/ui/html_like_ui.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FilmGrainPro.dir/build.make CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.o
+.PHONY : src/ui/html_like_ui.cpp.o
+
+src/ui/html_like_ui.i: src/ui/html_like_ui.cpp.i
+.PHONY : src/ui/html_like_ui.i
+
+# target to preprocess a source file
+src/ui/html_like_ui.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FilmGrainPro.dir/build.make CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.i
+.PHONY : src/ui/html_like_ui.cpp.i
+
+src/ui/html_like_ui.s: src/ui/html_like_ui.cpp.s
+.PHONY : src/ui/html_like_ui.s
+
+# target to generate assembly for a file
+src/ui/html_like_ui.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FilmGrainPro.dir/build.make CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.s
+.PHONY : src/ui/html_like_ui.cpp.s
+
 src/ui/main_window.o: src/ui/main_window.cpp.o
 .PHONY : src/ui/main_window.o
 
@@ -372,6 +396,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/ui/html_like_ui.o"
+	@echo "... src/ui/html_like_ui.i"
+	@echo "... src/ui/html_like_ui.s"
 	@echo "... src/ui/main_window.o"
 	@echo "... src/ui/main_window.i"
 	@echo "... src/ui/main_window.s"

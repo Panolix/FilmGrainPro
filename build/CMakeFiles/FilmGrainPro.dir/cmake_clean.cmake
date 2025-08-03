@@ -11,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/FilmGrainPro.dir/src/core/pattern_library.cpp.o.d"
   "CMakeFiles/FilmGrainPro.dir/src/main.cpp.o"
   "CMakeFiles/FilmGrainPro.dir/src/main.cpp.o.d"
+  "CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.o"
+  "CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.o.d"
   "CMakeFiles/FilmGrainPro.dir/src/ui/main_window.cpp.o"
   "CMakeFiles/FilmGrainPro.dir/src/ui/main_window.cpp.o.d"
   "CMakeFiles/FilmGrainPro.dir/src/utils/image.cpp.o"

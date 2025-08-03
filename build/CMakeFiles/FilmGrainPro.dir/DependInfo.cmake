@@ -14,6 +14,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/pano/Documents/GitHub/FilmGrainPro/src/core/grain_renderer.cpp" "CMakeFiles/FilmGrainPro.dir/src/core/grain_renderer.cpp.o" "gcc" "CMakeFiles/FilmGrainPro.dir/src/core/grain_renderer.cpp.o.d"
   "/Users/pano/Documents/GitHub/FilmGrainPro/src/core/pattern_library.cpp" "CMakeFiles/FilmGrainPro.dir/src/core/pattern_library.cpp.o" "gcc" "CMakeFiles/FilmGrainPro.dir/src/core/pattern_library.cpp.o.d"
   "/Users/pano/Documents/GitHub/FilmGrainPro/src/main.cpp" "CMakeFiles/FilmGrainPro.dir/src/main.cpp.o" "gcc" "CMakeFiles/FilmGrainPro.dir/src/main.cpp.o.d"
+  "/Users/pano/Documents/GitHub/FilmGrainPro/src/ui/html_like_ui.cpp" "CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.o" "gcc" "CMakeFiles/FilmGrainPro.dir/src/ui/html_like_ui.cpp.o.d"
   "/Users/pano/Documents/GitHub/FilmGrainPro/src/ui/main_window.cpp" "CMakeFiles/FilmGrainPro.dir/src/ui/main_window.cpp.o" "gcc" "CMakeFiles/FilmGrainPro.dir/src/ui/main_window.cpp.o.d"
   "/Users/pano/Documents/GitHub/FilmGrainPro/src/utils/image.cpp" "CMakeFiles/FilmGrainPro.dir/src/utils/image.cpp.o" "gcc" "CMakeFiles/FilmGrainPro.dir/src/utils/image.cpp.o.d"
   "/Users/pano/Documents/GitHub/FilmGrainPro/src/utils/performance_monitor.cpp" "CMakeFiles/FilmGrainPro.dir/src/utils/performance_monitor.cpp.o" "gcc" "CMakeFiles/FilmGrainPro.dir/src/utils/performance_monitor.cpp.o.d"

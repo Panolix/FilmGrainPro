@@ -43,6 +43,7 @@ set(CORE_SOURCES
 
 set(UI_SOURCES
     src/ui/main_window.cpp
+    src/ui/html_like_ui.cpp
 )
 
 set(UTILS_SOURCES
