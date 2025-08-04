@@ -206,17 +206,41 @@ class FilmGrainGenerator {
     displayGrainResult(result) {
         const { data, width, height } = result;
         
+        // Set canvas size
+        this.canvas.width = width;
+        this.canvas.height = height;
+        
         // Create ImageData from the raw RGBA data
         const imageData = new ImageData(new Uint8ClampedArray(data), width, height);
         
-        // Clear canvas and draw black background for visibility
-        this.ctx.fillStyle = '#000000';
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        // If there's an uploaded image, use it as background instead of black
+        if (this.uploadedImage && this.uploadedImageElement) {
+            console.log('Drawing uploaded image as background');
+            
+            // Draw uploaded image as background
+            this.ctx.drawImage(this.uploadedImageElement, 0, 0, this.canvas.width, this.canvas.height);
+            
+            // Create temporary canvas for grain to preserve transparency
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = width;
+            tempCanvas.height = height;
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCtx.putImageData(imageData, 0, 0);
+            
+            // Draw grain on top preserving its transparency
+            this.ctx.drawImage(tempCanvas, 0, 0);
+            
+            console.log('Grain drawn on top of uploaded image');
+        } else {
+            // No uploaded image, use black background as before
+            this.ctx.fillStyle = '#000000';
+            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            
+            // Draw the transparent grain on top
+            this.ctx.putImageData(imageData, 0, 0);
+        }
         
-        // Draw the transparent grain on top
-        this.ctx.putImageData(imageData, 0, 0);
-        
-        // Store original transparent data for saving
+        // Store original transparent data for saving (unchanged)
         this.currentImageData = data;
     }
     
@@ -234,28 +258,47 @@ class FilmGrainGenerator {
         if (!file) return;
 
         try {
-            // Read the file as array buffer
-            const arrayBuffer = await file.arrayBuffer();
-            const uint8Array = new Uint8Array(arrayBuffer);
+            // Simple approach - load image directly in browser
+            const img = new Image();
+            img.onload = () => {
+                console.log('Image loaded successfully:', file.name);
+                
+                // Store the image element for later use
+                this.uploadedImageElement = img;
+                this.uploadedImage = true; // Flag to indicate image is loaded
+                
+                // Update canvas to show the image immediately
+                const params = this.getGrainParameters();
+                this.canvas.width = params.width;
+                this.canvas.height = params.height;
+                
+                // Draw the uploaded image as background
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);
+                
+                // Show the composite save button
+                document.getElementById('saveCompositeBtn').style.display = 'inline-block';
+                
+                // Update button text to show image is loaded
+                document.getElementById('uploadBtn').textContent = `📁 ${file.name}`;
+                
+                console.log('Image displayed on canvas');
+                
+                // Regenerate grain on top of the image
+                this.generateGrain();
+            };
             
-            // Convert to base64 for sending to Rust
-            const base64 = btoa(String.fromCharCode.apply(null, uint8Array));
+            img.onerror = () => {
+                console.error('Failed to load image');
+                alert('Failed to load image');
+            };
             
-            // Load image in Rust backend
-            const result = await invoke('load_user_image', { 
-                imageData: base64,
-                filename: file.name 
-            });
-            
-            this.uploadedImage = result;
-            
-            // Show the composite save button
-            document.getElementById('saveCompositeBtn').style.display = 'inline-block';
-            
-            // Update button text to show image is loaded
-            document.getElementById('uploadBtn').textContent = `📁 ${file.name}`;
-            
-            alert(`Image "${file.name}" loaded successfully!`);
+            // Load image from file
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
             
         } catch (error) {
             console.error('Error loading image:', error);
