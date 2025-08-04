@@ -28,6 +28,7 @@ class FilmGrainGenerator {
             });
             
             // Generate initial grain after loading stocks
+            this.updateFilmInfo();
             this.generateInitialGrain();
             
         } catch (error) {
@@ -37,13 +38,41 @@ class FilmGrainGenerator {
         }
     }
     
+    async updateFilmInfo() {
+        const filmStock = document.getElementById('filmStock').value;
+        if (!filmStock) return;
+        
+        try {
+            const filmInfo = await invoke('get_film_info', { filmName: filmStock });
+            
+            document.getElementById('filmInfoTitle').textContent = filmStock;
+            document.getElementById('filmInfoDescription').textContent = filmInfo.description;
+            document.getElementById('filmInfoUses').textContent = filmInfo.primary_uses.join(', ');
+            document.getElementById('filmInfoCharacteristics').textContent = filmInfo.characteristics.join(', ');
+            document.getElementById('filmInfoUsers').textContent = filmInfo.famous_users.join(', ');
+            document.getElementById('filmInfoEra').textContent = filmInfo.era;
+            document.getElementById('filmInfoPrice').textContent = filmInfo.price_category;
+            
+            document.getElementById('filmInfoDetails').style.display = 'block';
+            
+        } catch (error) {
+            console.error('Failed to load film info:', error);
+            document.getElementById('filmInfoTitle').textContent = filmStock;
+            document.getElementById('filmInfoDescription').textContent = 'Film information not available.';
+            document.getElementById('filmInfoDetails').style.display = 'none';
+        }
+    }
+    
     async initializeControls() {
         // Load available film stocks dynamically
         await this.loadFilmStocks();
         
         // Film stock selector
         const filmStock = document.getElementById('filmStock');
-        filmStock.addEventListener('change', () => this.regenerateGrain());
+        filmStock.addEventListener('change', () => {
+            this.updateFilmInfo();
+            this.regenerateGrain();
+        });
         
         // Sliders with real-time updates
         const sliders = [

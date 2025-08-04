@@ -73,7 +73,8 @@
       "cross_process_effects": "N/A (B&W film)",
       "age_effects": "aging can increase base fog and alter grain appearance",
       "scanner_artifacts": "minimal with modern scanners; fine grain reproduction"
-    },
+    }
+  },
   "Ilford HP5 Plus": {
     "grain_characteristics": {
       "size_um": { "min": 0.5, "max": 2.5, "average": 1.0 },
@@ -146,7 +147,8 @@
       "cross_process_effects": "N/A (B&W film)",
       "age_effects": "aging may increase fog",
       "scanner_artifacts": "finer grain scans well"
-    },
+    }
+  },
   "Kodak T-Max 100": {
     "grain_characteristics": {
       "size_um": { "min": 0.3, "max": 1.0, "average": 0.6 },
@@ -155,7 +157,7 @@
       "aspect_ratio": 2.5
     },
     "density_distribution": {
-      "grains_per_mm2": 1_000_000,
+      "grains_per_mm2": 1000000,
       "pattern": "random",
       "clustering": "none",
       "cluster_size": null
@@ -295,7 +297,7 @@
       "aspect_ratio": 2.5
     },
     "density_distribution": {
-      "grains_per_mm2": 1_100_000,
+      "grains_per_mm2": 1100000,
       "pattern": "random",
       "clustering": "moderate",
       "cluster_size": "2-4_grains"
@@ -364,7 +366,7 @@
       "aspect_ratio": 1.0
     },
     "density_distribution": {
-      "grains_per_mm2": 950,000,
+      "grains_per_mm2": 950000,
       "pattern": "random",
       "clustering": "none",
       "cluster_size": null
@@ -432,7 +434,7 @@
       "aspect_ratio": 1.0
     },
     "density_distribution": {
-      "grains_per_mm2": 1_100_000,
+      "grains_per_mm2": 1100000,
       "pattern": "random",
       "clustering": "none",
       "cluster_size": null
@@ -491,7 +493,7 @@
       "age_effects": "high base fog, sensitivity loss",
       "scanner_artifacts": "very fine grain, risk of moiré at high resolution"
     }
-  },
+  },  
   "Ilford FP4 Plus": {
     "grain_characteristics": {
       "size_um": { "min": 0.3, "max": 1.0, "average": 0.5 },
@@ -705,7 +707,7 @@
       "aspect_ratio": 1.0
     },
     "density_distribution": {
-      "grains_per_mm2": 1_100_000,
+      "grains_per_mm2": 1100000,
       "pattern": "random",
       "clustering": "moderate",
       "cluster_size": "3-5_grains"
@@ -729,7 +731,7 @@
       "placement": "random"
     },
     "distinctive_traits": [
-      "World’s fastest B&W film (EI 3200)",
+      "World's fastest B&W film (EI 3200)",
       "Unobtrusive grain structure",
       "Wide tonal range"
     ],
@@ -930,7 +932,7 @@
       "placement": "random"
     },
     "distinctive_traits": [
-      "Fujifilm’s last ISO 400",
+      "Fujifilm's last ISO 400",
       "Very fine grain for ISO 400",
       "Soft tonal rendition"
     ],
@@ -1024,7 +1026,7 @@
       "age_effects": "prone to color shifts over time",
       "scanner_artifacts": "grain very prominent"
     }
-  },
+  },  
   "Kodak Portra 160": {
     "grain_characteristics": {
       "size_um": { "min": 0.3, "max": 1.2, "average": 0.7 },
@@ -1462,14 +1464,14 @@
     ],
     "film_info": {
       "description": "Fujicolor Pro 400H is a professional ISO 400 colour film prized for smooth fine grain and accurate colour reproduction.",
-      "primary_uses": ["wedding","portrait","fashion"],
-      "characteristics": ["fine grain","neutral colours","wide latitude"],
+      "primary_uses": ["wedding", "portrait", "fashion"],
+      "characteristics": ["fine grain", "neutral colours", "wide latitude"],
       "famous_users": ["National Geographic photographers"],
-      "ideal_conditions": ["studio flash","bright ambient light"],
+      "ideal_conditions": ["studio flash", "bright ambient light"],
       "processing": ["normal"],
       "era": "1995-2021 (discontinued)",
       "price_category": "premium",
-      "alternatives": ["Kodak Portra 400","Fuji Superia 400"]
+      "alternatives": ["Kodak Portra 400", "Fuji Superia 400"]
     },
     "technical_specs": {
       "crystal_structure": "multi-layer colour emulsion",
@@ -1480,7 +1482,7 @@
       "age_effects": "shifts magenta with age",
       "scanner_artifacts": "skin tones scan very smoothly"
     }
-  },
+  },  
   "Fuji Pro 160S": {
     "grain_characteristics": {
       "size_um": { "min": 0.3, "max": 1.2, "average": 0.8 },
@@ -1519,14 +1521,14 @@
     ],
     "film_info": {
       "description": "Fujicolor Pro 160S is a professional ISO 160 colour film delivering exceptionally fine grain, smooth tones and generous latitude.",
-      "primary_uses": ["wedding","portrait","fashion"],
-      "characteristics": ["fine grain","smooth pastel tones","wide latitude"],
+      "primary_uses": ["wedding", "portrait", "fashion"],
+      "characteristics": ["fine grain", "smooth pastel tones", "wide latitude"],
       "famous_users": ["Fashion photographers"],
-      "ideal_conditions": ["indoor","available light","mixed lighting"],
+      "ideal_conditions": ["indoor", "available light", "mixed lighting"],
       "processing": ["normal"],
       "era": "2000-2015",
       "price_category": "premium",
-      "alternatives": ["Kodak Portra 160","Fuji Natura 1600 (for more speed)"]
+      "alternatives": ["Kodak Portra 160", "Fuji Natura 1600 (for more speed)"]
     },
     "technical_specs": {
       "crystal_structure": "multi-layer colour emulsion (Sigma-grain tech)",
@@ -1576,14 +1578,14 @@
     ],
     "film_info": {
       "description": "Fujifilm Superia 400 is a consumer ISO 400 colour negative film offering vibrant colours and decent grain for everyday use.",
-      "primary_uses": ["travel","family snapshots","general photography"],
-      "characteristics": ["moderate grain","vivid colours","high speed"],
+      "primary_uses": ["travel", "family snapshots", "general photography"],
+      "characteristics": ["moderate grain", "vivid colours", "high speed"],
       "famous_users": ["Casual film shooters"],
-      "ideal_conditions": ["daylight","flash indoors"],
+      "ideal_conditions": ["daylight", "flash indoors"],
       "processing": ["normal"],
       "era": "1998-present",
       "price_category": "budget",
-      "alternatives": ["Kodak UltraMax 400","Kodak Portra 400"]
+      "alternatives": ["Kodak UltraMax 400", "Kodak Portra 400"]
     },
     "technical_specs": {
       "crystal_structure": "multi-layer colour emulsion",
@@ -2632,40 +2634,7 @@
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
 
 
 
