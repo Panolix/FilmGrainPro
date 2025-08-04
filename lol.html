@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realistic Film Grain Generator - City Frame</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #111;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            width: 320px;
+            z-index: 1000;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 300;
+            color: #ccc;
+        }
+
+        .control-group select,
+        .control-group input[type="range"] {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .control-group select {
+            background: #222;
+            border: 1px solid #444;
+            color: white;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .control-group input[type="range"] {
+            background: #333;
+        }
+
+        .value-display {
+            font-size: 12px;
+            color: #888;
+            text-align: right;
+        }
+
+        .regenerate-btn {
+            width: 100%;
+            background: #333;
+            border: 1px solid #555;
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .regenerate-btn:hover {
+            background: #444;
+        }
+
+        .hero-container {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 50%, #030303 100%);
+        }
+
+        .grain-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 700px;
+            padding: 0 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            font-weight: 200;
+            margin-bottom: 2rem;
+            letter-spacing: -2px;
+            line-height: 0.9;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+            color: #888888;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            border: 1px solid white;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .hero-cta:hover {
+            background: white;
+            color: #000000;
+        }
+
+        .film-info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 400px;
+            z-index: 1000;
+        }
+
+        .film-info h3 {
+            margin: 0 0 10px 0;
+            font-weight: 300;
+            font-size: 18px;
+        }
+
+        .film-info p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #ccc;
+        }
+
+        .technical-info {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+            color: #888;
+        }
+
+        .technical-info div {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <h3 style="margin-top: 0; color: white; font-weight: 300;">Realistic Film Grain</h3>
+        
+        <div class="control-group">
+            <label for="filmStock">Film Stock:</label>
+            <select id="filmStock">
+                <optgroup label="Black & White Classics">
+                    <option value="tri-x">Kodak Tri-X 400</option>
+                    <option value="hp5">Ilford HP5 Plus</option>
+                    <option value="tmax-400">Kodak T-Max 400</option>
+                    <option value="tmax-100">Kodak T-Max 100</option>
+                    <option value="delta-400">Ilford Delta 400</option>
+                    <option value="fp4">Ilford FP4 Plus</option>
+                    <option value="plus-x">Kodak Plus-X</option>
+                    <option value="panf">Ilford Pan F Plus</option>
+                </optgroup>
+                <optgroup label="Fujifilm B&W">
+                    <option value="acros">Fuji Acros 100</option>
+                    <option value="neopan-400">Fuji Neopan 400</option>
+                    <option value="neopan-1600">Fuji Neopan 1600</option>
+                    <option value="acros-ii">Fuji Acros II 100</option>
+                </optgroup>
+                <optgroup label="Color Negative Classics">
+                    <option value="kodak-portra-160">Kodak Portra 160</option>
+                    <option value="kodak-portra-400">Kodak Portra 400</option>
+                    <option value="kodak-portra-800">Kodak Portra 800</option>
+                    <option value="ektar">Kodak Ektar 100</option>
+                    <option value="kodak-gold">Kodak Gold 200</option>
+                    <option value="kodak-ultramax">Kodak UltraMax 400</option>
+                </optgroup>
+                <optgroup label="Fujifilm Color">
+                    <option value="fuji-400h">Fuji Pro 400H</option>
+                    <option value="fuji-160s">Fuji Pro 160S</option>
+                    <option value="fuji-superia">Fuji Superia 400</option>
+                    <option value="fuji-c200">Fuji C200</option>
+                    <option value="fuji-natura">Fuji Natura 1600</option>
+                </optgroup>
+                <optgroup label="Slide Film Classics">
+                    <option value="velvia-50">Fuji Velvia 50</option>
+                    <option value="velvia-100">Fuji Velvia 100</option>
+                    <option value="provia-100f">Fuji Provia 100F</option>
+                    <option value="provia-400x">Fuji Provia 400X</option>
+                    <option value="ektachrome">Kodak Ektachrome E100</option>
+                </optgroup>
+                <optgroup label="Specialty & Cult Films">
+                    <option value="cinestill-50d">Cinestill 50D</option>
+                    <option value="cinestill-800t">Cinestill 800T</option>
+                    <option value="lomography-800">Lomography Color 800</option>
+                    <option value="agfa-vista">Agfa Vista 200</option>
+                    <option value="ferrania-p30">Ferrania P30</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="grainIntensity">Grain Intensity:</label>
+            <input type="range" id="grainIntensity" min="0.3" max="2.0" step="0.1" value="1.0">
+            <div class="value-display" id="grainIntensityValue">1.0x</div>
+        </div>
+
+        <div class="control-group">
+            <label for="grainOpacity">Grain Opacity:</label>
+            <input type="range" id="grainOpacity" min="0.1" max="1" step="0.05" value="0.6">
+            <div class="value-display" id="grainOpacityValue">0.6</div>
+        </div>
+
+        <div class="control-group">
+            <label for="pushProcessing">Push Processing:</label>
+            <select id="pushProcessing">
+                <option value="normal">Normal Development</option>
+                <option value="push_1">Push +1 Stop</option>
+                <option value="push_2">Push +2 Stops</option>
+                <option value="pull_1">Pull -1 Stop</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="backgroundStyle">Background Gradient:</label>
+            <select id="backgroundStyle">
+                <option value="diagonal">Diagonal (Original)</option>
+                <option value="radial">Radial Center</option>
+                <option value="vertical">Vertical</option>
+                <option value="spotlight">Soft Spotlight</option>
+                <option value="vignette">Vignette</option>
+                <option value="pure-black">Pure Black</option>
+            </select>
+        </div>
+
+        <button class="regenerate-btn" onclick="generateGrain()">Regenerate Grain Pattern</button>
+        <button class="regenerate-btn" onclick="downloadImage()">Download as Image</button>
+    </div>
+
+    <div class="hero-container" id="heroContainer">
+        <canvas class="grain-canvas" id="grainCanvas"></canvas>
+        <div class="hero-content">
+            <h1>Streets, Journeys & Structures</h1>
+            <p>Documenting the pulse of urban life through street photography, capturing cultural landscapes during travels, and exploring the architectural soul of cities worldwide</p>
+            <a href="#" class="hero-cta">Explore the Collection</a>
+        </div>
+    </div>
+
+    <div class="film-info" id="filmInfo">
+        <h3>Film Stock Information</h3>
+        <p>Select a film stock to see detailed characteristics and technical information.</p>
+        <div class="technical-info" id="technicalInfo"></div>
+    </div>
+
+    <script src="film-stock-data.js"></script>
+    <script>
+        // Film stock mapping from dropdown values to stocks4.json keys
+        const filmStockMapping = {
+            'tri-x': 'kodak_tri_x_400',
+            'hp5': 'ilford_hp5_plus',
+            'tmax-400': 'kodak_t_max_400',
+            'tmax-100': 'kodak_t_max_100',
+            'delta-400': 'ilford_delta_400',
+            'fp4': 'ilford_fp4_plus',
+            'plus-x': 'kodak_plus_x',
+            'panf': 'ilford_pan_f_plus',
+            'acros': 'fuji_acros_100',
+            'neopan-400': 'fuji_neopan_400',
+            'neopan-1600': 'fuji_neopan_1600',
+            'acros-ii': 'fuji_acros_ii_100',
+            'kodak-portra-160': 'kodak_portra_160',
+            'kodak-portra-400': 'kodak_portra_400',
+            'kodak-portra-800': 'kodak_portra_800',
+            'ektar': 'kodak_ektar_100',
+            'kodak-gold': 'kodak_gold_200',
+            'kodak-ultramax': 'kodak_ultramax_400',
+            'fuji-400h': 'fuji_pro_400h',
+            'fuji-160s': 'fuji_pro_160s',
+            'fuji-superia': 'fuji_superia_400',
+            'fuji-c200': 'fuji_c200',
+            'fuji-natura': 'fuji_natura_1600',
+            'velvia-50': 'fuji_velvia_50',
+            'velvia-100': 'fuji_velvia_100',
+            'provia-100f': 'fuji_provia_100f',
+            'provia-400x': 'fuji_provia_400x',
+            'ektachrome': 'kodak_ektachrome_e100',
+            'cinestill-50d': 'cinestill_50d',
+            'cinestill-800t': 'cinestill_800t',
+            'lomography-800': 'lomography_color_800',
+            'agfa-vista': 'agfa_vista_200',
+            'ferrania-p30': 'ferrania_p30'
+        };
+
+        // Film stock data will be loaded from external file
+
+        // Background gradient styles
+        const backgroundStyles = {
+            'diagonal': 'linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 50%, #030303 100%)',
+            'radial': 'radial-gradient(ellipse at center, #1a1a1a 0%, #0d0d0d 50%, #030303 100%)',
+            'vertical': 'linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 50%, #030303 100%)',
+            'spotlight': 'radial-gradient(ellipse 80% 60% at center, rgba(60,60,60,0.8) 0%, rgba(20,20,20,0.4) 50%, #000000 100%)',
+            'vignette': 'radial-gradient(ellipse at center, #1a1a1a 0%, #1a1a1a 40%, #000000 100%)',
+            'pure-black': '#000000'
+        };
+
+        let canvas, ctx;
+        let currentGrainData = [];
+
+        function initCanvas() {
+            canvas = document.getElementById('grainCanvas');
+            ctx = canvas.getContext('2d');
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+        }
+
+        function resizeCanvas() {
+            const container = document.getElementById('heroContainer');
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            generateGrain();
+        }
+
+        // Convert RGB range to specific color
+        function getColorFromRange(rgbRange) {
+            const r = Math.floor(Math.random() * (rgbRange.r[1] - rgbRange.r[0] + 1)) + rgbRange.r[0];
+            const g = Math.floor(Math.random() * (rgbRange.g[1] - rgbRange.g[0] + 1)) + rgbRange.g[0];
+            const b = Math.floor(Math.random() * (rgbRange.b[1] - rgbRange.b[0] + 1)) + rgbRange.b[0];
+            return { r, g, b };
+        }
+
+        // Generate realistic grain based on film stock data
+        function generateGrain() {
+            if (!ctx) return;
+
+            const filmStockKey = document.getElementById('filmStock').value;
+            const mappedKey = filmStockMapping[filmStockKey];
+            const filmData = filmStockData[mappedKey];
+            
+            if (!filmData) {
+                console.warn(`No data found for film stock: ${mappedKey}`);
+                return;
+            }
+
+            const grainIntensity = parseFloat(document.getElementById('grainIntensity').value);
+            const grainOpacity = parseFloat(document.getElementById('grainOpacity').value);
+            const backgroundStyle = document.getElementById('backgroundStyle').value;
+            const pushProcessing = document.getElementById('pushProcessing').value;
+
+            // Update background
+            document.getElementById('heroContainer').style.background = backgroundStyles[backgroundStyle];
+
+            // Update film info display
+            updateFilmInfo(filmData);
+
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Calculate grain parameters based on film data
+            let sizeMetrics = { ...filmData.size_metrics };
+            let visualProps = { ...filmData.visual_properties };
+            const colorProps = filmData.color_properties;
+            const grainStructure = filmData.grain_structure;
+            
+            // Apply push/pull processing effects from research data
+            if (pushProcessing !== 'normal' && filmData.processing_variations) {
+                const processingData = filmData.processing_variations[pushProcessing];
+                if (processingData) {
+                    // Modify grain characteristics based on processing
+                    sizeMetrics.min_size_um *= processingData.size_increase || 1;
+                    sizeMetrics.max_size_um *= processingData.size_increase || 1;
+                    sizeMetrics.avg_size_um *= processingData.size_increase || 1;
+                    sizeMetrics.density_per_mm2 *= processingData.density_change || 1;
+                    
+                    // Modify visual properties
+                    if (processingData.contrast_change === 'increased') {
+                        visualProps.opacity_range[1] *= 1.2;
+                        visualProps.contrast_level = 'high';
+                    } else if (processingData.contrast_change === 'high_contrast') {
+                        visualProps.opacity_range[1] *= 1.4;
+                        visualProps.contrast_level = 'high';
+                    }
+                }
+            }
+
+            // Calculate grain density based on canvas size and film characteristics
+            const canvasArea = (canvas.width * canvas.height) / 1000000; // Convert to square mm (approximate)
+            const baseGrainCount = Math.floor(sizeMetrics.density_per_mm2 * canvasArea * grainIntensity);
+            
+            // Generate grain particles with natural distribution
+            currentGrainData = [];
+            
+            for (let i = 0; i < baseGrainCount; i++) {
+                // Use purely random distribution with slight noise for natural feel
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                
+                // Add very subtle noise to break up perfect randomness
+                // This mimics the slight irregularities in real film grain without clustering
+                if (grainStructure.clustering === 'moderate' || grainStructure.clustering === 'heavy') {
+                    // Add tiny random offset to create subtle variation
+                    const noiseAmount = 2; // Very small noise
+                    x += (Math.random() - 0.5) * noiseAmount;
+                    y += (Math.random() - 0.5) * noiseAmount;
+                    
+                    // Keep within bounds
+                    x = Math.max(0, Math.min(canvas.width, x));
+                    y = Math.max(0, Math.min(canvas.height, y));
+                }
+
+                // Size based on film characteristics with realistic distribution
+                const minSize = sizeMetrics.min_size_um * grainIntensity;
+                const maxSize = sizeMetrics.max_size_um * grainIntensity;
+                const avgSize = sizeMetrics.avg_size_um * grainIntensity;
+                
+                let size;
+                // Use actual size distribution from research
+                if (sizeMetrics.size_distribution === 'log_normal') {
+                    // Log-normal distribution for films like Tri-X
+                    const mu = Math.log(avgSize);
+                    const sigma = sizeMetrics.size_variation_coeff;
+                    size = Math.exp(mu + sigma * (Math.random() + Math.random() + Math.random() + Math.random() + Math.random() + Math.random() - 3) / 3);
+                    size = Math.max(minSize, Math.min(maxSize, size));
+                } else if (sizeMetrics.size_distribution === 'normal') {
+                    // Normal distribution for T-Max and other modern films
+                    const sigma = avgSize * sizeMetrics.size_variation_coeff;
+                    size = avgSize + sigma * (Math.random() + Math.random() + Math.random() + Math.random() + Math.random() + Math.random() - 3) / 3;
+                    size = Math.max(minSize, Math.min(maxSize, size));
+                } else {
+                    // Fallback to uniform distribution
+                    size = Math.random() * (maxSize - minSize) + minSize;
+                }
+
+                // Opacity based on film characteristics with realistic variation
+                const opacityMin = visualProps.opacity_range[0];
+                const opacityMax = visualProps.opacity_range[1];
+                
+                // Apply opacity variation based on film characteristics
+                let baseOpacity = Math.random() * (opacityMax - opacityMin) + opacityMin;
+                
+                // Modify opacity based on grain size (larger grains more visible)
+                const sizeOpacityFactor = (size - minSize) / (maxSize - minSize);
+                baseOpacity *= (0.7 + 0.6 * sizeOpacityFactor);
+                
+                // Apply film-specific opacity variation
+                const opacityVariation = visualProps.opacity_variation;
+                baseOpacity *= (1 + (Math.random() - 0.5) * opacityVariation);
+                
+                // Apply contrast level effects
+                if (visualProps.contrast_level === 'high') {
+                    baseOpacity *= 1.2;
+                } else if (visualProps.contrast_level === 'low') {
+                    baseOpacity *= 0.8;
+                }
+                
+                const opacity = Math.max(0.05, Math.min(1, baseOpacity * grainOpacity));
+
+                // Color based on film characteristics with realistic variation
+                const colorRanges = colorProps.rgb_ranges;
+                const weightedRandom = Math.random();
+                let selectedRange = colorRanges[0];
+                let cumulativeWeight = 0;
+                
+                for (const range of colorRanges) {
+                    cumulativeWeight += range.weight;
+                    if (weightedRandom <= cumulativeWeight) {
+                        selectedRange = range;
+                        break;
+                    }
+                }
+                
+                let color = getColorFromRange(selectedRange);
+                
+                // Apply color variation based on film characteristics
+                if (colorProps.color_variation === 'high') {
+                    const variation = 20;
+                    color.r = Math.max(0, Math.min(255, color.r + (Math.random() - 0.5) * variation));
+                    color.g = Math.max(0, Math.min(255, color.g + (Math.random() - 0.5) * variation));
+                    color.b = Math.max(0, Math.min(255, color.b + (Math.random() - 0.5) * variation));
+                } else if (colorProps.color_variation === 'medium') {
+                    const variation = 10;
+                    color.r = Math.max(0, Math.min(255, color.r + (Math.random() - 0.5) * variation));
+                    color.g = Math.max(0, Math.min(255, color.g + (Math.random() - 0.5) * variation));
+                    color.b = Math.max(0, Math.min(255, color.b + (Math.random() - 0.5) * variation));
+                }
+                
+                // Apply primary cast effects
+                if (colorProps.primary_cast === 'warm') {
+                    color.r = Math.min(255, color.r * 1.05);
+                    color.b = Math.max(0, color.b * 0.95);
+                } else if (colorProps.primary_cast === 'cool') {
+                    color.b = Math.min(255, color.b * 1.05);
+                    color.r = Math.max(0, color.r * 0.95);
+                }
+
+                // Aspect ratio for non-circular grains
+                const aspectRatio = grainStructure.aspect_ratio ? 
+                    Math.random() * (grainStructure.aspect_ratio[1] - grainStructure.aspect_ratio[0]) + grainStructure.aspect_ratio[0] : 1.0;
+
+                currentGrainData.push({ 
+                    x, y, size, opacity, color, aspectRatio,
+                    shape: grainStructure.shape,
+                    edgeType: grainStructure.edge_type,
+                    orientation: grainStructure.orientation,
+                    contrastLevel: visualProps.contrast_level,
+                    edgeDefinition: visualProps.edge_definition
+                });
+            }
+
+            // Draw grain particles with realistic rendering
+            currentGrainData.forEach(grain => {
+                ctx.globalAlpha = grain.opacity;
+                
+                // Apply edge definition effects
+                if (grain.edgeDefinition === 'soft') {
+                    // Create soft edges with gradient
+                    const gradient = ctx.createRadialGradient(
+                        grain.x, grain.y, 0,
+                        grain.x, grain.y, grain.size / 2
+                    );
+                    gradient.addColorStop(0, `rgba(${grain.color.r}, ${grain.color.g}, ${grain.color.b}, ${grain.opacity})`);
+                    gradient.addColorStop(0.7, `rgba(${grain.color.r}, ${grain.color.g}, ${grain.color.b}, ${grain.opacity * 0.6})`);
+                    gradient.addColorStop(1, `rgba(${grain.color.r}, ${grain.color.g}, ${grain.color.b}, 0)`);
+                    ctx.fillStyle = gradient;
+                } else {
+                    // Sharp edges
+                    ctx.fillStyle = `rgb(${grain.color.r}, ${grain.color.g}, ${grain.color.b})`;
+                }
+                
+                // Render different grain shapes based on actual film data
+                ctx.beginPath();
+                
+                if (grain.shape === 'tabular_flat') {
+                    // Tabular grains (T-Max films) - flat, elongated crystals
+                    ctx.save();
+                    ctx.translate(grain.x, grain.y);
+                    // Apply orientation from research data
+                    if (grain.orientation === 'aligned') {
+                        ctx.rotate((Math.floor(Math.random() * 4) * Math.PI / 2) + (Math.random() - 0.5) * 0.2);
+                    } else {
+                        ctx.rotate(Math.random() * Math.PI);
+                    }
+                    ctx.ellipse(0, 0, grain.size / 2, grain.size / (2 * grain.aspectRatio), 0, 0, Math.PI * 2);
+                    ctx.restore();
+                    
+                } else if (grain.shape === 'angular_irregular') {
+                    // Angular irregular grains (HP5 Plus)
+                    const sides = 5 + Math.floor(Math.random() * 3);
+                    for (let i = 0; i < sides; i++) {
+                        const angle = (i / sides) * Math.PI * 2 + Math.random() * 0.3;
+                        const radius = grain.size / 2 * (0.7 + Math.random() * 0.6);
+                        const x = grain.x + Math.cos(angle) * radius;
+                        const y = grain.y + Math.sin(angle) * radius;
+                        if (i === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+                    
+                } else if (grain.shape === 'irregular_clustered') {
+                    // Irregular clustered grains (Tri-X) - rough, organic shapes
+                    const points = 6 + Math.floor(Math.random() * 4);
+                    for (let i = 0; i < points; i++) {
+                        const angle = (i / points) * Math.PI * 2 + (Math.random() - 0.5) * 0.8;
+                        const radius = grain.size / 2 * (0.6 + Math.random() * 0.8);
+                        const x = grain.x + Math.cos(angle) * radius;
+                        const y = grain.y + Math.sin(angle) * radius;
+                        if (i === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+                    
+                } else if (grain.shape === 'tabular_clustered') {
+                    // Tabular clustered (Fuji films) - elongated but with some clustering
+                    ctx.save();
+                    ctx.translate(grain.x, grain.y);
+                    ctx.rotate(Math.random() * Math.PI);
+                    // Slightly irregular ellipse
+                    const radiusX = grain.size / 2;
+                    const radiusY = grain.size / (2 * grain.aspectRatio);
+                    ctx.ellipse(0, 0, radiusX * (0.9 + Math.random() * 0.2), radiusY * (0.9 + Math.random() * 0.2), 0, 0, Math.PI * 2);
+                    ctx.restore();
+                    
+                } else if (grain.shape === 'clustered_moderate') {
+                    // Moderate clustering (consumer films) - slightly irregular circles
+                    const points = 8 + Math.floor(Math.random() * 4);
+                    for (let i = 0; i < points; i++) {
+                        const angle = (i / points) * Math.PI * 2;
+                        const radius = grain.size / 2 * (0.85 + Math.random() * 0.3);
+                        const x = grain.x + Math.cos(angle) * radius;
+                        const y = grain.y + Math.sin(angle) * radius;
+                        if (i === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+                    
+                } else if (grain.shape === 'round_isolated') {
+                    // Round isolated grains (some slide films) - perfect circles
+                    ctx.arc(grain.x, grain.y, grain.size / 2, 0, Math.PI * 2);
+                    
+                } else if (grain.shape === 'cubic_traditional') {
+                    // Traditional cubic grains - square-ish with slight irregularity
+                    const halfSize = grain.size / 2;
+                    const irregularity = 0.2;
+                    ctx.moveTo(grain.x - halfSize * (1 + (Math.random() - 0.5) * irregularity), 
+                              grain.y - halfSize * (1 + (Math.random() - 0.5) * irregularity));
+                    ctx.lineTo(grain.x + halfSize * (1 + (Math.random() - 0.5) * irregularity), 
+                              grain.y - halfSize * (1 + (Math.random() - 0.5) * irregularity));
+                    ctx.lineTo(grain.x + halfSize * (1 + (Math.random() - 0.5) * irregularity), 
+                              grain.y + halfSize * (1 + (Math.random() - 0.5) * irregularity));
+                    ctx.lineTo(grain.x - halfSize * (1 + (Math.random() - 0.5) * irregularity), 
+                              grain.y + halfSize * (1 + (Math.random() - 0.5) * irregularity));
+                    ctx.closePath();
+                    
+                } else if (grain.shape === 'fine_crystalline' || grain.shape === 'fine_uniform') {
+                    // Fine crystalline grains - small, precise shapes
+                    const points = 6;
+                    for (let i = 0; i < points; i++) {
+                        const angle = (i / points) * Math.PI * 2;
+                        const radius = grain.size / 2 * (0.95 + Math.random() * 0.1);
+                        const x = grain.x + Math.cos(angle) * radius;
+                        const y = grain.y + Math.sin(angle) * radius;
+                        if (i === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+                    
+                } else if (grain.shape === 'tabular_uniform' || grain.shape === 'tabular_fine') {
+                    // Uniform tabular grains - consistent elongated shapes
+                    ctx.save();
+                    ctx.translate(grain.x, grain.y);
+                    ctx.rotate(Math.random() * Math.PI);
+                    ctx.ellipse(0, 0, grain.size / 2, grain.size / (2.5 * grain.aspectRatio), 0, 0, Math.PI * 2);
+                    ctx.restore();
+                    
+                } else if (grain.shape === 'round_uniform' || grain.shape === 'uniform_round') {
+                    // Perfect round grains
+                    ctx.arc(grain.x, grain.y, grain.size / 2, 0, Math.PI * 2);
+                    
+                } else if (grain.shape === 'round_small' || grain.shape === 'clustered_small') {
+                    // Small round grains with slight variation
+                    const points = 10;
+                    for (let i = 0; i < points; i++) {
+                        const angle = (i / points) * Math.PI * 2;
+                        const radius = grain.size / 2 * (0.92 + Math.random() * 0.16);
+                        const x = grain.x + Math.cos(angle) * radius;
+                        const y = grain.y + Math.sin(angle) * radius;
+                        if (i === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+                    
+                } else if (grain.shape === 'angular_small') {
+                    // Small angular grains
+                    const sides = 4 + Math.floor(Math.random() * 3);
+                    for (let i = 0; i < sides; i++) {
+                        const angle = (i / sides) * Math.PI * 2 + Math.random() * 0.4;
+                        const radius = grain.size / 2 * (0.8 + Math.random() * 0.4);
+                        const x = grain.x + Math.cos(angle) * radius;
+                        const y = grain.y + Math.sin(angle) * radius;
+                        if (i === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+                    
+                } else if (grain.shape === 'chunky_irregular' || grain.shape === 'large_clustered') {
+                    // Chunky, irregular grains
+                    const points = 5 + Math.floor(Math.random() * 3);
+                    for (let i = 0; i < points; i++) {
+                        const angle = (i / points) * Math.PI * 2 + (Math.random() - 0.5) * 1.0;
+                        const radius = grain.size / 2 * (0.5 + Math.random() * 1.0);
+                        const x = grain.x + Math.cos(angle) * radius;
+                        const y = grain.y + Math.sin(angle) * radius;
+                        if (i === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+                    
+                } else if (grain.shape === 'moderate_clustered' || grain.shape === 'moderate_round') {
+                    // Moderate clustering - medium irregularity
+                    const points = 8 + Math.floor(Math.random() * 3);
+                    for (let i = 0; i < points; i++) {
+                        const angle = (i / points) * Math.PI * 2;
+                        const radius = grain.size / 2 * (0.8 + Math.random() * 0.4);
+                        const x = grain.x + Math.cos(angle) * radius;
+                        const y = grain.y + Math.sin(angle) * radius;
+                        if (i === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+                    
+                } else if (grain.shape === 'irregular_moderate' || grain.shape === 'irregular_small') {
+                    // Irregular moderate grains
+                    const points = 7 + Math.floor(Math.random() * 4);
+                    for (let i = 0; i < points; i++) {
+                        const angle = (i / points) * Math.PI * 2 + (Math.random() - 0.5) * 0.5;
+                        const radius = grain.size / 2 * (0.7 + Math.random() * 0.6);
+                        const x = grain.x + Math.cos(angle) * radius;
+                        const y = grain.y + Math.sin(angle) * radius;
+                        if (i === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+                    
+                } else if (grain.shape === 'controlled_large') {
+                    // Large controlled grains - bigger but still regular
+                    const points = 8;
+                    for (let i = 0; i < points; i++) {
+                        const angle = (i / points) * Math.PI * 2;
+                        const radius = grain.size / 2 * (0.9 + Math.random() * 0.2);
+                        const x = grain.x + Math.cos(angle) * radius;
+                        const y = grain.y + Math.sin(angle) * radius;
+                        if (i === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+                    
+                } else if (grain.shape === 'tabular_layered') {
+                    // Layered tabular grains - multiple ellipses
+                    ctx.save();
+                    ctx.translate(grain.x, grain.y);
+                    ctx.rotate(Math.random() * Math.PI);
+                    // Main ellipse
+                    ctx.ellipse(0, 0, grain.size / 2, grain.size / (3 * grain.aspectRatio), 0, 0, Math.PI * 2);
+                    ctx.restore();
+                    
+                } else {
+                    // Default fallback - slightly irregular circle
+                    const points = 12;
+                    for (let i = 0; i < points; i++) {
+                        const angle = (i / points) * Math.PI * 2;
+                        const radius = grain.size / 2 * (0.9 + Math.random() * 0.2);
+                        const x = grain.x + Math.cos(angle) * radius;
+                        const y = grain.y + Math.sin(angle) * radius;
+                        if (i === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+                }
+                
+                ctx.fill();
+            });
+
+            // Add halation effects for Cinestill
+            if (filmData.special_effects && filmData.special_effects.halation !== 'none') {
+                addHalationEffect(filmData.special_effects);
+            }
+
+            ctx.globalAlpha = 1;
+        }
+
+        // Add advanced halation and special effects
+        function addHalationEffect(specialEffects) {
+            if (specialEffects.halation !== 'none' && specialEffects.halation_radius > 0) {
+                // Find bright areas and add realistic glow
+                const brightGrains = currentGrainData.filter(grain => 
+                    grain.color.r > 180 && grain.color.g > 180 && grain.color.b > 180 && grain.opacity > 0.5
+                );
+                
+                brightGrains.forEach(grain => {
+                    const halationIntensity = specialEffects.halation === 'strong' ? 1.0 : 
+                                            specialEffects.halation === 'moderate' ? 0.7 : 0.4;
+                    
+                    // Create multiple gradient layers for realistic halation
+                    for (let layer = 0; layer < 3; layer++) {
+                        const radius = specialEffects.halation_radius * (8 + layer * 4);
+                        const gradient = ctx.createRadialGradient(
+                            grain.x, grain.y, 0,
+                            grain.x, grain.y, radius
+                        );
+                        
+                        const alpha = Math.floor((halationIntensity * (0.4 - layer * 0.1)) * 255).toString(16).padStart(2, '0');
+                        gradient.addColorStop(0, specialEffects.halation_color + alpha);
+                        gradient.addColorStop(0.3, specialEffects.halation_color + Math.floor(parseInt(alpha, 16) * 0.6).toString(16).padStart(2, '0'));
+                        gradient.addColorStop(1, specialEffects.halation_color + '00');
+                        
+                        ctx.globalAlpha = 0.8 - layer * 0.2;
+                        ctx.fillStyle = gradient;
+                        ctx.beginPath();
+                        ctx.arc(grain.x, grain.y, radius, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                });
+            }
+            
+            // Add unique artifacts based on film characteristics
+            if (specialEffects.unique_artifacts && specialEffects.unique_artifacts.length > 0) {
+                // Add subtle texture variations for specific film characteristics
+                if (specialEffects.unique_artifacts.includes('characteristic gritty texture')) {
+                    // Add extra micro-grains for Tri-X gritty texture
+                    addMicroGrains(filmData, 0.3);
+                }
+                
+                if (specialEffects.unique_artifacts.includes('fine detail retention')) {
+                    // Enhance edge definition for HP5
+                    enhanceEdgeDefinition();
+                }
+            }
+        }
+        
+        // Add micro-grains for gritty texture
+        function addMicroGrains(filmData, intensity) {
+            const microGrainCount = Math.floor(currentGrainData.length * intensity);
+            for (let i = 0; i < microGrainCount; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const size = 0.5 + Math.random() * 1;
+                const opacity = 0.1 + Math.random() * 0.2;
+                
+                ctx.globalAlpha = opacity;
+                ctx.fillStyle = `rgb(200, 200, 200)`;
+                ctx.beginPath();
+                ctx.arc(x, y, size / 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        // Enhance edge definition for fine detail films
+        function enhanceEdgeDefinition() {
+            // Add subtle sharpening effect by drawing thin outlines
+            currentGrainData.forEach(grain => {
+                if (grain.size > 2 && Math.random() < 0.3) {
+                    ctx.globalAlpha = 0.1;
+                    ctx.strokeStyle = `rgb(${Math.max(0, grain.color.r - 30)}, ${Math.max(0, grain.color.g - 30)}, ${Math.max(0, grain.color.b - 30)})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.arc(grain.x, grain.y, grain.size / 2 + 0.5, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+            });
+        }
+
+        // Update film information display
+        function updateFilmInfo(filmData) {
+            const filmInfo = document.getElementById('filmInfo');
+            const technicalInfo = document.getElementById('technicalInfo');
+            
+            filmInfo.querySelector('h3').textContent = filmData.basic_info.name;
+            filmInfo.querySelector('p').textContent = filmData.professional_notes.distinctive_characteristics.join(', ');
+            
+            technicalInfo.innerHTML = `
+                <div><strong>ISO:</strong> ${filmData.basic_info.iso}</div>
+                <div><strong>Type:</strong> ${filmData.basic_info.type.replace('_', ' ')}</div>
+                <div><strong>Crystal Type:</strong> ${filmData.grain_structure.crystal_type.replace('_', ' ')}</div>
+                <div><strong>Grain Size:</strong> ${filmData.size_metrics.min_size_um}-${filmData.size_metrics.max_size_um}μm</div>
+                <div><strong>Density:</strong> ${filmData.size_metrics.density_per_mm2.toLocaleString()} grains/mm²</div>
+                <div><strong>Common Uses:</strong> ${filmData.professional_notes.common_uses.join(', ')}</div>
+            `;
+        }
+
+        function updateValueDisplays() {
+            document.getElementById('grainIntensityValue').textContent = document.getElementById('grainIntensity').value + 'x';
+            document.getElementById('grainOpacityValue').textContent = document.getElementById('grainOpacity').value;
+        }
+
+        function downloadImage() {
+            const link = document.createElement('a');
+            link.download = 'realistic-film-grain-background.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            initCanvas();
+            updateValueDisplays();
+            generateGrain(); // Generate initial grain with embedded data
+
+            // Add event listeners for real-time updates
+            document.getElementById('filmStock').addEventListener('change', generateGrain);
+            document.getElementById('backgroundStyle').addEventListener('change', generateGrain);
+            document.getElementById('pushProcessing').addEventListener('change', generateGrain);
+            
+            document.getElementById('grainIntensity').addEventListener('input', function() {
+                updateValueDisplays();
+                generateGrain();
+            });
+            
+            document.getElementById('grainOpacity').addEventListener('input', function() {
+                updateValueDisplays();
+                generateGrain();
+            });
+        });
+    </script>
+</body>
+</html>

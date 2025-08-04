@@ -1,0 +1,46 @@
+{
+  "Kodak Tri-X 400": {
+    "grain_characteristics": {
+      "size_um": {"min": 0.5, "max": 3.0, "average": 1.2},
+      "shape": "irregular",
+      "edge_type": "sharp", 
+      "aspect_ratio": 1.0
+    },
+    "density_distribution": {
+      "grains_per_mm2": 800000,
+      "pattern": "clustered",
+      "clustering": "moderate",
+      "cluster_size": "2-4_grains"
+    },
+    "visual_properties": {
+      "opacity_range": {"min": 0.3, "max": 0.8},
+      "contrast": "high",
+      "color_cast": "neutral",
+      "prominence": {"highlights": "low", "shadows": "high", "midtones": "medium"}
+    },
+    "digital_simulation": {
+      "grains_per_1024px": 420,
+      "pixel_size_range": {"min": 2, "max": 6},
+      "overlay_opacity": {"min": 0.25, "max": 0.7},
+      "color_variation": 0.1,
+      "base_grain_color": {"r": 180, "g": 180, "b": 180},
+      "blend_mode": "multiply"
+    },
+    "distinctive_traits": [
+      "Classic coarse grain structure",
+      "High contrast in shadows", 
+      "Organic, irregular clustering"
+    ],
+    "film_info": {
+      "description": "Iconic black and white film known for its distinctive grain and high contrast. The go-to choice for street photography and photojournalism since the 1950s.",
+      "primary_uses": ["street photography", "photojournalism", "documentary", "low light"],
+      "characteristics": ["high contrast", "coarse grain", "wide exposure latitude", "pushable"],
+      "famous_users": ["Henri Cartier-Bresson", "Vivian Maier", "Bruce Gilden"],
+      "ideal_conditions": ["mixed lighting", "low light", "high contrast scenes"],
+      "processing": ["normal", "push 1-2 stops"],
+      "era": "1954-present",
+      "price_category": "mid-range",
+      "alternatives": ["Ilford HP5 Plus", "Kodak T-Max 400"]
+    }
+  }
+}
