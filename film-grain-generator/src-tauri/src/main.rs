@@ -750,6 +750,68 @@ async fn get_available_film_stocks() -> Result<Vec<String>, String> {
     Ok(stock_names)
 }
 
+#[tauri::command]
+async fn get_categorized_film_stocks() -> Result<std::collections::HashMap<String, std::collections::HashMap<String, Vec<String>>>, String> {
+    let stocks = load_film_stock_data()?;
+    let mut categorized: std::collections::HashMap<String, std::collections::HashMap<String, Vec<String>>> = std::collections::HashMap::new();
+    
+    for (name, stock) in stocks {
+        // Determine category based on film type
+        let category = match stock.basic_info.film_type.as_str() {
+            "bw" => "Black & White Films",
+            "color" => {
+                if name.contains("Velvia") || name.contains("Provia") || name.contains("Ektachrome") || 
+                   name.contains("Elite Chrome") || name.contains("CT Precisa") {
+                    "Color Slide Films"
+                } else {
+                    "Color Negative Films"
+                }
+            },
+            _ => "Other Films"
+        };
+        
+        // Determine manufacturer
+        let manufacturer = if name.starts_with("Kodak") {
+            "Kodak"
+        } else if name.starts_with("Fuji") || name.starts_with("Fujifilm") {
+            "Fujifilm"
+        } else if name.starts_with("Ilford") {
+            "Ilford"
+        } else if name.starts_with("Agfa") {
+            "Agfa"
+        } else if name.starts_with("CineStill") {
+            "CineStill"
+        } else if name.starts_with("Lomography") {
+            "Lomography"
+        } else {
+            "Other"
+        };
+        
+        // Initialize category if it doesn't exist
+        if !categorized.contains_key(category) {
+            categorized.insert(category.to_string(), std::collections::HashMap::new());
+        }
+        
+        // Initialize manufacturer if it doesn't exist
+        let category_map = categorized.get_mut(category).unwrap();
+        if !category_map.contains_key(manufacturer) {
+            category_map.insert(manufacturer.to_string(), Vec::new());
+        }
+        
+        // Add film stock to the appropriate category and manufacturer
+        category_map.get_mut(manufacturer).unwrap().push(name);
+    }
+    
+    // Sort film stocks within each manufacturer
+    for category_map in categorized.values_mut() {
+        for stocks in category_map.values_mut() {
+            stocks.sort();
+        }
+    }
+    
+    Ok(categorized)
+}
+
 #[derive(Debug, Serialize)]
 struct FilmInfo {
     description: String,
@@ -993,7 +1055,7 @@ fn apply_realistic_fuji_data(film_stock: &mut FilmStock, fuji_data: &serde_json:
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
-        .invoke_handler(tauri::generate_handler![generate_grain, save_grain_image, get_available_film_stocks, get_film_info])
+        .invoke_handler(tauri::generate_handler![generate_grain, save_grain_image, get_available_film_stocks, get_categorized_film_stocks, get_film_info])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

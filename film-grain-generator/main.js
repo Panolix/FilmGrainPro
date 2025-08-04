@@ -12,19 +12,31 @@ class FilmGrainGenerator {
     
     async loadFilmStocks() {
         try {
-            // Get available film stocks from backend
-            const result = await invoke('get_available_film_stocks');
+            // Get categorized film stocks from backend
+            const result = await invoke('get_categorized_film_stocks');
             const filmStockSelect = document.getElementById('filmStock');
             
             // Clear existing options
             filmStockSelect.innerHTML = '';
             
-            // Add all film stocks
-            result.forEach(stockName => {
-                const option = document.createElement('option');
-                option.value = stockName;
-                option.textContent = stockName;
-                filmStockSelect.appendChild(option);
+            // Add categorized film stocks with optgroups
+            Object.keys(result).forEach(category => {
+                const optgroup = document.createElement('optgroup');
+                optgroup.label = category;
+                
+                // Sort manufacturers within each category
+                const manufacturers = result[category];
+                Object.keys(manufacturers).sort().forEach(manufacturer => {
+                    const stocks = manufacturers[manufacturer].sort();
+                    stocks.forEach(stockName => {
+                        const option = document.createElement('option');
+                        option.value = stockName;
+                        option.textContent = stockName;
+                        optgroup.appendChild(option);
+                    });
+                });
+                
+                filmStockSelect.appendChild(optgroup);
             });
             
             // Generate initial grain after loading stocks
