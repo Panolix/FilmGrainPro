@@ -94,6 +94,7 @@ struct GrainParams {
     intensity: f32,
     size_multiplier: f32,
     contrast: f32,
+    grain_density: u32,
     width: u32,
     height: u32,
     background: String,
@@ -312,13 +313,13 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams) -> Result<V
     let mut rng = thread_rng();
     let mut grains = Vec::new();
     
-    // Use realistic grain count with 3x increase for authenticity
+    // Use user-specified grain density (NOT multiplied by intensity - that's separate)
     let canvas_area_ratio = (params.width * params.height) as f32 / (1024.0 * 1024.0);
-    let base_grain_count = (stock.size_metrics.density_per_mm2 as f32 * canvas_area_ratio * params.intensity / 100.0 * 0.003) as usize; // 3x increase: 0.001 -> 0.003
-    let min_grain_count = 300; // Higher minimum for realistic texture
-    let final_grain_count = base_grain_count.max(min_grain_count);
-    println!("Generating {} grains for {} (3x realistic density)", final_grain_count, stock.basic_info.name);
-    println!("Generating {} grains for {}", base_grain_count, stock.basic_info.name);
+    let base_grain_count = (params.grain_density as f32 * canvas_area_ratio) as usize;
+    let stock_density_factor = stock.size_metrics.density_per_mm2 as f32 / 800000.0; // Normalize to Tri-X baseline
+    let final_grain_count = (base_grain_count as f32 * stock_density_factor) as usize;
+    println!("Density Slider: {}K grains requested, Base: {}, Stock factor: {:.2}x, Final: {} grains for {}", 
+             params.grain_density / 1000, base_grain_count, stock_density_factor, final_grain_count, stock.basic_info.name);
     
     // Generate grains with spatial correlation
     for _ in 0..final_grain_count {
@@ -344,10 +345,12 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams) -> Result<V
         let base_size = stock.size_metrics.avg_size_um * 0.5; // Convert microns to reasonable pixel size
         let size = (base_size * size_factor * params.size_multiplier).max(0.5);
         
-        // Realistic opacity with variation
+        // Realistic opacity with variation (intensity affects opacity, not grain count)
         let base_opacity = rng.gen_range(stock.visual_properties.opacity_range[0]..stock.visual_properties.opacity_range[1]);
         let opacity_variation = rng.gen_range(0.9..1.1); // ±10% variation
-        let opacity = (base_opacity * (params.contrast / 100.0) * opacity_variation).min(1.0).max(0.1);
+        let intensity_factor = params.intensity / 100.0; // Intensity affects opacity
+        let contrast_factor = params.contrast / 100.0;   // Contrast is separate
+        let opacity = (base_opacity * intensity_factor * contrast_factor * opacity_variation).min(1.0).max(0.1);
         
         // Realistic grain shapes based on film stock data
         let shape_factor = match stock.grain_structure.shape.as_str() {
@@ -498,9 +501,8 @@ fn apply_spatial_clustering_old(grains: &mut Vec<Grain>, correlation: f32, rng: 
 }
 
 fn render_grains_parallel(grains: &[Grain], params: &GrainParams, stock: &FilmStock) -> Result<Vec<u8>, String> {
-    println!("Rendering {} grains for film stock: {}", grains.len(), stock.basic_info.name);
-    let width = params.width as usize;
-    let height = params.height as usize;
+    let num_threads = rayon::current_num_threads();
+    println!("Rendering {} grains for {} using {} CPU threads", grains.len(), stock.basic_info.name, num_threads);
     
     // Create image buffer
     let mut img: RgbaImage = ImageBuffer::new(params.width, params.height);
@@ -510,28 +512,31 @@ fn render_grains_parallel(grains: &[Grain], params: &GrainParams, stock: &FilmSt
         *pixel = Rgba([0, 0, 0, 0]); // Always transparent
     }
     
-    // Render grains in parallel chunks
-    let chunk_height = (height / rayon::current_num_threads()).max(1);
-    let chunks: Vec<_> = (0..height).step_by(chunk_height).collect();
+    // Split grains into chunks for parallel processing
+    let chunk_size = (grains.len() / num_threads).max(1);
+    let grain_chunks: Vec<&[Grain]> = grains.chunks(chunk_size).collect();
     
-    let grain_data: Vec<_> = chunks.par_iter().map(|&start_y| {
-        let end_y = (start_y + chunk_height).min(height);
-        let mut chunk_grains = Vec::new();
+    // Process each chunk in parallel and collect rendered pixels
+    let rendered_pixels: Vec<Vec<(u32, u32, Rgba<u8>)>> = grain_chunks.par_iter().map(|chunk| {
+        let mut pixels = Vec::new();
         
-        for grain in grains {
-            let grain_y = grain.y as usize;
-            if grain_y >= start_y && grain_y < end_y {
-                chunk_grains.push(*grain);
-            }
+        for grain in *chunk {
+            // Render grain to temporary buffer and collect non-transparent pixels
+            let rendered_grain_pixels = render_grain_to_pixels(grain, stock, params);
+            pixels.extend(rendered_grain_pixels);
         }
         
-        (start_y, end_y, chunk_grains)
+        pixels
     }).collect();
     
-    // Apply grain data to image
-    for (start_y, end_y, chunk_grains) in grain_data {
-        for grain in chunk_grains {
-            render_single_grain(&mut img, &grain, stock, params);
+    // Apply all rendered pixels to the main image (sequential to avoid race conditions)
+    for pixel_chunk in rendered_pixels {
+        for (x, y, color) in pixel_chunk {
+            if x < params.width && y < params.height {
+                let pixel = img.get_pixel_mut(x, y);
+                // Blend the new grain pixel with existing pixel
+                blend_pixel(pixel, color);
+            }
         }
     }
     
@@ -539,7 +544,83 @@ fn render_grains_parallel(grains: &[Grain], params: &GrainParams, stock: &FilmSt
     Ok(img.into_raw())
 }
 
-fn render_single_grain(img: &mut RgbaImage, grain: &Grain, stock: &FilmStock, params: &GrainParams) {
+fn render_grain_to_pixels(grain: &Grain, stock: &FilmStock, params: &GrainParams) -> Vec<(u32, u32, Rgba<u8>)> {
+    let mut pixels = Vec::new();
+    let center_x = grain.x as i32;
+    let center_y = grain.y as i32;
+    let radius = grain.size as i32;
+    
+    // Load authentic film grain colors from color.json
+    let (r, g, b) = get_film_grain_color(&stock.basic_info.name);
+    
+    // Use realistic opacity with moderate boost for visibility
+    let boosted_opacity = match grain.opacity {
+        x if x < 0.2 => x * 3.0,   // Fine films - 3x boost
+        x if x < 0.4 => x * 2.0,   // Medium films - 2x boost
+        x => x * 1.5,              // Coarse films - 1.5x boost
+    };
+    let alpha = (boosted_opacity * 255.0).min(255.0).max(40.0) as u8;
+    
+    // Render grain with anti-aliasing
+    for dy in -radius..=radius {
+        for dx in -radius..=radius {
+            let x = center_x + dx;
+            let y = center_y + dy;
+            
+            if x >= 0 && y >= 0 && x < params.width as i32 && y < params.height as i32 {
+                // Apply shape factor for realistic grain shapes
+                let adjusted_dx = dx as f32 / grain.shape_factor;
+                let distance = ((adjusted_dx * adjusted_dx) + (dy * dy) as f32).sqrt();
+                
+                if distance <= grain.size {
+                    // Apply edge characteristics based on film stock
+                    let edge_alpha = match stock.grain_structure.edge_type.as_str() {
+                        "sharp" => {
+                            if distance > grain.size * 0.9 {
+                                ((grain.size - distance) / (grain.size * 0.1)).max(0.0)
+                            } else {
+                                1.0
+                            }
+                        },
+                        "soft" => {
+                            if distance > grain.size * 0.7 {
+                                ((grain.size - distance) / (grain.size * 0.3)).max(0.0)
+                            } else {
+                                1.0
+                            }
+                        },
+                        "hard" => {
+                            if distance > grain.size * 0.95 {
+                                0.0
+                            } else {
+                                1.0
+                            }
+                        },
+                        _ => 1.0,
+                    };
+                    
+                    let final_alpha = (alpha as f32 * edge_alpha) as u8;
+                    
+                    if final_alpha > 10 {
+                        pixels.push((x as u32, y as u32, Rgba([r, g, b, final_alpha])));
+                    }
+                }
+            }
+        }
+    }
+    
+    pixels
+}
+
+fn blend_pixel(base_pixel: &mut Rgba<u8>, new_pixel: Rgba<u8>) {
+    let blend_factor = new_pixel[3] as f32 / 255.0;
+    base_pixel[0] = ((base_pixel[0] as f32 * (1.0 - blend_factor)) + (new_pixel[0] as f32 * blend_factor)) as u8;
+    base_pixel[1] = ((base_pixel[1] as f32 * (1.0 - blend_factor)) + (new_pixel[1] as f32 * blend_factor)) as u8;
+    base_pixel[2] = ((base_pixel[2] as f32 * (1.0 - blend_factor)) + (new_pixel[2] as f32 * blend_factor)) as u8;
+    base_pixel[3] = ((base_pixel[3] as f32).max(new_pixel[3] as f32)) as u8;
+}
+
+fn render_single_grain(img: &mut RgbaImage, grain: &Grain, stock: &FilmStock, _params: &GrainParams) {
     let center_x = grain.x as i32;
     let center_y = grain.y as i32;
     let radius = grain.size as i32; // Fix: was grain.size * 2.0, causing oversized grains

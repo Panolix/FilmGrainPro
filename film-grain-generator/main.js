@@ -76,7 +76,7 @@ class FilmGrainGenerator {
         
         // Sliders with real-time updates
         const sliders = [
-            'grainIntensity', 'grainSize', 'contrast', 
+            'grainIntensity', 'grainSize', 'contrast', 'grainDensity',
             'canvasWidth', 'canvasHeight'
         ];
         
@@ -91,6 +91,8 @@ class FilmGrainGenerator {
                     displayValue += '%';
                 } else if (sliderId === 'grainSize') {
                     displayValue += 'x';
+                } else if (sliderId === 'grainDensity') {
+                    displayValue += 'K';
                 }
                 valueDisplay.textContent = displayValue;
                 
@@ -169,6 +171,7 @@ class FilmGrainGenerator {
             intensity: parseFloat(document.getElementById('grainIntensity').value),
             size_multiplier: parseFloat(document.getElementById('grainSize').value),
             contrast: parseFloat(document.getElementById('contrast').value),
+            grain_density: parseInt(document.getElementById('grainDensity').value) * 1000, // Convert K to actual number
             width: parseInt(document.getElementById('canvasWidth').value),
             height: parseInt(document.getElementById('canvasHeight').value),
             background: "transparent"

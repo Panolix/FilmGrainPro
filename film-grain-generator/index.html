@@ -25,7 +25,7 @@
             padding: 15px;
             width: 280px;
             z-index: 1000;
-            max-height: 70vh;
+            max-height: 85vh;
             overflow-y: auto;
         }
 
@@ -39,6 +39,14 @@
             font-size: 14px;
             font-weight: 300;
             color: #ccc;
+        }
+
+        .density-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 11px;
+            color: #666;
         }
 
         .control-group select,
@@ -198,6 +206,19 @@
             <label for="contrast">Grain Opacity (%)</label>
             <input type="range" id="contrast" min="20" max="100" value="70">
             <div class="value-display" id="contrastValue">70%</div>
+        </div>
+
+        <div class="control-group">
+            <label for="grainDensity">Grain Density</label>
+            <input type="range" id="grainDensity" min="10" max="50" value="30" step="10">
+            <div class="value-display" id="grainDensityValue">30K</div>
+            <div class="density-labels">
+                <span>10K</span>
+                <span>20K</span>
+                <span>30K</span>
+                <span>40K</span>
+                <span>50K</span>
+            </div>
         </div>
 
         <div class="control-group">

@@ -1,0 +1,14 @@
+#!/bin/bash
+# Film Grain Generator - macOS App Bundle Installer
+
+# Get the directory where the main project is (parent of this app bundle)
+PROJECT_DIR="$(dirname "$(dirname "$(dirname "$0")")")"
+cd "$PROJECT_DIR"
+
+# Open Terminal and run the installer
+osascript <<EOF
+tell application "Terminal"
+    activate
+    do script "cd '$PROJECT_DIR' && python3 build-and-install.py"
+end tell
+EOF
