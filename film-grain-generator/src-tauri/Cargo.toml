@@ -21,6 +21,7 @@ image = "0.25"
 rand = "0.8"
 rayon = "1.10"
 dirs = "5.0"
+base64 = "0.21"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem

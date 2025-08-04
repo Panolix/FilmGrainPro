@@ -95,6 +95,15 @@
             border-color: #4a7c4a;
         }
 
+        #uploadBtn {
+            background: #4a2d5a;
+            border-color: #6a4a7c;
+        }
+
+        #uploadBtn:hover {
+            background: #5a3d6a;
+        }
+
         .save-btn:hover {
             background: #3d6a3d;
         }
@@ -234,8 +243,11 @@
         </div>
 
 
+        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+        <button class="regenerate-btn" id="uploadBtn">📁 Upload Image</button>
         <button class="regenerate-btn" id="regenerateBtn">Regenerate Grain</button>
-        <button class="save-btn" id="saveBtn">Save PNG</button>
+        <button class="save-btn" id="saveBtn">💾 Save Grain Only</button>
+        <button class="save-btn" id="saveCompositeBtn" style="display: none;">💾 Save Image + Grain</button>
     </div>
 
     <div class="hero-container">

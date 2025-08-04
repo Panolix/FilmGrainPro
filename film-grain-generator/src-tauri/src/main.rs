@@ -1,8 +1,10 @@
 use serde::{Deserialize, Serialize};
-use image::{ImageBuffer, Rgba, RgbaImage};
+use image::{ImageBuffer, Rgba, RgbaImage, DynamicImage, ImageFormat};
 use rand::prelude::*;
 use rayon::prelude::*;
 use std::collections::HashMap;
+use std::io::Cursor;
+use base64::{Engine as _, engine::general_purpose};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct FilmStock {
@@ -812,6 +814,97 @@ async fn get_categorized_film_stocks() -> Result<std::collections::HashMap<Strin
     Ok(categorized)
 }
 
+#[tauri::command]
+async fn load_user_image(image_data: String, filename: String) -> Result<String, String> {
+    println!("Loading user image: {}", filename);
+    
+    // Decode base64 image data
+    let image_bytes = general_purpose::STANDARD.decode(&image_data)
+        .map_err(|e| format!("Failed to decode base64: {}", e))?;
+    
+    // Load image using the image crate
+    let img = image::load_from_memory(&image_bytes)
+        .map_err(|e| format!("Failed to load image: {}", e))?;
+    
+    // Convert to RGBA format
+    let rgba_img = img.to_rgba8();
+    let (width, height) = rgba_img.dimensions();
+    
+    println!("Loaded image: {}x{} pixels", width, height);
+    
+    // Convert back to base64 for storage in frontend
+    let mut buffer = Vec::new();
+    let mut cursor = Cursor::new(&mut buffer);
+    
+    DynamicImage::ImageRgba8(rgba_img.clone()).write_to(&mut cursor, ImageFormat::Png)
+        .map_err(|e| format!("Failed to encode image: {}", e))?;
+    
+    let result_base64 = general_purpose::STANDARD.encode(&buffer);
+    
+    Ok(result_base64)
+}
+
+#[tauri::command]
+async fn save_composite_image(
+    grain_data: Vec<u8>,
+    grain_width: u32,
+    grain_height: u32,
+    base_image_data: String,
+    path: String,
+) -> Result<String, String> {
+    println!("Creating composite image: {}", path);
+    
+    // Decode the base image
+    let base_image_bytes = general_purpose::STANDARD.decode(&base_image_data)
+        .map_err(|e| format!("Failed to decode base image: {}", e))?;
+    
+    let base_img = image::load_from_memory(&base_image_bytes)
+        .map_err(|e| format!("Failed to load base image: {}", e))?;
+    
+    let mut base_rgba = base_img.to_rgba8();
+    let (base_width, base_height) = base_rgba.dimensions();
+    
+    // Create grain image from data
+    let grain_img = ImageBuffer::<Rgba<u8>, Vec<u8>>::from_raw(grain_width, grain_height, grain_data)
+        .ok_or("Failed to create grain image from data")?;
+    
+    // Resize grain to match base image if needed
+    let grain_resized = if grain_width != base_width || grain_height != base_height {
+        println!("Resizing grain from {}x{} to {}x{}", grain_width, grain_height, base_width, base_height);
+        image::imageops::resize(&grain_img, base_width, base_height, image::imageops::FilterType::Lanczos3)
+    } else {
+        grain_img
+    };
+    
+    // Composite grain over base image
+    for (x, y, grain_pixel) in grain_resized.enumerate_pixels() {
+        if x < base_width && y < base_height {
+            let base_pixel = base_rgba.get_pixel_mut(x, y);
+            
+            // Alpha blend the grain onto the base image
+            let grain_alpha = grain_pixel[3] as f32 / 255.0;
+            let inv_alpha = 1.0 - grain_alpha;
+            
+            base_pixel[0] = ((base_pixel[0] as f32 * inv_alpha) + (grain_pixel[0] as f32 * grain_alpha)) as u8;
+            base_pixel[1] = ((base_pixel[1] as f32 * inv_alpha) + (grain_pixel[1] as f32 * grain_alpha)) as u8;
+            base_pixel[2] = ((base_pixel[2] as f32 * inv_alpha) + (grain_pixel[2] as f32 * grain_alpha)) as u8;
+            // Keep the base image's alpha channel
+        }
+    }
+    
+    // Save the composite image
+    let downloads_dir = dirs::download_dir()
+        .ok_or("Could not find Downloads directory")?;
+    
+    let file_path = downloads_dir.join(&path);
+    
+    base_rgba.save(&file_path)
+        .map_err(|e| format!("Failed to save composite image: {}", e))?;
+    
+    println!("Composite image saved to: {:?}", file_path);
+    Ok(format!("Composite image saved to Downloads/{}", path))
+}
+
 #[derive(Debug, Serialize)]
 struct FilmInfo {
     description: String,
@@ -1055,7 +1148,7 @@ fn apply_realistic_fuji_data(film_stock: &mut FilmStock, fuji_data: &serde_json:
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
-        .invoke_handler(tauri::generate_handler![generate_grain, save_grain_image, get_available_film_stocks, get_categorized_film_stocks, get_film_info])
+        .invoke_handler(tauri::generate_handler![generate_grain, save_grain_image, get_available_film_stocks, get_categorized_film_stocks, get_film_info, load_user_image, save_composite_image])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

@@ -18,14 +18,60 @@ echo ""
 
 # Check if Python GUI installer exists
 if [ -f "🎬 INSTALL FILM GRAIN GENERATOR.py" ]; then
-    echo "🚀 Starting GUI installer..."
+    echo "🚀 Starting installer..."
     echo ""
     
     # Try Python 3 first, then Python
     if command -v python3 &> /dev/null; then
-        python3 "🎬 INSTALL FILM GRAIN GENERATOR.py"
+        echo "Attempting to start GUI installer..."
+        python3 "🎬 INSTALL FILM GRAIN GENERATOR.py" 2>&1
+        
+        # If GUI fails, fall back to command line
+        if [ $? -ne 0 ]; then
+            echo ""
+            echo "⚠️  GUI installer failed. Starting command line installer..."
+            echo ""
+            
+            # Check if fallback installer exists
+            if [ -f "build-and-install.py" ]; then
+                python3 "build-and-install.py"
+            else
+                echo "❌ No fallback installer found."
+                echo ""
+                echo "Manual installation steps:"
+                echo "1. cd film-grain-generator"
+                echo "2. npm install"
+                echo "3. npm run tauri build"
+                echo ""
+                echo "Press any key to exit..."
+                read -n 1 -s
+            fi
+        fi
     elif command -v python &> /dev/null; then
-        python "🎬 INSTALL FILM GRAIN GENERATOR.py"
+        echo "Attempting to start GUI installer..."
+        python "🎬 INSTALL FILM GRAIN GENERATOR.py" 2>&1
+        
+        # If GUI fails, fall back to command line
+        if [ $? -ne 0 ]; then
+            echo ""
+            echo "⚠️  GUI installer failed. Starting command line installer..."
+            echo ""
+            
+            # Check if fallback installer exists
+            if [ -f "build-and-install.py" ]; then
+                python "build-and-install.py"
+            else
+                echo "❌ No fallback installer found."
+                echo ""
+                echo "Manual installation steps:"
+                echo "1. cd film-grain-generator"
+                echo "2. npm install"
+                echo "3. npm run tauri build"
+                echo ""
+                echo "Press any key to exit..."
+                read -n 1 -s
+            fi
+        fi
     else
         echo "❌ Python not found!"
         echo ""

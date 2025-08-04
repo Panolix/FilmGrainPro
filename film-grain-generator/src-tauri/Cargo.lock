@@ -899,6 +899,7 @@ dependencies = [
 name = "film-grain-generator"
 version = "0.0.0"
 dependencies = [
+ "base64 0.21.7",
  "dirs 5.0.1",
  "image",
  "rand 0.8.5",

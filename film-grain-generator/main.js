@@ -5,6 +5,7 @@ class FilmGrainGenerator {
         this.canvas = document.getElementById('grainCanvas');
         this.ctx = this.canvas.getContext('2d');
         this.currentImageData = null;
+        this.uploadedImage = null;
         this.updateTimeout = null;
         
         this.initializeControls();
@@ -125,12 +126,24 @@ class FilmGrainGenerator {
         });
         
         // Buttons
+        document.getElementById('uploadBtn').addEventListener('click', () => {
+            this.uploadImage();
+        });
+
+        document.getElementById('imageUpload').addEventListener('change', (e) => {
+            this.handleImageUpload(e);
+        });
+
         document.getElementById('regenerateBtn').addEventListener('click', () => {
             this.regenerateGrain();
         });
         
         document.getElementById('saveBtn').addEventListener('click', () => {
             this.saveImage();
+        });
+
+        document.getElementById('saveCompositeBtn').addEventListener('click', () => {
+            this.saveCompositeImage();
         });
     }
     
@@ -212,6 +225,44 @@ class FilmGrainGenerator {
         info.textContent = `Generation time: ${result.generation_time_ms}ms | Grains: ${result.grain_count.toLocaleString()}`;
     }
     
+    uploadImage() {
+        document.getElementById('imageUpload').click();
+    }
+
+    async handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        try {
+            // Read the file as array buffer
+            const arrayBuffer = await file.arrayBuffer();
+            const uint8Array = new Uint8Array(arrayBuffer);
+            
+            // Convert to base64 for sending to Rust
+            const base64 = btoa(String.fromCharCode.apply(null, uint8Array));
+            
+            // Load image in Rust backend
+            const result = await invoke('load_user_image', { 
+                imageData: base64,
+                filename: file.name 
+            });
+            
+            this.uploadedImage = result;
+            
+            // Show the composite save button
+            document.getElementById('saveCompositeBtn').style.display = 'inline-block';
+            
+            // Update button text to show image is loaded
+            document.getElementById('uploadBtn').textContent = `📁 ${file.name}`;
+            
+            alert(`Image "${file.name}" loaded successfully!`);
+            
+        } catch (error) {
+            console.error('Error loading image:', error);
+            alert('Error loading image: ' + error);
+        }
+    }
+
     async saveImage() {
         if (!this.currentImageData) {
             alert('No grain image to save');
@@ -238,6 +289,36 @@ class FilmGrainGenerator {
         } catch (error) {
             console.error('Error saving image:', error);
             alert('Error saving image: ' + error);
+        }
+    }
+
+    async saveCompositeImage() {
+        if (!this.currentImageData || !this.uploadedImage) {
+            alert('Please upload an image and generate grain first');
+            return;
+        }
+        
+        try {
+            const params = this.getGrainParameters();
+            
+            // Generate filename with timestamp and parameters
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const filename = `composite_${params.film_stock.replace(/\s+/g, '_')}_${timestamp}.png`;
+            
+            // Composite image with grain in Rust backend
+            await invoke('save_composite_image', {
+                grainData: this.currentImageData,
+                grainWidth: params.width,
+                grainHeight: params.height,
+                baseImageData: this.uploadedImage,
+                path: filename
+            });
+            
+            alert(`Composite image saved as ${filename}!`);
+            
+        } catch (error) {
+            console.error('Error saving composite image:', error);
+            alert('Error saving composite image: ' + error);
         }
     }
 }
