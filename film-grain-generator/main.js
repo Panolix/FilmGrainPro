@@ -80,6 +80,10 @@ class FilmGrainGenerator {
             'canvasWidth', 'canvasHeight'
         ];
         
+        // Max grain count selector
+        const maxGrainCount = document.getElementById('maxGrainCount');
+        maxGrainCount.addEventListener('change', () => this.regenerateGrain());
+        
         
         sliders.forEach(sliderId => {
             const slider = document.getElementById(sliderId);
@@ -171,7 +175,8 @@ class FilmGrainGenerator {
             contrast: parseFloat(document.getElementById('contrast').value),
             width: parseInt(document.getElementById('canvasWidth').value),
             height: parseInt(document.getElementById('canvasHeight').value),
-            background: "transparent"
+            background: "transparent",
+            max_grain_count: parseInt(document.getElementById('maxGrainCount')?.value || 20000)
         };
     }
     
