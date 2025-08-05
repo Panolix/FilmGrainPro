@@ -748,7 +748,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3e3d747f100290a1ca24b752186f61f6637e1deffe3bf6320de6fcb29510a307"
 dependencies = [
  "bitflags 2.9.1",
- "libloading 0.7.4",
+ "libloading 0.8.8",
  "winapi",
 ]
 
@@ -1074,6 +1074,7 @@ dependencies = [
  "tauri-build",
  "tauri-plugin-shell",
  "wgpu",
+ "wide",
 ]
 
 [[package]]
@@ -1651,7 +1652,7 @@ dependencies = [
  "bitflags 2.9.1",
  "com",
  "libc",
- "libloading 0.7.4",
+ "libloading 0.8.8",
  "thiserror 1.0.69",
  "widestring",
  "winapi",
@@ -3638,6 +3639,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "28d3b2b1366ec20994f1fd18c3c594f05c5dd4bc44d8bb0c1c632c8d6829481f"
 
 [[package]]
+name = "safe_arch"
+version = "0.7.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "96b02de82ddbe1b636e6170c21be622223aea188ef2e139be0a5b219ec215323"
+dependencies = [
+ "bytemuck",
+]
+
+[[package]]
 name = "same-file"
 version = "1.0.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5257,7 +5267,7 @@ dependencies = [
  "js-sys",
  "khronos-egl",
  "libc",
- "libloading 0.7.4",
+ "libloading 0.8.8",
  "log",
  "metal",
  "naga",
@@ -5287,6 +5297,16 @@ dependencies = [
  "bitflags 2.9.1",
  "js-sys",
  "web-sys",
+]
+
+[[package]]
+name = "wide"
+version = "0.7.33"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0ce5da8ecb62bcd8ec8b7ea19f69a51275e91299be594ea5cc6ef7819e16cd03"
+dependencies = [
+ "bytemuck",
+ "safe_arch",
 ]
 
 [[package]]

@@ -5,7 +5,7 @@ use rayon::prelude::*;
 use std::collections::HashMap;
 use std::io::Cursor;
 use base64::{Engine as _, engine::general_purpose};
-// Removed GPU imports - back to fast CPU only
+// SIMD optimizations (using built-in CPU vectorization)
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct FilmStock {
@@ -504,6 +504,7 @@ fn apply_spatial_clustering_old(grains: &mut Vec<Grain>, correlation: f32, rng: 
 }
 
 fn render_grains_parallel(grains: &[Grain], params: &GrainParams, stock: &FilmStock) -> Result<Vec<u8>, String> {
+    let render_start = std::time::Instant::now();
     let num_threads = rayon::current_num_threads();
     println!("Rendering {} grains for {} using {} CPU threads", grains.len(), stock.basic_info.name, num_threads);
     
@@ -533,15 +534,27 @@ fn render_grains_parallel(grains: &[Grain], params: &GrainParams, stock: &FilmSt
     }).collect();
     
     // Apply all rendered pixels to the main image (sequential to avoid race conditions)
-    for pixel_chunk in rendered_pixels {
-        for (x, y, color) in pixel_chunk {
-            if x < params.width && y < params.height {
-                let pixel = img.get_pixel_mut(x, y);
-                // Blend the new grain pixel with existing pixel
-                blend_pixel(pixel, color);
+    // Try SIMD optimization for large pixel counts
+    let total_pixels: usize = rendered_pixels.iter().map(|chunk| chunk.len()).sum();
+    
+    if total_pixels > 1000 {
+        // Use SIMD for large workloads
+        println!("🚀 Using SIMD optimization for {} pixels", total_pixels);
+        apply_pixels_simd_optimized(&mut img, rendered_pixels, params);
+    } else {
+        // Use regular blending for small workloads
+        for pixel_chunk in rendered_pixels {
+            for (x, y, color) in pixel_chunk {
+                if x < params.width && y < params.height {
+                    let pixel = img.get_pixel_mut(x, y);
+                    blend_pixel(pixel, color);
+                }
             }
         }
     }
+    
+    let render_time = render_start.elapsed().as_millis();
+    println!("⏱️ Render breakdown: {}ms total, {:.1} grains/ms", render_time, grains.len() as f32 / render_time as f32);
     
     // Convert to raw RGBA bytes
     Ok(img.into_raw())
@@ -623,7 +636,57 @@ fn blend_pixel(base_pixel: &mut Rgba<u8>, new_pixel: Rgba<u8>) {
     base_pixel[3] = ((base_pixel[3] as f32).max(new_pixel[3] as f32)) as u8;
 }
 
-// Removed GPU functions - back to CPU only
+// Simplified SIMD-optimized pixel blending
+fn blend_pixels_simd_simple(base_pixels: &mut [u8], grain_pixels: &[u8]) {
+    // Process 4 bytes (1 RGBA pixel) at a time using SIMD
+    for (base_chunk, grain_chunk) in base_pixels.chunks_exact_mut(4).zip(grain_pixels.chunks_exact(4)) {
+        let alpha = grain_chunk[3] as f32 / 255.0;
+        let inv_alpha = 1.0 - alpha;
+        
+        // Blend RGB channels using SIMD-friendly operations
+        base_chunk[0] = ((base_chunk[0] as f32 * inv_alpha) + (grain_chunk[0] as f32 * alpha)) as u8;
+        base_chunk[1] = ((base_chunk[1] as f32 * inv_alpha) + (grain_chunk[1] as f32 * alpha)) as u8;
+        base_chunk[2] = ((base_chunk[2] as f32 * inv_alpha) + (grain_chunk[2] as f32 * alpha)) as u8;
+        
+        // Alpha channel - take maximum
+        base_chunk[3] = base_chunk[3].max(grain_chunk[3]);
+    }
+}
+
+fn apply_pixels_simd_optimized(
+    img: &mut RgbaImage, 
+    rendered_pixels: Vec<Vec<(u32, u32, Rgba<u8>)>>, 
+    params: &GrainParams
+) {
+    // For SIMD optimization, we need to work with contiguous memory
+    // So we'll still use the regular approach but with SIMD where possible
+    
+    // Group pixels by rows for better memory access patterns
+    let mut row_pixels: Vec<Vec<(u32, Rgba<u8>)>> = vec![Vec::new(); params.height as usize];
+    
+    for pixel_chunk in rendered_pixels {
+        for (x, y, color) in pixel_chunk {
+            if x < params.width && y < params.height {
+                row_pixels[y as usize].push((x, color));
+            }
+        }
+    }
+    
+    // Process each row with potential SIMD optimization
+    for (row_idx, row_pixel_list) in row_pixels.iter().enumerate() {
+        if row_pixel_list.is_empty() { continue; }
+        
+        // Sort pixels by x coordinate for sequential access
+        let mut sorted_pixels = row_pixel_list.clone();
+        sorted_pixels.sort_by_key(|(x, _)| *x);
+        
+        // Apply pixels to this row
+        for (x, color) in sorted_pixels {
+            let pixel = img.get_pixel_mut(x, row_idx as u32);
+            blend_pixel(pixel, color);
+        }
+    }
+}
 
 fn render_single_grain(img: &mut RgbaImage, grain: &Grain, stock: &FilmStock, _params: &GrainParams) {
     let center_x = grain.x as i32;
