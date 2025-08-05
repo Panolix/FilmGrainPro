@@ -50,4 +50,4 @@ cuda = ["dep:cudarc"]
 opencl = ["dep:opencl3"]
 metal = []
 
-default = ["gpu-acceleration"]
+default = []

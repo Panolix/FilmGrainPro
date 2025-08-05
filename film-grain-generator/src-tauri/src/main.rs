@@ -5,13 +5,7 @@ use rayon::prelude::*;
 use std::collections::HashMap;
 use std::io::Cursor;
 use base64::{Engine as _, engine::general_purpose};
-use std::sync::OnceLock;
-
-mod gpu;
-use gpu::GpuManager;
-
-// Global GPU manager instance
-static GPU_MANAGER: OnceLock<Option<GpuManager>> = OnceLock::new();
+// Removed GPU imports - back to fast CPU only
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct FilmStock {
@@ -128,7 +122,7 @@ struct Grain {
 }
 
 #[tauri::command]
-async fn generate_grain(params: GrainParams) -> Result<GrainResult, String> {
+fn generate_grain(params: GrainParams) -> Result<GrainResult, String> {
     let start_time = std::time::Instant::now();
     
     // Load film stock data (in a real app, this would be loaded once at startup)
@@ -139,17 +133,8 @@ async fn generate_grain(params: GrainParams) -> Result<GrainResult, String> {
     // Generate grains using advanced algorithms
     let grains = generate_grains_advanced(stock, &params)?;
     
-    // Try GPU acceleration first, fallback to CPU if needed
-    let image_data = match try_gpu_render(&grains, &params, stock).await {
-        Ok(data) => {
-            println!("✅ GPU acceleration successful");
-            data
-        },
-        Err(gpu_error) => {
-            println!("⚠️ GPU acceleration failed: {}, falling back to CPU", gpu_error);
-            render_grains_parallel(&grains, &params, stock)?
-        }
-    };
+    // Back to original fast CPU rendering - GPU was causing overhead
+    let image_data = render_grains_parallel(&grains, &params, stock)?;
     
     let generation_time = start_time.elapsed().as_millis();
     
@@ -638,45 +623,7 @@ fn blend_pixel(base_pixel: &mut Rgba<u8>, new_pixel: Rgba<u8>) {
     base_pixel[3] = ((base_pixel[3] as f32).max(new_pixel[3] as f32)) as u8;
 }
 
-async fn try_gpu_render(grains: &[Grain], params: &GrainParams, stock: &FilmStock) -> Result<Vec<u8>, String> {
-    // Initialize GPU manager if not already done
-    let gpu_manager = GPU_MANAGER.get_or_init(|| {
-        match pollster::block_on(GpuManager::new()) {
-            Ok(manager) => {
-                let (backend, name) = manager.get_backend_info();
-                println!("🚀 GPU Manager initialized with backend: {:?} ({})", backend, name);
-                Some(manager)
-            },
-            Err(e) => {
-                println!("❌ Failed to initialize GPU manager: {}", e);
-                None
-            }
-        }
-    });
-
-    match gpu_manager {
-        Some(manager) => manager.render_grains(grains, params, stock).await,
-        None => Err("GPU manager not available".to_string()),
-    }
-}
-
-#[tauri::command]
-async fn get_gpu_info() -> Result<String, String> {
-    let gpu_manager = GPU_MANAGER.get_or_init(|| {
-        match pollster::block_on(GpuManager::new()) {
-            Ok(manager) => Some(manager),
-            Err(_) => None,
-        }
-    });
-
-    match gpu_manager {
-        Some(manager) => {
-            let (backend, name) = manager.get_backend_info();
-            Ok(format!("GPU Backend: {:?} ({})", backend, name))
-        },
-        None => Ok("GPU acceleration not available - using CPU".to_string()),
-    }
-}
+// Removed GPU functions - back to CPU only
 
 fn render_single_grain(img: &mut RgbaImage, grain: &Grain, stock: &FilmStock, _params: &GrainParams) {
     let center_x = grain.x as i32;
@@ -1204,7 +1151,7 @@ fn apply_realistic_fuji_data(film_stock: &mut FilmStock, fuji_data: &serde_json:
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
-        .invoke_handler(tauri::generate_handler![generate_grain, save_grain_image, get_available_film_stocks, get_categorized_film_stocks, get_film_info, load_user_image, save_composite_image, get_gpu_info])
+        .invoke_handler(tauri::generate_handler![generate_grain, save_grain_image, get_available_film_stocks, get_categorized_film_stocks, get_film_info, load_user_image, save_composite_image])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

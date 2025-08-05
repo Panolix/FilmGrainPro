@@ -40,8 +40,8 @@ class FilmGrainGenerator {
                 filmStockSelect.appendChild(optgroup);
             });
             
-            // Load GPU info and display it
-            this.loadGpuInfo();
+            // Skip GPU info loading for now to avoid overhead
+            // this.loadGpuInfo();
             
             // Generate initial grain after loading stocks
             this.updateFilmInfo();
