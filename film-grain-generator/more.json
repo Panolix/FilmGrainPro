@@ -1,0 +1,942 @@
+{
+  "Agfa APX 100": {
+    "color_crossover": {
+      "red_to_green": 1.0,
+      "red_to_blue": 1.0,
+      "green_to_red": 1.0,
+      "green_to_blue": 1.0,
+      "blue_to_red": 1.0,
+      "blue_to_green": 1.0
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.90,
+      "spatial_correlation": 0.10,
+      "cluster_probability": 0.05
+    }
+  },
+  "Agfa APX 400": {
+    "color_crossover": {
+      "red_to_green": 1.0,
+      "red_to_blue": 1.0,
+      "green_to_red": 1.0,
+      "green_to_blue": 1.0,
+      "blue_to_red": 1.0,
+      "blue_to_green": 1.0
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.85,
+      "spatial_correlation": 0.15,
+      "cluster_probability": 0.10
+    }
+  },
+  "Agfa CT Precisa 100": {
+    "color_crossover": {
+      "red_to_green": 0.03,
+      "red_to_blue": 0.02,
+      "green_to_red": 0.02,
+      "green_to_blue": 0.03,
+      "blue_to_red": 0.01,
+      "blue_to_green": 0.01
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.95,
+      "spatial_correlation": 0.05,
+      "cluster_probability": 0.01
+    }
+  },
+  "Agfa Optima 100": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.90,
+      "spatial_correlation": 0.10,
+      "cluster_probability": 0.05
+    }
+  },
+  "Agfa Optima 200": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.85,
+      "spatial_correlation": 0.15,
+      "cluster_probability": 0.10
+    }
+  },
+  "Agfa Ultra 100": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.90,
+      "spatial_correlation": 0.10,
+      "cluster_probability": 0.05
+    }
+  },
+  "Agfa Vista 200": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.85,
+      "spatial_correlation": 0.15,
+      "cluster_probability": 0.10
+    }
+  },
+  "Agfa Vista 400": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.04,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.80,
+      "spatial_correlation": 0.20,
+      "cluster_probability": 0.12
+    }
+  },
+  "Fuji Acros 100": {
+    "color_crossover": {
+      "red_to_green": 1.0,
+      "red_to_blue": 1.0,
+      "green_to_red": 1.0,
+      "green_to_blue": 1.0,
+      "blue_to_red": 1.0,
+      "blue_to_green": 1.0
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.90,
+      "spatial_correlation": 0.10,
+      "cluster_probability": 0.05
+    }
+  },
+  "Fuji Astia 100F": {
+    "color_crossover": {
+      "red_to_green": 0.03,
+      "red_to_blue": 0.02,
+      "green_to_red": 0.02,
+      "green_to_blue": 0.03,
+      "blue_to_red": 0.01,
+      "blue_to_green": 0.01
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.95,
+      "spatial_correlation": 0.05,
+      "cluster_probability": 0.01
+    }
+  },
+  "Fuji C200": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.85,
+      "spatial_correlation": 0.15,
+      "cluster_probability": 0.10
+    }
+  },
+  "Fuji Natura 1600": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.04,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.70,
+      "spatial_correlation": 0.30,
+      "cluster_probability": 0.20
+    }
+  },
+  "Fuji Neopan 400": {
+    "color_crossover": {
+      "red_to_green": 1.0,
+      "red_to_blue": 1.0,
+      "green_to_red": 1.0,
+      "green_to_blue": 1.0,
+      "blue_to_red": 1.0,
+      "blue_to_green": 1.0
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.80,
+      "spatial_correlation": 0.20,
+      "cluster_probability": 0.12
+    }
+  },
+  "Fuji Neopan 1600": {
+    "color_crossover": {
+      "red_to_green": 1.0,
+      "red_to_blue": 1.0,
+      "green_to_red": 1.0,
+      "green_to_blue": 1.0,
+      "blue_to_red": 1.0,
+      "blue_to_green": 1.0
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.04,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.70,
+      "spatial_correlation": 0.30,
+      "cluster_probability": 0.15
+    }
+  },
+  "Fuji Pro 160C": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.85,
+      "spatial_correlation": 0.15,
+      "cluster_probability": 0.10
+    }
+  },
+  "Fuji Pro 160S": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.85,
+      "spatial_correlation": 0.15,
+      "cluster_probability": 0.10
+    }
+  },
+  "Fuji Pro 400H": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.80,
+      "spatial_correlation": 0.20,
+      "cluster_probability": 0.12
+    }
+  },
+  "Fuji Pro 800Z": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.04,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.75,
+      "spatial_correlation": 0.25,
+      "cluster_probability": 0.15
+    }
+  },
+  "Fuji Provia 100F": {
+    "color_crossover": {
+      "red_to_green": 0.03,
+      "red_to_blue": 0.02,
+      "green_to_red": 0.02,
+      "green_to_blue": 0.03,
+      "blue_to_red": 0.01,
+      "blue_to_green": 0.01
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.95,
+      "spatial_correlation": 0.05,
+      "cluster_probability": 0.01
+    }
+  },
+  "Fuji Provia 400X": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.80,
+      "spatial_correlation": 0.20,
+      "cluster_probability": 0.12
+    }
+  },
+  "Fuji Sensia 100": {
+    "color_crossover": {
+      "red_to_green": 0.03,
+      "red_to_blue": 0.02,
+      "green_to_red": 0.02,
+      "green_to_blue": 0.03,
+      "blue_to_red": 0.01,
+      "blue_to_green": 0.01
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.95,
+      "spatial_correlation": 0.05,
+      "cluster_probability": 0.01
+    }
+  },
+  "Fuji Superia 100": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.90,
+      "spatial_correlation": 0.10,
+      "cluster_probability": 0.05
+    }
+  },
+  "Fuji Superia 200": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.85,
+      "spatial_correlation": 0.15,
+      "cluster_probability": 0.10
+    }
+  },
+  "Fuji Superia 400": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.80,
+      "spatial_correlation": 0.20,
+      "cluster_probability": 0.12
+    }
+  },
+  "Fuji Superia 800": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.04,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.75,
+      "spatial_correlation": 0.25,
+      "cluster_probability": 0.15
+    }
+  },
+  "Fuji Superia 1600": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.05,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.70,
+      "spatial_correlation": 0.30,
+      "cluster_probability": 0.20
+    }
+  },
+  "Fuji Velvia 50": {
+    "color_crossover": {
+      "red_to_green": 0.03,
+      "red_to_blue": 0.02,
+      "green_to_red": 0.02,
+      "green_to_blue": 0.03,
+      "blue_to_red": 0.01,
+      "blue_to_green": 0.01
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.98,
+      "spatial_correlation": 0.02,
+      "cluster_probability": 0.01
+    }
+  },
+  "Fuji Velvia 100": {
+    "color_crossover": {
+      "red_to_green": 0.03,
+      "red_to_blue": 0.02,
+      "green_to_red": 0.02,
+      "green_to_blue": 0.03,
+      "blue_to_red": 0.01,
+      "blue_to_green": 0.01
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.95,
+      "spatial_correlation": 0.05,
+      "cluster_probability": 0.01
+    }
+  },
+  "Ilford Delta 100": {
+    "color_crossover": {
+      "red_to_green": 1.0,
+      "red_to_blue": 1.0,
+      "green_to_red": 1.0,
+      "green_to_blue": 1.0,
+      "blue_to_red": 1.0,
+      "blue_to_green": 1.0
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.90,
+      "spatial_correlation": 0.10,
+      "cluster_probability": 0.05
+    }
+  },
+  "Ilford Delta 400": {
+    "color_crossover": {
+      "red_to_green": 1.0,
+      "red_to_blue": 1.0,
+      "green_to_red": 1.0,
+      "green_to_blue": 1.0,
+      "blue_to_red": 1.0,
+      "blue_to_green": 1.0
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.80,
+      "spatial_correlation": 0.20,
+      "cluster_probability": 0.12
+    }
+  },
+  "Ilford Delta 3200": {
+    "color_crossover": {
+      "red_to_green": 1.0,
+      "red_to_blue": 1.0,
+      "green_to_red": 1.0,
+      "green_to_blue": 1.0,
+      "blue_to_red": 1.0,
+      "blue_to_green": 1.0
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.04,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.70,
+      "spatial_correlation": 0.30,
+      "cluster_probability": 0.15
+    }
+  },
+  "Ilford FP4 Plus": {
+    "color_crossover": {
+      "red_to_green": 1.0,
+      "red_to_blue": 1.0,
+      "green_to_red": 1.0,
+      "green_to_blue": 1.0,
+      "blue_to_red": 1.0,
+      "blue_to_green": 1.0
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.90,
+      "spatial_correlation": 0.10,
+      "cluster_probability": 0.05
+    }
+  },
+  "Ilford HP5 Plus": {
+    "color_crossover": {
+      "red_to_green": 1.0,
+      "red_to_blue": 1.0,
+      "green_to_red": 1.0,
+      "green_to_blue": 1.0,
+      "blue_to_red": 1.0,
+      "blue_to_green": 1.0
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.80,
+      "spatial_correlation": 0.20,
+      "cluster_probability": 0.12
+    }
+  },
+  "Ilford Pan F Plus": {
+    "color_crossover": {
+      "red_to_green": 1.0,
+      "red_to_blue": 1.0,
+      "green_to_red": 1.0,
+      "green_to_blue": 1.0,
+      "blue_to_red": 1.0,
+      "blue_to_green": 1.0
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.95,
+      "spatial_correlation": 0.05,
+      "cluster_probability": 0.01
+    }
+  },
+  "Ilford XP2 Super": {
+    "color_crossover": {
+      "red_to_green": 1.0,
+      "red_to_blue": 1.0,
+      "green_to_red": 1.0,
+      "green_to_blue": 1.0,
+      "blue_to_red": 1.0,
+      "blue_to_green": 1.0
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.80,
+      "spatial_correlation": 0.20,
+      "cluster_probability": 0.10
+    }
+  },
+  "Kodak Ektar 100": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.90,
+      "spatial_correlation": 0.10,
+      "cluster_probability": 0.05
+    }
+  },
+  "Kodak Gold 200": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.85,
+      "spatial_correlation": 0.15,
+      "cluster_probability": 0.10
+    }
+  },
+  "Kodak Portra 160": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.85,
+      "spatial_correlation": 0.15,
+      "cluster_probability": 0.10
+    }
+  },
+  "Kodak Portra 400": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.04,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.80,
+      "spatial_correlation": 0.20,
+      "cluster_probability": 0.12
+    }
+  },
+  "Kodak Portra 800": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.05,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.75,
+      "spatial_correlation": 0.25,
+      "cluster_probability": 0.15
+    }
+  },
+  "Kodak T-Max 100": {
+    "color_crossover": {
+      "red_to_green": 1.0,
+      "red_to_blue": 1.0,
+      "green_to_red": 1.0,
+      "green_to_blue": 1.0,
+      "blue_to_red": 1.0,
+      "blue_to_green": 1.0
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.90,
+      "spatial_correlation": 0.10,
+      "cluster_probability": 0.05
+    }
+  },
+  "Kodak T-Max 400": {
+    "color_crossover": {
+      "red_to_green": 1.0,
+      "red_to_blue": 1.0,
+      "green_to_red": 1.0,
+      "green_to_blue": 1.0,
+      "blue_to_red": 1.0,
+      "blue_to_green": 1.0
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.80,
+      "spatial_correlation": 0.20,
+      "cluster_probability": 0.12
+    }
+  },
+  "Kodak Tri-X 400": {
+    "color_crossover": {
+      "red_to_green": 1.0,
+      "red_to_blue": 1.0,
+      "green_to_red": 1.0,
+      "green_to_blue": 1.0,
+      "blue_to_red": 1.0,
+      "blue_to_green": 1.0
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.80,
+      "spatial_correlation": 0.20,
+      "cluster_probability": 0.12
+    }
+  },
+  "Kodak UltraMax 400": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.80,
+      "spatial_correlation": 0.20,
+      "cluster_probability": 0.12
+    }
+  },
+  "Kodak Vision3 50D": {
+    "color_crossover": {
+      "red_to_green": 0.03,
+      "red_to_blue": 0.02,
+      "green_to_red": 0.02,
+      "green_to_blue": 0.03,
+      "blue_to_red": 0.01,
+      "blue_to_green": 0.01
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.02,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.95,
+      "spatial_correlation": 0.05,
+      "cluster_probability": 0.01
+    }
+  },
+  "Kodak Vision3 250D": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.85,
+      "spatial_correlation": 0.15,
+      "cluster_probability": 0.10
+    }
+  },
+  "Kodak Vision3 500T": {
+    "color_crossover": {
+      "red_to_green": 0.05,
+      "red_to_blue": 0.03,
+      "green_to_red": 0.04,
+      "green_to_blue": 0.05,
+      "blue_to_red": 0.02,
+      "blue_to_green": 0.02
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.04,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.75,
+      "spatial_correlation": 0.25,
+      "cluster_probability": 0.15
+    }
+  }
+}

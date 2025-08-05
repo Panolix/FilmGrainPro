@@ -219,14 +219,14 @@
 
         <div class="control-group">
             <label for="grainDensity">Grain Density</label>
-            <input type="range" id="grainDensity" min="10" max="50" value="30" step="10">
+            <input type="range" id="grainDensity" min="10" max="100" value="30" step="10">
             <div class="value-display" id="grainDensityValue">30K</div>
             <div class="density-labels">
                 <span>10K</span>
-                <span>20K</span>
                 <span>30K</span>
-                <span>40K</span>
                 <span>50K</span>
+                <span>70K</span>
+                <span>100K</span>
             </div>
         </div>
 
@@ -240,6 +240,18 @@
             <label for="canvasHeight">Canvas Height</label>
             <input type="range" id="canvasHeight" min="512" max="2048" step="64" value="1024">
             <div class="value-display" id="canvasHeightValue">1024</div>
+        </div>
+
+        <div class="control-group">
+            <label for="filmAge">Film Age</label>
+            <input type="range" id="filmAge" min="0" max="10" value="0" step="0.5">
+            <div class="value-display" id="filmAgeValue">Fresh</div>
+        </div>
+
+        <div class="control-group">
+            <label for="storageTemp">Storage Temp</label>
+            <input type="range" id="storageTemp" min="-18" max="25" value="20" step="1">
+            <div class="value-display" id="storageTempValue">20°C</div>
         </div>
 
 

@@ -112,7 +112,7 @@ class FilmGrainGenerator {
         // Sliders with real-time updates
         const sliders = [
             'grainIntensity', 'grainSize', 'contrast', 'grainDensity',
-            'canvasWidth', 'canvasHeight'
+            'canvasWidth', 'canvasHeight', 'filmAge', 'storageTemp'
         ];
         
         
@@ -221,7 +221,9 @@ class FilmGrainGenerator {
             grain_density: parseInt(document.getElementById('grainDensity').value) * 1000, // Convert K to actual number
             width: parseInt(document.getElementById('canvasWidth').value),
             height: parseInt(document.getElementById('canvasHeight').value),
-            background: "transparent"
+            background: 'transparent',
+            film_age_years: parseFloat(document.getElementById('filmAge')?.value || 0),
+            storage_temp: parseFloat(document.getElementById('storageTemp')?.value || 20)
         };
     }
     

@@ -1,0 +1,174 @@
+FILM GRAIN SIMULATION DATA RESEARCH REQUEST
+==========================================
+
+OBJECTIVE:
+Research specific technical data needed to enhance film grain simulation realism without significant performance impact. Focus on black background grain generation (no image content analysis required).
+
+TARGET ENHANCEMENTS:
+===================
+
+1. COLOR CHANNEL CROSSOVER COEFFICIENTS
+   Research needed:
+   - How much grain in red channel affects green/blue channels
+   - Specific crossover percentages for different film types:
+     * Color negative films (Kodak Portra, Fuji Pro series)
+     * Color slide films (Kodak Ektachrome, Fuji Velvia)
+     * Black & white films converted to color
+   - Dye coupling efficiency data
+   
+   Sources to check:
+   - Color science technical papers
+   - Film manufacturer technical datasheets
+   - Color reproduction research papers
+
+2. FILM AGING AND STORAGE EFFECTS
+   Research needed:
+   - How grain characteristics change with film age (0-10 years)
+   - Storage temperature effects on grain (freezer vs room temperature)
+   - Humidity exposure effects on grain structure
+   - Expiration date vs actual usability data
+   
+   Sources to check:
+   - Film preservation research
+   - Photography forums with aged film tests
+   - Kodak/Fuji storage recommendations
+
+3. ENHANCED CLUSTERING ALGORITHMS
+   Research needed:
+   - Fractal dimension values for different film stocks
+   - Clustering patterns in high-speed vs low-speed films
+   - Mathematical models for realistic grain distribution
+   - Spatial correlation coefficients for major film stocks
+   
+   Sources to check:
+   - Image processing research papers
+   - Microscopic analysis of film grain
+   - Statistical analysis of film grain patterns
+
+6. FILM STOCK SPECIFIC DATA
+   Research needed for ALL film stocks currently in the simulation:
+   
+   AGFA FILMS:
+   - Agfa APX 100
+   - Agfa APX 400
+   - Agfa CT Precisa 100
+   - Agfa Optima 100
+   - Agfa Optima 200
+   - Agfa Ultra 100
+   - Agfa Vista 200
+   - Agfa Vista 400
+   
+   FUJI FILMS:
+   - Fuji Acros 100
+   - Fuji Astia 100F
+   - Fuji C200
+   - Fuji Natura 1600
+   - Fuji Neopan 400
+   - Fuji Neopan 1600
+   - Fuji Pro 160C
+   - Fuji Pro 160S
+   - Fuji Pro 400H
+   - Fuji Pro 800Z
+   - Fuji Provia 100F
+   - Fuji Provia 400X
+   - Fuji Sensia 100
+   - Fuji Superia 100
+   - Fuji Superia 200
+   - Fuji Superia 400
+   - Fuji Superia 800
+   - Fuji Superia 1600
+   - Fuji Velvia 50
+   - Fuji Velvia 100
+   
+   ILFORD FILMS:
+   - Ilford Delta 100
+   - Ilford Delta 400
+   - Ilford Delta 3200
+   - Ilford FP4 Plus
+   - Ilford HP5 Plus
+   - Ilford Pan F Plus
+   - Ilford XP2 Super
+   
+   KODAK FILMS:
+   - Kodak Ektar 100
+   - Kodak Gold 200
+   - Kodak Portra 160
+   - Kodak Portra 400
+   - Kodak Portra 800
+   - Kodak T-Max 100
+   - Kodak T-Max 400
+   - Kodak Tri-X 400
+   - Kodak UltraMax 400
+   - Kodak Vision3 50D
+   - Kodak Vision3 250D
+   - Kodak Vision3 500T
+   
+   For EACH film stock above, research:
+   - Color crossover coefficients (for color films) - how grain in one color channel affects others
+   - Aging/storage effects on grain structure (fresh vs 1-10 years old)
+   - Enhanced clustering patterns and fractal dimensions
+   - Mathematical models for realistic grain distribution
+   - Spatial correlation coefficients
+
+DATA FORMAT REQUIREMENTS:
+========================
+
+Please provide data in JSON-compatible format when possible:
+
+{
+  "film_stock_name": {
+    "color_crossover": {
+      "red_to_green": 0.08,
+      "red_to_blue": 0.05,
+      "green_to_red": 0.12,
+      "green_to_blue": 0.15,
+      "blue_to_red": 0.03,
+      "blue_to_green": 0.06
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.1,
+      "contrast_loss_per_year": 0.05,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.4,
+      "spatial_correlation": 0.25,
+      "cluster_probability": 0.15
+    }
+  }
+}
+
+PRIORITY ORDER:
+==============
+1. Color crossover coefficients (medium impact, easy implementation)
+2. Film aging data (interesting for vintage effects)
+3. Enhanced clustering algorithms (subtle but authentic)
+
+PERFORMANCE CONSTRAINTS:
+=======================
+- All effects must add <20% to current rendering time
+- No complex physics simulations
+- Focus on lookup tables and simple mathematical operations
+- Avoid anything requiring iterative calculations or complex algorithms
+
+VALIDATION SOURCES:
+==================
+Please prioritize data from:
+1. Official manufacturer technical publications
+2. Peer-reviewed scientific papers
+3. Professional photography technical resources
+4. Verified darkroom testing results
+5. Reputable photography forums with documented tests
+
+AVOID:
+======
+- Subjective opinions without data
+- Unverified forum posts
+- Marketing materials without technical specs
+- Theoretical models without real-world validation
+
+DELIVERABLE:
+===========
+Comprehensive technical data package that can be directly implemented into film grain simulation software, with source citations for verification.
+
+Thank you for researching this technical data!

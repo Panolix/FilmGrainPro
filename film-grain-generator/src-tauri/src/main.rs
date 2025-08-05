@@ -91,6 +91,37 @@ struct AlgorithmicData {
     fractal_dimension: f32,
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct ColorCrossover {
+    red_to_green: f32,
+    red_to_blue: f32,
+    green_to_red: f32,
+    green_to_blue: f32,
+    blue_to_red: f32,
+    blue_to_green: f32,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct AgingEffects {
+    grain_increase_per_year: f32,
+    contrast_loss_per_year: f32,
+    storage_temp_factor: f32,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct ClusteringData {
+    fractal_dimension: f32,
+    spatial_correlation: f32,
+    cluster_probability: f32,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct EnhancedFilmData {
+    color_crossover: ColorCrossover,
+    aging_effects: AgingEffects,
+    clustering_data: ClusteringData,
+}
+
 #[derive(Debug, Serialize, Deserialize)]
 struct GrainParams {
     film_stock: String,
@@ -101,6 +132,8 @@ struct GrainParams {
     width: u32,
     height: u32,
     background: String,
+    film_age_years: Option<f32>,  // 0-10 years
+    storage_temp: Option<f32>,    // -18 to 25°C
 }
 
 #[derive(Debug, Serialize)]
@@ -130,8 +163,17 @@ fn generate_grain(params: GrainParams) -> Result<GrainResult, String> {
     let stock = film_stocks.get(&params.film_stock)
         .ok_or_else(|| format!("Film stock '{}' not found", params.film_stock))?;
     
-    // Generate grains using advanced algorithms
-    let grains = generate_grains_advanced(stock, &params)?;
+    // Load enhanced film data for realistic effects
+    let enhanced_data = load_enhanced_film_data()?;
+    let enhanced_stock = enhanced_data.get(&params.film_stock);
+    
+    // Generate grains using advanced algorithms with enhancements
+    let mut grains = generate_grains_advanced(stock, &params)?;
+    
+    // Apply enhanced realistic effects
+    if let Some(enhanced) = enhanced_stock {
+        apply_enhanced_effects(&mut grains, &params, enhanced)?;
+    }
     
     // Back to original fast CPU rendering - GPU was causing overhead
     let image_data = render_grains_parallel(&grains, &params, stock)?;
@@ -145,6 +187,13 @@ fn generate_grain(params: GrainParams) -> Result<GrainResult, String> {
         generation_time_ms: generation_time,
         grain_count: grains.len(),
     })
+}
+
+fn load_enhanced_film_data() -> Result<HashMap<String, EnhancedFilmData>, String> {
+    let enhanced_data = include_str!("../../../more.json");
+    let parsed: HashMap<String, EnhancedFilmData> = serde_json::from_str(enhanced_data)
+        .map_err(|e| format!("Failed to parse enhanced film data: {}", e))?;
+    Ok(parsed)
 }
 
 fn load_film_stock_data() -> Result<HashMap<String, FilmStock>, String> {
@@ -626,6 +675,103 @@ fn render_grain_to_pixels(grain: &Grain, stock: &FilmStock, params: &GrainParams
     }
     
     pixels
+}
+
+fn apply_enhanced_effects(grains: &mut Vec<Grain>, params: &GrainParams, enhanced: &EnhancedFilmData) -> Result<(), String> {
+    let mut rng = thread_rng();
+    
+    // Apply film aging effects
+    if let Some(age_years) = params.film_age_years {
+        if age_years > 0.0 {
+            apply_aging_effects(grains, age_years, params.storage_temp.unwrap_or(20.0), &enhanced.aging_effects);
+            println!("🕰️ Applied {:.1} year aging effects", age_years);
+        }
+    }
+    
+    // Apply enhanced clustering based on research data
+    apply_enhanced_clustering_realistic(grains, &mut rng, params.width, params.height, &enhanced.clustering_data);
+    
+    Ok(())
+}
+
+fn apply_aging_effects(grains: &mut Vec<Grain>, age_years: f32, storage_temp: f32, aging: &AgingEffects) {
+    let age_factor = age_years.min(10.0); // Cap at 10 years
+    let temp_factor = (storage_temp - (-18.0)) / 43.0; // Normalize -18°C to 25°C range
+    let temp_effect = temp_factor * aging.storage_temp_factor;
+    
+    // Aged film effects
+    let grain_boost = 1.0 + (age_factor * aging.grain_increase_per_year * (1.0 + temp_effect));
+    let contrast_loss = 1.0 - (age_factor * aging.contrast_loss_per_year * (1.0 + temp_effect));
+    
+    for grain in grains {
+        // More grain with age
+        grain.opacity *= grain_boost;
+        grain.size *= 1.0 + (age_factor * 0.02); // Slightly larger grain
+        
+        // Less contrast with age
+        grain.opacity *= contrast_loss;
+        
+        // More irregular grain shapes with age
+        grain.shape_factor *= 1.0 - (age_factor * 0.01);
+    }
+}
+
+fn apply_enhanced_clustering_realistic(grains: &mut Vec<Grain>, rng: &mut ThreadRng, width: u32, height: u32, clustering: &ClusteringData) {
+    let cluster_count = (grains.len() as f32 * clustering.cluster_probability) as usize;
+    
+    println!("🔬 Applying enhanced clustering: fractal_dim={:.2}, correlation={:.2}, clusters={}", 
+        clustering.fractal_dimension, clustering.spatial_correlation, cluster_count);
+    
+    for _ in 0..cluster_count {
+        if grains.is_empty() { break; }
+        
+        let seed_idx = rng.gen_range(0..grains.len());
+        let seed_grain = grains[seed_idx];
+        
+        // Use fractal dimension to determine cluster characteristics
+        let cluster_size = ((clustering.fractal_dimension - 1.0) * 6.0) as usize; // 0-6 grains
+        let cluster_spread = seed_grain.size * (2.0 - clustering.spatial_correlation) * 3.0;
+        
+        for _ in 0..cluster_size {
+            // Fractal clustering pattern
+            let distance = rng.gen::<f32>().powf(1.0 / clustering.fractal_dimension) * cluster_spread;
+            let angle = rng.gen::<f32>() * 2.0 * std::f32::consts::PI;
+            
+            let x = seed_grain.x + angle.cos() * distance;
+            let y = seed_grain.y + angle.sin() * distance;
+            
+            if x >= 0.0 && y >= 0.0 && x < width as f32 && y < height as f32 {
+                // Correlated grain properties
+                let size_variation = 1.0 + (rng.gen::<f32>() - 0.5) * (1.0 - clustering.spatial_correlation);
+                let opacity_variation = 1.0 + (rng.gen::<f32>() - 0.5) * (1.0 - clustering.spatial_correlation) * 0.5;
+                
+                grains.push(Grain {
+                    x,
+                    y,
+                    size: seed_grain.size * size_variation,
+                    opacity: (seed_grain.opacity * opacity_variation).min(1.0).max(0.1),
+                    shape_factor: seed_grain.shape_factor * rng.gen_range(0.9..1.1),
+                });
+            }
+        }
+    }
+}
+
+fn apply_color_crossover(grain_color: &mut [f32; 3], crossover: &ColorCrossover) {
+    // Skip crossover for B&W films (values = 1.0)
+    if crossover.red_to_green >= 1.0 { return; }
+    
+    let original = *grain_color;
+    
+    // Apply color channel crossover (like real film dye coupling)
+    grain_color[0] += original[1] * crossover.green_to_red + original[2] * crossover.blue_to_red;
+    grain_color[1] += original[0] * crossover.red_to_green + original[2] * crossover.blue_to_green;
+    grain_color[2] += original[0] * crossover.red_to_blue + original[1] * crossover.green_to_blue;
+    
+    // Normalize to prevent oversaturation
+    for channel in grain_color {
+        *channel = channel.min(1.0);
+    }
 }
 
 fn blend_pixel(base_pixel: &mut Rgba<u8>, new_pixel: Rgba<u8>) {
