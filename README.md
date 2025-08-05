@@ -1,6 +1,6 @@
 # 🎬 Film Grain Generator
 
-A professional desktop application for generating **authentic film grain overlays** with scientifically accurate characteristics based on 40+ real film stocks.
+A professional desktop application for generating **authentic film grain overlays** with scientifically accurate characteristics based on exactly 35 real film stocks.
 
 ![Platform Support](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
@@ -9,22 +9,22 @@ A professional desktop application for generating **authentic film grain overlay
 ## ✨ Features
 
 ### 🎞️ **Authentic Film Simulation**
-- **40+ Real Film Stocks**: Kodak, Fuji, Ilford, Agfa, and specialty cinema films
+- **35 Real Film Stocks**: Kodak, Fuji, Ilford, Agfa, and specialty cinema films
 - **Scientifically Accurate**: Based on actual film stock technical specifications
 - **Realistic Grain Characteristics**: Authentic sizes, shapes, densities, and clustering patterns
 - **Film-Specific Colors**: Each stock has its unique grain color signature
 
 ### ⚡ **High Performance**
 - **Multi-threaded Rendering**: Utilizes all CPU cores for fast generation
-- **Adjustable Density**: 10K-50K grains with real-time performance controls
+- **Adjustable Density**: 10K-200K grains (0.5x-5.0x multiplier) with real-time performance controls
 - **Instant Preview**: Real-time slider updates with optimized rendering
 - **Professional Quality**: Up to 2048x2048 resolution output
 
 ### 🎨 **Professional Controls**
-- **Grain Intensity**: 10-200% effect strength
+- **Exposure Compensation**: -2 to +2 stops (simulates over/under exposure)
 - **Grain Size**: 0.2x-5.0x size multiplier  
 - **Grain Opacity**: 20-100% visibility control
-- **Grain Density**: 10K-50K grains (film stock dependent)
+- **Grain Density**: 0.5x-5.0x multiplier (film stock dependent)
 - **Canvas Size**: 512-2048px output resolution
 
 ### 💾 **Export Options**
