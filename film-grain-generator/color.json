@@ -1,29 +1,16 @@
 {
-  "Kodak Tri-X 400": {
+  "Fuji Neopan 400": {
     "base_grain_color": {
-      "r": 175,
-      "g": 175,
-      "b": 175
+      "r": 174,
+      "g": 174,
+      "b": 174
     },
     "color_variation": {
       "r": 12,
       "g": 12,
       "b": 12
     },
-    "color_notes": "Neutral gray with slight warmth, classic silver halide grain structure"
-  },
-  "Kodak T-Max 400": {
-    "base_grain_color": {
-      "r": 180,
-      "g": 180,
-      "b": 180
-    },
-    "color_variation": {
-      "r": 8,
-      "g": 8,
-      "b": 8
-    },
-    "color_notes": "Very neutral gray, T-grain emulsion provides cleaner look"
+    "color_notes": "Neutral gray with moderate grain"
   },
   "Kodak T-Max 100": {
     "base_grain_color": {
@@ -38,96 +25,18 @@
     },
     "color_notes": "Fine neutral gray grain, excellent sharpness"
   },
-  "Kodak T-Max 3200": {
+  "Fuji Superia 400": {
     "base_grain_color": {
       "r": 170,
-      "g": 170,
-      "b": 170
-    },
-    "color_variation": {
-      "r": 15,
-      "g": 15,
-      "b": 15
-    },
-    "color_notes": "Neutral gray with larger grain structure for high speed"
-  },
-  "Kodak Plus-X 125": {
-    "base_grain_color": {
-      "r": 178,
-      "g": 178,
-      "b": 178
-    },
-    "color_variation": {
-      "r": 10,
-      "g": 10,
-      "b": 10
-    },
-    "color_notes": "Classic neutral gray with fine grain"
-  },
-  "Kodak Technical Pan": {
-    "base_grain_color": {
-      "r": 188,
-      "g": 188,
-      "b": 188
-    },
-    "color_variation": {
-      "r": 5,
-      "g": 5,
-      "b": 5
-    },
-    "color_notes": "Extremely fine neutral gray grain"
-  },
-  "Ilford HP5 Plus": {
-    "base_grain_color": {
-      "r": 172,
-      "g": 172,
+      "g": 182,
       "b": 172
     },
     "color_variation": {
-      "r": 14,
-      "g": 14,
-      "b": 14
+      "r": 12,
+      "g": 16,
+      "b": 12
     },
-    "color_notes": "Neutral gray with characteristic larger grain structure"
-  },
-  "Ilford FP4 Plus": {
-    "base_grain_color": {
-      "r": 182,
-      "g": 182,
-      "b": 182
-    },
-    "color_variation": {
-      "r": 8,
-      "g": 8,
-      "b": 8
-    },
-    "color_notes": "Fine neutral gray grain, excellent detail"
-  },
-  "Ilford Delta 100": {
-    "base_grain_color": {
-      "r": 184,
-      "g": 184,
-      "b": 184
-    },
-    "color_variation": {
-      "r": 7,
-      "g": 7,
-      "b": 7
-    },
-    "color_notes": "Core-shell crystal technology, very fine neutral grain"
-  },
-  "Ilford Delta 400": {
-    "base_grain_color": {
-      "r": 176,
-      "g": 176,
-      "b": 176
-    },
-    "color_variation": {
-      "r": 10,
-      "g": 10,
-      "b": 10
-    },
-    "color_notes": "Tabular grain emulsion, smooth neutral gray"
+    "color_notes": "Green bias more pronounced in shadows"
   },
   "Ilford Delta 3200": {
     "base_grain_color": {
@@ -142,7 +51,7 @@
     },
     "color_notes": "High speed with compact grain for the ISO, neutral gray"
   },
-  "Ilford Pan F Plus 50": {
+  "Kodak Vision3 50D": {
     "base_grain_color": {
       "r": 186,
       "g": 186,
@@ -153,228 +62,20 @@
       "g": 5,
       "b": 5
     },
-    "color_notes": "Extremely fine grain, neutral gray with high contrast"
+    "color_notes": "World's finest grain, neutral color balance"
   },
-  "Fuji Acros 100": {
+  "Kodak Tri-X 400": {
     "base_grain_color": {
-      "r": 183,
-      "g": 183,
-      "b": 183
-    },
-    "color_variation": {
-      "r": 6,
-      "g": 6,
-      "b": 6
-    },
-    "color_notes": "Very fine neutral gray grain with excellent sharpness"
-  },
-  "Fuji Acros II 100": {
-    "base_grain_color": {
-      "r": 184,
-      "g": 184,
-      "b": 184
-    },
-    "color_variation": {
-      "r": 6,
-      "g": 6,
-      "b": 6
-    },
-    "color_notes": "Improved Acros formula, fine neutral gray"
-  },
-  "Fuji Neopan 400": {
-    "base_grain_color": {
-      "r": 174,
-      "g": 174,
-      "b": 174
-    },
-    "color_variation": {
-      "r": 12,
-      "g": 12,
-      "b": 12
-    },
-    "color_notes": "Neutral gray with moderate grain"
-  },
-  "Fuji Neopan 1600": {
-    "base_grain_color": {
-      "r": 169,
-      "g": 169,
-      "b": 169
-    },
-    "color_variation": {
-      "r": 16,
-      "g": 16,
-      "b": 16
-    },
-    "color_notes": "High speed neutral gray grain"
-  },
-  "Kodak Portra 160": {
-    "base_grain_color": {
-      "r": 182,
-      "g": 178,
+      "r": 175,
+      "g": 175,
       "b": 175
     },
     "color_variation": {
-      "r": 8,
-      "g": 10,
-      "b": 8
-    },
-    "color_notes": "Slight magenta bias with warm undertones, fine grain"
-  },
-  "Kodak Portra 400": {
-    "base_grain_color": {
-      "r": 180,
-      "g": 175,
-      "b": 172
-    },
-    "color_variation": {
-      "r": 10,
-      "g": 12,
-      "b": 10
-    },
-    "color_notes": "Slight magenta bias, world's finest grain at 400 speed"
-  },
-  "Kodak Portra 800": {
-    "base_grain_color": {
-      "r": 178,
-      "g": 172,
-      "b": 168
-    },
-    "color_variation": {
       "r": 12,
-      "g": 15,
+      "g": 12,
       "b": 12
     },
-    "color_notes": "Magenta bias with higher saturation, larger grain structure"
-  },
-  "Kodak Ektar 100": {
-    "base_grain_color": {
-      "r": 185,
-      "g": 182,
-      "b": 180
-    },
-    "color_variation": {
-      "r": 6,
-      "g": 8,
-      "b": 6
-    },
-    "color_notes": "Saturated neutral with fine grain structure"
-  },
-  "Kodak Gold 200": {
-    "base_grain_color": {
-      "r": 188,
-      "g": 180,
-      "b": 165
-    },
-    "color_variation": {
-      "r": 12,
-      "g": 15,
-      "b": 12
-    },
-    "color_notes": "Warm yellow bias, consumer film characteristic"
-  },
-  "Kodak UltraMax 400": {
-    "base_grain_color": {
-      "r": 185,
-      "g": 175,
-      "b": 160
-    },
-    "color_variation": {
-      "r": 14,
-      "g": 18,
-      "b": 14
-    },
-    "color_notes": "Strong warm yellow bias, noticeable grain"
-  },
-  "Fuji Pro 400H": {
-    "base_grain_color": {
-      "r": 172,
-      "g": 185,
-      "b": 175
-    },
-    "color_variation": {
-      "r": 8,
-      "g": 12,
-      "b": 8
-    },
-    "color_notes": "Characteristic green bias from Fuji color science"
-  },
-  "Fuji Pro 160S": {
-    "base_grain_color": {
-      "r": 175,
-      "g": 188,
-      "b": 178
-    },
-    "color_variation": {
-      "r": 7,
-      "g": 10,
-      "b": 7
-    },
-    "color_notes": "Fine grain with subtle green bias"
-  },
-  "Fuji Superia 400": {
-    "base_grain_color": {
-      "r": 170,
-      "g": 182,
-      "b": 172
-    },
-    "color_variation": {
-      "r": 12,
-      "g": 16,
-      "b": 12
-    },
-    "color_notes": "Green bias more pronounced in shadows"
-  },
-  "Fuji C200": {
-    "base_grain_color": {
-      "r": 174,
-      "g": 186,
-      "b": 176
-    },
-    "color_variation": {
-      "r": 10,
-      "g": 14,
-      "b": 10
-    },
-    "color_notes": "Budget film with characteristic Fuji green tint"
-  },
-  "Fuji Natura 1600": {
-    "base_grain_color": {
-      "r": 168,
-      "g": 180,
-      "b": 170
-    },
-    "color_variation": {
-      "r": 16,
-      "g": 20,
-      "b": 16
-    },
-    "color_notes": "High speed with green bias, larger grain"
-  },
-  "Agfa Vista 200": {
-    "base_grain_color": {
-      "r": 175,
-      "g": 180,
-      "b": 185
-    },
-    "color_variation": {
-      "r": 10,
-      "g": 12,
-      "b": 14
-    },
-    "color_notes": "Slight cyan bias characteristic of Agfa films"
-  },
-  "Agfa Vista 400": {
-    "base_grain_color": {
-      "r": 172,
-      "g": 176,
-      "b": 182
-    },
-    "color_variation": {
-      "r": 12,
-      "g": 14,
-      "b": 16
-    },
-    "color_notes": "Cyan bias with moderate grain"
+    "color_notes": "Neutral gray with slight warmth, classic silver halide grain structure"
   },
   "Kodak Ektachrome E100": {
     "base_grain_color": {
@@ -389,19 +90,6 @@
     },
     "color_notes": "Neutral to slightly cool, extremely fine grain"
   },
-  "Kodak Elite Chrome 100": {
-    "base_grain_color": {
-      "r": 184,
-      "g": 184,
-      "b": 184
-    },
-    "color_variation": {
-      "r": 6,
-      "g": 6,
-      "b": 6
-    },
-    "color_notes": "Neutral color balance with fine grain"
-  },
   "Fuji Velvia 50": {
     "base_grain_color": {
       "r": 190,
@@ -415,44 +103,57 @@
     },
     "color_notes": "Saturated warm tones, micro-fine grain"
   },
-  "Fuji Velvia 100": {
+  "Fuji Acros 100": {
     "base_grain_color": {
-      "r": 188,
-      "g": 178,
-      "b": 168
-    },
-    "color_variation": {
-      "r": 7,
-      "g": 9,
-      "b": 7
-    },
-    "color_notes": "Saturated warm similar to Velvia 50 but slightly less intense"
-  },
-  "Fuji Provia 100F": {
-    "base_grain_color": {
-      "r": 182,
-      "g": 185,
-      "b": 190
+      "r": 183,
+      "g": 183,
+      "b": 183
     },
     "color_variation": {
       "r": 6,
       "g": 6,
-      "b": 8
+      "b": 6
     },
-    "color_notes": "Neutral cool color balance, excellent grain"
+    "color_notes": "Very fine neutral gray grain with excellent sharpness"
   },
-  "Fuji Provia 400X": {
+  "Ilford Delta 400": {
     "base_grain_color": {
-      "r": 180,
-      "g": 182,
-      "b": 188
+      "r": 176,
+      "g": 176,
+      "b": 176
     },
     "color_variation": {
-      "r": 8,
-      "g": 8,
+      "r": 10,
+      "g": 10,
       "b": 10
     },
-    "color_notes": "Neutral cool with fine grain for 400 speed"
+    "color_notes": "Tabular grain emulsion, smooth neutral gray"
+  },
+  "Agfa Vista 200": {
+    "base_grain_color": {
+      "r": 175,
+      "g": 180,
+      "b": 185
+    },
+    "color_variation": {
+      "r": 10,
+      "g": 12,
+      "b": 14
+    },
+    "color_notes": "Slight cyan bias characteristic of Agfa films"
+  },
+  "Ilford Delta 100": {
+    "base_grain_color": {
+      "r": 184,
+      "g": 184,
+      "b": 184
+    },
+    "color_variation": {
+      "r": 7,
+      "g": 7,
+      "b": 7
+    },
+    "color_notes": "Core-shell crystal technology, very fine neutral grain"
   },
   "Agfa CT Precisa 100": {
     "base_grain_color": {
@@ -467,44 +168,44 @@
     },
     "color_notes": "Neutral color balance, fine grain"
   },
-  "Kodak Vision3 50D": {
+  "Fuji C200": {
     "base_grain_color": {
-      "r": 186,
+      "r": 174,
       "g": 186,
-      "b": 186
+      "b": 176
     },
     "color_variation": {
-      "r": 5,
-      "g": 5,
-      "b": 5
+      "r": 10,
+      "g": 14,
+      "b": 10
     },
-    "color_notes": "World's finest grain, neutral color balance"
+    "color_notes": "Budget film with characteristic Fuji green tint"
   },
-  "Kodak Vision3 200T": {
+  "Kodak Portra 800": {
     "base_grain_color": {
-      "r": 185,
-      "g": 180,
-      "b": 165
+      "r": 178,
+      "g": 172,
+      "b": 168
+    },
+    "color_variation": {
+      "r": 12,
+      "g": 15,
+      "b": 12
+    },
+    "color_notes": "Magenta bias with higher saturation, larger grain structure"
+  },
+  "Kodak Portra 160": {
+    "base_grain_color": {
+      "r": 182,
+      "g": 178,
+      "b": 175
     },
     "color_variation": {
       "r": 8,
       "g": 10,
       "b": 8
     },
-    "color_notes": "Tungsten balanced with warm undertones"
-  },
-  "Kodak Vision3 500T": {
-    "base_grain_color": {
-      "r": 182,
-      "g": 175,
-      "b": 158
-    },
-    "color_variation": {
-      "r": 10,
-      "g": 12,
-      "b": 10
-    },
-    "color_notes": "Tungsten balanced, fine grain for high speed"
+    "color_notes": "Slight magenta bias with warm undertones, fine grain"
   },
   "CineStill 50D": {
     "base_grain_color": {
@@ -531,5 +232,226 @@
       "b": 12
     },
     "color_notes": "Tungsten balanced with characteristic halation effects"
+  },
+  "Kodak Gold 200": {
+    "base_grain_color": {
+      "r": 188,
+      "g": 180,
+      "b": 165
+    },
+    "color_variation": {
+      "r": 12,
+      "g": 15,
+      "b": 12
+    },
+    "color_notes": "Warm yellow bias, consumer film characteristic"
+  },
+  "Fuji Neopan 1600": {
+    "base_grain_color": {
+      "r": 169,
+      "g": 169,
+      "b": 169
+    },
+    "color_variation": {
+      "r": 16,
+      "g": 16,
+      "b": 16
+    },
+    "color_notes": "High speed neutral gray grain"
+  },
+  "Fuji Provia 100F": {
+    "base_grain_color": {
+      "r": 182,
+      "g": 185,
+      "b": 190
+    },
+    "color_variation": {
+      "r": 6,
+      "g": 6,
+      "b": 8
+    },
+    "color_notes": "Neutral cool color balance, excellent grain"
+  },
+  "Fuji Pro 400H": {
+    "base_grain_color": {
+      "r": 172,
+      "g": 185,
+      "b": 175
+    },
+    "color_variation": {
+      "r": 8,
+      "g": 12,
+      "b": 8
+    },
+    "color_notes": "Characteristic green bias from Fuji color science"
+  },
+  "Kodak Portra 400": {
+    "base_grain_color": {
+      "r": 180,
+      "g": 175,
+      "b": 172
+    },
+    "color_variation": {
+      "r": 10,
+      "g": 12,
+      "b": 10
+    },
+    "color_notes": "Slight magenta bias, world's finest grain at 400 speed"
+  },
+  "Kodak Ektar 100": {
+    "base_grain_color": {
+      "r": 185,
+      "g": 182,
+      "b": 180
+    },
+    "color_variation": {
+      "r": 6,
+      "g": 8,
+      "b": 6
+    },
+    "color_notes": "Saturated neutral with fine grain structure"
+  },
+  "Kodak Vision3 500T": {
+    "base_grain_color": {
+      "r": 182,
+      "g": 175,
+      "b": 158
+    },
+    "color_variation": {
+      "r": 10,
+      "g": 12,
+      "b": 10
+    },
+    "color_notes": "Tungsten balanced, fine grain for high speed"
+  },
+  "Fuji Provia 400X": {
+    "base_grain_color": {
+      "r": 180,
+      "g": 182,
+      "b": 188
+    },
+    "color_variation": {
+      "r": 8,
+      "g": 8,
+      "b": 10
+    },
+    "color_notes": "Neutral cool with fine grain for 400 speed"
+  },
+  "Kodak T-Max 400": {
+    "base_grain_color": {
+      "r": 180,
+      "g": 180,
+      "b": 180
+    },
+    "color_variation": {
+      "r": 8,
+      "g": 8,
+      "b": 8
+    },
+    "color_notes": "Very neutral gray, T-grain emulsion provides cleaner look"
+  },
+  "Ilford HP5 Plus": {
+    "base_grain_color": {
+      "r": 172,
+      "g": 172,
+      "b": 172
+    },
+    "color_variation": {
+      "r": 14,
+      "g": 14,
+      "b": 14
+    },
+    "color_notes": "Neutral gray with characteristic larger grain structure"
+  },
+  "Fuji Velvia 100": {
+    "base_grain_color": {
+      "r": 188,
+      "g": 178,
+      "b": 168
+    },
+    "color_variation": {
+      "r": 7,
+      "g": 9,
+      "b": 7
+    },
+    "color_notes": "Saturated warm similar to Velvia 50 but slightly less intense"
+  },
+  "Fuji Pro 160S": {
+    "base_grain_color": {
+      "r": 175,
+      "g": 188,
+      "b": 178
+    },
+    "color_variation": {
+      "r": 7,
+      "g": 10,
+      "b": 7
+    },
+    "color_notes": "Fine grain with subtle green bias"
+  },
+  "Kodak UltraMax 400": {
+    "base_grain_color": {
+      "r": 185,
+      "g": 175,
+      "b": 160
+    },
+    "color_variation": {
+      "r": 14,
+      "g": 18,
+      "b": 14
+    },
+    "color_notes": "Strong warm yellow bias, noticeable grain"
+  },
+  "Agfa Vista 400": {
+    "base_grain_color": {
+      "r": 172,
+      "g": 176,
+      "b": 182
+    },
+    "color_variation": {
+      "r": 12,
+      "g": 14,
+      "b": 16
+    },
+    "color_notes": "Cyan bias with moderate grain"
+  },
+  "Fuji Natura 1600": {
+    "base_grain_color": {
+      "r": 168,
+      "g": 180,
+      "b": 170
+    },
+    "color_variation": {
+      "r": 16,
+      "g": 20,
+      "b": 16
+    },
+    "color_notes": "High speed with green bias, larger grain"
+  },
+  "Ilford FP4 Plus": {
+    "base_grain_color": {
+      "r": 182,
+      "g": 182,
+      "b": 182
+    },
+    "color_variation": {
+      "r": 8,
+      "g": 8,
+      "b": 8
+    },
+    "color_notes": "Fine neutral gray grain, excellent detail"
+  },
+  "Ilford Pan F Plus 50": {
+    "base_grain_color": {
+      "r": 186,
+      "g": 186,
+      "b": 186
+    },
+    "color_variation": {
+      "r": 5,
+      "g": 5,
+      "b": 5
+    },
+    "color_notes": "Extremely fine grain, neutral gray with high contrast"
   }
 }

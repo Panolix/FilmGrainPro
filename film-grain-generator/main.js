@@ -112,7 +112,7 @@ class FilmGrainGenerator {
         // Sliders with real-time updates
         const sliders = [
             'grainIntensity', 'grainSize', 'contrast', 'grainDensity',
-            'canvasWidth', 'canvasHeight', 'filmAge', 'storageTemp'
+            'canvasWidth', 'canvasHeight', 'filmAge'
         ];
         
         
@@ -145,6 +145,12 @@ class FilmGrainGenerator {
                     this.updateTimeout = setTimeout(() => this.regenerateGrain(), 300);
                 });
             }
+        });
+        
+        // Storage type selector
+        const storageType = document.getElementById('storageType');
+        storageType.addEventListener('change', () => {
+            this.regenerateGrain();
         });
         
         // Buttons
@@ -223,7 +229,7 @@ class FilmGrainGenerator {
             height: parseInt(document.getElementById('canvasHeight').value),
             background: 'transparent',
             film_age_years: parseFloat(document.getElementById('filmAge')?.value || 0),
-            storage_temp: parseFloat(document.getElementById('storageTemp')?.value || 20)
+            storage_temp: parseFloat(document.getElementById('storageType')?.value || 20)
         };
     }
     

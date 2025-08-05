@@ -190,15 +190,22 @@ fn generate_grain(params: GrainParams) -> Result<GrainResult, String> {
 }
 
 fn load_enhanced_film_data() -> Result<HashMap<String, EnhancedFilmData>, String> {
-    let enhanced_data = include_str!("../../../more.json");
+    let enhanced_data = include_str!("../../more.json");
     let parsed: HashMap<String, EnhancedFilmData> = serde_json::from_str(enhanced_data)
         .map_err(|e| format!("Failed to parse enhanced film data: {}", e))?;
     Ok(parsed)
 }
 
+fn load_image_dependent_data() -> Result<HashMap<String, serde_json::Value>, String> {
+    let image_data = include_str!("../../imagecolors.json");
+    let parsed: HashMap<String, serde_json::Value> = serde_json::from_str(image_data)
+        .map_err(|e| format!("Failed to parse imagecolors.json: {}", e))?;
+    Ok(parsed)
+}
+
 fn load_film_stock_data() -> Result<HashMap<String, FilmStock>, String> {
     // Load comprehensive film stock data
-    let json_data = include_str!("../../../fixed.json");
+    let json_data = include_str!("../../fixed.json");
     let stocks_json: serde_json::Value = serde_json::from_str(json_data)
         .map_err(|e| format!("Failed to parse fixed.json: {}", e))?;
     
@@ -336,13 +343,13 @@ fn load_film_stock_data() -> Result<HashMap<String, FilmStock>, String> {
     stocks.insert("Kodak Ektar 100".to_string(), ektar100);
     
     let mut fuji400h = tri_x.clone();
-    fuji400h.basic_info.name = "Fujifilm Pro 400H".to_string();
+    fuji400h.basic_info.name = "Fuji Pro 400H".to_string();
     fuji400h.basic_info.film_type = "color".to_string();
     fuji400h.size_metrics.density_per_mm2 = 850000;
     fuji400h.color_properties.rgb_ranges = vec![
         RgbRange { r: vec![210, 250], g: vec![220, 255], b: vec![200, 240], weight: 1.0 }
     ];
-    stocks.insert("Fujifilm Pro 400H".to_string(), fuji400h);
+    stocks.insert("Fuji Pro 400H".to_string(), fuji400h);
     
     let mut cinestill800t = tri_x.clone();
     cinestill800t.basic_info.name = "CineStill 800T".to_string();
@@ -925,7 +932,7 @@ async fn save_grain_image(data: Vec<u8>, width: u32, height: u32, path: String) 
 
 fn get_film_grain_color(film_name: &str) -> (u8, u8, u8) {
     // Load color data from color.json
-    let color_data = include_str!("../../../color.json");
+    let color_data = include_str!("../../color.json");
     if let Ok(colors_json) = serde_json::from_str::<serde_json::Value>(color_data) {
         if let Some(film_color) = colors_json.get(film_name) {
             if let Some(base_color) = film_color.get("base_grain_color") {
@@ -1131,7 +1138,7 @@ struct FilmInfo {
 #[tauri::command]
 async fn get_film_info(film_name: String) -> Result<FilmInfo, String> {
     // Load comprehensive film stock data to get film info
-    let json_data = include_str!("../../../fixed.json");
+    let json_data = include_str!("../../fixed.json");
     let stocks_json: serde_json::Value = serde_json::from_str(json_data)
         .map_err(|e| format!("Failed to parse fixed.json: {}", e))?;
     
