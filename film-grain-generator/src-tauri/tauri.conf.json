@@ -15,8 +15,7 @@
         "width": 1400,
         "height": 900,
         "resizable": true,
-        "fullscreen": false,
-        "icon": "icons/icon.png"
+        "fullscreen": false
       }
     ],
     "security": {
@@ -25,48 +24,7 @@
   },
   "bundle": {
     "active": true,
-    "targets": "all",
-    "identifier": "com.filmgrain.generator",
-    "publisher": "Film Grain Pro",
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
-    ],
-    "resources": [],
-    "externalBin": [],
-    "copyright": "Copyright © 2024 Film Grain Pro",
-    "category": "Photography",
-    "shortDescription": "Professional film grain simulation tool",
-    "longDescription": "Film Grain Generator is a professional tool for simulating authentic film grain from 35+ real film stocks with scientifically accurate grain characteristics.",
-    "macOS": {
-      "frameworks": [],
-      "minimumSystemVersion": "10.13",
-      "exceptionDomain": "",
-      "signingIdentity": null,
-      "providerShortName": null,
-      "entitlements": null
-    },
-    "windows": {
-      "certificateThumbprint": null,
-      "digestAlgorithm": "sha256",
-      "timestampUrl": "",
-      "tsp": false,
-      "wix": {
-        "language": "en-US",
-        "template": "main.wxs"
-      },
-      "nsis": {
-        "displayLanguageSelector": false
-      }
-    },
-    "linux": {
-      "deb": {
-        "depends": []
-      }
-    }
+    "targets": "all"
   },
   "plugins": {
     "shell": {
