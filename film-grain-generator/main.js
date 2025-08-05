@@ -40,6 +40,9 @@ class FilmGrainGenerator {
                 filmStockSelect.appendChild(optgroup);
             });
             
+            // Load GPU info and display it
+            this.loadGpuInfo();
+            
             // Generate initial grain after loading stocks
             this.updateFilmInfo();
             this.generateInitialGrain();
@@ -48,6 +51,25 @@ class FilmGrainGenerator {
             console.error('Failed to load film stocks:', error);
             // Fall back to generating with default stock
             this.generateInitialGrain();
+        }
+    }
+
+    async loadGpuInfo() {
+        try {
+            const gpuInfo = await invoke('get_gpu_info');
+            const infoElement = document.getElementById('generationInfo');
+            if (infoElement) {
+                // Add GPU info to the generation info display
+                const gpuInfoDiv = document.createElement('div');
+                gpuInfoDiv.style.fontSize = '12px';
+                gpuInfoDiv.style.color = '#888';
+                gpuInfoDiv.style.marginTop = '5px';
+                gpuInfoDiv.textContent = `🚀 ${gpuInfo}`;
+                infoElement.appendChild(gpuInfoDiv);
+            }
+            console.log('GPU Info:', gpuInfo);
+        } catch (error) {
+            console.error('Failed to get GPU info:', error);
         }
     }
     
@@ -246,7 +268,13 @@ class FilmGrainGenerator {
     
     updatePerformanceInfo(result) {
         const info = document.getElementById('performanceInfo');
-        info.textContent = `Generation time: ${result.generation_time_ms}ms | Grains: ${result.grain_count.toLocaleString()}`;
+        info.innerHTML = `Generation time: ${result.generation_time_ms}ms | Grains: ${result.grain_count.toLocaleString()}`;
+        
+        // Add performance indicator
+        const perfIndicator = result.generation_time_ms < 100 ? '🚀 GPU' : 
+                             result.generation_time_ms < 500 ? '⚡ Fast' : 
+                             result.generation_time_ms < 2000 ? '🔄 CPU' : '🐌 Slow';
+        info.innerHTML += ` | ${perfIndicator}`;
     }
     
     uploadImage() {
