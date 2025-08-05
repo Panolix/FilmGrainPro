@@ -6,6 +6,8 @@ class FilmGrainGenerator {
         this.ctx = this.canvas.getContext('2d');
         this.currentImageData = null;
         this.uploadedImage = null;
+        this.uploadedImageWidth = 0;
+        this.uploadedImageHeight = 0;
         this.updateTimeout = null;
         
         this.initializeControls();
@@ -175,6 +177,46 @@ class FilmGrainGenerator {
         });
     }
     
+    autoResizeCanvasToImage(imageWidth, imageHeight) {
+        // Calculate optimal canvas size while maintaining aspect ratio
+        const maxCanvasSize = 2048; // Maximum dimension
+        const minCanvasSize = 512;  // Minimum dimension
+        
+        const aspectRatio = imageWidth / imageHeight;
+        let newWidth, newHeight;
+        
+        if (imageWidth > imageHeight) {
+            // Landscape orientation
+            newWidth = Math.min(imageWidth, maxCanvasSize);
+            newHeight = Math.round(newWidth / aspectRatio);
+        } else {
+            // Portrait orientation
+            newHeight = Math.min(imageHeight, maxCanvasSize);
+            newWidth = Math.round(newHeight * aspectRatio);
+        }
+        
+        // Ensure minimum size
+        if (newWidth < minCanvasSize) {
+            newWidth = minCanvasSize;
+            newHeight = Math.round(newWidth / aspectRatio);
+        }
+        if (newHeight < minCanvasSize) {
+            newHeight = minCanvasSize;
+            newWidth = Math.round(newHeight * aspectRatio);
+        }
+        
+        // Update the canvas size controls
+        document.getElementById('canvasWidth').value = newWidth;
+        document.getElementById('canvasHeight').value = newHeight;
+        document.getElementById('canvasWidthValue').textContent = newWidth;
+        document.getElementById('canvasHeightValue').textContent = newHeight;
+        
+        console.log(`📐 Auto-resized canvas: ${imageWidth}×${imageHeight} → ${newWidth}×${newHeight} (${aspectRatio.toFixed(2)}:1)`);
+        
+        // Trigger canvas update
+        this.updateCanvasSize();
+    }
+    
     updateCanvasSize() {
         const width = parseInt(document.getElementById('canvasWidth').value);
         const height = parseInt(document.getElementById('canvasHeight').value);
@@ -302,6 +344,11 @@ class FilmGrainGenerator {
                 // Store the image element for later use
                 this.uploadedImageElement = img;
                 this.uploadedImage = true; // Flag to indicate image is loaded
+                
+                // Store image dimensions and auto-resize canvas
+                this.uploadedImageWidth = img.naturalWidth;
+                this.uploadedImageHeight = img.naturalHeight;
+                this.autoResizeCanvasToImage(img.naturalWidth, img.naturalHeight);
                 
                 // Update canvas to show the image immediately
                 const params = this.getGrainParameters();

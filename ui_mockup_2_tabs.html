@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI Mockup 2 - Tabbed Layout</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        .app-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: #000;
+            border-bottom: 1px solid #333;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .quick-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .quick-actions button {
+            background: #fff;
+            color: #000;
+            border: 1px solid #ddd;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .quick-actions button:hover {
+            background: #f0f0f0;
+            border-color: #ccc;
+        }
+        
+        .main-area {
+            flex: 1;
+            display: flex;
+        }
+        
+        .canvas-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        
+        .controls-panel {
+            width: 360px;
+            background: #111;
+            border-left: 1px solid #333;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #333;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 12px 16px;
+            background: transparent;
+            border: none;
+            color: #666;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .tab.active {
+            color: #fff;
+            background: #222;
+            border-bottom: 2px solid #fff;
+        }
+        
+        .tab-content {
+            padding: 20px;
+            height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+        
+        .tab-panel {
+            display: none;
+        }
+        
+        .tab-panel.active {
+            display: block;
+        }
+        
+        .control-group {
+            margin-bottom: 20px;
+        }
+        
+        .control-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .control-row label {
+            min-width: 80px;
+            font-size: 13px;
+            color: #ccc;
+        }
+        
+        .control-row input[type="range"] {
+            flex: 1;
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        /* Add snap point indicators */
+        .control-row input[type="range"].snap-slider {
+            background: linear-gradient(to right, 
+                #333 0%, 
+                #333 calc(var(--snap-position) - 1%), 
+                #666 calc(var(--snap-position) - 1%), 
+                #666 calc(var(--snap-position) + 1%), 
+                #333 calc(var(--snap-position) + 1%), 
+                #333 100%);
+        }
+        
+        #grainIntensity.snap-slider {
+            --snap-position: 47.4%; /* 100 out of 10-200 range */
+        }
+        
+        #grainSize.snap-slider {
+            --snap-position: 16.7%; /* 1.0 out of 0.2-5.0 range */
+        }
+        
+        .control-row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #000;
+        }
+        
+        .control-row input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #000;
+        }
+        
+        .control-row .value {
+            min-width: 50px;
+            font-size: 12px;
+            color: #888;
+            text-align: right;
+        }
+        
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 13px;
+        }
+        
+        .film-info {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 12px;
+            margin: 12px 0;
+        }
+        
+        .film-info-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            font-size: 12px;
+        }
+        
+        .info-label {
+            color: #888;
+        }
+        
+        .info-value {
+            color: #ccc;
+            font-weight: 500;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            color: #000;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 8px;
+        }
+        
+        button:hover {
+            background: #f0f0f0;
+            border-color: #ccc;
+        }
+        
+        .canvas-container {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+        }
+        
+        #grainCanvas {
+            border-radius: 4px;
+            border: 1px solid #333;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+        }
+        
+        .performance-info {
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+            margin-top: 16px;
+            padding: 8px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="header">
+            <div class="logo">🎬 Film Grain Generator</div>
+            <div class="quick-actions">
+                <button id="uploadBtn">📁 Upload Image</button>
+                <button id="regenerateBtn">🔄 Generate</button>
+            </div>
+        </div>
+        
+        <div class="main-area">
+            <div class="canvas-area">
+                <div class="canvas-container">
+                    <canvas id="grainCanvas" width="1024" height="1024"></canvas>
+                </div>
+            </div>
+            
+            <div class="controls-panel">
+                <div class="tabs">
+                    <button class="tab active" onclick="showTab('basic')">Basic</button>
+                    <button class="tab" onclick="showTab('advanced')">Advanced</button>
+                    <button class="tab" onclick="showTab('export')">Export</button>
+                </div>
+                
+                <div class="tab-content">
+                    <div class="tab-panel active" id="basic-panel">
+                        <div class="control-group">
+                            <label>Film Stock</label>
+                            <select id="filmStock">
+                                <optgroup label="Black & White Films">
+                                    <option>Kodak Tri-X 400</option>
+                                    <option>Kodak T-Max 400</option>
+                                    <option>Kodak T-Max 100</option>
+                                    <option>Ilford HP5 Plus</option>
+                                    <option>Ilford Delta 3200</option>
+                                </optgroup>
+                                <optgroup label="Color Negative Films">
+                                    <option>Kodak Portra 400</option>
+                                    <option>Kodak Portra 800</option>
+                                    <option>Kodak Ektar 100</option>
+                                    <option>Fuji Pro 400H</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        
+                        <div class="film-info" id="filmInfo">
+                            <div class="film-info-title">Kodak Tri-X 400</div>
+                            <div class="film-info-details">
+                                <div class="info-row">
+                                    <span class="info-label">Type:</span>
+                                    <span class="info-value">Black & White Negative</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">ISO Speed:</span>
+                                    <span class="info-value">400</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Manufacturer:</span>
+                                    <span class="info-value">Kodak</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Format:</span>
+                                    <span class="info-value">35mm, 120, 4x5</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Grain Size:</span>
+                                    <span class="info-value">0.5-3.0μm (Medium)</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Density:</span>
+                                    <span class="info-value">800,000 grains/mm²</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Contrast:</span>
+                                    <span class="info-value">Medium-High</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Latitude:</span>
+                                    <span class="info-value">±2 stops</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Character:</span>
+                                    <span class="info-value">Classic street photography grain, iconic contrast</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Best For:</span>
+                                    <span class="info-value">Portraits, street, documentary</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="control-row">
+                            <label>Intensity</label>
+                            <input type="range" id="grainIntensity" min="10" max="200" value="100" class="snap-slider" data-snap="100">
+                            <div class="value">100%</div>
+                        </div>
+                        
+                        <div class="control-row">
+                            <label>Size</label>
+                            <input type="range" id="grainSize" min="0.2" max="5.0" value="1.0" step="0.1" class="snap-slider" data-snap="1.0">
+                            <div class="value">1.0x</div>
+                        </div>
+                        
+                        <div class="control-row">
+                            <label>Density</label>
+                            <input type="range" id="grainDensity" min="100" max="2600" value="800" step="50">
+                            <div class="value">800K</div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-panel" id="advanced-panel">
+                        <div class="control-row">
+                            <label>Width</label>
+                            <input type="range" id="canvasWidth" min="512" max="2048" value="1024" step="64">
+                            <div class="value">1024px</div>
+                        </div>
+                        
+                        <div class="control-row">
+                            <label>Height</label>
+                            <input type="range" id="canvasHeight" min="512" max="2048" value="1024" step="64">
+                            <div class="value">1024px</div>
+                        </div>
+                        
+                        <div class="control-row">
+                            <label>Film Age</label>
+                            <input type="range" id="filmAge" min="0" max="10" value="0" step="0.5">
+                            <div class="value">Fresh</div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label>Storage</label>
+                            <select id="storageType">
+                                <option value="20">Room Temperature</option>
+                                <option value="4">Refrigerated</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-panel" id="export-panel">
+                        <button id="saveBtn">💾 Save Grain Only</button>
+                        <button id="saveCompositeBtn">🖼️ Save with Image</button>
+                        
+                        <div class="performance-info" id="performanceInfo">
+                            Ready to generate grain
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            // Hide all panels
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            
+            // Remove active from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected panel and activate tab
+            document.getElementById(tabName + '-panel').classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        // Add snap functionality to sliders
+        document.addEventListener('DOMContentLoaded', function() {
+            const snapSliders = document.querySelectorAll('.snap-slider');
+            
+            snapSliders.forEach(slider => {
+                const snapValue = parseFloat(slider.dataset.snap);
+                let snapThreshold;
+                
+                // Set very small snap thresholds
+                if (slider.id === 'grainIntensity') {
+                    snapThreshold = 3; // Only snap within 3% of 100%
+                } else if (slider.id === 'grainSize') {
+                    snapThreshold = 0.03; // Only snap within 0.03 of 1.0x
+                }
+                
+                slider.addEventListener('input', function() {
+                    const currentValue = parseFloat(this.value);
+                    
+                    // Check if we're very close to the snap value
+                    if (Math.abs(currentValue - snapValue) <= snapThreshold) {
+                        this.value = snapValue;
+                        
+                        // Update display value
+                        const valueDisplay = this.parentElement.querySelector('.value');
+                        if (this.id === 'grainIntensity') {
+                            valueDisplay.textContent = snapValue + '%';
+                        } else if (this.id === 'grainSize') {
+                            valueDisplay.textContent = snapValue + 'x';
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
