@@ -1,0 +1,177 @@
+{
+  "Agfa CT Precisa 100": {
+    "size_variation_coeff": 0.5,
+    "opacity_variation": 0.5,
+    "notes": "RMS granularity 10 indicates tight, fine-grain E-6 emulsion; slide films employ uniformly precipitated sigma-crystals giving moderate size and opacity spread[9][18]."
+  },
+  "Agfa Vista 200": {
+    "size_variation_coeff": 0.6,
+    "opacity_variation": 0.6,
+    "notes": "Consumer C-41 film with RMS 4.3; Super-Uniform Fine Grain tech reduces clumpiness but cubic crystals still vary modestly in diameter and dye density[9][14]."
+  },
+  "Agfa Vista 400": {
+    "size_variation_coeff": 0.7,
+    "opacity_variation": 0.7,
+    "notes": "Higher-speed sibling (RMS 4.5) shows broader cubic grain distribution and greater coupler uptake, yielding visibly stronger size and opacity scatter[9][10]."
+  },
+  "CineStill 50D": {
+    "size_variation_coeff": 0.4,
+    "opacity_variation": 0.5,
+    "notes": "Rem-jet-stripped Vision3 50D noted as “world’s finest grain motion picture film,” implying tight T-grain platelets and modest dye-cloud variation[11][16]."
+  },
+  "CineStill 800T": {
+    "size_variation_coeff": 0.6,
+    "opacity_variation": 0.8,
+    "notes": "Based on Vision3 500T; sub-micron tech keeps grain compact, but fast emulsion plus halation after rem-jet removal increases optical-density spread[12][17]."
+  },
+  "Fuji Acros 100": {
+    "size_variation_coeff": 0.4,
+    "opacity_variation": 0.5,
+    "notes": "Σ-grain RMS 7 and dual-layer core-shell design create extremely consistent silver halide platelet sizes and even density build-up[66][71]."
+  },
+  "Fuji C200": {
+    "size_variation_coeff": 0.6,
+    "opacity_variation": 0.6,
+    "notes": "Budget colour negative with conventional cubic mix; grain tighter than ISO 400 stock but still shows moderate geometric and dye differences[64]."
+  },
+  "Fuji Natura 1600": {
+    "size_variation_coeff": 0.7,
+    "opacity_variation": 1.0,
+    "notes": "Ultra-fast Σ-grain film claims RMS 4 yet reviewers report chunky shadows; fast speed drives high opacity variability despite fine highlights[68][63]."
+  },
+  "Fuji Neopan 1600": {
+    "size_variation_coeff": 0.8,
+    "opacity_variation": 1.0,
+    "notes": "Classic cubic high-speed B&W noted for “gritty” result; large sensitised crystals and broad development nuclei distribution boost both coefficients[67][72]."
+  },
+  "Fuji Neopan 400": {
+    "size_variation_coeff": 0.6,
+    "opacity_variation": 0.6,
+    "notes": "Mid-speed cubic emulsion—grains larger than Acros but tighter than 1600—delivers moderate variation in both metrics[86]."
+  },
+  "Fuji Pro 160S": {
+    "size_variation_coeff": 0.4,
+    "opacity_variation": 0.5,
+    "notes": "Nano-structured Σ-grain RMS 3; portrait-oriented C-41 layers kept thin for scanner latitude, leading to low intra-grain size and density spread[69]."
+  },
+  "Fuji Pro 400H": {
+    "size_variation_coeff": 0.5,
+    "opacity_variation": 0.6,
+    "notes": "Fourth-layer portrait film balances fine T-grain with ISO 400 speed; moderate rise in grain diameters and dye-cloud opacity relative to 160S[64]."
+  },
+  "Fuji Provia 100F": {
+    "size_variation_coeff": 0.5,
+    "opacity_variation": 0.6,
+    "notes": "RMS 8 slide film uses SIGMA crystals; slightly larger highlight grains than Velvia but still narrow distribution; reversal chemistry yields denser cores[65]."
+  },
+  "Fuji Provia 400X": {
+    "size_variation_coeff": 0.6,
+    "opacity_variation": 0.7,
+    "notes": "RMS 11; faster E-6 emulsion increases grain thickness and dye load variation compared with 100F, giving higher coefficients[70]."
+  },
+  "Fuji Superia 400": {
+    "size_variation_coeff": 0.6,
+    "opacity_variation": 0.6,
+    "notes": "CN-16 consumer film with Sigma-grain overlay; reviews cite respectable sharpness yet visible mid-tone grain, indicating moderate variability[63]."
+  },
+  "Fuji Velvia 100": {
+    "size_variation_coeff": 0.5,
+    "opacity_variation": 0.7,
+    "notes": "High-saturation slide stock employs twin-crystal layers; stronger dye-forming chemistry yields greater per-grain opacity variation at identical size[65]."
+  },
+  "Fuji Velvia 50": {
+    "size_variation_coeff": 0.4,
+    "opacity_variation": 0.6,
+    "notes": "Slow ISO 50 emulsion with ultra-fine crystals; opacity spread limited by thin colour masks yet contrasty reversal dyes raise coefficient modestly[65]."
+  },
+  "Ilford Delta 100": {
+    "size_variation_coeff": 0.4,
+    "opacity_variation": 0.5,
+    "notes": "Core-shell T-grain B&W; Ilford lists “extremely fine” grain and high resolution—small, uniform tabular crystals with consistent optical density[92]."
+  },
+  "Ilford Delta 3200": {
+    "size_variation_coeff": 0.6,
+    "opacity_variation": 1.0,
+    "notes": "Very fast T-grain film exposed at EI 3200; boosted development produces dense but uneven silver clumps, driving opacity variability to maximum[94][89]."
+  },
+  "Ilford Delta 400": {
+    "size_variation_coeff": 0.5,
+    "opacity_variation": 0.6,
+    "notes": "T-grain mid-speed emulsion; YouTube tests show smoother grain than HP5 but more than Delta 100, matching moderate coefficients[93]."
+  },
+  "Ilford FP4 Plus": {
+    "size_variation_coeff": 0.6,
+    "opacity_variation": 0.6,
+    "notes": "Classic cubic ISO 125; reviewers highlight textured but even grain—larger than Delta but less clumpy than HP5—yielding balanced values[86][91]."
+  },
+  "Ilford HP5 Plus": {
+    "size_variation_coeff": 0.8,
+    "opacity_variation": 0.8,
+    "notes": "Cubic ISO 400 ‘king of grain’; RMS ~17 equivalent; deep-shadow clumping and pronounced grain edges raise both variation factors[85][95]."
+  },
+  "Ilford Pan F Plus 50": {
+    "size_variation_coeff": 0.3,
+    "opacity_variation": 0.4,
+    "notes": "Slow cubic film engineered for micro-grain; small uniform crystals and low silver loading keep intra-grain density variation minimal[86]."
+  },
+  "Kodak Ektachrome E100": {
+    "size_variation_coeff": 0.5,
+    "opacity_variation": 0.6,
+    "notes": "High-efficiency T-grain RMS 8; low-contrast slide layers still show moderate dye density spread, hence mid-level opacity coefficient[33][38]."
+  },
+  "Kodak Ektar 100": {
+    "size_variation_coeff": 0.4,
+    "opacity_variation": 0.4,
+    "notes": "Advertised as “world’s finest-grain colour negative”; micro-structure-optimised T-grain and thin coupler layers keep both variations low[34][39]."
+  },
+  "Kodak Gold 200": {
+    "size_variation_coeff": 0.6,
+    "opacity_variation": 0.6,
+    "notes": "Consumer cubic grain with PGI 44; balanced granularity produces moderate physical and optical variation[32][37]."
+  },
+  "Kodak Portra 160": {
+    "size_variation_coeff": 0.4,
+    "opacity_variation": 0.5,
+    "notes": "Advanced cubic/T-grain hybrid; PGI 28 indicates tight grain; portrait-tone design minimises opacity spread for smooth skin rendition[35]."
+  },
+  "Kodak Portra 400": {
+    "size_variation_coeff": 0.5,
+    "opacity_variation": 0.6,
+    "notes": "Medium-speed Portra couples T-grain with higher loading; balanced performance retains moderate uniformity[31][32]."
+  },
+  "Kodak Portra 800": {
+    "size_variation_coeff": 0.6,
+    "opacity_variation": 0.8,
+    "notes": "High-speed T-grain film; PGI 48 for 35 mm shows larger dye clouds and increased opacity scatter versus lower-ISO Portra stocks[42][32]."
+  },
+  "Kodak T-Max 100": {
+    "size_variation_coeff": 0.4,
+    "opacity_variation": 0.5,
+    "notes": "Fine T-grain ISO 100; tabular plates grow uniformly, producing low geometric and density variation[36]."
+  },
+  "Kodak T-Max 400": {
+    "size_variation_coeff": 0.5,
+    "opacity_variation": 0.6,
+    "notes": "Faster T-grain increases crystal thickness variability and developer absorption versus TMX 100, raising both coefficients slightly[36]."
+  },
+  "Kodak Tri-X 400": {
+    "size_variation_coeff": 0.9,
+    "opacity_variation": 0.8,
+    "notes": "RMS 17 classic cubic emulsion; broad crystal population and high silver content create pronounced size spread and dense core variance[36]."
+  },
+  "Kodak UltraMax 400": {
+    "size_variation_coeff": 0.7,
+    "opacity_variation": 0.7,
+    "notes": "Consumer colour negative with coarser cubic mix than Portra; reviewers note noticeable mid-tone grain, implying higher variation[37]."
+  },
+  "Kodak Vision3 500T": {
+    "size_variation_coeff": 0.6,
+    "opacity_variation": 0.8,
+    "notes": "Cine T-grain engineered for highlight latitude; larger sensitised halide clusters at ISO 500 raise opacity variability, especially after still-photo scanning[12][17]."
+  },
+  "Kodak Vision3 50D": {
+    "size_variation_coeff": 0.4,
+    "opacity_variation": 0.5,
+    "notes": "Slow-speed Vision3 stock shares micro-structure with Ektar; ultra-fine platelets and low dye load keep both coefficients restrained[16]."
+  }
+}

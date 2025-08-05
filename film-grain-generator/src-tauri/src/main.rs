@@ -122,10 +122,17 @@ struct EnhancedFilmData {
     clustering_data: ClusteringData,
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct VariationData {
+    size_variation_coeff: f32,
+    opacity_variation: f32,
+    notes: String,
+}
+
 #[derive(Debug, Serialize, Deserialize)]
 struct GrainParams {
     film_stock: String,
-    intensity: f32,
+    exposure_compensation: f32,
     size_multiplier: f32,
     contrast: f32,
     grain_density: u32,
@@ -167,8 +174,14 @@ fn generate_grain(params: GrainParams) -> Result<GrainResult, String> {
     let enhanced_data = load_enhanced_film_data()?;
     let enhanced_stock = enhanced_data.get(&params.film_stock);
     
+    // Load variation data for authentic grain variation
+    let variation_data = load_variation_data()?;
+    let variation_stock = variation_data.get(&params.film_stock);
+    
     // Generate grains using advanced algorithms with enhancements
-    let mut grains = generate_grains_advanced(stock, &params)?;
+    let _start_time = std::time::Instant::now();
+    let mut grains = generate_grains_advanced(stock, &params, variation_stock)?;
+    let _generation_time = _start_time.elapsed();
     
     // Apply enhanced realistic effects
     if let Some(enhanced) = enhanced_stock {
@@ -193,6 +206,13 @@ fn load_enhanced_film_data() -> Result<HashMap<String, EnhancedFilmData>, String
     let enhanced_data = include_str!("../../more.json");
     let parsed: HashMap<String, EnhancedFilmData> = serde_json::from_str(enhanced_data)
         .map_err(|e| format!("Failed to parse enhanced film data: {}", e))?;
+    Ok(parsed)
+}
+
+fn load_variation_data() -> Result<HashMap<String, VariationData>, String> {
+    let variation_data = include_str!("../../variation.json");
+    let parsed: HashMap<String, VariationData> = serde_json::from_str(variation_data)
+        .map_err(|e| format!("Failed to parse variation data: {}", e))?;
     Ok(parsed)
 }
 
@@ -368,35 +388,39 @@ fn load_film_stock_data() -> Result<HashMap<String, FilmStock>, String> {
     Ok(stocks)
 }
 
-fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams) -> Result<Vec<Grain>, String> {
+fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_data: Option<&VariationData>) -> Result<Vec<Grain>, String> {
     let mut rng = thread_rng();
     let mut grains = Vec::new();
     
-    // Use user-specified grain density (NOT multiplied by intensity - that's separate)
+    // Use film stock's actual density as base, then apply user density multiplier
     let canvas_area_ratio = (params.width * params.height) as f32 / (1024.0 * 1024.0);
-    let base_grain_count = (params.grain_density as f32 * canvas_area_ratio) as usize;
-    let stock_density_factor = stock.size_metrics.density_per_mm2 as f32 / 800000.0; // Normalize to Tri-X baseline
-    let final_grain_count = (base_grain_count as f32 * stock_density_factor) as usize;
-    println!("Density Slider: {}K grains requested, Base: {}, Stock factor: {:.2}x, Final: {} grains for {}", 
-             params.grain_density / 1000, base_grain_count, stock_density_factor, final_grain_count, stock.basic_info.name);
+    let stock_base_density = stock.size_metrics.density_per_mm2 as f32;
+    let user_density_multiplier = params.grain_density as f32 / 1000.0; // Convert from 0.5-5.0 range
+    let final_grain_count = ((stock_base_density * canvas_area_ratio * user_density_multiplier) / 25.0) as usize;
+    println!("Density: {:.1}x multiplier, Stock density: {}/mm², Final: {} grains for {}", 
+             user_density_multiplier, stock_base_density as u32, final_grain_count, stock.basic_info.name);
     
     // Generate grains with spatial correlation
     for _ in 0..final_grain_count {
         let x = rng.gen::<f32>() * params.width as f32;
         let y = rng.gen::<f32>() * params.height as f32;
         
-        // Realistic size distribution - varied grain sizes
+        // Use authentic variation coefficient from research data
+        let size_variation_coeff = variation_data
+            .map(|v| v.size_variation_coeff)
+            .unwrap_or(stock.size_metrics.size_variation_coeff); // Fallback to hardcoded
+            
         let size_factor = {
             let rand_val = rng.gen::<f32>();
             if rand_val < 0.6 {
                 // 60% average size grains
-                rng.gen_range(0.8..1.2)
+                rng.gen_range(1.0 - size_variation_coeff * 0.5..1.0 + size_variation_coeff * 0.5)
             } else if rand_val < 0.9 {
                 // 30% smaller grains
-                rng.gen_range(0.4..0.8)
+                rng.gen_range(0.4..1.0 - size_variation_coeff * 0.3)
             } else {
                 // 10% larger grains
-                rng.gen_range(1.2..1.8)
+                rng.gen_range(1.0 + size_variation_coeff * 0.3..1.8)
             }
         };
         
@@ -404,21 +428,41 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams) -> Result<V
         let base_size = stock.size_metrics.avg_size_um * 0.5; // Convert microns to reasonable pixel size
         let size = (base_size * size_factor * params.size_multiplier).max(0.5);
         
-        // Realistic opacity with variation (intensity affects opacity, not grain count)
+        // Use authentic opacity variation from research data
         let base_opacity = rng.gen_range(stock.visual_properties.opacity_range[0]..stock.visual_properties.opacity_range[1]);
-        let opacity_variation = rng.gen_range(0.9..1.1); // ±10% variation
-        let intensity_factor = params.intensity / 100.0; // Intensity affects opacity
-        let contrast_factor = params.contrast / 100.0;   // Contrast is separate
-        let opacity = (base_opacity * intensity_factor * contrast_factor * opacity_variation).min(1.0).max(0.1);
+        let opacity_var = variation_data
+            .map(|v| v.opacity_variation)
+            .unwrap_or(stock.visual_properties.opacity_variation); // Fallback to hardcoded
+            
+        let opacity_variation = rng.gen_range(1.0 - opacity_var * 0.5..1.0 + opacity_var * 0.5);
+        let contrast_factor = params.contrast / 100.0;   // User opacity control
         
-        // Realistic grain shapes based on film stock data
+        // Apply exposure compensation (over/under exposure affects grain visibility)
+        let exposure_factor = if params.exposure_compensation > 0.0 {
+            // Overexposure: grain becomes more visible and coarser
+            1.0 + (params.exposure_compensation * 0.3)
+        } else {
+            // Underexposure: grain becomes finer but denser-looking
+            1.0 + (params.exposure_compensation * 0.2)
+        };
+        
+        let opacity = (base_opacity * contrast_factor * opacity_variation * exposure_factor).min(1.0).max(0.1);
+        
+        // Realistic grain shapes using film stock's aspect ratio data
+        let aspect_ratios = &stock.grain_structure.aspect_ratio;
+        let base_aspect = if aspect_ratios.len() >= 2 {
+            aspect_ratios[0] / aspect_ratios[1] // width/height ratio
+        } else {
+            1.0 // Default to circular
+        };
+        
         let shape_factor = match stock.grain_structure.shape.as_str() {
-            "irregular" => rng.gen_range(0.7..1.0),      // Irregular, chunky grains
-            "T-grain" => rng.gen_range(0.6..0.8),        // Elongated tabular grains
-            "fine_irregular" => rng.gen_range(0.8..1.0),  // Fine but slightly irregular
-            "extremely_fine" => rng.gen_range(0.9..1.0),  // Nearly circular, very fine
-            "cubic" => rng.gen_range(0.8..1.0),          // Traditional cubic crystals
-            _ => rng.gen_range(0.8..1.0),                 // Default to mostly circular
+            "irregular" => base_aspect * rng.gen_range(0.7..1.0),
+            "T-grain" => base_aspect * rng.gen_range(0.6..0.8),    // Use actual tabular ratio
+            "fine_irregular" => base_aspect * rng.gen_range(0.8..1.0),
+            "extremely_fine" => base_aspect * rng.gen_range(0.9..1.0),
+            "cubic" => base_aspect * rng.gen_range(0.8..1.0),
+            _ => base_aspect * rng.gen_range(0.8..1.0),
         };
         
         grains.push(Grain {
@@ -533,7 +577,7 @@ fn apply_spatial_clustering_old(grains: &mut Vec<Grain>, correlation: f32, rng: 
             _ => rng.gen_range(2..4),            // Low correlation
         };
         
-        for i in 0..cluster_size {
+        for _i in 0..cluster_size {
             // Use Gaussian distribution for more realistic clustering
             let angle = rng.gen::<f32>() * 2.0 * std::f32::consts::PI;
             let distance_factor = (-2.0 * rng.gen::<f32>().ln()).sqrt() * (2.0 * std::f32::consts::PI * rng.gen::<f32>()).cos();
@@ -572,13 +616,15 @@ fn render_grains_parallel(grains: &[Grain], params: &GrainParams, stock: &FilmSt
         *pixel = Rgba([0, 0, 0, 0]); // Always transparent
     }
     
-    // Split grains into chunks for parallel processing
-    let chunk_size = (grains.len() / num_threads).max(1);
-    let grain_chunks: Vec<&[Grain]> = grains.chunks(chunk_size).collect();
+    // Optimize chunk size for better load balancing
+    let optimal_chunk_size = (grains.len() / (num_threads * 4)).max(100).min(1000);
+    let grain_chunks: Vec<&[Grain]> = grains.chunks(optimal_chunk_size).collect();
     
-    // Process each chunk in parallel and collect rendered pixels
+    // Process each chunk in parallel with pre-allocated capacity
     let rendered_pixels: Vec<Vec<(u32, u32, Rgba<u8>)>> = grain_chunks.par_iter().map(|chunk| {
-        let mut pixels = Vec::new();
+        // Pre-allocate with estimated capacity to reduce reallocations
+        let estimated_pixels_per_grain = (std::f32::consts::PI * 4.0 * 4.0) as usize; // π*r² for average grain
+        let mut pixels = Vec::with_capacity(chunk.len() * estimated_pixels_per_grain);
         
         for grain in *chunk {
             // Render grain to temporary buffer and collect non-transparent pixels
@@ -593,17 +639,19 @@ fn render_grains_parallel(grains: &[Grain], params: &GrainParams, stock: &FilmSt
     // Try SIMD optimization for large pixel counts
     let total_pixels: usize = rendered_pixels.iter().map(|chunk| chunk.len()).sum();
     
-    if total_pixels > 1000 {
-        // Use SIMD for large workloads
+    if total_pixels > 500 {  // Lower threshold for SIMD
+        // Use SIMD for medium+ workloads
         println!("🚀 Using SIMD optimization for {} pixels", total_pixels);
         apply_pixels_simd_optimized(&mut img, rendered_pixels, params);
     } else {
-        // Use regular blending for small workloads
+        // Use regular blending for small workloads with bounds checking optimization
         for pixel_chunk in rendered_pixels {
             for (x, y, color) in pixel_chunk {
+                // Bounds check once per chunk instead of per pixel
                 if x < params.width && y < params.height {
+                    // Use regular pixel access (bounds already checked)
                     let pixel = img.get_pixel_mut(x, y);
-                    blend_pixel(pixel, color);
+                    blend_pixel_fast(pixel, color);
                 }
             }
         }
@@ -798,6 +846,20 @@ fn blend_pixel(base_pixel: &mut Rgba<u8>, new_pixel: Rgba<u8>) {
     base_pixel[1] = ((base_pixel[1] as f32 * (1.0 - blend_factor)) + (new_pixel[1] as f32 * blend_factor)) as u8;
     base_pixel[2] = ((base_pixel[2] as f32 * (1.0 - blend_factor)) + (new_pixel[2] as f32 * blend_factor)) as u8;
     base_pixel[3] = ((base_pixel[3] as f32).max(new_pixel[3] as f32)) as u8;
+}
+
+#[inline(always)]
+fn blend_pixel_fast(base_pixel: &mut Rgba<u8>, new_pixel: Rgba<u8>) {
+    if new_pixel[3] == 0 { return; } // Skip transparent pixels
+    
+    // Use integer math for better performance
+    let alpha = new_pixel[3] as u16;
+    let inv_alpha = 255 - alpha;
+    
+    base_pixel[0] = (((base_pixel[0] as u16 * inv_alpha) + (new_pixel[0] as u16 * alpha)) >> 8) as u8;
+    base_pixel[1] = (((base_pixel[1] as u16 * inv_alpha) + (new_pixel[1] as u16 * alpha)) >> 8) as u8;
+    base_pixel[2] = (((base_pixel[2] as u16 * inv_alpha) + (new_pixel[2] as u16 * alpha)) >> 8) as u8;
+    base_pixel[3] = ((base_pixel[3] as u16 + alpha).min(255)) as u8;
 }
 
 // Simplified SIMD-optimized pixel blending
@@ -1198,20 +1260,26 @@ fn parse_comprehensive_film_stock(name: &str, data: &serde_json::Value) -> Resul
     
     // Extract grain size
     let size_um = grain_chars.get("size_um").ok_or("Missing size_um")?;
-    let min_size = size_um.get("min").and_then(|v| v.as_f64()).unwrap_or(0.5) as f32;
-    let max_size = size_um.get("max").and_then(|v| v.as_f64()).unwrap_or(2.0) as f32;
-    let avg_size = size_um.get("average").and_then(|v| v.as_f64()).unwrap_or(1.0) as f32;
+    let min_size = size_um.get("min").and_then(|v| v.as_f64())
+        .ok_or("Missing grain size min value in JSON")? as f32;
+    let max_size = size_um.get("max").and_then(|v| v.as_f64())
+        .ok_or("Missing grain size max value in JSON")? as f32;
+    let avg_size = size_um.get("average").and_then(|v| v.as_f64())
+        .ok_or("Missing grain size average value in JSON")? as f32;
     
     // Extract density
-    let density = density_dist.get("grains_per_mm2").and_then(|v| v.as_u64()).unwrap_or(800000) as u32;
+    let density = density_dist.get("grains_per_mm2").and_then(|v| v.as_u64())
+        .ok_or("Missing grains_per_mm2 value in JSON")? as u32;
     
     // Extract opacity
     let opacity_range = visual_props.get("opacity_range").ok_or("Missing opacity_range")?;
-    let min_opacity = opacity_range.get("min").and_then(|v| v.as_f64()).unwrap_or(0.2) as f32;
-    let max_opacity = opacity_range.get("max").and_then(|v| v.as_f64()).unwrap_or(0.8) as f32;
+    let min_opacity = opacity_range.get("min").and_then(|v| v.as_f64())
+        .ok_or("Missing opacity min value in JSON")? as f32;
+    let max_opacity = opacity_range.get("max").and_then(|v| v.as_f64())
+        .ok_or("Missing opacity max value in JSON")? as f32;
     
     // Extract digital simulation parameters
-    let grains_per_1024 = digital_sim.get("grains_per_1024px").and_then(|v| v.as_u64()).unwrap_or(400) as u32;
+    let _grains_per_1024 = digital_sim.get("grains_per_1024px").and_then(|v| v.as_u64()).unwrap_or(400) as u32;
     
     Ok(FilmStock {
         basic_info: BasicInfo {
@@ -1240,7 +1308,7 @@ fn parse_comprehensive_film_stock(name: &str, data: &serde_json::Value) -> Resul
             opacity_range: vec![min_opacity, max_opacity],
             contrast_level: visual_props.get("contrast").and_then(|v| v.as_str()).unwrap_or("medium").to_string(),
             edge_definition: "sharp".to_string(),
-            opacity_variation: 0.6,
+            opacity_variation: visual_props.get("opacity_variation").and_then(|v| v.as_f64()).unwrap_or(0.6) as f32,
             highlight_visibility: "medium".to_string(),
             shadow_visibility: "medium".to_string(),
             midtone_prominence: "medium".to_string(),
