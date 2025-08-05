@@ -143,7 +143,23 @@ Contributions are welcome! Areas for improvement:
 
 ## 📄 **License**
 
-MIT License - see [LICENSE](LICENSE) file for details.
+**Proprietary License** - This software is free for personal and educational use only. All rights reserved.
+
+**🚫 STRICTLY PROHIBITED:**
+- Selling or charging for the software
+- Modifying and redistributing  
+- Commercial use of any kind
+- Creating derivative works for distribution
+- Reverse engineering for commercial purposes
+
+**✅ ALLOWED:**
+- Personal, non-commercial use
+- Educational use in academic settings
+- Learning from source code (viewing only)
+
+**⚖️ ENFORCEMENT:** Violations will result in legal action for copyright infringement.
+
+For commercial licensing, contact the author. See [LICENSE](LICENSE) file for complete terms.
 
 ## 🙏 **Acknowledgments**
 
