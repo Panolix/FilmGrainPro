@@ -625,6 +625,17 @@ fn render_grain_to_pixels(grain: &Grain, stock: &FilmStock, params: &GrainParams
     // Load authentic film grain colors from color.json
     let (r, g, b) = get_film_grain_color(&stock.basic_info.name);
     
+    // Apply color crossover effects from more.json if available
+    let mut grain_color = [r as f32 / 255.0, g as f32 / 255.0, b as f32 / 255.0];
+    if let Ok(enhanced_data) = load_enhanced_film_data() {
+        if let Some(enhanced) = enhanced_data.get(&params.film_stock) {
+            apply_color_crossover(&mut grain_color, &enhanced.color_crossover);
+        }
+    }
+    let final_r = (grain_color[0] * 255.0).clamp(0.0, 255.0) as u8;
+    let final_g = (grain_color[1] * 255.0).clamp(0.0, 255.0) as u8;
+    let final_b = (grain_color[2] * 255.0).clamp(0.0, 255.0) as u8;
+    
     // Use realistic opacity with moderate boost for visibility
     let boosted_opacity = match grain.opacity {
         x if x < 0.2 => x * 3.0,   // Fine films - 3x boost
@@ -674,7 +685,7 @@ fn render_grain_to_pixels(grain: &Grain, stock: &FilmStock, params: &GrainParams
                     let final_alpha = (alpha as f32 * edge_alpha) as u8;
                     
                     if final_alpha > 10 {
-                        pixels.push((x as u32, y as u32, Rgba([r, g, b, final_alpha])));
+                        pixels.push((x as u32, y as u32, Rgba([final_r, final_g, final_b, final_alpha])));
                     }
                 }
             }
@@ -841,13 +852,24 @@ fn apply_pixels_simd_optimized(
     }
 }
 
-fn render_single_grain(img: &mut RgbaImage, grain: &Grain, stock: &FilmStock, _params: &GrainParams) {
+fn render_single_grain(img: &mut RgbaImage, grain: &Grain, stock: &FilmStock, params: &GrainParams) {
     let center_x = grain.x as i32;
     let center_y = grain.y as i32;
     let radius = grain.size as i32; // Fix: was grain.size * 2.0, causing oversized grains
     
     // Load authentic film grain colors from color.json
     let (r, g, b) = get_film_grain_color(&stock.basic_info.name);
+    
+    // Apply color crossover effects from more.json if available
+    let mut grain_color = [r as f32 / 255.0, g as f32 / 255.0, b as f32 / 255.0];
+    if let Ok(enhanced_data) = load_enhanced_film_data() {
+        if let Some(enhanced) = enhanced_data.get(&params.film_stock) {
+            apply_color_crossover(&mut grain_color, &enhanced.color_crossover);
+        }
+    }
+    let final_r = (grain_color[0] * 255.0).clamp(0.0, 255.0) as u8;
+    let final_g = (grain_color[1] * 255.0).clamp(0.0, 255.0) as u8;
+    let final_b = (grain_color[2] * 255.0).clamp(0.0, 255.0) as u8;
     
     // Use realistic opacity with moderate boost for visibility
     let boosted_opacity = match grain.opacity {
@@ -903,9 +925,9 @@ fn render_single_grain(img: &mut RgbaImage, grain: &Grain, stock: &FilmStock, _p
                     if final_alpha > 10 {
                         let pixel = img.get_pixel_mut(x as u32, y as u32);
                         let blend_factor = final_alpha as f32 / 255.0;
-                        pixel[0] = ((pixel[0] as f32 * (1.0 - blend_factor)) + (r as f32 * blend_factor)) as u8;
-                        pixel[1] = ((pixel[1] as f32 * (1.0 - blend_factor)) + (g as f32 * blend_factor)) as u8;
-                        pixel[2] = ((pixel[2] as f32 * (1.0 - blend_factor)) + (b as f32 * blend_factor)) as u8;
+                        pixel[0] = ((pixel[0] as f32 * (1.0 - blend_factor)) + (final_r as f32 * blend_factor)) as u8;
+                        pixel[1] = ((pixel[1] as f32 * (1.0 - blend_factor)) + (final_g as f32 * blend_factor)) as u8;
+                        pixel[2] = ((pixel[2] as f32 * (1.0 - blend_factor)) + (final_b as f32 * blend_factor)) as u8;
                         pixel[3] = ((pixel[3] as f32).max(final_alpha as f32)) as u8;
                     }
                 }
