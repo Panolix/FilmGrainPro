@@ -13,9 +13,7 @@ jobs:
       matrix:
         include:
           - platform: 'macos-latest'
-            args: '--target aarch64-apple-darwin'
-          - platform: 'macos-latest'
-            args: '--target x86_64-apple-darwin'
+            args: '--target universal-apple-darwin'
           - platform: 'ubuntu-20.04'
             args: ''
           - platform: 'windows-latest'
@@ -41,7 +39,7 @@ jobs:
       - name: Rust cache
         uses: swatinem/rust-cache@v2
         with:
-          workspaces: './src-tauri -> target'
+          workspaces: './film-grain-generator/src-tauri -> target'
 
       - name: Sync node version and setup cache
         uses: actions/setup-node@v4
@@ -50,13 +48,14 @@ jobs:
           cache: 'npm'
 
       - name: Install frontend dependencies
-        run: npm install
+        run: cd film-grain-generator && npm install
 
       - name: Build the app
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          projectPath: './film-grain-generator'
           tagName: ${{ github.ref_name }}
           releaseName: 'Film Grain Generator v__VERSION__'
           releaseBody: 'See the assets to download and install this version.'
