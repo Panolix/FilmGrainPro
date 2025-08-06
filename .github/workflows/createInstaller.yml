@@ -45,6 +45,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
+          cache: ''
 
       - name: Install frontend dependencies
         run: cd film-grain-generator && npm install
