@@ -46,6 +46,7 @@ jobs:
         with:
           node-version: 'lts/*'
           cache: 'npm'
+          cache-dependency-path: './film-grain-generator/package-lock.json'
 
       - name: Install frontend dependencies
         run: cd film-grain-generator && npm install
