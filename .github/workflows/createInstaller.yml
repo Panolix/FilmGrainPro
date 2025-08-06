@@ -39,13 +39,12 @@ jobs:
       - name: Rust cache
         uses: swatinem/rust-cache@v2
         with:
-          workspaces: './film-grain-generator/src-tauri -> target'
+          workspaces: 'film-grain-generator/src-tauri -> target'
 
-      - name: Sync node version and setup cache
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
-          cache: ''
 
       - name: Install frontend dependencies
         run: cd film-grain-generator && npm install
