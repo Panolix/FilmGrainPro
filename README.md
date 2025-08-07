@@ -6,6 +6,12 @@ A professional desktop application for generating **authentic film grain overlay
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Built with](https://img.shields.io/badge/Built%20with-Rust%20%7C%20Tauri%20%7C%20JavaScript-orange)
 
+## 📸 **App Overview**
+
+![Film Grain Generator Interface](Images%20Readme/Overview.png)
+
+*Professional interface featuring: **Left** - Film stock info panel with technical specifications, **Center** - Live grain generation canvas, **Right** - Precision toolbox with sliders and selectors, **Bottom** - Real-time performance metrics showing grain count and generation speed*
+
 ## ✨ Features
 
 ### 🎞️ **Authentic Film Simulation**
@@ -48,6 +54,19 @@ This isn't just random noise - it's **scientifically accurate film grain simulat
 - **Color Negative**: Kodak Portra 160/400/800, Ektar 100, Fuji Pro 400H, Superia series
 - **Color Slide**: Kodak Ektachrome, Fuji Velvia 50/100, Provia 100F
 - **Cinema**: Kodak Vision3 series, CineStill 50D/800T
+
+### **Authentic Grain Differences**
+
+Each film stock produces distinctly different grain characteristics:
+
+| Fuji Acros 100 (B&W) | Fuji Pro 400H (Color) |
+|:---------------------:|:----------------------:|
+| ![Fuji Acros 100](Images%20Readme/Fuji%20Acros%20100.png) | ![Fuji Pro 400H](Images%20Readme/Fuji%20Pro%20400H.png) |
+| *Fine, sharp tabular grains with tight clustering* | *Larger, softer color grains with organic distribution* |
+
+Notice the differences in **grain size**, **shape**, **color**, **density**, and **clustering patterns** - exactly as they appear in real film stocks!
+
+*Note: Density multiplier set to 5x for demonstration purposes to clearly show grain characteristics*
 
 ## 🚀 **Quick Start**
 
