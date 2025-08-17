@@ -469,7 +469,7 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_d
         let size_range_um = rng.gen_range(stock.size_metrics.min_size_um..=stock.size_metrics.max_size_um);
         let shape_size_factor = get_shape_size_factor(&stock.grain_structure.shape, &mut rng);
         let base_size = size_range_um * 0.5 * shape_size_factor; // Apply shape-specific sizing
-        let size = (base_size * size_factor * params.size_multiplier).max(0.3); // Minimum 0.3 pixel
+        let mut size = (base_size * size_factor * params.size_multiplier).max(0.3); // Minimum 0.3 pixel
         
         // Use authentic opacity variation from research data
         let base_opacity = rng.gen_range(stock.visual_properties.opacity_range[0]..stock.visual_properties.opacity_range[1]);
@@ -492,18 +492,18 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_d
         };
         let contrast_factor = user_contrast_factor * film_contrast_factor;
         
-        // Apply exposure compensation (over/under exposure affects grain visibility)
-        let exposure_factor = if params.exposure_compensation > 0.0 {
-            // Overexposure: grain becomes more visible and coarser
-            1.0 + (params.exposure_compensation * 0.3)
-        } else {
-            // Underexposure: grain becomes finer but denser-looking
-            1.0 + (params.exposure_compensation * 0.2)
-        };
+        // 🚀 ENHANCED: Apply realistic exposure compensation effects
+        let exposure_factor = apply_realistic_exposure_effects(params.exposure_compensation, &mut size, &mut rng);
         
         let mut opacity = (base_opacity * contrast_factor * opacity_variation * exposure_factor).min(1.0).max(0.1);
         
-        // Note: Aging effects are applied later in apply_enhanced_effects() to avoid duplication
+        // 🚀 ENHANCED: Apply aging effects directly from UI parameters
+        if let Some(age_years) = params.film_age_years {
+            if age_years > 0.0 {
+                let storage_temp = params.storage_temp.unwrap_or(20.0);
+                opacity = apply_realistic_aging_effects(opacity, size, age_years, storage_temp, &stock.basic_info.film_type);
+            }
+        }
         
         // 🆕 ENHANCEMENT 2: Enhanced film-specific shape characteristics using JSON data
         let base_aspect = if stock.grain_structure.aspect_ratio.len() >= 2 {
@@ -1142,6 +1142,67 @@ fn render_bw_film_grain(grain: &Grain, stock: &FilmStock, params: &GrainParams) 
             final_color
         }
     })
+}
+
+// 🚀 NEW: Apply realistic exposure compensation effects
+fn apply_realistic_exposure_effects(exposure_comp: f32, size: &mut f32, rng: &mut ThreadRng) -> f32 {
+    if exposure_comp > 0.0 {
+        // Overexposure effects (pushing film)
+        // - Grain becomes more prominent and slightly larger
+        // - Increased contrast in grain structure
+        // - More irregular grain shapes
+        *size *= 1.0 + (exposure_comp * 0.15); // Slight size increase
+        
+        // Opacity factor for overexposure
+        1.0 + (exposure_comp * 0.4) // More visible grain
+    } else if exposure_comp < 0.0 {
+        // Underexposure effects (pulling film)
+        // - Grain becomes denser-looking but finer
+        // - Shadows get grittier
+        // - Less overall grain visibility in highlights
+        let underexp = exposure_comp.abs();
+        *size *= 1.0 - (underexp * 0.1); // Slightly smaller grain
+        
+        // Opacity factor for underexposure
+        1.0 + (underexp * 0.25) // Denser-looking grain in shadows
+    } else {
+        1.0 // No exposure compensation
+    }
+}
+
+// 🚀 NEW: Apply realistic aging effects based on UI parameters
+fn apply_realistic_aging_effects(opacity: f32, _size: f32, age_years: f32, storage_temp: f32, film_type: &str) -> f32 {
+    // Storage condition multiplier
+    let storage_multiplier = if storage_temp < 10.0 { 
+        0.3 // Refrigerated storage (much slower aging)
+    } else if storage_temp < 20.0 {
+        0.6 // Cool storage
+    } else {
+        1.0 // Room temperature storage
+    };
+    
+    let effective_age = age_years * storage_multiplier;
+    
+    // Film type aging characteristics
+    let aging_factor = match film_type {
+        "color" => {
+            // Color films age more noticeably
+            // Increased fog, color shifts, more prominent grain
+            (effective_age * 0.12).min(0.6) // Max 60% aging effect
+        },
+        "bw" => {
+            // B&W films age more gracefully
+            // Slight increase in grain, minimal fog
+            (effective_age * 0.08).min(0.4) // Max 40% aging effect
+        },
+        _ => (effective_age * 0.1).min(0.5), // Default
+    };
+    
+    // Apply aging to opacity (more prominent grain with age)
+    let aged_opacity = opacity * (1.0 + aging_factor * 0.3);
+    
+    // Cap opacity to prevent over-aging
+    aged_opacity.min(0.85)
 }
 
 fn apply_enhanced_effects(grains: &mut Vec<Grain>, params: &GrainParams, enhanced: &EnhancedFilmData) -> Result<(), String> {
