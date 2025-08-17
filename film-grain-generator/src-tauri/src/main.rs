@@ -533,8 +533,10 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_d
             _ => base_aspect * rng.gen_range(0.8..1.0),
         };
         
-        // 🚀 NEW: Create grain with shape-based characteristics
-        let shape_factor = get_shape_factor(&stock.grain_structure.shape, &mut rng);
+        // 🚀 NEW: Create grain with shape-based characteristics and ISO effects
+        let base_shape_factor = get_shape_factor(&stock.grain_structure.shape, &mut rng);
+        let iso_irregularity = get_iso_irregularity_factor(stock.basic_info.iso);
+        let shape_factor = base_shape_factor * rng.gen_range(1.0 - iso_irregularity * 0.2..1.0 + iso_irregularity * 0.2);
         
         grains.push(Grain {
             x,
@@ -1142,6 +1144,17 @@ fn render_bw_film_grain(grain: &Grain, stock: &FilmStock, params: &GrainParams) 
             final_color
         }
     })
+}
+
+// 🚀 NEW: Get ISO-based irregularity factor
+fn get_iso_irregularity_factor(iso: u32) -> f32 {
+    match iso {
+        25..=100 => 0.1,      // Very uniform grain
+        101..=400 => 0.2,     // Moderate variation
+        401..=800 => 0.4,     // More irregular
+        801..=1600 => 0.6,    // Much more irregular
+        _ => 0.8,             // Very irregular, chaotic
+    }
 }
 
 // 🚀 NEW: Apply realistic exposure compensation effects
