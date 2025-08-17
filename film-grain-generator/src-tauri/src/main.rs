@@ -438,9 +438,13 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_d
              user_density_multiplier, stock_base_density as u32, final_grain_count, stock.basic_info.name);
     
     // Generate grains with spatial correlation
-    for _ in 0..final_grain_count {
-        let x = rng.gen::<f32>() * params.width as f32;
-        let y = rng.gen::<f32>() * params.height as f32;
+    // 🚀 NEW: Generate grain positions using clustering data as pattern indicator
+    let pattern = if stock.grain_structure.clustering == "heavy" { "clustered" } else { "random" };
+    let grain_positions = generate_pattern_based_positions(pattern, params, final_grain_count, &mut rng);
+    
+    for (x, y) in grain_positions.iter() {
+        let x = *x;
+        let y = *y;
         
         // Use authentic variation coefficient from research data
         let size_variation_coeff = variation_data
@@ -461,9 +465,10 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_d
             }
         };
         
-        // 🚀 NEW: Use JSON size variation (min_size_um to max_size_um)
+        // 🚀 NEW: Use JSON size variation with shape-based adjustments
         let size_range_um = rng.gen_range(stock.size_metrics.min_size_um..=stock.size_metrics.max_size_um);
-        let base_size = size_range_um * 0.5; // Keep same 0.5 multiplier for screen visibility
+        let shape_size_factor = get_shape_size_factor(&stock.grain_structure.shape, &mut rng);
+        let base_size = size_range_um * 0.5 * shape_size_factor; // Apply shape-specific sizing
         let size = (base_size * size_factor * params.size_multiplier).max(0.3); // Minimum 0.3 pixel
         
         // Use authentic opacity variation from research data
@@ -527,6 +532,9 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_d
             },
             _ => base_aspect * rng.gen_range(0.8..1.0),
         };
+        
+        // 🚀 NEW: Create grain with shape-based characteristics
+        let shape_factor = get_shape_factor(&stock.grain_structure.shape, &mut rng);
         
         grains.push(Grain {
             x,
@@ -714,45 +722,12 @@ fn render_grain_to_pixels(grain: &Grain, stock: &FilmStock, params: &GrainParams
         return Vec::new();
     }
     
-    // 🆕 ENHANCEMENT 3: Enhanced color film grain rendering with JSON color cast
-    let (mut final_r, mut final_g, mut final_b) = FILM_COLORS.with(|cache| {
-        let mut cache = cache.borrow_mut();
-        if let Some(&color) = cache.get(&stock.basic_info.name) {
-            color
-        } else {
-            let (r, g, b) = get_film_grain_color(&stock.basic_info.name);
-            
-            // 🚀 NEW: Apply JSON color cast from primary_cast field
-            let (cast_r, cast_g, cast_b) = get_json_color_cast_multiplier(&stock.color_properties.primary_cast);
-            
-            // Apply color crossover effects (cached)
-            let mut grain_color = [r as f32 / 255.0, g as f32 / 255.0, b as f32 / 255.0];
-            ENHANCED_DATA.with(|enhanced_cache| {
-                let mut enhanced_cache = enhanced_cache.borrow_mut();
-                if enhanced_cache.is_none() {
-                    *enhanced_cache = load_enhanced_film_data().ok();
-                }
-                if let Some(ref enhanced_data) = *enhanced_cache {
-                    if let Some(enhanced) = enhanced_data.get(&params.film_stock) {
-                        apply_color_crossover(&mut grain_color, &enhanced.color_crossover);
-                    }
-                }
-            });
-            
-            // Apply JSON color cast
-            grain_color[0] *= cast_r;
-            grain_color[1] *= cast_g;
-            grain_color[2] *= cast_b;
-            
-            let final_color = (
-                (grain_color[0] * 255.0).clamp(0.0, 255.0) as u8,
-                (grain_color[1] * 255.0).clamp(0.0, 255.0) as u8,
-                (grain_color[2] * 255.0).clamp(0.0, 255.0) as u8
-            );
-            cache.insert(stock.basic_info.name.clone(), final_color);
-            final_color
-        }
-    });
+    // 🚀 NEW: Enhanced color film simulation with multi-layer rendering
+    let (mut final_r, mut final_g, mut final_b) = if stock.basic_info.film_type == "color" {
+        render_color_film_grain(grain, stock, params)
+    } else {
+        render_bw_film_grain(grain, stock, params)
+    };
     
     // 🆕 ENHANCEMENT 4: Individual grain color variation for color films
     if stock.basic_info.film_type == "color" {
@@ -916,6 +891,257 @@ fn get_json_contrast_multiplier(contrast_level: &str) -> f32 {
         "low" => 0.8,            // Fine-grain films - very subtle
         _ => 1.0,                // Default
     }
+}
+
+// 🚀 NEW: Generate pattern-based grain positions using JSON pattern data
+fn generate_pattern_based_positions(pattern: &str, params: &GrainParams, count: usize, rng: &mut ThreadRng) -> Vec<(f32, f32)> {
+    match pattern {
+        "random" => generate_random_positions(params, count, rng),
+        "clustered" => generate_clustered_positions(params, count, rng),
+        "regular" => generate_regular_positions(params, count, rng),
+        "poisson" => generate_poisson_positions(params, count, rng),
+        _ => generate_random_positions(params, count, rng), // Default
+    }
+}
+
+fn generate_random_positions(params: &GrainParams, count: usize, rng: &mut ThreadRng) -> Vec<(f32, f32)> {
+    (0..count)
+        .map(|_| (
+            rng.gen::<f32>() * params.width as f32,
+            rng.gen::<f32>() * params.height as f32,
+        ))
+        .collect()
+}
+
+fn generate_clustered_positions(params: &GrainParams, count: usize, rng: &mut ThreadRng) -> Vec<(f32, f32)> {
+    let mut positions = Vec::new();
+    let cluster_count = (count as f32 * 0.1) as usize; // 10% cluster centers
+    
+    // Generate cluster centers
+    let cluster_centers: Vec<(f32, f32)> = (0..cluster_count)
+        .map(|_| (
+            rng.gen::<f32>() * params.width as f32,
+            rng.gen::<f32>() * params.height as f32,
+        ))
+        .collect();
+    
+    // Distribute grains around cluster centers
+    for i in 0..count {
+        if i < cluster_centers.len() {
+            positions.push(cluster_centers[i]);
+        } else {
+            let center = cluster_centers[i % cluster_centers.len()];
+            let angle = rng.gen::<f32>() * 2.0 * std::f32::consts::PI;
+            let distance = rng.gen::<f32>() * 50.0; // Cluster radius
+            
+            let x = (center.0 + angle.cos() * distance).clamp(0.0, params.width as f32);
+            let y = (center.1 + angle.sin() * distance).clamp(0.0, params.height as f32);
+            positions.push((x, y));
+        }
+    }
+    
+    positions
+}
+
+fn generate_regular_positions(params: &GrainParams, count: usize, rng: &mut ThreadRng) -> Vec<(f32, f32)> {
+    let mut positions = Vec::new();
+    let grid_size = (count as f32).sqrt() as usize;
+    let x_step = params.width as f32 / grid_size as f32;
+    let y_step = params.height as f32 / grid_size as f32;
+    
+    for i in 0..grid_size {
+        for j in 0..grid_size {
+            if positions.len() >= count { break; }
+            
+            // Add some randomness to grid positions
+            let x = (i as f32 * x_step) + rng.gen::<f32>() * x_step * 0.3;
+            let y = (j as f32 * y_step) + rng.gen::<f32>() * y_step * 0.3;
+            positions.push((x, y));
+        }
+    }
+    
+    // Fill remaining with random positions
+    while positions.len() < count {
+        positions.push((
+            rng.gen::<f32>() * params.width as f32,
+            rng.gen::<f32>() * params.height as f32,
+        ));
+    }
+    
+    positions
+}
+
+fn generate_poisson_positions(params: &GrainParams, count: usize, rng: &mut ThreadRng) -> Vec<(f32, f32)> {
+    // Simplified Poisson disk sampling
+    let mut positions = Vec::new();
+    let min_distance = 3.0; // Minimum distance between grains
+    let max_attempts = 30;
+    
+    while positions.len() < count {
+        let mut attempts = 0;
+        let mut valid_position = None;
+        
+        while attempts < max_attempts {
+            let candidate = (
+                rng.gen::<f32>() * params.width as f32,
+                rng.gen::<f32>() * params.height as f32,
+            );
+            
+            let mut valid = true;
+            for &(px, py) in &positions {
+                let dx = candidate.0 - px;
+                let dy = candidate.1 - py;
+                if ((dx * dx + dy * dy) as f32).sqrt() < min_distance {
+                    valid = false;
+                    break;
+                }
+            }
+            
+            if valid {
+                valid_position = Some(candidate);
+                break;
+            }
+            attempts += 1;
+        }
+        
+        if let Some(pos) = valid_position {
+            positions.push(pos);
+        } else {
+            // Fallback to random if we can't find valid Poisson position
+            positions.push((
+                rng.gen::<f32>() * params.width as f32,
+                rng.gen::<f32>() * params.height as f32,
+            ));
+        }
+    }
+    
+    positions
+}
+
+// 🚀 NEW: Get shape-specific size factor
+fn get_shape_size_factor(shape: &str, rng: &mut ThreadRng) -> f32 {
+    match shape {
+        "Sigma grain" => rng.gen_range(0.95..1.05),      // Very uniform size
+        "extremely_fine" => rng.gen_range(0.9..1.1),     // Consistent fine grain
+        "fine_irregular" => rng.gen_range(0.8..1.3),     // Moderate variation
+        "tabular" => rng.gen_range(0.7..1.4),            // T-grain variation
+        "irregular" => rng.gen_range(0.6..1.6),          // High variation
+        "cubic" => rng.gen_range(0.5..1.8),              // Very high variation
+        _ => rng.gen_range(0.8..1.2),                     // Default variation
+    }
+}
+
+// 🚀 NEW: Get shape-specific shape factor
+fn get_shape_factor(shape: &str, rng: &mut ThreadRng) -> f32 {
+    match shape {
+        "Sigma grain" => rng.gen_range(0.95..1.05),      // Nearly circular
+        "extremely_fine" => rng.gen_range(0.9..1.1),     // Very round
+        "tabular" => rng.gen_range(0.6..0.9),            // Elongated platelets
+        "fine_irregular" => rng.gen_range(0.8..1.2),     // Slightly irregular
+        "irregular" => rng.gen_range(0.5..1.5),          // Quite irregular
+        "cubic" => rng.gen_range(0.4..1.6),              // Very irregular
+        _ => rng.gen_range(0.7..1.3),                     // Default
+    }
+}
+
+// 🚀 NEW: Render color film grain with multi-layer simulation
+fn render_color_film_grain(grain: &Grain, stock: &FilmStock, params: &GrainParams) -> (u8, u8, u8) {
+    FILM_COLORS.with(|cache| {
+        let mut cache = cache.borrow_mut();
+        if let Some(&color) = cache.get(&stock.basic_info.name) {
+            color
+        } else {
+            let (base_r, base_g, base_b) = get_film_grain_color(&stock.basic_info.name);
+            
+            // 🚀 Multi-layer color film simulation
+            // Color films have 3 separate emulsion layers with different characteristics
+            let mut rng = thread_rng();
+            
+            // Cyan layer (top) - affects red channel
+            let cyan_strength = rng.gen_range(0.85..1.15);
+            // Magenta layer (middle) - affects green channel  
+            let magenta_strength = rng.gen_range(0.85..1.15);
+            // Yellow layer (bottom) - affects blue channel
+            let yellow_strength = rng.gen_range(0.85..1.15);
+            
+            // Apply layer variations
+            let layer_r = (base_r as f32 * cyan_strength).clamp(0.0, 255.0);
+            let layer_g = (base_g as f32 * magenta_strength).clamp(0.0, 255.0);
+            let layer_b = (base_b as f32 * yellow_strength).clamp(0.0, 255.0);
+            
+            // Apply JSON color cast
+            let (cast_r, cast_g, cast_b) = get_json_color_cast_multiplier(&stock.color_properties.primary_cast);
+            
+            // Apply color crossover effects
+            let mut grain_color = [layer_r / 255.0, layer_g / 255.0, layer_b / 255.0];
+            ENHANCED_DATA.with(|enhanced_cache| {
+                let mut enhanced_cache = enhanced_cache.borrow_mut();
+                if enhanced_cache.is_none() {
+                    *enhanced_cache = load_enhanced_film_data().ok();
+                }
+                if let Some(ref enhanced_data) = *enhanced_cache {
+                    if let Some(enhanced) = enhanced_data.get(&params.film_stock) {
+                        apply_color_crossover(&mut grain_color, &enhanced.color_crossover);
+                    }
+                }
+            });
+            
+            // Apply JSON color cast
+            grain_color[0] *= cast_r;
+            grain_color[1] *= cast_g;
+            grain_color[2] *= cast_b;
+            
+            let final_color = (
+                (grain_color[0] * 255.0).clamp(0.0, 255.0) as u8,
+                (grain_color[1] * 255.0).clamp(0.0, 255.0) as u8,
+                (grain_color[2] * 255.0).clamp(0.0, 255.0) as u8
+            );
+            cache.insert(stock.basic_info.name.clone(), final_color);
+            final_color
+        }
+    })
+}
+
+// 🚀 NEW: Render B&W film grain
+fn render_bw_film_grain(grain: &Grain, stock: &FilmStock, params: &GrainParams) -> (u8, u8, u8) {
+    FILM_COLORS.with(|cache| {
+        let mut cache = cache.borrow_mut();
+        if let Some(&color) = cache.get(&stock.basic_info.name) {
+            color
+        } else {
+            let (r, g, b) = get_film_grain_color(&stock.basic_info.name);
+            
+            // Apply JSON color cast (for toned B&W films)
+            let (cast_r, cast_g, cast_b) = get_json_color_cast_multiplier(&stock.color_properties.primary_cast);
+            
+            // Apply color crossover effects
+            let mut grain_color = [r as f32 / 255.0, g as f32 / 255.0, b as f32 / 255.0];
+            ENHANCED_DATA.with(|enhanced_cache| {
+                let mut enhanced_cache = enhanced_cache.borrow_mut();
+                if enhanced_cache.is_none() {
+                    *enhanced_cache = load_enhanced_film_data().ok();
+                }
+                if let Some(ref enhanced_data) = *enhanced_cache {
+                    if let Some(enhanced) = enhanced_data.get(&params.film_stock) {
+                        apply_color_crossover(&mut grain_color, &enhanced.color_crossover);
+                    }
+                }
+            });
+            
+            // Apply JSON color cast
+            grain_color[0] *= cast_r;
+            grain_color[1] *= cast_g;
+            grain_color[2] *= cast_b;
+            
+            let final_color = (
+                (grain_color[0] * 255.0).clamp(0.0, 255.0) as u8,
+                (grain_color[1] * 255.0).clamp(0.0, 255.0) as u8,
+                (grain_color[2] * 255.0).clamp(0.0, 255.0) as u8
+            );
+            cache.insert(stock.basic_info.name.clone(), final_color);
+            final_color
+        }
+    })
 }
 
 fn apply_enhanced_effects(grains: &mut Vec<Grain>, params: &GrainParams, enhanced: &EnhancedFilmData) -> Result<(), String> {
