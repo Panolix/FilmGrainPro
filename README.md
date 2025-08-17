@@ -1,6 +1,6 @@
 # 🎬 Film Grain Generator
 
-A professional desktop application for generating **authentic film grain overlays** with scientifically accurate characteristics based on exactly 35 real film stocks.
+The world's most scientifically accurate film grain simulation tool. Built with comprehensive research data from 35 film stocks, featuring authentic grain patterns based on real photographic science, crystal structure analysis, and advanced statistical modeling.
 
 ![Platform Support](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)
 ![License](https://img.shields.io/badge/License-Proprietary-red)
@@ -12,19 +12,26 @@ A professional desktop application for generating **authentic film grain overlay
 
 *Professional interface featuring: **Left** - Film stock info panel with technical specifications, **Center** - Live grain generation canvas, **Right** - Precision toolbox with sliders and selectors, **Bottom** - Real-time performance metrics showing grain count and generation speed*
 
-## ✨ Features
+## ✨ Revolutionary Scientific Features
 
-### 🎞️ **Authentic Film Simulation**
-- **35 Real Film Stocks**: Kodak, Fuji, Ilford, Agfa, and specialty cinema films
-- **Scientifically Accurate**: Based on actual film stock technical specifications
-- **Realistic Grain Characteristics**: Authentic sizes, shapes, densities, and clustering patterns
-- **Film-Specific Colors**: Each stock has its unique grain color signature
+### 🔬 **Research-Grade Accuracy**
+- **Crystal Structure Modeling**: T-grain, Sigma-grain, and cubic crystal simulations
+- **Log-Normal Grain Distributions**: Scientifically accurate size patterns replacing random generation
+- **Reciprocity Failure Simulation**: Authentic Schwarzschild coefficients for long exposure effects
+- **MTF-Based Clustering**: Realistic grain patterns based on optical transfer functions
+- **AgBr/AgI Composition Effects**: Chemical composition influences on grain characteristics
 
-### ⚡ **High Performance**
-- **Multi-threaded Rendering**: Utilizes all CPU cores for fast generation
-- **Adjustable Density**: 10K-200K grains (0.5x-5.0x multiplier) with real-time performance controls
-- **Instant Preview**: Real-time slider updates with optimized rendering
-- **Professional Quality**: Up to 2048x2048 resolution output
+### 🎯 **Comprehensive Film Database**
+- **35 Meticulously Researched Film Stocks** with complete scientific data
+- **5 Data Sources Per Film**: Crystal structure, exposure effects, optical properties, aging characteristics, color crossover
+- **Film-Specific Behaviors**: T-grain orientation, fractal clustering, spectral sensitivity shifts
+- **Authentic Color Interactions**: Cross-channel color effects for realistic color film simulation
+
+### 🚀 **Cutting-Edge Performance**
+- **Multi-threaded Rust Engine**: SIMD-optimized grain rendering up to 500K+ grains
+- **Smart GPU Acceleration**: Intelligent CPU fallback for optimal performance
+- **Real-Time Scientific Generation**: Advanced algorithms with fractal dimensions
+- **Professional Output**: Up to 2048x2048 resolution with authentic film characteristics
 
 ### 🎨 **Professional Controls**
 - **Exposure Compensation**: -2 to +2 stops (simulates over/under exposure)
@@ -40,14 +47,22 @@ A professional desktop application for generating **authentic film grain overlay
 
 ## 🎯 **What Makes It Realistic?**
 
-This isn't just random noise - it's **scientifically accurate film grain simulation**:
+This isn't just random noise - it's **research-grade photographic science simulation**:
 
-### **Authentic Film Stock Data:**
-- **Grain Shapes**: Irregular (Tri-X), Tabular (T-Max), Sigma (Fuji), Core-Shell (Color films)
-- **Real Sizes**: Measured in micrometers from actual film specifications
-- **Density Values**: Based on grains per mm² from technical datasheets
-- **Edge Types**: Sharp, soft, or hard edges matching real film characteristics
-- **Clustering Patterns**: Realistic grain grouping based on film development chemistry
+### **Scientific Research Foundation:**
+- **Crystal Structure Analysis**: Hexagonal (Sigma-grain), Cubic (traditional), Orthorhombic (T-grain)
+- **Chemical Composition Data**: AgBr/AgI percentages affecting grain sensitivity and characteristics
+- **Optical Transfer Functions**: MTF data for authentic sharpness and clustering behavior
+- **Reciprocity Failure Coefficients**: Schwarzschild values for realistic long exposure effects
+- **Statistical Distribution Models**: Log-normal grain size distributions from microscopy studies
+- **Fractal Clustering Algorithms**: Spatial correlation patterns based on development chemistry
+
+### **Comprehensive Data Sources:**
+- **fixed.json**: Base film stock definitions with technical specifications
+- **enhanced_film_data.json**: Scientific research data (crystal structure, exposure effects, optical properties)
+- **more.json**: Advanced effects (aging, color crossover, fractal clustering)
+- **variation.json**: Authentic grain variation coefficients
+- **color.json**: Film-specific color palettes with cross-channel interactions
 
 ### **Film Stocks Included:**
 - **Black & White**: Kodak Tri-X 400, T-Max 100/400/3200, Ilford HP5 Plus, Delta series, Fuji Acros
@@ -128,17 +143,19 @@ The installer will check for these and guide you through any missing requirement
 ## 🔧 **Technical Details**
 
 ### **Built With:**
-- **Backend**: Rust (high-performance grain generation)
+- **Backend**: Rust (high-performance scientific grain generation)
 - **Frontend**: JavaScript + HTML/CSS
 - **Framework**: Tauri (cross-platform desktop)
-- **Rendering**: Multi-threaded parallel processing
-- **Data**: JSON-based film stock database
+- **Rendering**: Multi-threaded parallel processing with SIMD optimization
+- **Data**: Comprehensive JSON-based scientific film database (5 data sources per film)
+- **Algorithms**: Log-normal distributions, fractal clustering, reciprocity failure modeling
 
 ### **Performance:**
-- **Multi-core**: Uses all available CPU threads
-- **Memory Efficient**: Optimized grain rendering algorithms
-- **Real-time**: Instant preview updates
-- **Scalable**: Handles up to 50K+ grains smoothly
+- **Multi-core**: Uses all available CPU threads with SIMD optimization
+- **Scientific Generation**: Real-time log-normal distributions and crystal structure modeling
+- **Smart GPU Acceleration**: Intelligent fallback for optimal performance
+- **Scalable**: Handles up to 500K+ grains with fractal clustering
+- **Memory Efficient**: Optimized algorithms for large-scale grain generation
 
 ## 📊 **System Requirements**
 
