@@ -623,77 +623,118 @@ fn render_grains_parallel(grains: &[Grain], params: &GrainParams, stock: &FilmSt
     Ok(img.into_raw())
 }
 
+// Cache for expensive operations
+thread_local! {
+    static FILM_COLORS: std::cell::RefCell<std::collections::HashMap<String, (u8, u8, u8)>> = std::cell::RefCell::new(std::collections::HashMap::new());
+    static ENHANCED_DATA: std::cell::RefCell<Option<HashMap<String, EnhancedFilmData>>> = std::cell::RefCell::new(None);
+}
+
 fn render_grain_to_pixels(grain: &Grain, stock: &FilmStock, params: &GrainParams) -> Vec<(u32, u32, Rgba<u8>)> {
-    let mut pixels = Vec::new();
     let center_x = grain.x as i32;
     let center_y = grain.y as i32;
     let radius = grain.size as i32;
     
-    // Load authentic film grain colors from color.json
-    let (r, g, b) = get_film_grain_color(&stock.basic_info.name);
-    
-    // Apply color crossover effects from more.json if available
-    let mut grain_color = [r as f32 / 255.0, g as f32 / 255.0, b as f32 / 255.0];
-    if let Ok(enhanced_data) = load_enhanced_film_data() {
-        if let Some(enhanced) = enhanced_data.get(&params.film_stock) {
-            apply_color_crossover(&mut grain_color, &enhanced.color_crossover);
-        }
+    // Early bounds check - skip grains completely outside canvas
+    if center_x + radius < 0 || center_y + radius < 0 || 
+       center_x - radius >= params.width as i32 || center_y - radius >= params.height as i32 {
+        return Vec::new();
     }
-    let final_r = (grain_color[0] * 255.0).clamp(0.0, 255.0) as u8;
-    let final_g = (grain_color[1] * 255.0).clamp(0.0, 255.0) as u8;
-    let final_b = (grain_color[2] * 255.0).clamp(0.0, 255.0) as u8;
     
-    // Use realistic opacity with moderate boost for visibility
-    let boosted_opacity = match grain.opacity {
-        x if x < 0.2 => x * 3.0,   // Fine films - 3x boost
-        x if x < 0.4 => x * 2.0,   // Medium films - 2x boost
-        x => x * 1.5,              // Coarse films - 1.5x boost
-    };
-    let alpha = (boosted_opacity * 255.0).min(255.0).max(40.0) as u8;
+    // Use cached film colors to avoid repeated JSON parsing
+    let (final_r, final_g, final_b) = FILM_COLORS.with(|cache| {
+        let mut cache = cache.borrow_mut();
+        if let Some(&color) = cache.get(&stock.basic_info.name) {
+            color
+        } else {
+            let (r, g, b) = get_film_grain_color(&stock.basic_info.name);
+            
+            // Apply color crossover effects (cached)
+            let mut grain_color = [r as f32 / 255.0, g as f32 / 255.0, b as f32 / 255.0];
+            ENHANCED_DATA.with(|enhanced_cache| {
+                let mut enhanced_cache = enhanced_cache.borrow_mut();
+                if enhanced_cache.is_none() {
+                    *enhanced_cache = load_enhanced_film_data().ok();
+                }
+                if let Some(ref enhanced_data) = *enhanced_cache {
+                    if let Some(enhanced) = enhanced_data.get(&params.film_stock) {
+                        apply_color_crossover(&mut grain_color, &enhanced.color_crossover);
+                    }
+                }
+            });
+            
+            let final_color = (
+                (grain_color[0] * 255.0).clamp(0.0, 255.0) as u8,
+                (grain_color[1] * 255.0).clamp(0.0, 255.0) as u8,
+                (grain_color[2] * 255.0).clamp(0.0, 255.0) as u8
+            );
+            cache.insert(stock.basic_info.name.clone(), final_color);
+            final_color
+        }
+    });
     
-    // Render grain with anti-aliasing
+    // Fast opacity calculation
+    let alpha = ((grain.opacity * 255.0 * 2.0).min(255.0).max(40.0)) as u8;
+    
+    // Pre-allocate pixels vector with estimated capacity
+    let estimated_pixels = ((radius * radius) as f32 * 3.14159) as usize;
+    let mut pixels = Vec::with_capacity(estimated_pixels);
+    
+    // Optimized grain rendering with fewer calculations
+    let grain_size_sq = grain.size * grain.size;
+    let shape_factor_inv = 1.0 / grain.shape_factor;
+    
+    // Cache edge type calculation
+    let edge_type = &stock.grain_structure.edge_type;
+    let is_soft_edge = edge_type == "soft";
+    let is_hard_edge = edge_type == "hard";
+    
     for dy in -radius..=radius {
+        let dy_sq = (dy * dy) as f32;
+        let y = center_y + dy;
+        
+        // Skip entire row if outside bounds
+        if y < 0 || y >= params.height as i32 {
+            continue;
+        }
+        
         for dx in -radius..=radius {
             let x = center_x + dx;
-            let y = center_y + dy;
             
-            if x >= 0 && y >= 0 && x < params.width as i32 && y < params.height as i32 {
-                // Apply shape factor for realistic grain shapes
-                let adjusted_dx = dx as f32 / grain.shape_factor;
-                let distance = ((adjusted_dx * adjusted_dx) + (dy * dy) as f32).sqrt();
-                
-                if distance <= grain.size {
-                    // Apply edge characteristics based on film stock
-                    let edge_alpha = match stock.grain_structure.edge_type.as_str() {
-                        "sharp" => {
-                            if distance > grain.size * 0.9 {
-                                ((grain.size - distance) / (grain.size * 0.1)).max(0.0)
-                            } else {
-                                1.0
-                            }
-                        },
-                        "soft" => {
-                            if distance > grain.size * 0.7 {
-                                ((grain.size - distance) / (grain.size * 0.3)).max(0.0)
-                            } else {
-                                1.0
-                            }
-                        },
-                        "hard" => {
-                            if distance > grain.size * 0.95 {
-                                0.0
-                            } else {
-                                1.0
-                            }
-                        },
-                        _ => 1.0,
-                    };
-                    
-                    let final_alpha = (alpha as f32 * edge_alpha) as u8;
-                    
-                    if final_alpha > 10 {
-                        pixels.push((x as u32, y as u32, Rgba([final_r, final_g, final_b, final_alpha])));
+            // Quick bounds check
+            if x < 0 || x >= params.width as i32 {
+                continue;
+            }
+            
+            // Fast distance calculation with shape factor
+            let adjusted_dx = dx as f32 * shape_factor_inv;
+            let distance_sq = adjusted_dx * adjusted_dx + dy_sq;
+            
+            if distance_sq <= grain_size_sq {
+                // Fast edge calculation
+                let edge_alpha = if is_soft_edge {
+                    let distance = distance_sq.sqrt();
+                    if distance > grain.size * 0.7 {
+                        ((grain.size - distance) / (grain.size * 0.3)).max(0.0)
+                    } else {
+                        1.0
                     }
+                } else if is_hard_edge {
+                    let distance = distance_sq.sqrt();
+                    if distance > grain.size * 0.95 { 0.0 } else { 1.0 }
+                } else {
+                    // Sharp edge (default)
+                    let distance = distance_sq.sqrt();
+                    if distance > grain.size * 0.9 {
+                        ((grain.size - distance) / (grain.size * 0.1)).max(0.0)
+                    } else {
+                        1.0
+                    }
+                };
+                
+                let final_alpha = (alpha as f32 * edge_alpha) as u8;
+                
+                if final_alpha > 10 {
+                    pixels.push((x as u32, y as u32, Rgba([final_r, final_g, final_b, final_alpha])));
                 }
             }
         }

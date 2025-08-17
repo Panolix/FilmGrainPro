@@ -1,0 +1,167 @@
+name: Auto Release
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'film-grain-generator/**'
+      - '!film-grain-generator/README.md'
+      - '!**/*.md'
+
+jobs:
+  auto-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+
+      - name: Get current version
+        id: current_version
+        run: |
+          CURRENT_VERSION=$(grep '"version":' film-grain-generator/package.json | head -1 | sed 's/.*"version": *"\([^"]*\)".*/\1/')
+          echo "current=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+          echo "Current version: $CURRENT_VERSION"
+
+      - name: Determine version bump
+        id: version_bump
+        run: |
+          # Check commit messages for version bump indicators
+          COMMITS=$(git log --oneline $(git describe --tags --abbrev=0)..HEAD 2>/dev/null || git log --oneline)
+          
+          if echo "$COMMITS" | grep -i "BREAKING\|major"; then
+            BUMP_TYPE="major"
+          elif echo "$COMMITS" | grep -i "feat\|feature\|minor"; then
+            BUMP_TYPE="minor"
+          else
+            BUMP_TYPE="patch"
+          fi
+          
+          echo "bump_type=$BUMP_TYPE" >> $GITHUB_OUTPUT
+          echo "Detected bump type: $BUMP_TYPE"
+
+      - name: Calculate new version
+        id: new_version
+        run: |
+          CURRENT="${{ steps.current_version.outputs.current }}"
+          BUMP_TYPE="${{ steps.version_bump.outputs.bump_type }}"
+          
+          # Parse current version
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+          
+          # Bump version based on type
+          case $BUMP_TYPE in
+            major)
+              MAJOR=$((MAJOR + 1))
+              MINOR=0
+              PATCH=0
+              ;;
+            minor)
+              MINOR=$((MINOR + 1))
+              PATCH=0
+              ;;
+            patch)
+              PATCH=$((PATCH + 1))
+              ;;
+          esac
+          
+          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "New version: $NEW_VERSION"
+
+      - name: Update version in files
+        run: |
+          NEW_VERSION="${{ steps.new_version.outputs.version }}"
+          
+          # Update package.json
+          sed -i "s/\"version\": \".*\"/\"version\": \"$NEW_VERSION\"/" film-grain-generator/package.json
+          
+          # Update Cargo.toml
+          sed -i "s/version = \".*\"/version = \"$NEW_VERSION\"/" film-grain-generator/src-tauri/Cargo.toml
+          
+          # Update tauri.conf.json
+          sed -i "s/\"version\": \".*\"/\"version\": \"$NEW_VERSION\"/" film-grain-generator/src-tauri/tauri.conf.json
+          
+          echo "Updated version to $NEW_VERSION in all files"
+
+      - name: Generate release notes
+        id: release_notes
+        run: |
+          NEW_VERSION="${{ steps.new_version.outputs.version }}"
+          BUMP_TYPE="${{ steps.version_bump.outputs.bump_type }}"
+          
+          # Get commits since last tag
+          COMMITS=$(git log --oneline $(git describe --tags --abbrev=0)..HEAD 2>/dev/null || git log --oneline -10)
+          
+          # Create release notes
+          cat > release_notes.md << EOF
+          🎬 Film Grain Generator v$NEW_VERSION - $(echo $BUMP_TYPE | tr '[:lower:]' '[:upper:]') Update
+          
+          ## What's Changed
+          
+          EOF
+          
+          # Parse commits for features and fixes
+          echo "$COMMITS" | while read -r line; do
+            if echo "$line" | grep -qi "feat\|feature\|add"; then
+              echo "✨ $line" >> release_notes.md
+            elif echo "$line" | grep -qi "fix\|bug"; then
+              echo "🐛 $line" >> release_notes.md
+            elif echo "$line" | grep -qi "perf\|optim\|speed"; then
+              echo "⚡ $line" >> release_notes.md
+            elif echo "$line" | grep -qi "doc\|readme"; then
+              echo "📚 $line" >> release_notes.md
+            else
+              echo "🔧 $line" >> release_notes.md
+            fi
+          done
+          
+          echo "" >> release_notes.md
+          echo "**Full Changelog**: https://github.com/${{ github.repository }}/compare/$(git describe --tags --abbrev=0)...v$NEW_VERSION" >> release_notes.md
+          
+          # Set output for next step
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          cat release_notes.md >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Commit version bump
+        run: |
+          NEW_VERSION="${{ steps.new_version.outputs.version }}"
+          
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          git add film-grain-generator/package.json
+          git add film-grain-generator/src-tauri/Cargo.toml
+          git add film-grain-generator/src-tauri/tauri.conf.json
+          
+          git commit -m "🔖 Bump version to v$NEW_VERSION"
+          git push
+
+      - name: Create tag and release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.new_version.outputs.version }}
+          release_name: 'Film Grain Generator v${{ steps.new_version.outputs.version }}'
+          body: ${{ steps.release_notes.outputs.notes }}
+          draft: false
+          prerelease: false
+
+      - name: Output summary
+        run: |
+          NEW_VERSION="${{ steps.new_version.outputs.version }}"
+          echo "🎉 Successfully created release v$NEW_VERSION"
+          echo "📦 Installers will be built automatically by the build workflow"
+          echo "🔗 Release URL: https://github.com/${{ github.repository }}/releases/tag/v$NEW_VERSION"
