@@ -7,6 +7,17 @@ on:
       - 'film-grain-generator/**'
       - '!film-grain-generator/README.md'
       - '!**/*.md'
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: 'Version bump type'
+        required: false
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
 
 jobs:
   auto-release:
