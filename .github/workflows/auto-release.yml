@@ -1,23 +1,12 @@
 name: Auto Release
 
 on:
-  push:
-    branches: [ main, master ]
-    paths:
-      - 'film-grain-generator/**'
-      - '!film-grain-generator/README.md'
-      - '!**/*.md'
   workflow_dispatch:
     inputs:
-      version_type:
-        description: 'Version bump type'
-        required: false
-        default: 'patch'
-        type: choice
-        options:
-          - patch
-          - minor
-          - major
+      version:
+        description: 'Version to release (e.g., 1.0.8)'
+        required: true
+        default: '1.0.8'
 
 jobs:
   auto-release:
@@ -38,58 +27,12 @@ jobs:
         with:
           node-version: 'lts/*'
 
-      - name: Get current version
-        id: current_version
-        run: |
-          CURRENT_VERSION=$(grep '"version":' film-grain-generator/package.json | head -1 | sed 's/.*"version": *"\([^"]*\)".*/\1/')
-          echo "current=$CURRENT_VERSION" >> $GITHUB_OUTPUT
-          echo "Current version: $CURRENT_VERSION"
-
-      - name: Determine version bump
-        id: version_bump
-        run: |
-          # Check commit messages for version bump indicators
-          COMMITS=$(git log --oneline $(git describe --tags --abbrev=0)..HEAD 2>/dev/null || git log --oneline)
-          
-          if echo "$COMMITS" | grep -i "BREAKING\|major"; then
-            BUMP_TYPE="major"
-          elif echo "$COMMITS" | grep -i "feat\|feature\|minor"; then
-            BUMP_TYPE="minor"
-          else
-            BUMP_TYPE="patch"
-          fi
-          
-          echo "bump_type=$BUMP_TYPE" >> $GITHUB_OUTPUT
-          echo "Detected bump type: $BUMP_TYPE"
-
-      - name: Calculate new version
+      - name: Set version
         id: new_version
         run: |
-          CURRENT="${{ steps.current_version.outputs.current }}"
-          BUMP_TYPE="${{ steps.version_bump.outputs.bump_type }}"
-          
-          # Parse current version
-          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
-          
-          # Bump version based on type
-          case $BUMP_TYPE in
-            major)
-              MAJOR=$((MAJOR + 1))
-              MINOR=0
-              PATCH=0
-              ;;
-            minor)
-              MINOR=$((MINOR + 1))
-              PATCH=0
-              ;;
-            patch)
-              PATCH=$((PATCH + 1))
-              ;;
-          esac
-          
-          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          NEW_VERSION="${{ github.event.inputs.version }}"
           echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
-          echo "New version: $NEW_VERSION"
+          echo "Manual version: $NEW_VERSION"
 
       - name: Update version in files
         run: |

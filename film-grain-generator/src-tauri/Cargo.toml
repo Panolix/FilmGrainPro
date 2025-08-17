@@ -26,7 +26,7 @@ wide = "0.7"
 
 # GPU acceleration dependencies
 wgpu = { version = "1.0.6", optional = true }
-bytemuck = { version = "1.0.6"], optional = true }
+bytemuck = { version = "1.14", features = ["derive"], optional = true }
 pollster = { version = "1.0.6", optional = true }
 
 # Platform-specific GPU backends
