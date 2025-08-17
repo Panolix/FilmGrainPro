@@ -6,6 +6,12 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to build (e.g., v1.0.4)'
+        required: true
+        default: 'v1.0.4'
 
 jobs:
   build:
@@ -56,9 +62,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           projectPath: './film-grain-generator'
-          tagName: ${{ github.ref_name }}
+          tagName: ${{ github.event.release.tag_name || github.ref_name }}
           releaseName: 'Film Grain Generator v__VERSION__'
           releaseBody: 'See the assets to download and install this version.'
           releaseDraft: false
           prerelease: false
           args: ${{ matrix.args }}
+          includeUpdaterJson: false
