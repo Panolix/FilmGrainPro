@@ -1,6 +1,6 @@
 [package]
 name = "film-grain-generator"
-version = "1.0.0"
+version = "1.0.2"
 description = "Film Grain Generator - Professional film grain effects"
 authors = ["Panagiotis Smponias"]
 license = "Proprietary"
@@ -51,7 +51,7 @@ cuda = ["dep:cudarc"]
 opencl = ["dep:opencl3"]
 metal = []
 
-default = ["gpu-acceleration"]
+default = []
 
 # Release optimizations
 [profile.release]

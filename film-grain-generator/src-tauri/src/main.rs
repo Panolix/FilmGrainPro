@@ -7,6 +7,9 @@ use std::io::Cursor;
 use base64::{Engine as _, engine::general_purpose};
 // SIMD optimizations (using built-in CPU vectorization)
 
+#[cfg(feature = "gpu-acceleration")]
+mod gpu;
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct FilmStock {
     basic_info: BasicInfo,
@@ -161,8 +164,21 @@ struct Grain {
     shape_factor: f32,
 }
 
+#[cfg(feature = "gpu-acceleration")]
+async fn try_gpu_render(grains: &[Grain], params: &GrainParams, stock: &FilmStock) -> Result<Vec<u8>, String> {
+    use gpu::GpuManager;
+    
+    // Only attempt GPU for very large workloads
+    if grains.len() < 50000 {
+        return Err("Workload too small for GPU".to_string());
+    }
+    
+    let gpu_manager = GpuManager::new().await?;
+    gpu_manager.render_grains(grains, params, stock).await
+}
+
 #[tauri::command]
-fn generate_grain(params: GrainParams) -> Result<GrainResult, String> {
+async fn generate_grain(params: GrainParams) -> Result<GrainResult, String> {
     let start_time = std::time::Instant::now();
     
     // Load film stock data (in a real app, this would be loaded once at startup)
@@ -188,8 +204,31 @@ fn generate_grain(params: GrainParams) -> Result<GrainResult, String> {
         apply_enhanced_effects(&mut grains, &params, enhanced)?;
     }
     
-    // Back to original fast CPU rendering - GPU was causing overhead
-    let image_data = render_grains_parallel(&grains, &params, stock)?;
+    // Smart rendering strategy:
+    // - CPU (Rayon + SIMD): Fast for normal workloads (0-50K grains) - no GPU overhead
+    // - GPU: Only for massive workloads (>50K grains) where parallelism outweighs overhead
+    // This prevents the "slow/white screen" issues you experienced with GPU on small workloads
+    let image_data = if grains.len() > 50000 && cfg!(feature = "gpu-acceleration") {
+        // Try GPU for massive workloads only
+        #[cfg(feature = "gpu-acceleration")]
+        {
+            match try_gpu_render(&grains, &params, stock).await {
+                Ok(data) => {
+                    println!("🚀 Used GPU acceleration for {} grains", grains.len());
+                    data
+                },
+                Err(e) => {
+                    println!("⚠️ GPU failed ({}), falling back to optimized CPU", e);
+                    render_grains_parallel(&grains, &params, stock)?
+                }
+            }
+        }
+        #[cfg(not(feature = "gpu-acceleration"))]
+        render_grains_parallel(&grains, &params, stock)?
+    } else {
+        // Use optimized CPU rendering for normal workloads (much faster for <50K grains)
+        render_grains_parallel(&grains, &params, stock)?
+    };
     
     let generation_time = start_time.elapsed().as_millis();
     
