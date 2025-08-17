@@ -15,7 +15,7 @@ A professional desktop application for generating **authentic film grain overlay
 ## ✨ Features
 
 ### 🎞️ **Authentic Film Simulation**
-- **35 Real Film Stocks**: Kodak, Fuji, Ilford, Agfa, and specialty cinema films
+- **35 Real Film Stocks**: Complete database including Kodak, Fuji, Ilford, Agfa, and CineStill films
 - **Scientifically Accurate**: Based on actual film stock technical specifications
 - **Realistic Grain Characteristics**: Authentic sizes, shapes, densities, and clustering patterns
 - **Film-Specific Colors**: Each stock has its unique grain color signature
@@ -42,20 +42,40 @@ A professional desktop application for generating **authentic film grain overlay
 
 This isn't just random noise - it's **scientifically accurate film grain simulation**:
 
-### **Authentic Film Stock Data:**
-- **Grain Shapes**: Irregular (Tri-X), Tabular (T-Max), Sigma (Fuji), Core-Shell (Color films)
-- **Real Size Variation**: Uses min/max grain sizes from actual film specifications
-- **Density Values**: Based on grains per mm² from technical datasheets (2.5x enhanced density)
-- **Edge Types**: Sharp, soft, hard, or crystalline edges matching real film characteristics
-- **Clustering Patterns**: Authentic grain grouping using JSON cluster size data
+### **Complete Film Authenticity (35+ Film Stocks):**
+- **Shape-Based Rendering**: Authentic crystal structures - Sigma (Fuji), Tabular (T-Max), Irregular (Tri-X), Cubic (HP5)
+- **ISO-Based Behavior**: High ISO films (Delta 3200) show chaotic grain; low ISO films (Ektar 100) are ultra-uniform
+- **Real Size Variation**: Uses actual min/max grain sizes from film specifications (0.3-2.0 micrometers)
+- **Ultra-High Density**: Up to 1M+ grains based on real grains per mm² data (2.5x enhanced density)
+- **Multi-Layer Color Simulation**: Separate cyan, magenta, yellow emulsion layers for color films
+- **Pattern Distribution**: Clustered vs random grain placement based on film chemistry
+- **Edge Type Rendering**: Soft, sharp, hard, crystalline edges matching real film characteristics
+- **Authentic Clustering**: JSON-based cluster sizes (2-5 grains) and spatial patterns
 - **Contrast Characteristics**: Film-specific opacity based on actual contrast levels
-- **Color Accuracy**: Authentic color casts (warm, cool, neutral, tungsten) per film stock
+- **Color Accuracy**: Authentic color casts per film stock (CineStill 800T warm, Fuji green bias, etc.)
+- **Aging Simulation**: Realistic film aging with storage temperature effects (fridge vs room temp)
+- **Exposure Effects**: Authentic push/pull processing effects on grain structure and visibility
 
-### **Film Stocks Included:**
-- **Black & White**: Kodak Tri-X 400, T-Max 100/400/3200, Ilford HP5 Plus, Delta series, Fuji Acros
-- **Color Negative**: Kodak Portra 160/400/800, Ektar 100, Fuji Pro 400H, Superia series
-- **Color Slide**: Kodak Ektachrome, Fuji Velvia 50/100, Provia 100F
-- **Cinema**: Kodak Vision3 series, CineStill 50D/800T
+### **35 Film Stocks Included:**
+
+**Black & White Films (12):**
+- **Kodak**: Tri-X 400, T-Max 100/400
+- **Ilford**: HP5 Plus, Delta 100/400/3200, FP4 Plus, Pan F Plus 50
+- **Fuji**: Acros 100, Neopan 400/1600
+
+**Color Negative Films (15):**
+- **Kodak**: Portra 160/400/800, Ektar 100, Gold 200, UltraMax 400, Vision3 50D/500T
+- **Fuji**: Pro 160S/400H, C200, Superia 400, Natura 1600
+- **Agfa**: Vista 200/400
+- **CineStill**: 50D, 800T (with authentic halation effects)
+
+**Color Slide Films (5):**
+- **Fuji**: Velvia 50/100, Provia 100F/400X
+- **Kodak**: Ektachrome E100
+
+**Specialty Films (3):**
+- **Agfa**: CT Precisa 100
+- **Motion Picture**: Authentic cinema characteristics
 
 ### **Authentic Grain Differences**
 
