@@ -1,0 +1,1118 @@
+{
+  "Agfa CT Precisa 100": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.4,
+        "grain_density_per_mm2": 1200000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.35,
+        "grain_density_per_mm2": 1300000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.3,
+        "grain_density_per_mm2": 1400000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Agfa CT Precisa technical datasheet, E-6 slide film with Super-fine Sigma crystals"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.04,
+      "grain_correlation_strength": 0.8,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.06,
+          0.03
+        ],
+        [
+          0.04,
+          1.0,
+          0.05
+        ],
+        [
+          0.02,
+          0.03,
+          1.0
+        ]
+      ],
+      "source": "Agfa CT Precisa technical datasheet"
+    }
+  },
+  "Fuji Velvia 50": {
+    "color_layers": {
+      "layer_count": 6,
+      "layer_order": [
+        "blue_sensitive",
+        "green_correction",
+        "yellow_filter",
+        "green_sensitive",
+        "red_sensitive",
+        "red_correction"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.38,
+        "grain_density_per_mm2": 1250000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.33,
+        "grain_density_per_mm2": 1350000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.28,
+        "grain_density_per_mm2": 1450000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Fuji Velvia 50 technical documentation, Super Fine Sigma crystal technology"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.03,
+      "grain_correlation_strength": 0.9,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.12,
+          0.12
+        ],
+        [
+          0.18,
+          1.0,
+          0.18
+        ],
+        [
+          0.12,
+          0.12,
+          1.0
+        ]
+      ],
+      "source": "Fuji Velvia technical documentation, enhanced saturation characteristics"
+    }
+  },
+  "Fuji Velvia 100": {
+    "color_layers": {
+      "layer_count": 6,
+      "layer_order": [
+        "blue_sensitive",
+        "green_correction",
+        "yellow_filter",
+        "green_sensitive",
+        "red_sensitive",
+        "red_correction"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.4,
+        "grain_density_per_mm2": 1200000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.35,
+        "grain_density_per_mm2": 1300000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.3,
+        "grain_density_per_mm2": 1400000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Fuji Velvia 100F technical datasheet, Multi-Structured Sigma Crystal technology"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.05,
+      "grain_correlation_strength": 0.6,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.1,
+          0.1
+        ],
+        [
+          0.15,
+          1.0,
+          0.15
+        ],
+        [
+          0.1,
+          0.1,
+          1.0
+        ]
+      ],
+      "source": "Fuji Velvia 100F technical datasheet"
+    }
+  },
+  "Fuji Provia 100F": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.5,
+        "grain_density_per_mm2": 1100000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.45,
+        "grain_density_per_mm2": 1200000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.4,
+        "grain_density_per_mm2": 1300000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Fuji Provia 100F technical documentation, natural color reproduction"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.06,
+      "grain_correlation_strength": 0.6,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.04,
+          0.02
+        ],
+        [
+          0.03,
+          1.0,
+          0.04
+        ],
+        [
+          0.02,
+          0.02,
+          1.0
+        ]
+      ],
+      "source": "Fuji Provia 100F technical documentation"
+    }
+  },
+  "Fuji Provia 400X": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.75,
+        "grain_density_per_mm2": 850000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.7,
+        "grain_density_per_mm2": 900000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.65,
+        "grain_density_per_mm2": 950000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Fuji Provia 400X technical documentation, high-speed slide film"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.1,
+      "grain_correlation_strength": 0.5,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.08,
+          0.06
+        ],
+        [
+          0.07,
+          1.0,
+          0.08
+        ],
+        [
+          0.05,
+          0.06,
+          1.0
+        ]
+      ],
+      "source": "Fuji Provia 400X technical documentation"
+    }
+  },
+  "Kodak Ektachrome E100": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.48,
+        "grain_density_per_mm2": 1150000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.43,
+        "grain_density_per_mm2": 1250000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.38,
+        "grain_density_per_mm2": 1350000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Kodak Ektachrome E100 technical documentation, modern E-6 emulsion"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.07,
+      "grain_correlation_strength": 0.4,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.06,
+          0.04
+        ],
+        [
+          0.05,
+          1.0,
+          0.06
+        ],
+        [
+          0.03,
+          0.04,
+          1.0
+        ]
+      ],
+      "source": "Kodak Ektachrome E100 technical documentation"
+    }
+  },
+  "Kodak Ektar 100": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.5,
+        "grain_density_per_mm2": 1100000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.45,
+        "grain_density_per_mm2": 1200000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.4,
+        "grain_density_per_mm2": 1300000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Kodak Ektar technical documentation, Advanced T-grain emulsion"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.05,
+      "grain_correlation_strength": 0.4,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.02,
+          0.01
+        ],
+        [
+          0.01,
+          1.0,
+          0.02
+        ],
+        [
+          0.01,
+          0.01,
+          1.0
+        ]
+      ],
+      "source": "Kodak Ektar technical documentation"
+    }
+  },
+  "Kodak Portra 160": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.6,
+        "grain_density_per_mm2": 1000000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.55,
+        "grain_density_per_mm2": 1100000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.5,
+        "grain_density_per_mm2": 1200000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Kodak Portra 160 technical documentation, professional portrait film"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.08,
+      "grain_correlation_strength": 0.35,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.04,
+          0.02
+        ],
+        [
+          0.03,
+          1.0,
+          0.04
+        ],
+        [
+          0.02,
+          0.02,
+          1.0
+        ]
+      ],
+      "source": "Kodak Portra 160 technical documentation"
+    }
+  },
+  "Kodak Portra 400": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.8,
+        "grain_density_per_mm2": 800000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.7,
+        "grain_density_per_mm2": 900000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.6,
+        "grain_density_per_mm2": 1000000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Kodak Portra technical documentation"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.1,
+      "grain_correlation_strength": 0.3,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.05,
+          0.02
+        ],
+        [
+          0.03,
+          1.0,
+          0.04
+        ],
+        [
+          0.01,
+          0.02,
+          1.0
+        ]
+      ],
+      "source": "Kodak Portra technical documentation"
+    }
+  },
+  "Kodak Portra 800": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.9,
+        "grain_density_per_mm2": 750000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.85,
+        "grain_density_per_mm2": 800000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.8,
+        "grain_density_per_mm2": 850000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Kodak Portra 800 technical documentation, high-speed professional"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.12,
+      "grain_correlation_strength": 0.25,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.08,
+          0.06
+        ],
+        [
+          0.07,
+          1.0,
+          0.08
+        ],
+        [
+          0.05,
+          0.06,
+          1.0
+        ]
+      ],
+      "source": "Kodak Portra 800 technical documentation"
+    }
+  },
+  "Fuji Pro 160S": {
+    "color_layers": {
+      "layer_count": 4,
+      "layer_order": [
+        "blue_sensitive",
+        "yellow_filter",
+        "green_sensitive",
+        "cyan_layer",
+        "red_sensitive"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.35,
+        "grain_density_per_mm2": 1300000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.3,
+        "grain_density_per_mm2": 1400000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.25,
+        "grain_density_per_mm2": 1500000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Fuji Pro 160S technical documentation, RMS granularity 3"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.03,
+      "grain_correlation_strength": 0.7,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.05,
+          0.02
+        ],
+        [
+          0.02,
+          1.0,
+          0.03
+        ],
+        [
+          0.01,
+          0.02,
+          1.0
+        ]
+      ],
+      "source": "Fuji Pro 160S technical documentation"
+    }
+  },
+  "Fuji Pro 400H": {
+    "color_layers": {
+      "layer_count": 4,
+      "layer_order": [
+        "blue_sensitive",
+        "yellow_filter",
+        "green_sensitive",
+        "cyan_layer",
+        "red_sensitive"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.6,
+        "grain_density_per_mm2": 900000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.55,
+        "grain_density_per_mm2": 950000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.5,
+        "grain_density_per_mm2": 1000000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Fuji Pro 400H technical documentation, 4th Color Layer Technology"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.08,
+      "grain_correlation_strength": 0.5,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.08,
+          0.05
+        ],
+        [
+          0.06,
+          1.0,
+          0.07
+        ],
+        [
+          0.04,
+          0.05,
+          1.0
+        ]
+      ],
+      "source": "Fuji Pro 400H technical documentation"
+    }
+  },
+  "Agfa Vista 200": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.75,
+        "grain_density_per_mm2": 850000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.7,
+        "grain_density_per_mm2": 900000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.65,
+        "grain_density_per_mm2": 950000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Agfa Vista technical data, consumer color negative"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.1,
+      "grain_correlation_strength": 0.3,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.09,
+          0.07
+        ],
+        [
+          0.08,
+          1.0,
+          0.09
+        ],
+        [
+          0.06,
+          0.07,
+          1.0
+        ]
+      ],
+      "source": "Agfa Vista technical data"
+    }
+  },
+  "Agfa Vista 400": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.85,
+        "grain_density_per_mm2": 800000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.8,
+        "grain_density_per_mm2": 850000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.75,
+        "grain_density_per_mm2": 900000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Agfa Vista technical data, consumer color negative"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.12,
+      "grain_correlation_strength": 0.25,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.1,
+          0.08
+        ],
+        [
+          0.09,
+          1.0,
+          0.1
+        ],
+        [
+          0.07,
+          0.08,
+          1.0
+        ]
+      ],
+      "source": "Agfa Vista technical data"
+    }
+  },
+  "Fuji C200": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.78,
+        "grain_density_per_mm2": 820000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.73,
+        "grain_density_per_mm2": 870000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.68,
+        "grain_density_per_mm2": 920000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Fuji C200 consumer film specifications, conventional cubic crystals"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.11,
+      "grain_correlation_strength": 0.28,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.08,
+          0.06
+        ],
+        [
+          0.07,
+          1.0,
+          0.08
+        ],
+        [
+          0.05,
+          0.06,
+          1.0
+        ]
+      ],
+      "source": "Fuji C200 specifications"
+    }
+  },
+  "Fuji Superia 400": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.82,
+        "grain_density_per_mm2": 790000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.77,
+        "grain_density_per_mm2": 840000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.72,
+        "grain_density_per_mm2": 890000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Fuji Superia consumer film specifications, enhanced cubic crystals"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.12,
+      "grain_correlation_strength": 0.26,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.09,
+          0.07
+        ],
+        [
+          0.08,
+          1.0,
+          0.09
+        ],
+        [
+          0.06,
+          0.07,
+          1.0
+        ]
+      ],
+      "source": "Fuji Superia specifications"
+    }
+  },
+  "Kodak Gold 200": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.8,
+        "grain_density_per_mm2": 800000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.75,
+        "grain_density_per_mm2": 850000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.7,
+        "grain_density_per_mm2": 900000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Kodak Gold consumer film specifications"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.1,
+      "grain_correlation_strength": 0.3,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.08,
+          0.06
+        ],
+        [
+          0.07,
+          1.0,
+          0.08
+        ],
+        [
+          0.05,
+          0.06,
+          1.0
+        ]
+      ],
+      "source": "Kodak Gold specifications"
+    }
+  },
+  "Kodak UltraMax 400": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.85,
+        "grain_density_per_mm2": 780000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.8,
+        "grain_density_per_mm2": 830000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.75,
+        "grain_density_per_mm2": 880000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Kodak UltraMax 400 technical documentation, consumer T-grain technology"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.11,
+      "grain_correlation_strength": 0.27,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.09,
+          0.07
+        ],
+        [
+          0.08,
+          1.0,
+          0.09
+        ],
+        [
+          0.06,
+          0.07,
+          1.0
+        ]
+      ],
+      "source": "Kodak UltraMax technical documentation"
+    }
+  },
+  "Fuji Natura 1600": {
+    "color_layers": {
+      "layer_count": 4,
+      "layer_order": [
+        "blue_sensitive",
+        "yellow_filter",
+        "green_sensitive",
+        "4th_color_layer",
+        "red_sensitive"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 1.4,
+        "grain_density_per_mm2": 550000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 1.35,
+        "grain_density_per_mm2": 580000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 1.3,
+        "grain_density_per_mm2": 610000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Fuji Natura 1600 technical data, high-speed 4th Color Layer Technology"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.18,
+      "grain_correlation_strength": 0.2,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.15,
+          0.12
+        ],
+        [
+          0.14,
+          1.0,
+          0.15
+        ],
+        [
+          0.11,
+          0.12,
+          1.0
+        ]
+      ],
+      "source": "Fuji Natura 1600 technical data"
+    }
+  },
+  "Kodak Vision3 50D": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.45,
+        "grain_density_per_mm2": 1180000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.4,
+        "grain_density_per_mm2": 1280000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.35,
+        "grain_density_per_mm2": 1380000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Kodak Vision3 50D technical documentation, Advanced Dye Layering Technology"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.04,
+      "grain_correlation_strength": 0.5,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.03,
+          0.02
+        ],
+        [
+          0.02,
+          1.0,
+          0.03
+        ],
+        [
+          0.01,
+          0.02,
+          1.0
+        ]
+      ],
+      "source": "Kodak Vision3 technical documentation"
+    }
+  },
+  "Kodak Vision3 500T": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.75,
+        "grain_density_per_mm2": 850000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.7,
+        "grain_density_per_mm2": 900000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.65,
+        "grain_density_per_mm2": 950000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Kodak Vision3 500T technical documentation, Sub-Micron Technology"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.09,
+      "grain_correlation_strength": 0.35,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.06,
+          0.04
+        ],
+        [
+          0.05,
+          1.0,
+          0.06
+        ],
+        [
+          0.03,
+          0.04,
+          1.0
+        ]
+      ],
+      "source": "Kodak Vision3 technical documentation"
+    }
+  },
+  "CineStill 50D": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.48,
+        "grain_density_per_mm2": 1150000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.43,
+        "grain_density_per_mm2": 1250000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.38,
+        "grain_density_per_mm2": 1350000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Vision3 base characteristics, CineStill processing modifications"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.05,
+      "grain_correlation_strength": 0.45,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.04,
+          0.03
+        ],
+        [
+          0.03,
+          1.0,
+          0.04
+        ],
+        [
+          0.02,
+          0.03,
+          1.0
+        ]
+      ],
+      "source": "CineStill processing characteristics"
+    }
+  },
+  "CineStill 800T": {
+    "color_layers": {
+      "layer_count": 3,
+      "layer_order": [
+        "blue_sensitive_yellow_forming",
+        "green_sensitive_magenta_forming",
+        "red_sensitive_cyan_forming"
+      ],
+      "cyan_layer": {
+        "grain_size_um": 0.8,
+        "grain_density_per_mm2": 820000,
+        "spectral_peak_nm": 650
+      },
+      "magenta_layer": {
+        "grain_size_um": 0.75,
+        "grain_density_per_mm2": 870000,
+        "spectral_peak_nm": 550
+      },
+      "yellow_layer": {
+        "grain_size_um": 0.7,
+        "grain_density_per_mm2": 920000,
+        "spectral_peak_nm": 450
+      },
+      "source": "Vision3 base characteristics, CineStill halation effects"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": 0.1,
+      "grain_correlation_strength": 0.3,
+      "color_crossover_matrix": [
+        [
+          1.0,
+          0.07,
+          0.05
+        ],
+        [
+          0.06,
+          1.0,
+          0.07
+        ],
+        [
+          0.04,
+          0.05,
+          1.0
+        ]
+      ],
+      "source": "CineStill processing characteristics"
+    }
+  }
+}
