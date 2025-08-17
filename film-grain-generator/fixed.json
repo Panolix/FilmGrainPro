@@ -1531,7 +1531,7 @@
         "max": 0.7
       },
       "contrast": "medium-high",
-      "color_cast": "tungsten (blue tint)",
+      "color_cast": "tungsten (warm cast)",
       "prominence": {
         "highlights": "medium",
         "shadows": "high",

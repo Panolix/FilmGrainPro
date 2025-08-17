@@ -433,7 +433,7 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_d
     let stock_base_density = stock.size_metrics.density_per_mm2 as f32;
     let user_density_multiplier = params.grain_density as f32 / 1000.0; // Convert from 0.5-5.0 range
     // Adjust divisor for better grain count
-    let final_grain_count = ((stock_base_density * canvas_area_ratio * user_density_multiplier) / 25.0) as usize;
+    let final_grain_count = ((stock_base_density * canvas_area_ratio * user_density_multiplier) / 10.0) as usize; // 🚀 Even higher density
     println!("Density: {:.1}x multiplier, Stock density: {}/mm², Final: {} grains for {}", 
              user_density_multiplier, stock_base_density as u32, final_grain_count, stock.basic_info.name);
     
@@ -461,9 +461,10 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_d
             }
         };
         
-        // Use realistic grain sizes from comprehensive data - scale for screen visibility
-        let base_size = stock.size_metrics.avg_size_um * 0.5; // Back to original smaller size
-        let size = (base_size * size_factor * params.size_multiplier).max(0.5); // Minimum 0.5 pixel
+        // 🚀 NEW: Use JSON size variation (min_size_um to max_size_um)
+        let size_range_um = rng.gen_range(stock.size_metrics.min_size_um..=stock.size_metrics.max_size_um);
+        let base_size = size_range_um * 0.5; // Keep same 0.5 multiplier for screen visibility
+        let size = (base_size * size_factor * params.size_multiplier).max(0.3); // Minimum 0.3 pixel
         
         // Use authentic opacity variation from research data
         let base_opacity = rng.gen_range(stock.visual_properties.opacity_range[0]..stock.visual_properties.opacity_range[1]);
@@ -546,13 +547,8 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_d
     };
     
     if clustering_strength > 0.0 {
-        // Parse cluster size from JSON - need to load it here since we don't have density_dist access later
-        let cluster_size_range = match stock.grain_structure.clustering.as_str() {
-            "heavy" => (3, 5),    // CineStill 800T: "3-5_grains"
-            "moderate" => (2, 4), // Most films: "2-4_grains" 
-            "light" => (2, 3),    // Light clustering: "2-3_grains"
-            _ => (2, 3),
-        };
+        // 🚀 Parse cluster size from JSON clustering field
+        let cluster_size_range = parse_json_cluster_size_range(&stock.grain_structure.clustering);
         apply_realistic_clustering(&mut grains, &mut rng, params.width, params.height, clustering_strength, cluster_size_range);
     }
     
@@ -718,13 +714,16 @@ fn render_grain_to_pixels(grain: &Grain, stock: &FilmStock, params: &GrainParams
         return Vec::new();
     }
     
-    // 🆕 ENHANCEMENT 3: Enhanced color film grain rendering with individual grain color variation
+    // 🆕 ENHANCEMENT 3: Enhanced color film grain rendering with JSON color cast
     let (mut final_r, mut final_g, mut final_b) = FILM_COLORS.with(|cache| {
         let mut cache = cache.borrow_mut();
         if let Some(&color) = cache.get(&stock.basic_info.name) {
             color
         } else {
             let (r, g, b) = get_film_grain_color(&stock.basic_info.name);
+            
+            // 🚀 NEW: Apply JSON color cast from primary_cast field
+            let (cast_r, cast_g, cast_b) = get_json_color_cast_multiplier(&stock.color_properties.primary_cast);
             
             // Apply color crossover effects (cached)
             let mut grain_color = [r as f32 / 255.0, g as f32 / 255.0, b as f32 / 255.0];
@@ -739,6 +738,11 @@ fn render_grain_to_pixels(grain: &Grain, stock: &FilmStock, params: &GrainParams
                     }
                 }
             });
+            
+            // Apply JSON color cast
+            grain_color[0] *= cast_r;
+            grain_color[1] *= cast_g;
+            grain_color[2] *= cast_b;
             
             let final_color = (
                 (grain_color[0] * 255.0).clamp(0.0, 255.0) as u8,
@@ -759,19 +763,13 @@ fn render_grain_to_pixels(grain: &Grain, stock: &FilmStock, params: &GrainParams
         final_b = ((final_b as f32 * color_var).clamp(0.0, 255.0)) as u8;
     }
     
-    // Fast opacity calculation
-    let mut alpha = ((grain.opacity * 255.0 * 2.0).min(255.0).max(40.0)) as u8;
+    // 🚀 NEW: Apply JSON contrast-based opacity
+    let contrast_multiplier = get_json_contrast_multiplier(&stock.visual_properties.contrast_level);
+    let mut alpha = ((grain.opacity * 255.0 * 2.0 * contrast_multiplier).min(255.0).max(40.0)) as u8;
     
-    // 🆕 ENHANCEMENT 5: Prominence-based visibility (simplified for now - would need background image data)
-    // For now, apply general film characteristics without background dependency
-    let visibility_factor = match stock.visual_properties.midtone_prominence.as_str() {
-        "high" => 1.1,
-        "medium" => 1.0,
-        "low" => 0.9,
-        _ => 1.0,
-    };
-    
-    alpha = ((alpha as f32 * visibility_factor).clamp(0.0, 255.0)) as u8;
+    // 🆕 ENHANCEMENT 5: Keep original alpha without prominence modification
+    // let prominence_factor = get_json_prominence_factor(stock);
+    // alpha = ((alpha as f32 * prominence_factor).clamp(0.0, 255.0)) as u8;
     
     // Pre-allocate pixels vector with estimated capacity
     let estimated_pixels = ((radius * radius) as f32 * 3.14159) as usize;
@@ -782,13 +780,7 @@ fn render_grain_to_pixels(grain: &Grain, stock: &FilmStock, params: &GrainParams
     let shape_factor_inv = 1.0 / grain.shape_factor;
     
     // 🆕 ENHANCEMENT 6: Enhanced edge rendering based on JSON edge_type
-    let edge_type = &stock.grain_structure.edge_type;
-    let edge_softness = match edge_type.as_str() {
-        "soft" => 1.4,      // More gradual falloff
-        "sharp" => 0.8,     // Crisp edges
-        "hard" => 0.6,      // Very sharp cutoff
-        _ => 1.0,           // Default
-    };
+    let edge_softness = get_json_edge_softness(&stock.grain_structure.edge_type);
     
     for dy in -radius..=radius {
         let dy_sq = (dy * dy) as f32;
@@ -814,13 +806,13 @@ fn render_grain_to_pixels(grain: &Grain, stock: &FilmStock, params: &GrainParams
             if distance_sq <= grain_size_sq {
                 // Enhanced edge calculation using JSON edge_type data
                 let distance = distance_sq.sqrt();
-                let edge_alpha = if edge_type == "soft" {
+                let edge_alpha = if stock.grain_structure.edge_type == "soft" {
                     if distance > grain.size * 0.6 {
                         ((grain.size - distance) / (grain.size * 0.4 * edge_softness)).max(0.0)
                     } else {
                         1.0
                     }
-                } else if edge_type == "hard" {
+                } else if stock.grain_structure.edge_type == "hard" {
                     if distance > grain.size * 0.98 { 0.0 } else { 1.0 }
                 } else {
                     // Sharp edge (default) with configurable softness
@@ -841,6 +833,89 @@ fn render_grain_to_pixels(grain: &Grain, stock: &FilmStock, params: &GrainParams
     }
     
     pixels
+}
+
+// 🚀 NEW: Get JSON color cast multiplier from primary_cast field
+fn get_json_color_cast_multiplier(color_cast: &str) -> (f32, f32, f32) {
+    match color_cast {
+        "neutral" | "neutral_gray" => (1.0, 1.0, 1.0),
+        "warm" | "warm_brown" => (1.1, 1.05, 0.9),
+        "cool" | "cool_blue" => (0.95, 0.98, 1.08),
+        "warm_yellow" => (1.08, 1.05, 0.92),
+        "cool_green" => (0.98, 1.02, 1.0),
+        "sepia" => (1.2, 1.1, 0.8),
+        "cyan_tint" => (0.9, 1.0, 1.1),
+        "magenta_tint" => (1.1, 0.95, 1.05),
+        "yellow_tint" => (1.05, 1.05, 0.9),
+        "tungsten (warm cast)" => (1.15, 1.08, 0.85), // Fixed CineStill 800T
+        "slight green bias" => (0.98, 1.02, 1.0),
+        "saturated warm" => (1.12, 1.08, 0.88),
+        _ => (1.0, 1.0, 1.0),
+    }
+}
+
+// 🚀 NEW: Get prominence factor from JSON visual properties
+fn get_json_prominence_factor(stock: &FilmStock) -> f32 {
+    // For black canvas, use general grain visibility based on film characteristics
+    // This represents how prominent the grain structure is overall for this film
+    match stock.visual_properties.midtone_prominence.as_str() {
+        "high" => 1.2,      // Films with naturally prominent grain structure
+        "medium" => 1.0,    // Standard grain visibility
+        "low" => 0.8,       // Films with subtle grain structure
+        _ => 1.0,
+    }
+}
+
+// 🚀 NEW: Get edge softness from JSON edge_type field
+fn get_json_edge_softness(edge_type: &str) -> f32 {
+    match edge_type {
+        "soft" => 1.4,          // More gradual falloff
+        "sharp" => 0.8,         // Crisp edges
+        "hard" => 0.6,          // Very sharp cutoff
+        "crystalline" => 0.5,   // Very sharp, faceted edges
+        _ => 1.0,               // Default
+    }
+}
+
+// 🚀 NEW: Parse JSON cluster_size field (e.g., "2-4_grains", "3-5_grains")
+fn parse_json_cluster_size_range(cluster_size: &str) -> (usize, usize) {
+    // Parse strings like "2-4_grains", "3-5_grains", "single_grains"
+    if cluster_size.contains("single") {
+        return (1, 1); // No clustering
+    }
+    
+    // Extract numbers from patterns like "2-4_grains"
+    if let Some(dash_pos) = cluster_size.find('-') {
+        if let Some(underscore_pos) = cluster_size.find('_') {
+            let min_str = &cluster_size[..dash_pos];
+            let max_str = &cluster_size[dash_pos + 1..underscore_pos];
+            
+            if let (Ok(min), Ok(max)) = (min_str.parse::<usize>(), max_str.parse::<usize>()) {
+                return (min, max);
+            }
+        }
+    }
+    
+    // Fallback based on clustering level
+    match cluster_size {
+        s if s.contains("heavy") => (3, 5),
+        s if s.contains("moderate") => (2, 4),
+        s if s.contains("light") => (2, 3),
+        _ => (2, 3), // Default
+    }
+}
+
+// 🚀 NEW: Get contrast multiplier from JSON contrast_level field
+fn get_json_contrast_multiplier(contrast_level: &str) -> f32 {
+    match contrast_level {
+        "very high" => 1.3,      // Tri-X, HP5 - punchy, prominent grain
+        "high" => 1.15,          // Most B&W films - visible grain
+        "medium-high" => 1.05,   // Slightly prominent grain
+        "medium" => 1.0,         // Baseline - normal grain visibility
+        "low-medium" => 0.9,     // Subtle grain
+        "low" => 0.8,            // Fine-grain films - very subtle
+        _ => 1.0,                // Default
+    }
 }
 
 fn apply_enhanced_effects(grains: &mut Vec<Grain>, params: &GrainParams, enhanced: &EnhancedFilmData) -> Result<(), String> {
