@@ -1,6 +1,6 @@
 {
   "productName": "Film Grain Generator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "identifier": "com.filmgrain.generator",
   "build": {
     "beforeDevCommand": "npm run dev",
