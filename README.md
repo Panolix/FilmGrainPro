@@ -2,7 +2,7 @@
 
 A professional desktop application for generating **authentic film grain overlays** with scientifically accurate characteristics based on exactly 35 real film stocks.
 
-![Platform Support](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows-blue)
+![Platform Support](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)
 ![License](https://img.shields.io/badge/License-Proprietary-red)
 ![Built with](https://img.shields.io/badge/Built%20with-Rust%20%7C%20Tauri%20%7C%20JavaScript-orange)
 
