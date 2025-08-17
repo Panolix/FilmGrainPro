@@ -98,8 +98,8 @@ jobs:
           # Update package.json
           sed -i "s/\"version\": \".*\"/\"version\": \"$NEW_VERSION\"/" film-grain-generator/package.json
           
-          # Update Cargo.toml
-          sed -i "s/version = \".*\"/version = \"$NEW_VERSION\"/" film-grain-generator/src-tauri/Cargo.toml
+          # Update Cargo.toml - ONLY the package version (line 2)
+          sed -i "2s/version = \".*\"/version = \"$NEW_VERSION\"/" film-grain-generator/src-tauri/Cargo.toml
           
           # Update tauri.conf.json
           sed -i "s/\"version\": \".*\"/\"version\": \"$NEW_VERSION\"/" film-grain-generator/src-tauri/tauri.conf.json
