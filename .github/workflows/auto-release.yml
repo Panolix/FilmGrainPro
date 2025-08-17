@@ -20,6 +20,7 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.head_ref || github.ref_name }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -140,15 +141,37 @@ jobs:
         run: |
           NEW_VERSION="${{ steps.new_version.outputs.version }}"
           
+          # Configure git
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
+          # Check if there are actually changes to commit
+          if git diff --quiet film-grain-generator/package.json film-grain-generator/src-tauri/Cargo.toml film-grain-generator/src-tauri/tauri.conf.json; then
+            echo "No version changes detected, skipping commit"
+            exit 0
+          fi
+          
+          # Pull latest changes to avoid conflicts
+          git pull origin ${{ github.ref_name }} --rebase || true
+          
+          # Add and commit changes
           git add film-grain-generator/package.json
           git add film-grain-generator/src-tauri/Cargo.toml
           git add film-grain-generator/src-tauri/tauri.conf.json
           
-          git commit -m "🔖 Bump version to v$NEW_VERSION"
-          git push
+          git commit -m "🔖 Bump version to v$NEW_VERSION [skip ci]"
+          
+          # Push with retry logic
+          for i in {1..3}; do
+            if git push origin ${{ github.ref_name }}; then
+              echo "Successfully pushed on attempt $i"
+              break
+            else
+              echo "Push failed on attempt $i, retrying..."
+              git pull origin ${{ github.ref_name }} --rebase
+              sleep 2
+            fi
+          done
 
       - name: Create tag and release
         uses: softprops/action-gh-release@v1
