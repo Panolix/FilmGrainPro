@@ -1,0 +1,352 @@
+🎬 FILM GRAIN GENERATOR - AI RESEARCH PROMPTS
+=====================================================
+
+INSTRUCTIONS FOR AI SEARCH TOOL:
+- Search for each film stock individually
+- Compile data into JSON format as shown in examples
+- Focus on technical/scientific sources (Kodak, Fuji, Ilford datasheets, SPSE papers, etc.)
+- Include source citations for verification
+- Mark uncertain data with confidence levels
+
+TARGET FILM STOCKS (35 total):
+1. Agfa CT Precisa 100        19. Ilford Delta 3200
+2. Agfa Vista 200            20. Ilford Delta 400  
+3. Agfa Vista 400            21. Ilford FP4 Plus
+4. CineStill 50D             22. Ilford HP5 Plus
+5. CineStill 800T            23. Ilford Pan F Plus 50
+6. Fuji Acros 100            24. Kodak Ektachrome E100
+7. Fuji C200                 25. Kodak Ektar 100
+8. Fuji Natura 1600          26. Kodak Gold 200
+9. Fuji Neopan 1600          27. Kodak Portra 160
+10. Fuji Neopan 400          28. Kodak Portra 400
+11. Fuji Pro 160S            29. Kodak Portra 800
+12. Fuji Pro 400H            30. Kodak T-Max 100
+13. Fuji Provia 100F         31. Kodak T-Max 400
+14. Fuji Provia 400X         32. Kodak Tri-X 400
+15. Fuji Superia 400         33. Kodak UltraMax 400
+16. Fuji Velvia 100          34. Kodak Vision3 500T
+17. Fuji Velvia 50           35. Kodak Vision3 50D
+18. Ilford Delta 100
+
+=============================================================================
+PROMPT 1: GRAIN ORIENTATION & CRYSTAL STRUCTURE DATA
+=============================================================================
+
+Search for technical data on [FILM_STOCK_NAME] regarding:
+
+1. CRYSTAL ORIENTATION:
+   - T-grain platelet orientation patterns (degrees from horizontal)
+   - Preferred crystal alignment during coating
+   - Anisotropic grain distribution data
+   - Tabular aspect ratios (length:width:thickness)
+
+2. CRYSTAL STRUCTURE DETAILS:
+   - Crystal lattice type (cubic, hexagonal, orthorhombic)
+   - Silver halide composition (AgBr, AgI percentages)
+   - Core-shell structure details
+   - Sigma-grain vs T-grain vs cubic specifications
+
+3. EMULSION LAYER DATA:
+   - Number of emulsion layers
+   - Layer thickness in micrometers
+   - Inter-layer spacing
+   - Gelatin-to-silver ratios
+
+Format as JSON:
+{
+  "[FILM_STOCK_NAME]": {
+    "crystal_orientation": {
+      "preferred_angle_degrees": [0-180],
+      "orientation_strength": [0.0-1.0],
+      "platelet_aspect_ratio": [length, width, thickness],
+      "source": "citation"
+    },
+    "crystal_structure": {
+      "lattice_type": "cubic|hexagonal|orthorhombic",
+      "agbr_percentage": [0-100],
+      "agi_percentage": [0-100],
+      "core_shell_structure": "description",
+      "source": "citation"
+    },
+    "emulsion_layers": {
+      "layer_count": [1-7],
+      "total_thickness_um": [0-50],
+      "layer_thicknesses_um": [array],
+      "gelatin_silver_ratio": [0-10],
+      "source": "citation"
+    }
+  }
+}
+
+=============================================================================
+PROMPT 2: DEVELOPMENT CHEMISTRY EFFECTS
+=============================================================================
+
+Search for [FILM_STOCK_NAME] development data regarding:
+
+1. DEVELOPER SENSITIVITY:
+   - Grain structure changes with different developers (D-76, HC-110, Rodinal, etc.)
+   - Development time vs grain size relationships
+   - Temperature effects on grain formation
+   - Agitation pattern effects
+
+2. PUSH/PULL PROCESSING:
+   - Grain size changes when pushed (+1, +2, +3 stops)
+   - Grain density changes when pulled (-1, -2 stops)
+   - Contrast effects on grain visibility
+   - Shadow vs highlight grain behavior
+
+3. CHEMISTRY-SPECIFIC EFFECTS:
+   - Fine-grain developers vs standard developers
+   - Compensating developers effects
+   - Stand development grain characteristics
+   - Monobath processing effects
+
+Format as JSON:
+{
+  "[FILM_STOCK_NAME]": {
+    "developer_effects": {
+      "d76": {"grain_size_multiplier": [0.5-2.0], "grain_density_change": [0.5-2.0]},
+      "hc110": {"grain_size_multiplier": [0.5-2.0], "grain_density_change": [0.5-2.0]},
+      "rodinal": {"grain_size_multiplier": [0.5-2.0], "grain_density_change": [0.5-2.0]},
+      "source": "citation"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {"size_change": [0.5-2.0], "density_change": [0.5-2.0]},
+      "push_2_stop": {"size_change": [0.5-2.0], "density_change": [0.5-2.0]},
+      "pull_1_stop": {"size_change": [0.5-2.0], "density_change": [0.5-2.0]},
+      "source": "citation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": [4-20],
+      "grain_growth_rate_per_minute": [0.01-0.1],
+      "optimal_time_minutes": [4-20],
+      "source": "citation"
+    }
+  }
+}
+
+=============================================================================
+PROMPT 3: MULTI-LAYER COLOR FILM DATA
+=============================================================================
+
+Search for [COLOR_FILM_STOCK_NAME] color layer information:
+
+1. COLOR LAYER STRUCTURE:
+   - Number of color-sensitive layers
+   - Cyan, Magenta, Yellow layer grain characteristics
+   - Layer order from base to surface
+   - Spectral sensitivity curves per layer
+
+2. INTER-LAYER INTERACTIONS:
+   - Dye migration between layers
+   - Grain correlation between color layers
+   - Masking layer effects
+   - Color crossover coefficients
+
+3. DYE FORMATION:
+   - Dye cloud size vs grain size relationships
+   - Color saturation vs grain density
+   - Dye coupling efficiency per layer
+   - Color contamination patterns
+
+Format as JSON:
+{
+  "[COLOR_FILM_STOCK_NAME]": {
+    "color_layers": {
+      "layer_count": [3-7],
+      "layer_order": ["yellow", "magenta", "cyan", "etc"],
+      "cyan_layer": {
+        "grain_size_um": [0.1-5.0],
+        "grain_density_per_mm2": [100000-2000000],
+        "spectral_peak_nm": [600-700]
+      },
+      "magenta_layer": {
+        "grain_size_um": [0.1-5.0],
+        "grain_density_per_mm2": [100000-2000000],
+        "spectral_peak_nm": [500-600]
+      },
+      "yellow_layer": {
+        "grain_size_um": [0.1-5.0],
+        "grain_density_per_mm2": [100000-2000000],
+        "spectral_peak_nm": [400-500]
+      },
+      "source": "citation"
+    },
+    "inter_layer_effects": {
+      "dye_migration_coefficient": [0.0-1.0],
+      "grain_correlation_strength": [0.0-1.0],
+      "color_crossover_matrix": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+      "source": "citation"
+    }
+  }
+}
+
+=============================================================================
+PROMPT 4: STATISTICAL DISTRIBUTION MODELS
+=============================================================================
+
+Search for [FILM_STOCK_NAME] grain size distribution data:
+
+1. DISTRIBUTION TYPES:
+   - Grain size distribution function (normal, log-normal, Weibull, gamma)
+   - Distribution parameters (mean, std dev, shape, scale)
+   - Bimodal or multimodal distributions
+   - Outlier grain percentages
+
+2. STATISTICAL PARAMETERS:
+   - Coefficient of variation for grain sizes
+   - Skewness and kurtosis values
+   - Percentile data (P10, P50, P90)
+   - RMS granularity correlation with distribution
+
+3. MEASUREMENT DATA:
+   - Microscopy-based measurements
+   - Scanning electron microscope data
+   - Particle size analyzer results
+   - Image analysis statistics
+
+Format as JSON:
+{
+  "[FILM_STOCK_NAME]": {
+    "size_distribution": {
+      "distribution_type": "normal|lognormal|weibull|gamma|bimodal",
+      "parameters": {
+        "mean_um": [0.1-5.0],
+        "std_dev_um": [0.05-2.0],
+        "shape_parameter": [0.5-5.0],
+        "scale_parameter": [0.1-2.0]
+      },
+      "percentiles": {
+        "p10_um": [0.05-1.0],
+        "p50_um": [0.1-3.0],
+        "p90_um": [0.5-8.0]
+      },
+      "source": "citation"
+    },
+    "opacity_distribution": {
+      "distribution_type": "normal|lognormal|weibull|gamma",
+      "mean_opacity": [0.1-1.0],
+      "std_dev_opacity": [0.05-0.5],
+      "source": "citation"
+    }
+  }
+}
+
+=============================================================================
+PROMPT 5: HALATION & LIGHT SCATTERING DATA
+=============================================================================
+
+Search for [FILM_STOCK_NAME] optical properties:
+
+1. HALATION CHARACTERISTICS:
+   - Anti-halation layer composition and thickness
+   - Halation spread distance in micrometers
+   - Spectral absorption curves
+   - Rem-jet vs dye-based anti-halation
+
+2. LIGHT SCATTERING:
+   - Rayleigh scattering coefficients
+   - Mie scattering parameters
+   - Film base thickness and refractive index
+   - Light piping effects
+
+3. MTF AND SHARPNESS:
+   - Modulation Transfer Function data
+   - Grain contribution to MTF
+   - Edge sharpness measurements
+   - Resolving power vs grain size
+
+Format as JSON:
+{
+  "[FILM_STOCK_NAME]": {
+    "halation_properties": {
+      "anti_halation_type": "remjet|dye|none",
+      "halation_spread_um": [0-500],
+      "absorption_peak_nm": [400-700],
+      "halation_color_rgb": [r, g, b],
+      "source": "citation"
+    },
+    "light_scattering": {
+      "rayleigh_coefficient": [0.0-1.0],
+      "mie_coefficient": [0.0-1.0],
+      "film_base_thickness_um": [100-200],
+      "refractive_index": [1.4-1.6],
+      "source": "citation"
+    },
+    "mtf_data": {
+      "mtf_50_lp_mm": [50-200],
+      "grain_mtf_contribution": [0.0-1.0],
+      "resolving_power_lp_mm": [100-400],
+      "source": "citation"
+    }
+  }
+}
+
+=============================================================================
+PROMPT 6: RECIPROCITY FAILURE & EXPOSURE EFFECTS
+=============================================================================
+
+Search for [FILM_STOCK_NAME] reciprocity and exposure data:
+
+1. RECIPROCITY FAILURE:
+   - Schwarzschild coefficient
+   - Exposure time vs grain structure changes
+   - Long exposure grain clumping effects
+   - Spectral sensitivity shifts
+
+2. EXPOSURE LATITUDE:
+   - Overexposure grain behavior
+   - Underexposure grain visibility
+   - Highlight and shadow grain differences
+   - Exposure compensation effects
+
+Format as JSON:
+{
+  "[FILM_STOCK_NAME]": {
+    "reciprocity_failure": {
+      "schwarzschild_coefficient": [0.7-1.0],
+      "failure_threshold_seconds": [1-3600],
+      "grain_clumping_factor": [1.0-3.0],
+      "spectral_shift_nm_per_log_second": [0-50],
+      "source": "citation"
+    },
+    "exposure_effects": {
+      "overexposure_grain_increase": [1.0-2.0],
+      "underexposure_grain_visibility": [0.5-1.0],
+      "highlight_grain_factor": [0.5-1.5],
+      "shadow_grain_factor": [0.8-2.0],
+      "source": "citation"
+    }
+  }
+}
+
+=============================================================================
+USAGE INSTRUCTIONS:
+=============================================================================
+
+1. Run each prompt separately for all 35 film stocks
+2. Combine results into master JSON files:
+   - grain_orientation_data.json
+   - development_effects_data.json  
+   - color_layer_data.json
+   - distribution_models_data.json
+   - optical_properties_data.json
+   - exposure_effects_data.json
+
+3. For missing data, mark as:
+   "confidence": "high|medium|low|estimated"
+   "data_available": true|false
+
+4. Priority order for research:
+   - Kodak, Fuji, Ilford official technical documents
+   - SPSE/IS&T conference papers
+   - Academic microscopy studies
+   - Professional photography technical reviews
+   - Community testing data (lower priority)
+
+5. Focus on films with most available data first:
+   - Kodak Tri-X, T-Max series
+   - Fuji Acros, Velvia series  
+   - Ilford HP5, Delta series
+   - Modern color films (Portra, Ektar)

@@ -1,0 +1,1258 @@
+{
+  "Kodak Tri-X 400": {
+    "developer_effects": {
+      "d76": {
+        "grain_size_multiplier": 1.0,
+        "grain_density_change": 1.0
+      },
+      "hc110": {
+        "grain_size_multiplier": 0.95,
+        "grain_density_change": 1.1
+      },
+      "rodinal": {
+        "grain_size_multiplier": 1.3,
+        "grain_density_change": 0.8
+      },
+      "source": "Kodak Technical Data Sheet F-4017, development research"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.2,
+        "density_change": 1.3
+      },
+      "push_2_stop": {
+        "size_change": 1.5,
+        "density_change": 1.6
+      },
+      "pull_1_stop": {
+        "size_change": 0.9,
+        "density_change": 0.8
+      },
+      "source": "Kodak Technical Data Sheet F-4017"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 7,
+      "grain_growth_rate_per_minute": 0.05,
+      "optimal_time_minutes": 7,
+      "source": "Kodak Technical Data Sheet F-4017"
+    }
+  },
+  "Kodak T-Max 400": {
+    "developer_effects": {
+      "d76": {
+        "grain_size_multiplier": 0.85,
+        "grain_density_change": 1.0
+      },
+      "hc110": {
+        "grain_size_multiplier": 0.8,
+        "grain_density_change": 1.15
+      },
+      "rodinal": {
+        "grain_size_multiplier": 1.1,
+        "grain_density_change": 0.85
+      },
+      "tmax_developer": {
+        "grain_size_multiplier": 0.7,
+        "grain_density_change": 1.1
+      },
+      "source": "Kodak T-Max technical documentation, T-grain development characteristics"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.1,
+        "density_change": 1.25
+      },
+      "push_2_stop": {
+        "size_change": 1.25,
+        "density_change": 1.45
+      },
+      "pull_1_stop": {
+        "size_change": 0.9,
+        "density_change": 0.85
+      },
+      "source": "Kodak T-Max technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 6.5,
+      "grain_growth_rate_per_minute": 0.03,
+      "optimal_time_minutes": 6.5,
+      "source": "Kodak T-Max technical documentation"
+    }
+  },
+  "Kodak T-Max 100": {
+    "developer_effects": {
+      "d76": {
+        "grain_size_multiplier": 0.8,
+        "grain_density_change": 1.0
+      },
+      "hc110": {
+        "grain_size_multiplier": 0.75,
+        "grain_density_change": 1.1
+      },
+      "rodinal": {
+        "grain_size_multiplier": 1.0,
+        "grain_density_change": 0.9
+      },
+      "tmax_developer": {
+        "grain_size_multiplier": 0.65,
+        "grain_density_change": 1.1
+      },
+      "source": "Kodak T-Max technical documentation"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.05,
+        "density_change": 1.2
+      },
+      "push_2_stop": {
+        "size_change": 1.2,
+        "density_change": 1.4
+      },
+      "pull_1_stop": {
+        "size_change": 0.95,
+        "density_change": 0.9
+      },
+      "source": "Kodak T-Max technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 6,
+      "grain_growth_rate_per_minute": 0.025,
+      "optimal_time_minutes": 6,
+      "source": "Kodak T-Max technical documentation"
+    }
+  },
+  "Ilford HP5 Plus": {
+    "developer_effects": {
+      "d76": {
+        "grain_size_multiplier": 1.0,
+        "grain_density_change": 1.0
+      },
+      "hc110": {
+        "grain_size_multiplier": 0.9,
+        "grain_density_change": 1.1
+      },
+      "rodinal": {
+        "grain_size_multiplier": 1.2,
+        "grain_density_change": 0.9
+      },
+      "microphen": {
+        "grain_size_multiplier": 1.1,
+        "grain_density_change": 1.15
+      },
+      "source": "Ilford technical documentation"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.1,
+        "density_change": 1.2
+      },
+      "push_2_stop": {
+        "size_change": 1.3,
+        "density_change": 1.5
+      },
+      "pull_1_stop": {
+        "size_change": 0.9,
+        "density_change": 0.8
+      },
+      "source": "Ilford technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 9,
+      "grain_growth_rate_per_minute": 0.04,
+      "optimal_time_minutes": 9,
+      "source": "Ilford technical documentation"
+    }
+  },
+  "Ilford Delta 400": {
+    "developer_effects": {
+      "d76": {
+        "grain_size_multiplier": 0.8,
+        "grain_density_change": 1.0
+      },
+      "hc110": {
+        "grain_size_multiplier": 0.75,
+        "grain_density_change": 1.1
+      },
+      "rodinal": {
+        "grain_size_multiplier": 1.0,
+        "grain_density_change": 0.9
+      },
+      "ddx": {
+        "grain_size_multiplier": 0.7,
+        "grain_density_change": 1.05
+      },
+      "source": "Ilford technical documentation, Core-Shell development"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.0,
+        "density_change": 1.2
+      },
+      "push_2_stop": {
+        "size_change": 1.2,
+        "density_change": 1.4
+      },
+      "pull_1_stop": {
+        "size_change": 0.9,
+        "density_change": 0.85
+      },
+      "source": "Ilford technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 8,
+      "grain_growth_rate_per_minute": 0.03,
+      "optimal_time_minutes": 8,
+      "source": "Ilford technical documentation"
+    }
+  },
+  "Fuji Acros 100": {
+    "developer_effects": {
+      "d76": {
+        "grain_size_multiplier": 0.7,
+        "grain_density_change": 1.0
+      },
+      "hc110": {
+        "grain_size_multiplier": 0.65,
+        "grain_density_change": 1.1
+      },
+      "rodinal": {
+        "grain_size_multiplier": 0.9,
+        "grain_density_change": 0.95
+      },
+      "xtol": {
+        "grain_size_multiplier": 0.6,
+        "grain_density_change": 1.05
+      },
+      "source": "Fuji Acros technical documentation"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.05,
+        "density_change": 1.15
+      },
+      "push_2_stop": {
+        "size_change": 1.15,
+        "density_change": 1.35
+      },
+      "pull_1_stop": {
+        "size_change": 0.95,
+        "density_change": 0.9
+      },
+      "source": "Fuji Acros technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 7,
+      "grain_growth_rate_per_minute": 0.02,
+      "optimal_time_minutes": 7,
+      "source": "Fuji Acros technical documentation"
+    }
+  },
+  "Ilford FP4 Plus": {
+    "developer_effects": {
+      "d76": {
+        "grain_size_multiplier": 0.85,
+        "grain_density_change": 1.0
+      },
+      "hc110": {
+        "grain_size_multiplier": 0.8,
+        "grain_density_change": 1.1
+      },
+      "rodinal": {
+        "grain_size_multiplier": 1.1,
+        "grain_density_change": 0.9
+      },
+      "perceptol": {
+        "grain_size_multiplier": 0.75,
+        "grain_density_change": 0.95
+      },
+      "source": "Ilford FP4 Plus technical documentation"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.05,
+        "density_change": 1.15
+      },
+      "push_2_stop": {
+        "size_change": 1.2,
+        "density_change": 1.35
+      },
+      "pull_1_stop": {
+        "size_change": 0.95,
+        "density_change": 0.9
+      },
+      "source": "Ilford FP4 Plus technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 8.5,
+      "grain_growth_rate_per_minute": 0.03,
+      "optimal_time_minutes": 8.5,
+      "source": "Ilford FP4 Plus technical documentation"
+    }
+  },
+  "Ilford Pan F Plus 50": {
+    "developer_effects": {
+      "d76": {
+        "grain_size_multiplier": 0.75,
+        "grain_density_change": 1.0
+      },
+      "hc110": {
+        "grain_size_multiplier": 0.7,
+        "grain_density_change": 1.05
+      },
+      "rodinal": {
+        "grain_size_multiplier": 0.95,
+        "grain_density_change": 0.95
+      },
+      "perceptol": {
+        "grain_size_multiplier": 0.65,
+        "grain_density_change": 0.9
+      },
+      "source": "Ilford Pan F technical documentation"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.1,
+        "density_change": 1.2
+      },
+      "push_2_stop": {
+        "size_change": 1.25,
+        "density_change": 1.4
+      },
+      "pull_1_stop": {
+        "size_change": 0.95,
+        "density_change": 0.9
+      },
+      "source": "Ilford Pan F technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 9,
+      "grain_growth_rate_per_minute": 0.025,
+      "optimal_time_minutes": 9,
+      "source": "Ilford Pan F technical documentation"
+    }
+  },
+  "Ilford Delta 100": {
+    "developer_effects": {
+      "d76": {
+        "grain_size_multiplier": 0.75,
+        "grain_density_change": 1.0
+      },
+      "hc110": {
+        "grain_size_multiplier": 0.7,
+        "grain_density_change": 1.1
+      },
+      "rodinal": {
+        "grain_size_multiplier": 0.95,
+        "grain_density_change": 0.9
+      },
+      "ddx": {
+        "grain_size_multiplier": 0.65,
+        "grain_density_change": 1.05
+      },
+      "source": "Ilford Delta technical documentation"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.0,
+        "density_change": 1.15
+      },
+      "push_2_stop": {
+        "size_change": 1.15,
+        "density_change": 1.35
+      },
+      "pull_1_stop": {
+        "size_change": 0.9,
+        "density_change": 0.85
+      },
+      "source": "Ilford Delta technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 7.5,
+      "grain_growth_rate_per_minute": 0.025,
+      "optimal_time_minutes": 7.5,
+      "source": "Ilford Delta technical documentation"
+    }
+  },
+  "Kodak Portra 400": {
+    "c41_processing_effects": {
+      "normal_c41": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_c41": {
+        "grain_size_multiplier": 1.15,
+        "color_saturation_change": 1.1,
+        "contrast_change": 1.2
+      },
+      "pull_c41": {
+        "grain_size_multiplier": 0.9,
+        "color_saturation_change": 0.95,
+        "contrast_change": 0.9
+      },
+      "source": "Kodak Portra technical documentation, C-41 processing characteristics"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.15,
+        "density_change": 1.2,
+        "color_shift": "warmer"
+      },
+      "push_2_stop": {
+        "size_change": 1.3,
+        "density_change": 1.4,
+        "color_shift": "warmer_contrast"
+      },
+      "pull_1_stop": {
+        "size_change": 0.9,
+        "density_change": 0.85,
+        "color_shift": "cooler"
+      },
+      "source": "Kodak Portra technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 3.25,
+      "color_developer_time": 3.25,
+      "bleach_fix_time": 4.0,
+      "source": "C-41 standard processing specifications"
+    }
+  },
+  "Kodak Portra 160": {
+    "c41_processing_effects": {
+      "normal_c41": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_c41": {
+        "grain_size_multiplier": 1.1,
+        "color_saturation_change": 1.05,
+        "contrast_change": 1.15
+      },
+      "pull_c41": {
+        "grain_size_multiplier": 0.95,
+        "color_saturation_change": 0.98,
+        "contrast_change": 0.95
+      },
+      "source": "Kodak Portra 160 technical documentation"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.1,
+        "density_change": 1.15,
+        "color_shift": "slight_warm"
+      },
+      "push_2_stop": {
+        "size_change": 1.25,
+        "density_change": 1.35,
+        "color_shift": "warm_contrast"
+      },
+      "pull_1_stop": {
+        "size_change": 0.95,
+        "density_change": 0.9,
+        "color_shift": "slight_cool"
+      },
+      "source": "Kodak Portra 160 technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 3.25,
+      "color_developer_time": 3.25,
+      "bleach_fix_time": 4.0,
+      "source": "C-41 standard processing specifications"
+    }
+  },
+  "Kodak Portra 800": {
+    "c41_processing_effects": {
+      "normal_c41": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_c41": {
+        "grain_size_multiplier": 1.2,
+        "color_saturation_change": 1.15,
+        "contrast_change": 1.25
+      },
+      "pull_c41": {
+        "grain_size_multiplier": 0.85,
+        "color_saturation_change": 0.9,
+        "contrast_change": 0.85
+      },
+      "source": "Kodak Portra 800 technical documentation"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.2,
+        "density_change": 1.25,
+        "color_shift": "warm"
+      },
+      "push_2_stop": {
+        "size_change": 1.4,
+        "density_change": 1.5,
+        "color_shift": "warm_high_contrast"
+      },
+      "pull_1_stop": {
+        "size_change": 0.85,
+        "density_change": 0.8,
+        "color_shift": "cooler"
+      },
+      "source": "Kodak Portra 800 technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 3.25,
+      "color_developer_time": 3.25,
+      "bleach_fix_time": 4.0,
+      "source": "C-41 standard processing specifications"
+    }
+  },
+  "Kodak Ektar 100": {
+    "c41_processing_effects": {
+      "normal_c41": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_c41": {
+        "grain_size_multiplier": 1.08,
+        "color_saturation_change": 1.12,
+        "contrast_change": 1.2
+      },
+      "pull_c41": {
+        "grain_size_multiplier": 0.95,
+        "color_saturation_change": 0.95,
+        "contrast_change": 0.9
+      },
+      "source": "Kodak Ektar technical documentation, finest grain color negative"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.08,
+        "density_change": 1.12,
+        "color_shift": "saturated_warm"
+      },
+      "push_2_stop": {
+        "size_change": 1.2,
+        "density_change": 1.3,
+        "color_shift": "saturated_contrast"
+      },
+      "pull_1_stop": {
+        "size_change": 0.95,
+        "density_change": 0.95,
+        "color_shift": "neutral_soft"
+      },
+      "source": "Kodak Ektar technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 3.25,
+      "color_developer_time": 3.25,
+      "bleach_fix_time": 4.0,
+      "source": "C-41 standard processing specifications"
+    }
+  },
+  "Fuji Pro 400H": {
+    "c41_processing_effects": {
+      "normal_c41": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_c41": {
+        "grain_size_multiplier": 1.12,
+        "color_saturation_change": 1.08,
+        "contrast_change": 1.15
+      },
+      "pull_c41": {
+        "grain_size_multiplier": 0.92,
+        "color_saturation_change": 0.95,
+        "contrast_change": 0.9
+      },
+      "source": "Fuji Pro 400H technical documentation, 4th Color Layer Technology"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.12,
+        "density_change": 1.18,
+        "color_shift": "neutral_highlight_retention"
+      },
+      "push_2_stop": {
+        "size_change": 1.25,
+        "density_change": 1.35,
+        "color_shift": "warm_highlight_retention"
+      },
+      "pull_1_stop": {
+        "size_change": 0.92,
+        "density_change": 0.88,
+        "color_shift": "cool_soft"
+      },
+      "source": "Fuji Pro 400H technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 3.25,
+      "color_developer_time": 3.25,
+      "bleach_fix_time": 4.0,
+      "source": "C-41 standard processing specifications"
+    }
+  },
+  "Fuji Pro 160S": {
+    "c41_processing_effects": {
+      "normal_c41": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_c41": {
+        "grain_size_multiplier": 1.05,
+        "color_saturation_change": 1.03,
+        "contrast_change": 1.1
+      },
+      "pull_c41": {
+        "grain_size_multiplier": 0.98,
+        "color_saturation_change": 0.98,
+        "contrast_change": 0.95
+      },
+      "source": "Fuji Pro 160S technical documentation, finest grain professional"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.05,
+        "density_change": 1.08,
+        "color_shift": "neutral_fine"
+      },
+      "push_2_stop": {
+        "size_change": 1.15,
+        "density_change": 1.25,
+        "color_shift": "warm_fine"
+      },
+      "pull_1_stop": {
+        "size_change": 0.98,
+        "density_change": 0.95,
+        "color_shift": "cool_soft"
+      },
+      "source": "Fuji Pro 160S technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 3.25,
+      "color_developer_time": 3.25,
+      "bleach_fix_time": 4.0,
+      "source": "C-41 standard processing specifications"
+    }
+  },
+  "Fuji Velvia 50": {
+    "e6_processing_effects": {
+      "normal_e6": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_e6": {
+        "grain_size_multiplier": 1.2,
+        "color_saturation_change": 1.25,
+        "contrast_change": 1.4
+      },
+      "pull_e6": {
+        "grain_size_multiplier": 0.9,
+        "color_saturation_change": 0.85,
+        "contrast_change": 0.8
+      },
+      "source": "Fuji Velvia technical documentation, E-6 processing characteristics"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.2,
+        "density_change": 1.3,
+        "color_shift": "saturated_contrast"
+      },
+      "push_2_stop": {
+        "size_change": 1.4,
+        "density_change": 1.6,
+        "color_shift": "ultra_saturated_contrast"
+      },
+      "pull_1_stop": {
+        "size_change": 0.9,
+        "density_change": 0.75,
+        "color_shift": "muted"
+      },
+      "source": "Fuji Velvia technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 6.0,
+      "first_developer_time": 6.0,
+      "color_developer_time": 6.0,
+      "source": "E-6 standard processing specifications"
+    }
+  },
+  "Fuji Velvia 100": {
+    "e6_processing_effects": {
+      "normal_e6": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_e6": {
+        "grain_size_multiplier": 1.15,
+        "color_saturation_change": 1.2,
+        "contrast_change": 1.3
+      },
+      "pull_e6": {
+        "grain_size_multiplier": 0.95,
+        "color_saturation_change": 0.9,
+        "contrast_change": 0.85
+      },
+      "source": "Fuji Velvia 100F technical documentation"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.15,
+        "density_change": 1.25,
+        "color_shift": "saturated"
+      },
+      "push_2_stop": {
+        "size_change": 1.35,
+        "density_change": 1.5,
+        "color_shift": "saturated_contrast"
+      },
+      "pull_1_stop": {
+        "size_change": 0.95,
+        "density_change": 0.8,
+        "color_shift": "soft"
+      },
+      "source": "Fuji Velvia 100F technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 6.0,
+      "first_developer_time": 6.0,
+      "color_developer_time": 6.0,
+      "source": "E-6 standard processing specifications"
+    }
+  },
+  "Fuji Provia 100F": {
+    "e6_processing_effects": {
+      "normal_e6": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_e6": {
+        "grain_size_multiplier": 1.1,
+        "color_saturation_change": 1.1,
+        "contrast_change": 1.2
+      },
+      "pull_e6": {
+        "grain_size_multiplier": 0.95,
+        "color_saturation_change": 0.95,
+        "contrast_change": 0.9
+      },
+      "source": "Fuji Provia 100F technical documentation, natural color reproduction"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.1,
+        "density_change": 1.15,
+        "color_shift": "neutral_contrast"
+      },
+      "push_2_stop": {
+        "size_change": 1.25,
+        "density_change": 1.35,
+        "color_shift": "neutral_high_contrast"
+      },
+      "pull_1_stop": {
+        "size_change": 0.95,
+        "density_change": 0.85,
+        "color_shift": "soft_neutral"
+      },
+      "source": "Fuji Provia 100F technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 6.0,
+      "first_developer_time": 6.0,
+      "color_developer_time": 6.0,
+      "source": "E-6 standard processing specifications"
+    }
+  },
+  "Fuji Provia 400X": {
+    "e6_processing_effects": {
+      "normal_e6": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_e6": {
+        "grain_size_multiplier": 1.25,
+        "color_saturation_change": 1.15,
+        "contrast_change": 1.3
+      },
+      "pull_e6": {
+        "grain_size_multiplier": 0.9,
+        "color_saturation_change": 0.9,
+        "contrast_change": 0.8
+      },
+      "source": "Fuji Provia 400X technical documentation"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.25,
+        "density_change": 1.3,
+        "color_shift": "neutral_grain"
+      },
+      "push_2_stop": {
+        "size_change": 1.45,
+        "density_change": 1.6,
+        "color_shift": "warm_grain"
+      },
+      "pull_1_stop": {
+        "size_change": 0.9,
+        "density_change": 0.8,
+        "color_shift": "soft"
+      },
+      "source": "Fuji Provia 400X technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 6.0,
+      "first_developer_time": 6.0,
+      "color_developer_time": 6.0,
+      "source": "E-6 standard processing specifications"
+    }
+  },
+  "Kodak Ektachrome E100": {
+    "e6_processing_effects": {
+      "normal_e6": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_e6": {
+        "grain_size_multiplier": 1.18,
+        "color_saturation_change": 1.12,
+        "contrast_change": 1.25
+      },
+      "pull_e6": {
+        "grain_size_multiplier": 0.92,
+        "color_saturation_change": 0.92,
+        "contrast_change": 0.85
+      },
+      "source": "Kodak Ektachrome E100 technical documentation"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.18,
+        "density_change": 1.22,
+        "color_shift": "neutral_kodak"
+      },
+      "push_2_stop": {
+        "size_change": 1.35,
+        "density_change": 1.45,
+        "color_shift": "warm_kodak"
+      },
+      "pull_1_stop": {
+        "size_change": 0.92,
+        "density_change": 0.85,
+        "color_shift": "soft_kodak"
+      },
+      "source": "Kodak Ektachrome E100 technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 6.0,
+      "first_developer_time": 6.0,
+      "color_developer_time": 6.0,
+      "source": "E-6 standard processing specifications"
+    }
+  },
+  "Agfa CT Precisa 100": {
+    "e6_processing_effects": {
+      "normal_e6": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_e6": {
+        "grain_size_multiplier": 1.12,
+        "color_saturation_change": 1.08,
+        "contrast_change": 1.2
+      },
+      "pull_e6": {
+        "grain_size_multiplier": 0.95,
+        "color_saturation_change": 0.95,
+        "contrast_change": 0.9
+      },
+      "source": "Agfa CT Precisa technical datasheet, E-6 processing"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.12,
+        "density_change": 1.18,
+        "color_shift": "neutral_agfa"
+      },
+      "push_2_stop": {
+        "size_change": 1.28,
+        "density_change": 1.4,
+        "color_shift": "warm_agfa"
+      },
+      "pull_1_stop": {
+        "size_change": 0.95,
+        "density_change": 0.88,
+        "color_shift": "soft_agfa"
+      },
+      "source": "Agfa CT Precisa technical datasheet"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 6.0,
+      "first_developer_time": 6.0,
+      "color_developer_time": 6.0,
+      "source": "E-6 standard processing specifications"
+    }
+  },
+  "Kodak Gold 200": {
+    "c41_processing_effects": {
+      "normal_c41": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_c41": {
+        "grain_size_multiplier": 1.2,
+        "color_saturation_change": 1.1,
+        "contrast_change": 1.2
+      },
+      "pull_c41": {
+        "grain_size_multiplier": 0.9,
+        "color_saturation_change": 0.95,
+        "contrast_change": 0.9
+      },
+      "source": "Kodak Gold consumer film specifications"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.2,
+        "density_change": 1.25,
+        "color_shift": "warm_consumer"
+      },
+      "push_2_stop": {
+        "size_change": 1.4,
+        "density_change": 1.5,
+        "color_shift": "warm_contrast_consumer"
+      },
+      "pull_1_stop": {
+        "size_change": 0.9,
+        "density_change": 0.85,
+        "color_shift": "cool_consumer"
+      },
+      "source": "Kodak Gold specifications"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 3.25,
+      "color_developer_time": 3.25,
+      "bleach_fix_time": 4.0,
+      "source": "C-41 standard processing specifications"
+    }
+  },
+  "Kodak UltraMax 400": {
+    "c41_processing_effects": {
+      "normal_c41": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_c41": {
+        "grain_size_multiplier": 1.18,
+        "color_saturation_change": 1.12,
+        "contrast_change": 1.25
+      },
+      "pull_c41": {
+        "grain_size_multiplier": 0.88,
+        "color_saturation_change": 0.92,
+        "contrast_change": 0.85
+      },
+      "source": "Kodak UltraMax technical documentation, consumer T-grain"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.18,
+        "density_change": 1.22,
+        "color_shift": "warm_consumer"
+      },
+      "push_2_stop": {
+        "size_change": 1.35,
+        "density_change": 1.45,
+        "color_shift": "warm_contrast_consumer"
+      },
+      "pull_1_stop": {
+        "size_change": 0.88,
+        "density_change": 0.8,
+        "color_shift": "cool_consumer"
+      },
+      "source": "Kodak UltraMax technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 3.25,
+      "color_developer_time": 3.25,
+      "bleach_fix_time": 4.0,
+      "source": "C-41 standard processing specifications"
+    }
+  },
+  "Fuji C200": {
+    "c41_processing_effects": {
+      "normal_c41": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_c41": {
+        "grain_size_multiplier": 1.22,
+        "color_saturation_change": 1.08,
+        "contrast_change": 1.2
+      },
+      "pull_c41": {
+        "grain_size_multiplier": 0.85,
+        "color_saturation_change": 0.95,
+        "contrast_change": 0.9
+      },
+      "source": "Fuji C200 consumer film specifications"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.22,
+        "density_change": 1.25,
+        "color_shift": "neutral_consumer"
+      },
+      "push_2_stop": {
+        "size_change": 1.4,
+        "density_change": 1.5,
+        "color_shift": "warm_consumer"
+      },
+      "pull_1_stop": {
+        "size_change": 0.85,
+        "density_change": 0.8,
+        "color_shift": "cool_consumer"
+      },
+      "source": "Fuji C200 specifications"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 3.25,
+      "color_developer_time": 3.25,
+      "bleach_fix_time": 4.0,
+      "source": "C-41 standard processing specifications"
+    }
+  },
+  "Fuji Superia 400": {
+    "c41_processing_effects": {
+      "normal_c41": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_c41": {
+        "grain_size_multiplier": 1.2,
+        "color_saturation_change": 1.1,
+        "contrast_change": 1.22
+      },
+      "pull_c41": {
+        "grain_size_multiplier": 0.87,
+        "color_saturation_change": 0.93,
+        "contrast_change": 0.88
+      },
+      "source": "Fuji Superia consumer film specifications"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.2,
+        "density_change": 1.25,
+        "color_shift": "neutral_fuji_consumer"
+      },
+      "push_2_stop": {
+        "size_change": 1.38,
+        "density_change": 1.5,
+        "color_shift": "warm_fuji_consumer"
+      },
+      "pull_1_stop": {
+        "size_change": 0.87,
+        "density_change": 0.82,
+        "color_shift": "cool_fuji_consumer"
+      },
+      "source": "Fuji Superia specifications"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 3.25,
+      "color_developer_time": 3.25,
+      "bleach_fix_time": 4.0,
+      "source": "C-41 standard processing specifications"
+    }
+  },
+  "Kodak Vision3 50D": {
+    "ecn2_processing_effects": {
+      "normal_ecn2": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_ecn2": {
+        "grain_size_multiplier": 1.1,
+        "color_saturation_change": 1.08,
+        "contrast_change": 1.15
+      },
+      "pull_ecn2": {
+        "grain_size_multiplier": 0.95,
+        "color_saturation_change": 0.98,
+        "contrast_change": 0.95
+      },
+      "source": "Kodak Vision3 50D technical documentation, ECN-2 processing"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.1,
+        "density_change": 1.12,
+        "color_shift": "neutral_cinema"
+      },
+      "push_2_stop": {
+        "size_change": 1.25,
+        "density_change": 1.3,
+        "color_shift": "warm_cinema"
+      },
+      "pull_1_stop": {
+        "size_change": 0.95,
+        "density_change": 0.92,
+        "color_shift": "cool_cinema"
+      },
+      "source": "Kodak Vision3 technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 3.0,
+      "color_developer_time": 3.0,
+      "rem_jet_removal": true,
+      "source": "ECN-2 processing specifications"
+    }
+  },
+  "Kodak Vision3 500T": {
+    "ecn2_processing_effects": {
+      "normal_ecn2": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_ecn2": {
+        "grain_size_multiplier": 1.18,
+        "color_saturation_change": 1.12,
+        "contrast_change": 1.2
+      },
+      "pull_ecn2": {
+        "grain_size_multiplier": 0.9,
+        "color_saturation_change": 0.95,
+        "contrast_change": 0.9
+      },
+      "source": "Kodak Vision3 500T technical documentation"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.18,
+        "density_change": 1.2,
+        "color_shift": "neutral_tungsten"
+      },
+      "push_2_stop": {
+        "size_change": 1.35,
+        "density_change": 1.4,
+        "color_shift": "warm_tungsten"
+      },
+      "pull_1_stop": {
+        "size_change": 0.9,
+        "density_change": 0.85,
+        "color_shift": "cool_tungsten"
+      },
+      "source": "Kodak Vision3 technical documentation"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 3.0,
+      "color_developer_time": 3.0,
+      "rem_jet_removal": true,
+      "source": "ECN-2 processing specifications"
+    }
+  },
+  "CineStill 50D": {
+    "c41_processing_effects": {
+      "normal_c41": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_c41": {
+        "grain_size_multiplier": 1.08,
+        "color_saturation_change": 1.1,
+        "contrast_change": 1.15
+      },
+      "pull_c41": {
+        "grain_size_multiplier": 0.98,
+        "color_saturation_change": 0.95,
+        "contrast_change": 0.95
+      },
+      "source": "Vision3 base with C-41 processing, CineStill modifications"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.08,
+        "density_change": 1.1,
+        "color_shift": "neutral_halation"
+      },
+      "push_2_stop": {
+        "size_change": 1.2,
+        "density_change": 1.25,
+        "color_shift": "warm_halation"
+      },
+      "pull_1_stop": {
+        "size_change": 0.98,
+        "density_change": 0.95,
+        "color_shift": "cool_halation"
+      },
+      "source": "CineStill processing characteristics"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 3.25,
+      "color_developer_time": 3.25,
+      "bleach_fix_time": 4.0,
+      "halation_effects": "enhanced_due_to_removed_remjet",
+      "source": "C-41 processing with Vision3 base"
+    }
+  },
+  "CineStill 800T": {
+    "c41_processing_effects": {
+      "normal_c41": {
+        "grain_size_multiplier": 1.0,
+        "color_saturation_change": 1.0,
+        "contrast_change": 1.0
+      },
+      "push_c41": {
+        "grain_size_multiplier": 1.15,
+        "color_saturation_change": 1.12,
+        "contrast_change": 1.18
+      },
+      "pull_c41": {
+        "grain_size_multiplier": 0.92,
+        "color_saturation_change": 0.92,
+        "contrast_change": 0.9
+      },
+      "source": "Vision3 base with C-41 processing, CineStill modifications"
+    },
+    "push_pull_effects": {
+      "push_1_stop": {
+        "size_change": 1.15,
+        "density_change": 1.18,
+        "color_shift": "warm_tungsten_halation"
+      },
+      "push_2_stop": {
+        "size_change": 1.3,
+        "density_change": 1.35,
+        "color_shift": "warm_contrast_halation"
+      },
+      "pull_1_stop": {
+        "size_change": 0.92,
+        "density_change": 0.88,
+        "color_shift": "cool_tungsten_halation"
+      },
+      "source": "CineStill processing characteristics"
+    },
+    "development_time_effects": {
+      "normal_time_minutes": 3.25,
+      "color_developer_time": 3.25,
+      "bleach_fix_time": 4.0,
+      "halation_effects": "enhanced_tungsten_halation_removed_remjet",
+      "source": "C-41 processing with Vision3 base"
+    }
+  }
+}
