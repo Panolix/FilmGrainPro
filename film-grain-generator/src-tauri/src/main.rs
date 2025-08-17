@@ -1,7 +1,6 @@
 use serde::{Deserialize, Serialize};
 use image::{ImageBuffer, Rgba, RgbaImage, DynamicImage, ImageFormat};
 use rand::prelude::*;
-use rand_distr::{LogNormal, Distribution};
 use rayon::prelude::*;
 use std::collections::HashMap;
 use std::io::Cursor;
@@ -133,109 +132,6 @@ struct VariationData {
     notes: String,
 }
 
-// New scientific film data structures
-#[derive(Debug, Clone, Serialize, Deserialize)]
-struct ScientificFilmData {
-    grain_orientation: GrainOrientation,
-    crystal_structure: CrystalStructure,
-    distribution_model: DistributionModel,
-    exposure_effects: ScientificExposureEffects,
-    optical_properties: OpticalProperties,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-struct GrainOrientation {
-    preferred_angle_degrees: Option<f32>,
-    orientation_strength: f32,
-    platelet_aspect_ratio: Vec<f32>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-struct CrystalStructure {
-    lattice_type: String,
-    agbr_percentage: f32,
-    agi_percentage: f32,
-    core_shell_structure: String,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-struct DistributionModel {
-    size_distribution: SizeDistribution,
-    opacity_distribution: OpacityDistribution,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-struct SizeDistribution {
-    distribution_type: String,
-    parameters: DistributionParameters,
-    percentiles: Percentiles,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-struct OpacityDistribution {
-    distribution_type: String,
-    mean_opacity: f32,
-    std_dev_opacity: f32,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-struct DistributionParameters {
-    mean_um: f32,
-    std_dev_um: f32,
-    shape_parameter: f32,
-    scale_parameter: f32,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-struct Percentiles {
-    p10_um: f32,
-    p50_um: f32,
-    p90_um: f32,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-struct ScientificExposureEffects {
-    reciprocity_failure: ReciprocityFailure,
-    exposure_effects: ExposureLatitude,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-struct ReciprocityFailure {
-    schwarzschild_coefficient: f32,
-    failure_threshold_seconds: f32,
-    grain_clumping_factor: f32,
-    spectral_shift_nm_per_log_second: f32,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-struct ExposureLatitude {
-    overexposure_grain_increase: f32,
-    underexposure_grain_visibility: f32,
-    highlight_grain_factor: f32,
-    shadow_grain_factor: f32,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-struct OpticalProperties {
-    halation_properties: HalationProperties,
-    mtf_data: MtfData,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-struct HalationProperties {
-    anti_halation_type: String,
-    halation_spread_um: f32,
-    absorption_peak_nm: f32,
-    halation_color_rgb: Vec<u8>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-struct MtfData {
-    mtf_50_lp_mm: f32,
-    grain_mtf_contribution: f32,
-    resolving_power_lp_mm: f32,
-}
-
 #[derive(Debug, Serialize, Deserialize)]
 struct GrainParams {
     film_stock: String,
@@ -266,7 +162,6 @@ struct Grain {
     size: f32,
     opacity: f32,
     shape_factor: f32,
-    orientation_angle: f32,  // New: grain orientation in degrees
 }
 
 #[cfg(feature = "gpu-acceleration")]
@@ -299,13 +194,9 @@ async fn generate_grain(params: GrainParams) -> Result<GrainResult, String> {
     let variation_data = load_variation_data()?;
     let variation_stock = variation_data.get(&params.film_stock);
     
-    // Load scientific film data for ultra-realistic generation
-    let scientific_data = load_scientific_film_data()?;
-    let scientific_stock = scientific_data.get(&params.film_stock);
-    
-    // Generate grains using scientific algorithms with enhancements
+    // Generate grains using advanced algorithms with enhancements
     let _start_time = std::time::Instant::now();
-    let mut grains = generate_grains_scientific(stock, &params, variation_stock, scientific_stock)?;
+    let mut grains = generate_grains_advanced(stock, &params, variation_stock)?;
     let _generation_time = _start_time.elapsed();
     
     // Apply enhanced realistic effects
@@ -354,13 +245,6 @@ fn load_enhanced_film_data() -> Result<HashMap<String, EnhancedFilmData>, String
     let enhanced_data = include_str!("../../more.json");
     let parsed: HashMap<String, EnhancedFilmData> = serde_json::from_str(enhanced_data)
         .map_err(|e| format!("Failed to parse enhanced film data: {}", e))?;
-    Ok(parsed)
-}
-
-fn load_scientific_film_data() -> Result<HashMap<String, ScientificFilmData>, String> {
-    let scientific_data = include_str!("../../enhanced_film_data.json");
-    let parsed: HashMap<String, ScientificFilmData> = serde_json::from_str(scientific_data)
-        .map_err(|e| format!("Failed to parse scientific film data: {}", e))?;
     Ok(parsed)
 }
 
@@ -537,166 +421,6 @@ fn load_film_stock_data() -> Result<HashMap<String, FilmStock>, String> {
     Ok(stocks)
 }
 
-// Helper function to sample from log-normal distribution
-fn sample_lognormal_size(distribution: &SizeDistribution, rng: &mut ThreadRng) -> f32 {
-    if distribution.distribution_type == "lognormal" {
-        let mean = distribution.parameters.mean_um;
-        let std_dev = distribution.parameters.std_dev_um;
-        
-        // Create log-normal distribution
-        if let Ok(log_normal) = LogNormal::new(mean.ln(), std_dev / mean) {
-            log_normal.sample(rng).max(0.1).min(10.0) // Clamp to reasonable range
-        } else {
-            // Fallback to mean if distribution creation fails
-            mean * rng.gen_range(0.5..1.5)
-        }
-    } else {
-        // Fallback for other distribution types
-        distribution.parameters.mean_um * rng.gen_range(0.5..1.5)
-    }
-}
-
-fn generate_grains_scientific(
-    stock: &FilmStock, 
-    params: &GrainParams, 
-    variation_data: Option<&VariationData>,
-    scientific_data: Option<&ScientificFilmData>
-) -> Result<Vec<Grain>, String> {
-    let mut rng = thread_rng();
-    let mut grains = Vec::new();
-    
-    // Use film stock's actual density as base, then apply user density multiplier
-    let canvas_area_ratio = (params.width * params.height) as f32 / (1024.0 * 1024.0);
-    let stock_base_density = stock.size_metrics.density_per_mm2 as f32;
-    let user_density_multiplier = params.grain_density as f32 / 1000.0;
-    let final_grain_count = ((stock_base_density * canvas_area_ratio * user_density_multiplier) / 25.0) as usize;
-    
-    println!("🔬 Scientific generation: {:.1}x density, {} grains for {}", 
-             user_density_multiplier, final_grain_count, stock.basic_info.name);
-    
-    // Generate grains with scientific accuracy
-    for _ in 0..final_grain_count {
-        let x = rng.gen::<f32>() * params.width as f32;
-        let y = rng.gen::<f32>() * params.height as f32;
-        
-        // Scientific size generation using log-normal distribution
-        let size_factor = if let Some(scientific) = scientific_data {
-            sample_lognormal_size(&scientific.distribution_model.size_distribution, &mut rng)
-        } else {
-            // Fallback to variation-based generation
-            let size_variation_coeff = variation_data
-                .map(|v| v.size_variation_coeff)
-                .unwrap_or(stock.size_metrics.size_variation_coeff);
-            
-            let rand_val = rng.gen::<f32>();
-            if rand_val < 0.6 {
-                rng.gen_range(1.0 - size_variation_coeff * 0.5..1.0 + size_variation_coeff * 0.5)
-            } else if rand_val < 0.9 {
-                rng.gen_range(0.4..1.0 - size_variation_coeff * 0.3)
-            } else {
-                rng.gen_range(1.0 + size_variation_coeff * 0.3..1.8)
-            }
-        };
-        
-        let base_size = stock.size_metrics.avg_size_um * 0.5;
-        let size = (base_size * size_factor * params.size_multiplier).max(0.5);
-        
-        // Scientific opacity generation
-        let base_opacity = if let Some(scientific) = scientific_data {
-            let opacity_dist = &scientific.distribution_model.opacity_distribution;
-            let mean = opacity_dist.mean_opacity;
-            let std_dev = opacity_dist.std_dev_opacity;
-            rng.gen_range((mean - std_dev).max(0.1)..(mean + std_dev).min(1.0))
-        } else {
-            rng.gen_range(stock.visual_properties.opacity_range[0]..stock.visual_properties.opacity_range[1])
-        };
-        
-        let opacity_var = variation_data
-            .map(|v| v.opacity_variation)
-            .unwrap_or(stock.visual_properties.opacity_variation);
-        let opacity_variation = rng.gen_range(1.0 - opacity_var * 0.5..1.0 + opacity_var * 0.5);
-        let contrast_factor = params.contrast / 100.0;
-        
-        // Scientific exposure effects
-        let exposure_factor = if let Some(scientific) = scientific_data {
-            let exposure_effects = &scientific.exposure_effects.exposure_effects;
-            if params.exposure_compensation > 0.0 {
-                1.0 + (params.exposure_compensation * exposure_effects.overexposure_grain_increase)
-            } else {
-                exposure_effects.underexposure_grain_visibility + (params.exposure_compensation * 0.2)
-            }
-        } else {
-            // Fallback to basic exposure compensation
-            if params.exposure_compensation > 0.0 {
-                1.0 + (params.exposure_compensation * 0.3)
-            } else {
-                1.0 + (params.exposure_compensation * 0.2)
-            }
-        };
-        
-        let opacity = (base_opacity * contrast_factor * opacity_variation * exposure_factor).min(1.0).max(0.1);
-        
-        // Scientific grain orientation
-        let orientation_angle = if let Some(scientific) = scientific_data {
-            if let Some(preferred_angle) = scientific.grain_orientation.preferred_angle_degrees {
-                // T-grain films have preferred orientation
-                let strength = scientific.grain_orientation.orientation_strength;
-                let deviation = 30.0 * (1.0 - strength); // Higher strength = less deviation
-                preferred_angle + rng.gen_range(-deviation..deviation)
-            } else {
-                // Random orientation for cubic grains
-                rng.gen_range(0.0..360.0)
-            }
-        } else {
-            rng.gen_range(0.0..360.0) // Default random
-        };
-        
-        // Enhanced shape factor using scientific platelet ratios
-        let shape_factor = if let Some(scientific) = scientific_data {
-            let aspect_ratios = &scientific.grain_orientation.platelet_aspect_ratio;
-            if aspect_ratios.len() >= 2 {
-                let base_aspect = aspect_ratios[0] / aspect_ratios[1];
-                base_aspect * rng.gen_range(0.8..1.2)
-            } else {
-                1.0 // Default circular
-            }
-        } else {
-            // Fallback to existing logic
-            let aspect_ratios = &stock.grain_structure.aspect_ratio;
-            let base_aspect = if aspect_ratios.len() >= 2 {
-                aspect_ratios[0] / aspect_ratios[1]
-            } else {
-                1.0
-            };
-            
-            match stock.grain_structure.shape.as_str() {
-                "irregular" => base_aspect * rng.gen_range(0.7..1.0),
-                "T-grain" => base_aspect * rng.gen_range(0.6..0.8),
-                "fine_irregular" => base_aspect * rng.gen_range(0.8..1.0),
-                "extremely_fine" => base_aspect * rng.gen_range(0.9..1.0),
-                "cubic" => base_aspect * rng.gen_range(0.8..1.0),
-                _ => base_aspect * rng.gen_range(0.8..1.0),
-            }
-        };
-        
-        grains.push(Grain {
-            x,
-            y,
-            size,
-            opacity,
-            shape_factor,
-            orientation_angle,
-        });
-    }
-    
-    // Apply realistic clustering based on film stock characteristics
-    if stock.algorithmic_data.spatial_correlation > 0.1 {
-        apply_enhanced_clustering(&mut grains, &mut rng, params.width, params.height, &stock.grain_structure.clustering);
-    }
-    
-    Ok(grains)
-}
-
 fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_data: Option<&VariationData>) -> Result<Vec<Grain>, String> {
     let mut rng = thread_rng();
     let mut grains = Vec::new();
@@ -780,7 +504,6 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_d
             size,
             opacity,
             shape_factor,
-            orientation_angle: rng.gen_range(0.0..360.0), // Random orientation for legacy function
         });
     }
     
@@ -831,7 +554,6 @@ fn apply_enhanced_clustering(grains: &mut Vec<Grain>, rng: &mut ThreadRng, width
                     size: center.size * rng.gen_range(0.8..1.2),
                     opacity: center.opacity * rng.gen_range(0.9..1.1),
                     shape_factor: center.shape_factor * rng.gen_range(0.9..1.1),
-                    orientation_angle: center.orientation_angle + rng.gen_range(-15.0..15.0), // Similar orientation to cluster center
                 });
             }
         }
@@ -1095,7 +817,6 @@ fn apply_enhanced_clustering_realistic(grains: &mut Vec<Grain>, rng: &mut Thread
                     size: seed_grain.size * size_variation,
                     opacity: (seed_grain.opacity * opacity_variation).min(1.0).max(0.1),
                     shape_factor: seed_grain.shape_factor * rng.gen_range(0.9..1.1),
-                    orientation_angle: seed_grain.orientation_angle + rng.gen_range(-20.0..20.0), // Similar orientation to seed grain
                 });
             }
         }
