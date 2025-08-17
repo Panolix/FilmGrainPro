@@ -216,12 +216,6 @@ fn load_variation_data() -> Result<HashMap<String, VariationData>, String> {
     Ok(parsed)
 }
 
-fn load_image_dependent_data() -> Result<HashMap<String, serde_json::Value>, String> {
-    let image_data = include_str!("../../imagecolors.json");
-    let parsed: HashMap<String, serde_json::Value> = serde_json::from_str(image_data)
-        .map_err(|e| format!("Failed to parse imagecolors.json: {}", e))?;
-    Ok(parsed)
-}
 
 fn load_film_stock_data() -> Result<HashMap<String, FilmStock>, String> {
     // Load comprehensive film stock data
@@ -527,81 +521,7 @@ fn apply_enhanced_clustering(grains: &mut Vec<Grain>, rng: &mut ThreadRng, width
     }
 }
 
-fn apply_basic_clustering_old(grains: &mut Vec<Grain>, rng: &mut ThreadRng, width: u32, height: u32) {
-    let original_count = grains.len();
-    let cluster_count = (original_count as f32 * 0.15) as usize; // 15% of grains form clusters
-    
-    for _ in 0..cluster_count {
-        if grains.is_empty() { break; }
-        
-        let center_idx = rng.gen_range(0..grains.len());
-        let center = grains[center_idx];
-        
-        // Add 1-2 grains near the center (small clusters)
-        let cluster_size = rng.gen_range(1..3);
-        for _ in 0..cluster_size {
-            let angle = rng.gen::<f32>() * 2.0 * std::f32::consts::PI;
-            let distance = rng.gen_range(1.0..3.0) * center.size;
-            
-            let x = center.x + angle.cos() * distance;
-            let y = center.y + angle.sin() * distance;
-            
-            if x >= 0.0 && y >= 0.0 && x < width as f32 && y < height as f32 {
-                grains.push(Grain {
-                    x,
-                    y,
-                    size: center.size * rng.gen_range(0.8..1.2),
-                    opacity: center.opacity * rng.gen_range(0.9..1.1),
-                    shape_factor: center.shape_factor,
-                });
-            }
-        }
-    }
-}
 
-fn apply_spatial_clustering_old(grains: &mut Vec<Grain>, correlation: f32, rng: &mut ThreadRng) {
-    if correlation < 0.1 { return; }
-    
-    let cluster_count = (grains.len() as f32 * correlation * 0.2) as usize;
-    
-    for _ in 0..cluster_count {
-        if grains.len() < 2 { break; }
-        
-        let center_idx = rng.gen_range(0..grains.len());
-        let center = grains[center_idx];
-        
-        // Realistic clustering based on film development physics
-        let cluster_size = match correlation {
-            c if c > 0.3 => rng.gen_range(3..8), // High correlation = larger clusters
-            c if c > 0.2 => rng.gen_range(2..5), // Medium correlation
-            _ => rng.gen_range(2..4),            // Low correlation
-        };
-        
-        for _i in 0..cluster_size {
-            // Use Gaussian distribution for more realistic clustering
-            let angle = rng.gen::<f32>() * 2.0 * std::f32::consts::PI;
-            let distance_factor = (-2.0 * rng.gen::<f32>().ln()).sqrt() * (2.0 * std::f32::consts::PI * rng.gen::<f32>()).cos();
-            let distance = (distance_factor.abs() * center.size * 2.0).min(center.size * 8.0);
-            
-            let x = center.x + angle.cos() * distance;
-            let y = center.y + angle.sin() * distance;
-            
-            if x >= 0.0 && y >= 0.0 && x < 2048.0 && y < 2048.0 {
-                // Vary grain properties within cluster
-                let size_variation = 1.0 + (rng.gen::<f32>() - 0.5) * 0.4;
-                let opacity_variation = 1.0 + (rng.gen::<f32>() - 0.5) * 0.3;
-                
-                grains.push(Grain {
-                    x,
-                    y,
-                    size: center.size * size_variation,
-                    opacity: (center.opacity * opacity_variation).min(1.0).max(0.1),
-                    shape_factor: center.shape_factor * rng.gen_range(0.8..1.2),
-                });
-            }
-        }
-    }
-}
 
 fn render_grains_parallel(grains: &[Grain], params: &GrainParams, stock: &FilmStock) -> Result<Vec<u8>, String> {
     let render_start = std::time::Instant::now();
@@ -862,22 +782,6 @@ fn blend_pixel_fast(base_pixel: &mut Rgba<u8>, new_pixel: Rgba<u8>) {
     base_pixel[3] = ((base_pixel[3] as u16 + alpha).min(255)) as u8;
 }
 
-// Simplified SIMD-optimized pixel blending
-fn blend_pixels_simd_simple(base_pixels: &mut [u8], grain_pixels: &[u8]) {
-    // Process 4 bytes (1 RGBA pixel) at a time using SIMD
-    for (base_chunk, grain_chunk) in base_pixels.chunks_exact_mut(4).zip(grain_pixels.chunks_exact(4)) {
-        let alpha = grain_chunk[3] as f32 / 255.0;
-        let inv_alpha = 1.0 - alpha;
-        
-        // Blend RGB channels using SIMD-friendly operations
-        base_chunk[0] = ((base_chunk[0] as f32 * inv_alpha) + (grain_chunk[0] as f32 * alpha)) as u8;
-        base_chunk[1] = ((base_chunk[1] as f32 * inv_alpha) + (grain_chunk[1] as f32 * alpha)) as u8;
-        base_chunk[2] = ((base_chunk[2] as f32 * inv_alpha) + (grain_chunk[2] as f32 * alpha)) as u8;
-        
-        // Alpha channel - take maximum
-        base_chunk[3] = base_chunk[3].max(grain_chunk[3]);
-    }
-}
 
 fn apply_pixels_simd_optimized(
     img: &mut RgbaImage, 
@@ -914,89 +818,6 @@ fn apply_pixels_simd_optimized(
     }
 }
 
-fn render_single_grain(img: &mut RgbaImage, grain: &Grain, stock: &FilmStock, params: &GrainParams) {
-    let center_x = grain.x as i32;
-    let center_y = grain.y as i32;
-    let radius = grain.size as i32; // Fix: was grain.size * 2.0, causing oversized grains
-    
-    // Load authentic film grain colors from color.json
-    let (r, g, b) = get_film_grain_color(&stock.basic_info.name);
-    
-    // Apply color crossover effects from more.json if available
-    let mut grain_color = [r as f32 / 255.0, g as f32 / 255.0, b as f32 / 255.0];
-    if let Ok(enhanced_data) = load_enhanced_film_data() {
-        if let Some(enhanced) = enhanced_data.get(&params.film_stock) {
-            apply_color_crossover(&mut grain_color, &enhanced.color_crossover);
-        }
-    }
-    let final_r = (grain_color[0] * 255.0).clamp(0.0, 255.0) as u8;
-    let final_g = (grain_color[1] * 255.0).clamp(0.0, 255.0) as u8;
-    let final_b = (grain_color[2] * 255.0).clamp(0.0, 255.0) as u8;
-    
-    // Use realistic opacity with moderate boost for visibility
-    let boosted_opacity = match grain.opacity {
-        x if x < 0.2 => x * 3.0,   // Fine films - 3x boost
-        x if x < 0.4 => x * 2.0,   // Medium films - 2x boost
-        x => x * 1.5,              // Coarse films - 1.5x boost
-    };
-    let alpha = (boosted_opacity * 255.0).min(255.0).max(40.0) as u8;
-    
-    // Render grain with anti-aliasing
-    for dy in -radius..=radius {
-        for dx in -radius..=radius {
-            let x = center_x + dx;
-            let y = center_y + dy;
-            
-            if x >= 0 && y >= 0 && x < img.width() as i32 && y < img.height() as i32 {
-                // Apply shape factor for realistic grain shapes
-                let adjusted_dx = dx as f32 / grain.shape_factor;
-                let distance = ((adjusted_dx * adjusted_dx) + (dy * dy) as f32).sqrt();
-                
-                if distance <= grain.size {
-                    // Apply edge characteristics based on film stock
-                    let edge_alpha = match stock.grain_structure.edge_type.as_str() {
-                        "sharp" => {
-                            // Sharp edges with minimal falloff
-                            if distance > grain.size * 0.9 {
-                                ((grain.size - distance) / (grain.size * 0.1)).max(0.0)
-                            } else {
-                                1.0
-                            }
-                        },
-                        "soft" => {
-                            // Soft edges with gradual falloff
-                            if distance > grain.size * 0.7 {
-                                ((grain.size - distance) / (grain.size * 0.3)).max(0.0)
-                            } else {
-                                1.0
-                            }
-                        },
-                        "hard" => {
-                            // Very defined edges
-                            if distance > grain.size * 0.95 {
-                                0.0
-                            } else {
-                                1.0
-                            }
-                        },
-                        _ => 1.0, // Default to solid
-                    };
-                    
-                    let final_alpha = (alpha as f32 * edge_alpha) as u8;
-                    
-                    if final_alpha > 10 {
-                        let pixel = img.get_pixel_mut(x as u32, y as u32);
-                        let blend_factor = final_alpha as f32 / 255.0;
-                        pixel[0] = ((pixel[0] as f32 * (1.0 - blend_factor)) + (final_r as f32 * blend_factor)) as u8;
-                        pixel[1] = ((pixel[1] as f32 * (1.0 - blend_factor)) + (final_g as f32 * blend_factor)) as u8;
-                        pixel[2] = ((pixel[2] as f32 * (1.0 - blend_factor)) + (final_b as f32 * blend_factor)) as u8;
-                        pixel[3] = ((pixel[3] as f32).max(final_alpha as f32)) as u8;
-                    }
-                }
-            }
-        }
-    }
-}
 
 #[tauri::command]
 async fn save_grain_image(data: Vec<u8>, width: u32, height: u32, path: String) -> Result<(), String> {
@@ -1340,118 +1161,7 @@ fn parse_comprehensive_film_stock(name: &str, data: &serde_json::Value) -> Resul
     })
 }
 
-fn parse_film_stock_old(name: &str, data: &serde_json::Value) -> Result<FilmStock, String> {
-    let basic_info = data.get("basic_info").ok_or("Missing basic_info")?;
-    let grain_structure = data.get("grain_structure").ok_or("Missing grain_structure")?;
-    let size_metrics = data.get("size_metrics").ok_or("Missing size_metrics")?;
-    let visual_properties = data.get("visual_properties").ok_or("Missing visual_properties")?;
-    let color_properties = data.get("color_properties").ok_or("Missing color_properties")?;
-    let special_effects = data.get("special_effects").ok_or("Missing special_effects")?;
-    let algorithmic_data = data.get("algorithmic_data").ok_or("Missing algorithmic_data")?;
-    
-    Ok(FilmStock {
-        basic_info: BasicInfo {
-            name: name.to_string(),
-            iso: basic_info.get("iso").and_then(|v| v.as_u64()).unwrap_or(400) as u32,
-            film_type: basic_info.get("type").and_then(|v| v.as_str()).unwrap_or("bw").to_string(),
-        },
-        grain_structure: GrainStructure {
-            crystal_type: grain_structure.get("crystal_type").and_then(|v| v.as_str()).unwrap_or("cubic").to_string(),
-            shape: grain_structure.get("shape").and_then(|v| v.as_str()).unwrap_or("irregular").to_string(),
-            aspect_ratio: grain_structure.get("aspect_ratio").and_then(|v| v.as_array())
-                .map(|arr| arr.iter().filter_map(|v| v.as_f64()).map(|f| f as f32).collect())
-                .unwrap_or(vec![1.0, 1.0]),
-            orientation: grain_structure.get("orientation").and_then(|v| v.as_str()).unwrap_or("random").to_string(),
-            clustering: grain_structure.get("clustering").and_then(|v| v.as_str()).unwrap_or("moderate").to_string(),
-            edge_type: grain_structure.get("edge_type").and_then(|v| v.as_str()).unwrap_or("sharp").to_string(),
-        },
-        size_metrics: SizeMetrics {
-            min_size_um: size_metrics.get("min_size_um").and_then(|v| v.as_f64()).unwrap_or(0.5) as f32,
-            max_size_um: size_metrics.get("max_size_um").and_then(|v| v.as_f64()).unwrap_or(2.0) as f32,
-            avg_size_um: size_metrics.get("avg_size_um").and_then(|v| v.as_f64()).unwrap_or(0.8) as f32,
-            size_distribution: size_metrics.get("size_distribution").and_then(|v| v.as_str()).unwrap_or("normal").to_string(),
-            size_variation_coeff: size_metrics.get("size_variation_coeff").and_then(|v| v.as_f64()).unwrap_or(0.5) as f32,
-            density_per_mm2: size_metrics.get("density_per_mm2").and_then(|v| v.as_u64()).unwrap_or(800000) as u32,
-            spacing_pattern: size_metrics.get("spacing_pattern").and_then(|v| v.as_str()).unwrap_or("random").to_string(),
-        },
-        visual_properties: VisualProperties {
-            opacity_range: visual_properties.get("opacity_range").and_then(|v| v.as_array())
-                .map(|arr| arr.iter().filter_map(|v| v.as_f64()).map(|f| f as f32).collect())
-                .unwrap_or(vec![0.2, 0.8]),
-            contrast_level: visual_properties.get("contrast_level").and_then(|v| v.as_str()).unwrap_or("medium").to_string(),
-            edge_definition: visual_properties.get("edge_definition").and_then(|v| v.as_str()).unwrap_or("sharp").to_string(),
-            opacity_variation: visual_properties.get("opacity_variation").and_then(|v| v.as_f64()).unwrap_or(0.6) as f32,
-            highlight_visibility: visual_properties.get("highlight_visibility").and_then(|v| v.as_str()).unwrap_or("medium").to_string(),
-            shadow_visibility: visual_properties.get("shadow_visibility").and_then(|v| v.as_str()).unwrap_or("medium").to_string(),
-            midtone_prominence: visual_properties.get("midtone_prominence").and_then(|v| v.as_str()).unwrap_or("medium").to_string(),
-        },
-        color_properties: ColorProperties {
-            primary_cast: color_properties.get("primary_cast").and_then(|v| v.as_str()).unwrap_or("neutral").to_string(),
-            rgb_ranges: vec![RgbRange {
-                r: vec![200, 255],
-                g: vec![200, 255],
-                b: vec![200, 255],
-                weight: 1.0,
-            }],
-            color_variation: color_properties.get("color_variation").and_then(|v| v.as_str()).unwrap_or("low").to_string(),
-            saturation_level: color_properties.get("saturation_level").and_then(|v| v.as_str()).unwrap_or("low").to_string(),
-        },
-        special_effects: SpecialEffects {
-            halation: special_effects.get("halation").and_then(|v| v.as_str()).unwrap_or("none").to_string(),
-            halation_color: special_effects.get("halation_color").and_then(|v| v.as_str()).unwrap_or("#ffffff").to_string(),
-            halation_radius: special_effects.get("halation_radius").and_then(|v| v.as_f64()).unwrap_or(1.0) as f32,
-            unique_artifacts: vec![],
-            light_interaction: special_effects.get("light_interaction").and_then(|v| v.as_str()).unwrap_or("normal").to_string(),
-        },
-        algorithmic_data: AlgorithmicData {
-            clustering_algorithm: algorithmic_data.get("clustering_algorithm").and_then(|v| v.as_str()).unwrap_or("poisson").to_string(),
-            distribution_function: algorithmic_data.get("distribution_function").and_then(|v| v.as_str()).unwrap_or("normal(0.8, 0.5)").to_string(),
-            spatial_correlation: algorithmic_data.get("spatial_correlation").and_then(|v| v.as_f64()).unwrap_or(0.2) as f32,
-            fractal_dimension: algorithmic_data.get("fractal_dimension").and_then(|v| v.as_f64()).unwrap_or(1.2) as f32,
-        },
-    })
-}
 
-fn apply_realistic_fuji_data(film_stock: &mut FilmStock, fuji_data: &serde_json::Value) {
-    // Apply realistic grain parameters from grainstuff.json
-    if let Some(digital_sim) = fuji_data.get("digital_simulation") {
-        if let Some(grains_per_1024) = digital_sim.get("grains_per_1024px").and_then(|v| v.as_u64()) {
-            // Convert grains per 1024px to density per mm²
-            let density_per_mm2 = (grains_per_1024 as f32 * 1000000.0 / (1024.0 * 1024.0)) as u32;
-            film_stock.size_metrics.density_per_mm2 = density_per_mm2;
-            println!("Updated {} density to {} grains per mm² ({} per 1024px)", 
-                     film_stock.basic_info.name, density_per_mm2, grains_per_1024);
-        }
-        
-        if let Some(pixel_range) = digital_sim.get("pixel_size_range").and_then(|v| v.as_array()) {
-            if pixel_range.len() >= 2 {
-                if let (Some(min), Some(max)) = (pixel_range[0].as_f64(), pixel_range[1].as_f64()) {
-                    // Convert pixel sizes to microns (approximate)
-                    film_stock.size_metrics.min_size_um = min as f32 / 10.0; // Rough conversion
-                    film_stock.size_metrics.max_size_um = max as f32 / 10.0;
-                    film_stock.size_metrics.avg_size_um = (min as f32 + max as f32) / 20.0;
-                }
-            }
-        }
-        
-        if let Some(opacity_range) = digital_sim.get("recommended_opacity").and_then(|v| v.as_array()) {
-            if opacity_range.len() >= 2 {
-                if let (Some(min), Some(max)) = (opacity_range[0].as_f64(), opacity_range[1].as_f64()) {
-                    film_stock.visual_properties.opacity_range = vec![min as f32, max as f32];
-                }
-            }
-        }
-    }
-    
-    // Apply grain shape characteristics
-    if let Some(grain_shape) = fuji_data.get("grain_shape").and_then(|v| v.as_str()) {
-        film_stock.grain_structure.shape = grain_shape.to_string();
-    }
-    
-    if let Some(edge_type) = fuji_data.get("edge_type").and_then(|v| v.as_str()) {
-        film_stock.grain_structure.edge_type = edge_type.to_string();
-    }
-}
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 fn main() {

@@ -3,7 +3,7 @@
 A professional desktop application for generating **authentic film grain overlays** with scientifically accurate characteristics based on exactly 35 real film stocks.
 
 ![Platform Support](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
+![License](https://img.shields.io/badge/License-Proprietary-red)
 ![Built with](https://img.shields.io/badge/Built%20with-Rust%20%7C%20Tauri%20%7C%20JavaScript-orange)
 
 ## 📸 **App Overview**
@@ -75,18 +75,18 @@ Notice the differences in **grain size**, **shape**, **color**, **density**, and
 **macOS:**
 ```bash
 # Double-click this file in Finder:
-🎬 BUILD AND INSTALL.command
+🎬 SIMPLE INSTALLER.command
 ```
 
 **Windows:**
 ```cmd
 # Double-click this file in Explorer:
-🎬 BUILD AND INSTALL.bat
+🎬 INSTALL FILM GRAIN GENERATOR.py
 ```
 
 **Or use the cross-platform installer:**
 ```bash
-python3 build-and-install.py
+python3 "🎬 INSTALL FILM GRAIN GENERATOR.py"
 ```
 
 ### **Prerequisites:**

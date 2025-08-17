@@ -51,4 +51,15 @@ cuda = ["dep:cudarc"]
 opencl = ["dep:opencl3"]
 metal = []
 
-default = []
+default = ["gpu-acceleration"]
+
+# Release optimizations
+[profile.release]
+opt-level = 3          # Maximum optimization
+lto = true            # Link-time optimization
+codegen-units = 1     # Better optimization at cost of compile time
+panic = "abort"       # Smaller binary size
+strip = true          # Remove debug symbols
+
+[profile.dev]
+opt-level = 1         # Some optimization in dev for better performance
