@@ -13,11 +13,11 @@
     "dev-installer": "npm run tauri dev"
   },
   "dependencies": {
-    "@tauri-apps/api": "^2.4.0",
-    "@tauri-apps/plugin-shell": "^2"
+    "@tauri-apps/api": "2.4.0",
+    "@tauri-apps/plugin-shell": "2.0.0"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^2.4.0",
+    "@tauri-apps/cli": "2.4.0",
     "vite": "^7.1.2"
   }
 }
