@@ -3,7 +3,7 @@
 A professional desktop application for generating **authentic film grain overlays** with scientifically accurate characteristics based on exactly 35 real film stocks.
 
 ![Platform Support](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)
-![License](https://img.shields.io/badge/License-Proprietary-red)
+![License](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-blue)
 ![Built with](https://img.shields.io/badge/Built%20with-Rust%20%7C%20Tauri%20%7C%20JavaScript-orange)
 
 ## 📸 **App Overview**
@@ -185,23 +185,9 @@ Contributions are welcome! Areas for improvement:
 
 ## 📄 **License**
 
-**Proprietary License** - This software is free for personal and educational use only. All rights reserved.
+This project is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) - free for personal and educational use. Commercial use requires permission.
 
-**🚫 STRICTLY PROHIBITED:**
-- Selling or charging for the software
-- Modifying and redistributing  
-- Commercial use of any kind
-- Creating derivative works for distribution
-- Reverse engineering for commercial purposes
-
-**✅ ALLOWED:**
-- Personal, non-commercial use
-- Educational use in academic settings
-- Learning from source code (viewing only)
-
-**⚖️ ENFORCEMENT:** Violations will result in legal action for copyright infringement.
-
-For commercial licensing, contact the author. See [LICENSE](LICENSE) file for complete terms.
+See the [LICENSE](LICENSE) file for complete terms.
 
 ## 🙏 **Acknowledgments**
 
