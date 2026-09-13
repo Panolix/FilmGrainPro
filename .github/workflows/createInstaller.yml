@@ -1,6 +1,9 @@
 name: Build Installers
 
 on:
+  push:
+    tags:
+      - 'v*'
   release:
     types: [published]
   workflow_dispatch:
@@ -46,12 +49,18 @@ jobs:
 
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
 
       - name: Install frontend dependencies
         run: cd film-grain-generator && npm install
+
+      - name: Verify Inter font is bundled
+        run: |
+          cd film-grain-generator
+          npm run build
+          node -e "if (!require('fs').existsSync('dist/fonts/InterVariable.woff2')) { console.error('Inter font missing from build'); process.exit(1); } console.log('Inter font bundled');"
 
       - name: Build the app
         uses: tauri-apps/tauri-action@v0

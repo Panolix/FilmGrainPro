@@ -113,7 +113,7 @@ python3 "🎬 INSTALL FILM GRAIN GENERATOR.py"
 
 ### **Prerequisites:**
 - **Python 3.6+** (usually pre-installed on macOS)
-- **Node.js 16+** ([Download](https://nodejs.org/))
+- **Node.js 20+** ([Download](https://nodejs.org/))
 - **Rust & Cargo** ([Install](https://rustup.rs/))
 
 The installer will check for these and guide you through any missing requirements.

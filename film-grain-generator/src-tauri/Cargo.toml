@@ -1,10 +1,10 @@
 [package]
 name = "film-grain-generator"
-version = "1.0.6"
+version = "2.1.1"
 description = "Film Grain Generator - Professional film grain effects"
 authors = ["Panagiotis Smponias"]
-license = "Proprietary"
-repository = "https://github.com/PanagiotisSmponias/FilmGrainPro"
+license = "CC-BY-NC-SA-4.0"
+repository = "https://github.com/Panolix/FilmGrainPro"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
