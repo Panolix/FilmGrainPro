@@ -62,6 +62,15 @@ jobs:
           npm run build
           node -e "if (!require('fs').existsSync('dist/fonts/InterVariable.woff2')) { console.error('Inter font missing from build'); process.exit(1); } console.log('Inter font bundled');"
 
+      - name: Read release notes
+        id: notes
+        run: |
+          {
+            echo 'body<<RELEASE_NOTES_EOF'
+            cat RELEASE_NOTES.md
+            echo 'RELEASE_NOTES_EOF'
+          } >> "$GITHUB_OUTPUT"
+
       - name: Build the app
         uses: tauri-apps/tauri-action@v0
         env:
@@ -70,7 +79,7 @@ jobs:
           projectPath: './film-grain-generator'
           tagName: ${{ github.event.release.tag_name || github.ref_name }}
           releaseName: 'Film Grain Generator v__VERSION__'
-          releaseBody: 'See the assets to download and install this version.'
+          releaseBody: ${{ steps.notes.outputs.body }}
           releaseDraft: false
           prerelease: false
           args: ${{ matrix.args }}

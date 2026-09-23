@@ -1,0 +1,1476 @@
+{
+  "schema_version": 1,
+  "films": {
+    "Kodak Tri-X 400": {
+      "iso": 400,
+      "type": "bw_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 17,
+        "scale": "kodak_bw_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_f4017",
+        "confidence": "datasheet"
+      },
+      "morphology": {
+        "family": "cubic"
+      },
+      "grain_size_um": {
+        "min": 0.36,
+        "mean": 0.9,
+        "max": 1.98,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": {
+        "rated": 400,
+        "ei": [
+          400,
+          800,
+          1600,
+          3200
+        ],
+        "stops": 3,
+        "src": "kodak_f4017",
+        "confidence": "datasheet"
+      },
+      "ei_range": {
+        "min": 400,
+        "max": 3200,
+        "source": "manufacturer datasheet"
+      },
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Kodak T-Max 100": {
+      "iso": 100,
+      "type": "bw_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 8,
+        "scale": "kodak_bw_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_f4016",
+        "confidence": "datasheet"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.18,
+        "mean": 0.45,
+        "max": 0.99,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": {
+        "rated": 100,
+        "ei": [
+          100,
+          200,
+          400,
+          800
+        ],
+        "stops": 3,
+        "src": "kodak_f4016",
+        "confidence": "datasheet"
+      },
+      "ei_range": {
+        "min": 100,
+        "max": 800,
+        "source": "manufacturer datasheet"
+      },
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 63,
+        "toc_1000_to_1": 200,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Kodak T-Max 400": {
+      "iso": 400,
+      "type": "bw_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 10,
+        "scale": "kodak_bw_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_f4043",
+        "confidence": "datasheet"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.32,
+        "mean": 0.81,
+        "max": 1.78,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": {
+        "rated": 400,
+        "ei": [
+          400,
+          800,
+          1600,
+          3200
+        ],
+        "stops": 3,
+        "src": "kodak_f4043",
+        "confidence": "datasheet"
+      },
+      "ei_range": {
+        "min": 400,
+        "max": 3200,
+        "source": "manufacturer datasheet"
+      },
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 50,
+        "toc_1000_to_1": 200,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Kodak Ektar 100": {
+      "iso": 100,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "pgi",
+        "value": 24,
+        "scale": "kodak_pgi_35mm_4x6",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_e4046",
+        "confidence": "datasheet"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.18,
+        "mean": 0.45,
+        "max": 0.99,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Kodak Gold 200": {
+      "iso": 200,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "pgi",
+        "value": 44,
+        "scale": "kodak_pgi_35mm_4x6",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_e7022",
+        "confidence": "datasheet"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.22,
+        "mean": 0.54,
+        "max": 1.19,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Kodak UltraMax 400": {
+      "iso": 400,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "pgi",
+        "value": 46,
+        "scale": "kodak_pgi_35mm_4x6",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_e7019",
+        "confidence": "datasheet"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.32,
+        "mean": 0.81,
+        "max": 1.78,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Kodak Portra 160": {
+      "iso": 160,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "pgi",
+        "value": 28,
+        "scale": "kodak_pgi_35mm_4x6",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_e4051",
+        "confidence": "datasheet"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.2,
+        "mean": 0.5,
+        "max": 1.1,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Kodak Portra 400": {
+      "iso": 400,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "pgi",
+        "value": 37,
+        "scale": "kodak_pgi_35mm_4x6",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_e4050",
+        "confidence": "datasheet"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.32,
+        "mean": 0.81,
+        "max": 1.78,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Kodak Portra 800": {
+      "iso": 800,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "pgi",
+        "value": 48,
+        "scale": "kodak_pgi_35mm_4x6",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_e4040",
+        "confidence": "datasheet"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.4,
+        "mean": 0.99,
+        "max": 2.18,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": {
+        "rated": 800,
+        "ei": [
+          800,
+          1600,
+          3200
+        ],
+        "stops": 2,
+        "src": "kodak_e4040",
+        "confidence": "datasheet"
+      },
+      "ei_range": {
+        "min": 800,
+        "max": 3200,
+        "source": "manufacturer datasheet"
+      },
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Kodak Ektachrome E100": {
+      "iso": 100,
+      "type": "color_rev",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 8,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_e4024",
+        "confidence": "derived"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.18,
+        "mean": 0.45,
+        "max": 0.99,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": {
+        "rated": 100,
+        "ei": [
+          100,
+          200
+        ],
+        "stops": 1,
+        "src": "kodak_e4024",
+        "confidence": "datasheet"
+      },
+      "ei_range": {
+        "min": 100,
+        "max": 200,
+        "source": "manufacturer datasheet"
+      },
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Kodak Vision3 500T": {
+      "iso": 500,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 7,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_vision3_500t",
+        "confidence": "estimated_from_curve"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.34,
+        "mean": 0.85,
+        "max": 1.87,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Kodak Vision3 50D": {
+      "iso": 50,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 6,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_vision3_50d",
+        "confidence": "estimated_from_curve"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.16,
+        "mean": 0.41,
+        "max": 0.9,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Fuji Acros 100": {
+      "iso": 100,
+      "type": "bw_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 7,
+        "scale": "fuji_bw_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "fuji_acros",
+        "confidence": "datasheet"
+      },
+      "morphology": {
+        "family": "sigma"
+      },
+      "grain_size_um": {
+        "min": 0.19,
+        "mean": 0.47,
+        "max": 1.03,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 60,
+        "toc_1000_to_1": 200,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Fuji Neopan 400": {
+      "iso": 400,
+      "type": "bw_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 12,
+        "scale": "fuji_bw_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "morphology": {
+        "family": "cubic"
+      },
+      "grain_size_um": {
+        "min": 0.36,
+        "mean": 0.9,
+        "max": 1.98,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Fuji Neopan 1600": {
+      "iso": 1600,
+      "type": "bw_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 18,
+        "scale": "fuji_bw_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "morphology": {
+        "family": "cubic"
+      },
+      "grain_size_um": {
+        "min": 0.56,
+        "mean": 1.4,
+        "max": 3.08,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Fuji Pro 160S": {
+      "iso": 160,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 3,
+        "scale": "fuji_colneg_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "fuji_pro160s",
+        "confidence": "datasheet"
+      },
+      "morphology": {
+        "family": "sigma"
+      },
+      "grain_size_um": {
+        "min": 0.21,
+        "mean": 0.52,
+        "max": 1.14,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 63,
+        "toc_1000_to_1": 125,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Fuji Pro 400H": {
+      "iso": 400,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 4,
+        "scale": "fuji_colneg_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "fuji_pro400h",
+        "confidence": "datasheet"
+      },
+      "morphology": {
+        "family": "sigma"
+      },
+      "grain_size_um": {
+        "min": 0.34,
+        "mean": 0.85,
+        "max": 1.87,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 50,
+        "toc_1000_to_1": 125,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Fuji Superia 400": {
+      "iso": 400,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 4,
+        "scale": "fuji_colneg_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "fuji_superia400",
+        "confidence": "datasheet"
+      },
+      "morphology": {
+        "family": "sigma"
+      },
+      "grain_size_um": {
+        "min": 0.34,
+        "mean": 0.85,
+        "max": 1.87,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 50,
+        "toc_1000_to_1": 125,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Fuji C200": {
+      "iso": 200,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 4,
+        "scale": "fuji_colneg_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "morphology": {
+        "family": "sigma"
+      },
+      "grain_size_um": {
+        "min": 0.23,
+        "mean": 0.57,
+        "max": 1.25,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Fuji Natura 1600": {
+      "iso": 1600,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 6,
+        "scale": "fuji_colneg_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "morphology": {
+        "family": "sigma"
+      },
+      "grain_size_um": {
+        "min": 0.53,
+        "mean": 1.33,
+        "max": 2.93,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Fuji Velvia 50": {
+      "iso": 50,
+      "type": "color_rev",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 9,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "fuji_velvia50",
+        "confidence": "datasheet"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.16,
+        "mean": 0.41,
+        "max": 0.9,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": {
+        "rated": 50,
+        "ei": [
+          50,
+          100
+        ],
+        "stops": 1,
+        "src": "fuji_velvia50",
+        "confidence": "datasheet"
+      },
+      "ei_range": null,
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 80,
+        "toc_1000_to_1": 160,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Fuji Velvia 100": {
+      "iso": 100,
+      "type": "color_rev",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 8,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "fuji_velvia100",
+        "confidence": "datasheet"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.18,
+        "mean": 0.45,
+        "max": 0.99,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": {
+        "rated": 100,
+        "ei": [
+          100,
+          200
+        ],
+        "stops": 1,
+        "src": "fuji_velvia100",
+        "confidence": "datasheet"
+      },
+      "ei_range": null,
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 80,
+        "toc_1000_to_1": 160,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Fuji Provia 100F": {
+      "iso": 100,
+      "type": "color_rev",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 8,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "fuji_provia100f",
+        "confidence": "datasheet"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.18,
+        "mean": 0.45,
+        "max": 0.99,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": {
+        "rated": 100,
+        "ei": [
+          100,
+          400
+        ],
+        "stops": 2,
+        "src": "fuji_provia100f",
+        "confidence": "datasheet"
+      },
+      "ei_range": null,
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 60,
+        "toc_1000_to_1": 140,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Fuji Provia 400X": {
+      "iso": 400,
+      "type": "color_rev",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 11,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "fuji_provia400x",
+        "confidence": "datasheet"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.32,
+        "mean": 0.81,
+        "max": 1.78,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": {
+        "rated": 400,
+        "ei": [
+          280,
+          1600
+        ],
+        "stops": 2,
+        "src": "fuji_provia400x",
+        "confidence": "datasheet"
+      },
+      "ei_range": {
+        "min": 280,
+        "max": 1600,
+        "source": "manufacturer datasheet"
+      },
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 55,
+        "toc_1000_to_1": 135,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Ilford Delta 100": {
+      "iso": 100,
+      "type": "bw_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 7,
+        "scale": "third_party_estimate",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "morphology": {
+        "family": "core_shell"
+      },
+      "grain_size_um": {
+        "min": 0.18,
+        "mean": 0.45,
+        "max": 0.99,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": {
+        "min": 50,
+        "max": 200,
+        "source": "manufacturer datasheet"
+      },
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Ilford Delta 400": {
+      "iso": 400,
+      "type": "bw_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 11,
+        "scale": "third_party_estimate",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "morphology": {
+        "family": "core_shell"
+      },
+      "grain_size_um": {
+        "min": 0.32,
+        "mean": 0.81,
+        "max": 1.78,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": {
+        "min": 200,
+        "max": 3200,
+        "source": "manufacturer datasheet"
+      },
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Ilford Delta 3200": {
+      "iso": 3200,
+      "type": "bw_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 22,
+        "scale": "third_party_estimate",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "morphology": {
+        "family": "core_shell"
+      },
+      "grain_size_um": {
+        "min": 0.65,
+        "mean": 1.62,
+        "max": 3.56,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": {
+        "min": 1000,
+        "max": 6400,
+        "source": "manufacturer datasheet"
+      },
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Ilford HP5 Plus": {
+      "iso": 400,
+      "type": "bw_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 17,
+        "scale": "third_party_estimate",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "morphology": {
+        "family": "cubic"
+      },
+      "grain_size_um": {
+        "min": 0.36,
+        "mean": 0.9,
+        "max": 1.98,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": {
+        "min": 400,
+        "max": 3200,
+        "source": "manufacturer datasheet"
+      },
+      "resolving_power_lines_mm": null,
+      "anti_halation": "Anti-halation backing that clears during development (sheet film).",
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Ilford FP4 Plus": {
+      "iso": 125,
+      "type": "bw_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 11,
+        "scale": "third_party_estimate",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "morphology": {
+        "family": "cubic"
+      },
+      "grain_size_um": {
+        "min": 0.22,
+        "mean": 0.55,
+        "max": 1.21,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": {
+        "min": 50,
+        "max": 200,
+        "source": "manufacturer datasheet"
+      },
+      "resolving_power_lines_mm": null,
+      "anti_halation": "Anti-halation backing that clears during development (sheet film).",
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Ilford Pan F Plus 50": {
+      "iso": 50,
+      "type": "bw_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 7,
+        "scale": "third_party_estimate",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "morphology": {
+        "family": "cubic"
+      },
+      "grain_size_um": {
+        "min": 0.18,
+        "mean": 0.45,
+        "max": 0.99,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": {
+        "min": 25,
+        "max": 50,
+        "source": "manufacturer datasheet"
+      },
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Agfa CT Precisa 100": {
+      "iso": 100,
+      "type": "color_rev",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 10,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "agfa_films",
+        "confidence": "derived"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.18,
+        "mean": 0.45,
+        "max": 0.99,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Agfa Vista 200": {
+      "iso": 200,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 4.5,
+        "scale": "fuji_colneg_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "agfa_films",
+        "confidence": "derived"
+      },
+      "morphology": {
+        "family": "cubic"
+      },
+      "grain_size_um": {
+        "min": 0.24,
+        "mean": 0.6,
+        "max": 1.32,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "Agfa Vista 400": {
+      "iso": 400,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 4.5,
+        "scale": "fuji_colneg_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "agfa_films",
+        "confidence": "derived"
+      },
+      "morphology": {
+        "family": "cubic"
+      },
+      "grain_size_um": {
+        "min": 0.36,
+        "mean": 0.9,
+        "max": 1.98,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "CineStill 50D": {
+      "iso": 50,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 6,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_vision3_50d",
+        "confidence": "derived"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.16,
+        "mean": 0.41,
+        "max": 0.9,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": "Rem-jet anti-halation layer removed, producing halation.",
+      "halation": {
+        "enabled": true,
+        "color": "#ff3b1f",
+        "radius_um": 120,
+        "source": "wikipedia_halation",
+        "confidence": "derived"
+      }
+    },
+    "CineStill 800T": {
+      "iso": 800,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 7,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_vision3_500t",
+        "confidence": "derived"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.4,
+        "mean": 0.99,
+        "max": 2.18,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": "Rem-jet anti-halation layer removed, producing strong halation.",
+      "halation": {
+        "enabled": true,
+        "color": "#ff3b1f",
+        "radius_um": 120,
+        "source": "wikipedia_halation",
+        "confidence": "derived"
+      }
+    }
+  }
+}

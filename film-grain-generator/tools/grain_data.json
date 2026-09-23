@@ -1,0 +1,4621 @@
+{
+  "schema_version": 1,
+  "generated": "2026-09-23",
+  "description": "Sourced grain characterisation for the app's 35 film stocks. 'datasheet' = manufacturer-published value; 'derived' = computed from a published parent film; 'estimated' = not published, literature/class based.",
+  "sources": {
+    "kodak_f4017": {
+      "title": "KODAK PROFESSIONAL TRI-X 400 Film - Technical Data F-4017 (2007)",
+      "url": "https://125px.com/docs/film/kodak/f4017-400TX-2007.pdf",
+      "provides": "Diffuse RMS granularity (48 um aperture, net density 1.0, 12x, HC-110 B)"
+    },
+    "kodak_f4016": {
+      "title": "KODAK PROFESSIONAL T-MAX 100 Film - Technical Data F-4016 (2018)",
+      "url": "https://125px.com/docs/film/kodak/f4016_tmax_100-2018.pdf",
+      "provides": "Diffuse RMS granularity + resolving power (D-76)"
+    },
+    "kodak_f4043": {
+      "title": "KODAK PROFESSIONAL T-MAX 400 Film - Technical Data F-4043 (2016)",
+      "url": "https://125px.com/docs/film/kodak/f4043_TMax_400-2016.pdf",
+      "provides": "Diffuse RMS granularity + resolving power (D-76)"
+    },
+    "kodak_e4024": {
+      "title": "KODAK EKTACHROME E100G Film - E-4024",
+      "url": "https://125px.com/docs/film/kodak/e4024-Ektachrome_E100G.pdf",
+      "provides": "Diffuse RMS granularity (rms 8)"
+    },
+    "kodak_e4046": {
+      "title": "KODAK PROFESSIONAL EKTAR 100 Film - E-4046 (2016)",
+      "url": "https://125px.com/docs/film/kodak/e4046_ektar_100-2016.pdf",
+      "provides": "Print Grain Index table (35 mm, 4x6 in / 4.4x)"
+    },
+    "kodak_e7022": {
+      "title": "KODAK GOLD 200 Film - E-7022 (2016)",
+      "url": "https://125px.com/docs/film/kodak/E7022_Gold_200-2016.pdf",
+      "provides": "Print Grain Index table (35 mm, 4x6 in / 4.4x)"
+    },
+    "kodak_e7019": {
+      "title": "KODAK ULTRA MAX 400 Film - E-7019",
+      "url": "https://125px.com/docs/film/kodak/E7019_en-Ultra_Max_400.pdf",
+      "provides": "Print Grain Index table (35 mm, 4x6 in / 4.4x)"
+    },
+    "kodak_e4051": {
+      "title": "KODAK PROFESSIONAL PORTRA 160 Film - E-4051 (2016)",
+      "url": "https://125px.com/docs/film/kodak/e4051_Portra_160-2016.pdf",
+      "provides": "Print Grain Index table (35 mm, 4x6 in / 4.4x)"
+    },
+    "kodak_e4050": {
+      "title": "KODAK PROFESSIONAL PORTRA 400 Film - E-4050 (2016)",
+      "url": "https://125px.com/docs/film/kodak/e4050_portra_400-2016.pdf",
+      "provides": "Print Grain Index table (35 mm, 4x6 in / 4.4x)"
+    },
+    "kodak_e4040": {
+      "title": "KODAK PROFESSIONAL PORTRA 800 Film - E-4040 (2016)",
+      "url": "https://125px.com/docs/film/kodak/e4040_portra_800-2016.pdf",
+      "provides": "Print Grain Index table (35 mm, 4x6 in / 4.4x)"
+    },
+    "kodak_e58": {
+      "title": "KODAK Publication E-58 - Print Grain Index (2000)",
+      "url": "https://125px.com/docs/techpubs/kodak/e58-2000_07.pdf",
+      "provides": "PGI method/scale: 2 units = 1 jnd, PGI 25 = visual graininess threshold"
+    },
+    "kodak_vision3_500t": {
+      "title": "KODAK VISION3 500T 5219 - Technical Information TI2647",
+      "url": "https://125px.com/docs/motionpicture/kodak/5219-Vision3-500T-tech.pdf",
+      "provides": "Diffuse RMS granularity curves (R/G/B, 48 um aperture) - curve only, no single value"
+    },
+    "kodak_vision3_50d": {
+      "title": "KODAK VISION3 50D 5203 - Technical Information TI2657",
+      "url": "https://125px.com/docs/motionpicture/kodak_2018/5203_ti2657.pdf",
+      "provides": "Diffuse RMS granularity curves (R/G/B, 48 um aperture) - curve only, no single value"
+    },
+    "fuji_velvia50": {
+      "title": "FUJICHROME Velvia 50 Professional [RVP50] - Product Information Bulletin",
+      "url": "https://125px.com/docs/film/fuji/velvia_50_datasheet.pdf",
+      "provides": "Diffuse RMS granularity 9 + resolving power"
+    },
+    "fuji_velvia100": {
+      "title": "FUJICHROME Velvia 100 Professional [RVP100] - Product Information Bulletin",
+      "url": "https://125px.com/docs/film/fuji/velvia_100_datasheet.pdf",
+      "provides": "Diffuse RMS granularity 8 + resolving power"
+    },
+    "fuji_provia100f": {
+      "title": "FUJICHROME PROVIA 100F Professional [RDP III] - Data Sheet",
+      "url": "https://125px.com/docs/film/fuji/provia_100f_datasheet.pdf",
+      "provides": "Diffuse RMS granularity 8 + resolving power"
+    },
+    "fuji_provia400x": {
+      "title": "FUJICHROME PROVIA 400X Professional [RXP] - Product Information Bulletin",
+      "url": "https://125px.com/docs/film/fuji/Provia_400X_PIB_1007.pdf",
+      "provides": "Diffuse RMS granularity 11 + resolving power"
+    },
+    "fuji_pro160s": {
+      "title": "FUJICOLOR PRO 160S - Data Sheet",
+      "url": "https://125px.com/docs/film/fuji/pro_160s_datasheet.pdf",
+      "provides": "Diffuse RMS granularity 3 (Fujifilm colour-negative scale) + resolving power"
+    },
+    "fuji_pro400h": {
+      "title": "FUJICOLOR PRO 400H - Data Sheet",
+      "url": "https://125px.com/docs/film/fuji/pro_400h_datasheet.pdf",
+      "provides": "Diffuse RMS granularity 4 (Fujifilm colour-negative scale) + resolving power"
+    },
+    "fuji_superia400": {
+      "title": "FUJICOLOR SUPERIA X-TRA 400 [CH] - Product Information Bulletin",
+      "url": "https://125px.com/docs/film/fuji/superia_xtra400_datasheet.pdf",
+      "provides": "Diffuse RMS granularity 4 (Fujifilm colour-negative scale) + resolving power"
+    },
+    "fuji_acros": {
+      "title": "FUJIFILM NEOPAN 100 ACROS - Data Sheet AF3-095E",
+      "url": "https://125px.com/docs/film/fuji/NeopanAcros100.pdf",
+      "provides": "Diffuse RMS granularity 7 + resolving power (read via OCR, page 4)"
+    },
+    "agfa_films": {
+      "title": "AGFA Professional Film range brochure (Optima II, Portrait XPS, Ultra, RSX II, APX, Scala)",
+      "url": "https://125px.com/docs/film/agfa/agfa_films.pdf",
+      "provides": "RMS granularity (x1000) + resolving power for Agfa emulsions; used as class data for the AgfaPhoto-era stocks"
+    },
+    "iso10505": {
+      "title": "ISO 10505:2009 - Photography: Root mean square granularity of photographic films",
+      "url": "https://www.iso.org/standard/41634.html",
+      "provides": "Standard measurement definition for RMS granularity (48 um aperture, D=1.0)"
+    },
+    "wikipedia_filmgrain": {
+      "title": "Wikipedia - Film grain (RMS granularity, Selwyn granularity)",
+      "url": "https://en.wikipedia.org/wiki/Film_grain",
+      "provides": "Physical definitions and Selwyn's law"
+    },
+    "wikipedia_tabular": {
+      "title": "Wikipedia - Tabular-grain film",
+      "url": "https://en.wikipedia.org/wiki/Tabular-grain_film",
+      "provides": "Emulsion morphology: tabular vs cubic, T-GRAIN, core-shell"
+    },
+    "wikipedia_halation": {
+      "title": "Wikipedia - Anti-halation backing / halation",
+      "url": "https://en.wikipedia.org/wiki/Anti-halation_backing",
+      "provides": "Halation mechanism (red blow-out around highlights when anti-halation/rem-jet is absent)"
+    },
+    "kodak_tgrain_paper": {
+      "title": "Kofron & Booms, 'KODAK T-Grain Emulsions in Color Films', J. Soc. Photogr. Sci. Tech. Japan 49(6), 1986",
+      "url": "https://www.jstage.jst.go.jp/article/photogrst1964/49/6/49_6_499/_pdf",
+      "provides": "Tabular grain dimensions: equivalent circular diameter 2.33 um, thickness 0.12 um (aspect 22.6:1) for an experimental emulsion; 3:1-5:1 aspect for production tabular colour emulsions; cubic reference emulsions ~1-1.4 um. Class-level size ranges only."
+    }
+  },
+  "films": {
+    "Kodak Tri-X 400": {
+      "type": "bw_neg",
+      "iso": 400,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 17,
+        "scale": "kodak_bw_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_f4017",
+        "confidence": "datasheet"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "cubic",
+        "crystal": "cubic_silver_halide",
+        "source": "wikipedia_tabular",
+        "confidence": "datasheet"
+      },
+      "grain_size_um": {
+        "min": 0.36,
+        "mean": 0.9,
+        "max": 1.98,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "moderate",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "high",
+      "color_cast": "neutral_gray",
+      "color_rgb": [
+        175,
+        175,
+        175
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": {
+        "rated": 400,
+        "ei": [
+          400,
+          800,
+          1600,
+          3200
+        ],
+        "stops": 3,
+        "src": "kodak_f4017",
+        "confidence": "datasheet"
+      },
+      "push_stops": 3,
+      "ei_range": {
+        "min": 400,
+        "max": 3200,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "reciprocity": {
+        "1/100000s": "+1 stop",
+        "1/10000s": "+1/2 stop",
+        "source": "kodak_f4017"
+      },
+      "notes": "Classic cubic-silver emulsion; coarse grain is a defining feature.",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.5,
+          "max": 3.0,
+          "average": 1.2
+        },
+        "clustering": {
+          "level": "moderate",
+          "cluster_size": "2-4_grains",
+          "fractal_dimension": 1.8,
+          "spatial_correlation": 0.2,
+          "cluster_probability": 0.12
+        },
+        "grain_color": {
+          "base_rgb": [
+            175,
+            175,
+            175
+          ],
+          "variation_rgb": {
+            "r": 12,
+            "g": 12,
+            "b": 12
+          },
+          "size_variation_coeff": 0.9,
+          "opacity_variation": 0.8
+        },
+        "halation_text": "moderate halation around highlights",
+        "push": {
+          "processing": [
+            "B&W",
+            "push 1-3 stops"
+          ],
+          "iso_grain_relationship": "grain increases with higher ISO and push processing",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.9,
+              0.75,
+              0.6
+            ],
+            "underexposure_grain_curve": [
+              2.3,
+              1.8,
+              1.4
+            ],
+            "reciprocity_failure_threshold": 1.8,
+            "latitude_grain_distribution": [
+              1.4,
+              1.1,
+              0.9
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Kodak T-Max 100": {
+      "type": "bw_neg",
+      "iso": 100,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 8,
+        "scale": "kodak_bw_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_f4016",
+        "confidence": "datasheet"
+      },
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 63,
+        "toc_1000_to_1": 200,
+        "source": "manufacturer datasheet"
+      },
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "datasheet"
+      },
+      "grain_size_um": {
+        "min": 0.18,
+        "mean": 0.45,
+        "max": 0.99,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "none",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "neutral_gray",
+      "color_rgb": [
+        185,
+        185,
+        185
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": {
+        "rated": 100,
+        "ei": [
+          100,
+          200,
+          400,
+          800
+        ],
+        "stops": 3,
+        "src": "kodak_f4016",
+        "confidence": "datasheet"
+      },
+      "push_stops": 3,
+      "ei_range": {
+        "min": 100,
+        "max": 800,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "reciprocity": {
+        "1/10000s": "+1/3 stop",
+        "10s": "+1/3 stop",
+        "100s": "+1 stop",
+        "source": "kodak_f4016"
+      },
+      "notes": "Kodak T-GRAIN tabular emulsion.",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.3,
+          "max": 1.0,
+          "average": 0.6
+        },
+        "clustering": {
+          "level": "none",
+          "cluster_size": null,
+          "fractal_dimension": 1.9,
+          "spatial_correlation": 0.1,
+          "cluster_probability": 0.05
+        },
+        "grain_color": {
+          "base_rgb": [
+            185,
+            185,
+            185
+          ],
+          "variation_rgb": {
+            "r": 6,
+            "g": 6,
+            "b": 6
+          },
+          "size_variation_coeff": 0.4,
+          "opacity_variation": 0.5
+        },
+        "halation_text": "hard base, reduced halation",
+        "push": {
+          "processing": [
+            "B&W",
+            "push 1-2 stops"
+          ],
+          "iso_grain_relationship": "grain minimal for base ISO",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.6,
+              0.45,
+              0.35
+            ],
+            "underexposure_grain_curve": [
+              1.6,
+              1.3,
+              1.0
+            ],
+            "reciprocity_failure_threshold": 1.4,
+            "latitude_grain_distribution": [
+              1.1,
+              0.9,
+              0.7
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      },
+      "curves": {
+        "characteristic_curves": {
+          "x_axis": "Log exposure (lux-seconds), 4.0 (left) to 1.0 (right)",
+          "y_axis": "Diffuse density 0..4",
+          "source": "KODAK T-MAX 100 / F-4016, page 8 (D-76, small tank)",
+          "confidence": "manual_visual_read",
+          "curves": {
+            "10 min": [
+              [
+                4.0,
+                0.1
+              ],
+              [
+                3.5,
+                0.12
+              ],
+              [
+                3.0,
+                0.18
+              ],
+              [
+                2.6,
+                0.35
+              ],
+              [
+                2.3,
+                0.75
+              ],
+              [
+                2.0,
+                1.35
+              ],
+              [
+                1.7,
+                1.95
+              ],
+              [
+                1.4,
+                2.4
+              ],
+              [
+                1.2,
+                2.58
+              ],
+              [
+                1.0,
+                2.64
+              ]
+            ],
+            "7.5 min": [
+              [
+                4.0,
+                0.1
+              ],
+              [
+                3.5,
+                0.11
+              ],
+              [
+                3.0,
+                0.15
+              ],
+              [
+                2.6,
+                0.28
+              ],
+              [
+                2.3,
+                0.6
+              ],
+              [
+                2.0,
+                1.1
+              ],
+              [
+                1.7,
+                1.65
+              ],
+              [
+                1.4,
+                2.05
+              ],
+              [
+                1.2,
+                2.25
+              ],
+              [
+                1.0,
+                2.35
+              ]
+            ],
+            "6 min": [
+              [
+                4.0,
+                0.09
+              ],
+              [
+                3.5,
+                0.1
+              ],
+              [
+                3.0,
+                0.13
+              ],
+              [
+                2.6,
+                0.22
+              ],
+              [
+                2.3,
+                0.48
+              ],
+              [
+                2.0,
+                0.9
+              ],
+              [
+                1.7,
+                1.4
+              ],
+              [
+                1.4,
+                1.8
+              ],
+              [
+                1.2,
+                2.0
+              ],
+              [
+                1.0,
+                2.1
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "Kodak T-Max 400": {
+      "type": "bw_neg",
+      "iso": 400,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 10,
+        "scale": "kodak_bw_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_f4043",
+        "confidence": "datasheet"
+      },
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 50,
+        "toc_1000_to_1": 200,
+        "source": "manufacturer datasheet"
+      },
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "datasheet"
+      },
+      "grain_size_um": {
+        "min": 0.32,
+        "mean": 0.81,
+        "max": 1.78,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "none",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "neutral_gray",
+      "color_rgb": [
+        180,
+        180,
+        180
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": {
+        "rated": 400,
+        "ei": [
+          400,
+          800,
+          1600,
+          3200
+        ],
+        "stops": 3,
+        "src": "kodak_f4043",
+        "confidence": "datasheet"
+      },
+      "push_stops": 3,
+      "ei_range": {
+        "min": 400,
+        "max": 3200,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "reciprocity": {
+        "1/10000s": "+1/3 stop",
+        "10s": "+1/3 stop",
+        "100s": "+1 stop",
+        "source": "kodak_f4043"
+      },
+      "notes": "Kodak T-GRAIN tabular emulsion.",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.4,
+          "max": 1.5,
+          "average": 0.9
+        },
+        "clustering": {
+          "level": "none",
+          "cluster_size": null,
+          "fractal_dimension": 1.8,
+          "spatial_correlation": 0.2,
+          "cluster_probability": 0.12
+        },
+        "grain_color": {
+          "base_rgb": [
+            180,
+            180,
+            180
+          ],
+          "variation_rgb": {
+            "r": 8,
+            "g": 8,
+            "b": 8
+          },
+          "size_variation_coeff": 0.5,
+          "opacity_variation": 0.6
+        },
+        "halation_text": "low",
+        "push": {
+          "processing": [
+            "B&W",
+            "push 1-2 stops"
+          ],
+          "iso_grain_relationship": "grain very fine for 400, linear increase if pushed",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.7,
+              0.55,
+              0.45
+            ],
+            "underexposure_grain_curve": [
+              1.9,
+              1.5,
+              1.2
+            ],
+            "reciprocity_failure_threshold": 1.6,
+            "latitude_grain_distribution": [
+              1.25,
+              1.0,
+              0.8
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Kodak Ektar 100": {
+      "type": "color_neg",
+      "iso": 100,
+      "graininess": {
+        "metric": "pgi",
+        "value": 24,
+        "scale": "kodak_pgi_35mm_4x6",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_e4046",
+        "confidence": "datasheet"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "datasheet"
+      },
+      "grain_size_um": {
+        "min": 0.18,
+        "mean": 0.45,
+        "max": 0.99,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "none",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "high",
+      "color_cast": "neutral",
+      "color_rgb": [
+        185,
+        182,
+        180
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "Datasheet states PGI is 'less than 25' (at/below the visual grain threshold).",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.2,
+          "max": 1.0,
+          "average": 0.5
+        },
+        "clustering": {
+          "level": "none",
+          "cluster_size": null,
+          "fractal_dimension": 1.9,
+          "spatial_correlation": 0.1,
+          "cluster_probability": 0.05
+        },
+        "grain_color": {
+          "base_rgb": [
+            185,
+            182,
+            180
+          ],
+          "variation_rgb": {
+            "r": 6,
+            "g": 8,
+            "b": 6
+          },
+          "size_variation_coeff": 0.4,
+          "opacity_variation": 0.4
+        },
+        "halation_text": "low",
+        "push": {
+          "processing": [
+            "C-41"
+          ],
+          "iso_grain_relationship": "grain remains very low at ISO 100",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.75,
+              0.6,
+              0.5
+            ],
+            "underexposure_grain_curve": [
+              1.9,
+              1.5,
+              1.1
+            ],
+            "reciprocity_failure_threshold": 1.6,
+            "latitude_grain_distribution": [
+              1.25,
+              1.0,
+              0.8
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Kodak Gold 200": {
+      "type": "color_neg",
+      "iso": 200,
+      "graininess": {
+        "metric": "pgi",
+        "value": 44,
+        "scale": "kodak_pgi_35mm_4x6",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_e7022",
+        "confidence": "datasheet"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "datasheet"
+      },
+      "grain_size_um": {
+        "min": 0.22,
+        "mean": 0.54,
+        "max": 1.19,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "light",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "warm",
+      "color_rgb": [
+        188,
+        180,
+        165
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.6,
+          "max": 2.0,
+          "average": 1.2
+        },
+        "clustering": {
+          "level": "light",
+          "cluster_size": "2-4_grains",
+          "fractal_dimension": 1.85,
+          "spatial_correlation": 0.15,
+          "cluster_probability": 0.1
+        },
+        "grain_color": {
+          "base_rgb": [
+            188,
+            180,
+            165
+          ],
+          "variation_rgb": {
+            "r": 12,
+            "g": 15,
+            "b": 12
+          },
+          "size_variation_coeff": 0.6,
+          "opacity_variation": 0.6
+        },
+        "halation_text": "moderate",
+        "push": {
+          "processing": [
+            "C-41"
+          ],
+          "iso_grain_relationship": "grain visible at ISO 200",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.8,
+              0.6,
+              0.5
+            ],
+            "underexposure_grain_curve": [
+              2.0,
+              1.6,
+              1.2
+            ],
+            "reciprocity_failure_threshold": 1.7,
+            "latitude_grain_distribution": [
+              1.3,
+              1.05,
+              0.8
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Kodak UltraMax 400": {
+      "type": "color_neg",
+      "iso": 400,
+      "graininess": {
+        "metric": "pgi",
+        "value": 46,
+        "scale": "kodak_pgi_35mm_4x6",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_e7019",
+        "confidence": "datasheet"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "datasheet"
+      },
+      "grain_size_um": {
+        "min": 0.32,
+        "mean": 0.81,
+        "max": 1.78,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "moderate",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium-high",
+      "color_cast": "slightly warm",
+      "color_rgb": [
+        185,
+        175,
+        160
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.5,
+          "max": 2.5,
+          "average": 1.5
+        },
+        "clustering": {
+          "level": "moderate",
+          "cluster_size": "3-5_grains",
+          "fractal_dimension": 1.8,
+          "spatial_correlation": 0.2,
+          "cluster_probability": 0.12
+        },
+        "grain_color": {
+          "base_rgb": [
+            185,
+            175,
+            160
+          ],
+          "variation_rgb": {
+            "r": 14,
+            "g": 18,
+            "b": 14
+          },
+          "size_variation_coeff": 0.7,
+          "opacity_variation": 0.7
+        },
+        "halation_text": "moderate",
+        "push": {
+          "processing": [
+            "C-41"
+          ],
+          "iso_grain_relationship": "grain visible but controlled at ISO 400",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.85,
+              0.65,
+              0.55
+            ],
+            "underexposure_grain_curve": [
+              2.1,
+              1.7,
+              1.3
+            ],
+            "reciprocity_failure_threshold": 1.8,
+            "latitude_grain_distribution": [
+              1.35,
+              1.1,
+              0.85
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Kodak Portra 160": {
+      "type": "color_neg",
+      "iso": 160,
+      "graininess": {
+        "metric": "pgi",
+        "value": 28,
+        "scale": "kodak_pgi_35mm_4x6",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_e4051",
+        "confidence": "datasheet"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "datasheet"
+      },
+      "grain_size_um": {
+        "min": 0.2,
+        "mean": 0.5,
+        "max": 1.1,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "light",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "low",
+      "color_cast": "warm (orange-red bias)",
+      "color_rgb": [
+        182,
+        178,
+        175
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.3,
+          "max": 1.2,
+          "average": 0.7
+        },
+        "clustering": {
+          "level": "light",
+          "cluster_size": "2-4_grains",
+          "fractal_dimension": 1.85,
+          "spatial_correlation": 0.15,
+          "cluster_probability": 0.1
+        },
+        "grain_color": {
+          "base_rgb": [
+            182,
+            178,
+            175
+          ],
+          "variation_rgb": {
+            "r": 8,
+            "g": 10,
+            "b": 8
+          },
+          "size_variation_coeff": 0.4,
+          "opacity_variation": 0.5
+        },
+        "halation_text": "low",
+        "push": {
+          "processing": [
+            "C-41"
+          ],
+          "iso_grain_relationship": "grain extremely fine at ISO 160",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.7,
+              0.5,
+              0.4
+            ],
+            "underexposure_grain_curve": [
+              1.8,
+              1.4,
+              1.0
+            ],
+            "reciprocity_failure_threshold": 1.5,
+            "latitude_grain_distribution": [
+              1.2,
+              1.0,
+              0.8
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Kodak Portra 400": {
+      "type": "color_neg",
+      "iso": 400,
+      "graininess": {
+        "metric": "pgi",
+        "value": 37,
+        "scale": "kodak_pgi_35mm_4x6",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_e4050",
+        "confidence": "datasheet"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "datasheet"
+      },
+      "grain_size_um": {
+        "min": 0.32,
+        "mean": 0.81,
+        "max": 1.78,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "light",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "neutral (slightly warm)",
+      "color_rgb": [
+        180,
+        175,
+        172
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.4,
+          "max": 1.5,
+          "average": 0.9
+        },
+        "clustering": {
+          "level": "light",
+          "cluster_size": "2-4_grains",
+          "fractal_dimension": 1.8,
+          "spatial_correlation": 0.2,
+          "cluster_probability": 0.12
+        },
+        "grain_color": {
+          "base_rgb": [
+            180,
+            175,
+            172
+          ],
+          "variation_rgb": {
+            "r": 10,
+            "g": 12,
+            "b": 10
+          },
+          "size_variation_coeff": 0.5,
+          "opacity_variation": 0.6
+        },
+        "halation_text": "low",
+        "push": {
+          "processing": [
+            "C-41",
+            "push 1-2 stops"
+          ],
+          "iso_grain_relationship": "grain remains relatively fine at ISO 400",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.8,
+              0.6,
+              0.5
+            ],
+            "underexposure_grain_curve": [
+              2.0,
+              1.6,
+              1.2
+            ],
+            "reciprocity_failure_threshold": 1.7,
+            "latitude_grain_distribution": [
+              1.3,
+              1.0,
+              0.7
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Kodak Portra 800": {
+      "type": "color_neg",
+      "iso": 800,
+      "graininess": {
+        "metric": "pgi",
+        "value": 48,
+        "scale": "kodak_pgi_35mm_4x6",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_e4040",
+        "confidence": "datasheet"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "datasheet"
+      },
+      "grain_size_um": {
+        "min": 0.4,
+        "mean": 0.99,
+        "max": 2.18,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "moderate",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "neutral",
+      "color_rgb": [
+        178,
+        172,
+        168
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": {
+        "rated": 800,
+        "ei": [
+          800,
+          1600,
+          3200
+        ],
+        "stops": 2,
+        "src": "kodak_e4040",
+        "confidence": "datasheet"
+      },
+      "push_stops": 2,
+      "ei_range": {
+        "min": 800,
+        "max": 3200,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.8,
+          "max": 2.0,
+          "average": 1.3
+        },
+        "clustering": {
+          "level": "moderate",
+          "cluster_size": "3-5_grains",
+          "fractal_dimension": 1.75,
+          "spatial_correlation": 0.25,
+          "cluster_probability": 0.15
+        },
+        "grain_color": {
+          "base_rgb": [
+            178,
+            172,
+            168
+          ],
+          "variation_rgb": {
+            "r": 12,
+            "g": 15,
+            "b": 12
+          },
+          "size_variation_coeff": 0.6,
+          "opacity_variation": 0.8
+        },
+        "halation_text": "moderate in bright highlights",
+        "push": {
+          "processing": [
+            "C-41",
+            "push 1 stop"
+          ],
+          "iso_grain_relationship": "grain visible at ISO 800 but controlled by small crystals",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.9,
+              0.7,
+              0.6
+            ],
+            "underexposure_grain_curve": [
+              2.3,
+              1.9,
+              1.4
+            ],
+            "reciprocity_failure_threshold": 2.0,
+            "latitude_grain_distribution": [
+              1.4,
+              1.05,
+              0.8
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Kodak Ektachrome E100": {
+      "type": "color_rev",
+      "iso": 100,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 8,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_e4024",
+        "confidence": "derived"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.18,
+        "mean": 0.45,
+        "max": 0.99,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "none",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "high",
+      "color_cast": "neutral",
+      "color_rgb": [
+        185,
+        185,
+        188
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": {
+        "rated": 100,
+        "ei": [
+          100,
+          200
+        ],
+        "stops": 1,
+        "src": "kodak_e4024",
+        "confidence": "datasheet"
+      },
+      "push_stops": 1,
+      "ei_range": {
+        "min": 100,
+        "max": 200,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "rms 8 taken from the E100G datasheet (E-4024); the revived E100 uses the same T-GRAIN technology.",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.1,
+          "max": 0.6,
+          "average": 0.3
+        },
+        "clustering": {
+          "level": "none",
+          "cluster_size": null,
+          "fractal_dimension": 1.28,
+          "spatial_correlation": 0.15,
+          "cluster_probability": 0.08
+        },
+        "grain_color": {
+          "base_rgb": [
+            185,
+            185,
+            188
+          ],
+          "variation_rgb": {
+            "r": 5,
+            "g": 5,
+            "b": 6
+          },
+          "size_variation_coeff": 0.5,
+          "opacity_variation": 0.6
+        },
+        "halation_text": "low",
+        "push": {
+          "processing": [
+            "E-6",
+            "push 1-2 stops"
+          ],
+          "iso_grain_relationship": "grain very low at ISO 100",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.6,
+              0.45,
+              0.35
+            ],
+            "underexposure_grain_curve": [
+              1.8,
+              1.4,
+              1.1
+            ],
+            "reciprocity_failure_threshold": 1.0,
+            "latitude_grain_distribution": [
+              1.1,
+              0.9,
+              0.75
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Kodak Vision3 500T": {
+      "type": "color_neg",
+      "iso": 500,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 7,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_vision3_500t",
+        "confidence": "estimated_from_curve"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.34,
+        "mean": 0.85,
+        "max": 1.87,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "moderate",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium-high",
+      "color_cast": "neutral",
+      "color_rgb": [
+        182,
+        175,
+        158
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": {
+        "10s": "+1 stop",
+        "source": "kodak_vision3_500t"
+      },
+      "notes": "Datasheet gives R/G/B granularity curves only; ~7 sigma*1000 at D=1.0 read from curve.",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.3,
+          "max": 2.5,
+          "average": 1.2
+        },
+        "clustering": {
+          "level": "moderate",
+          "cluster_size": "3-5_grains",
+          "fractal_dimension": 1.75,
+          "spatial_correlation": 0.25,
+          "cluster_probability": 0.15
+        },
+        "grain_color": {
+          "base_rgb": [
+            182,
+            175,
+            158
+          ],
+          "variation_rgb": {
+            "r": 10,
+            "g": 12,
+            "b": 10
+          },
+          "size_variation_coeff": 0.6,
+          "opacity_variation": 0.8
+        },
+        "halation_text": "low (rem-jet)",
+        "push": {
+          "processing": [
+            "ECN-2"
+          ],
+          "iso_grain_relationship": "grain improved by Dye Layering Tech",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.95,
+              0.8,
+              0.7
+            ],
+            "underexposure_grain_curve": [
+              2.5,
+              2.0,
+              1.5
+            ],
+            "reciprocity_failure_threshold": 2.1,
+            "latitude_grain_distribution": [
+              1.5,
+              1.2,
+              0.9
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      },
+      "curves": {
+        "sensitometric_curves": {
+          "x_axis": "Camera Stops -8..8",
+          "y_axis": "Density 0..3",
+          "source": "KODAK VISION3 500T 5219 / H-1-5219t, page 3",
+          "confidence": "manual_visual_read",
+          "curves": {
+            "B": [
+              [
+                -8,
+                0.72
+              ],
+              [
+                -6,
+                0.75
+              ],
+              [
+                -4,
+                1.1
+              ],
+              [
+                -2,
+                1.85
+              ],
+              [
+                0,
+                2.4
+              ],
+              [
+                2,
+                2.68
+              ],
+              [
+                4,
+                2.77
+              ],
+              [
+                6,
+                2.8
+              ],
+              [
+                8,
+                2.83
+              ]
+            ],
+            "G": [
+              [
+                -8,
+                0.5
+              ],
+              [
+                -6,
+                0.53
+              ],
+              [
+                -4,
+                0.8
+              ],
+              [
+                -2,
+                1.45
+              ],
+              [
+                0,
+                2.02
+              ],
+              [
+                2,
+                2.35
+              ],
+              [
+                4,
+                2.48
+              ],
+              [
+                6,
+                2.54
+              ],
+              [
+                8,
+                2.58
+              ]
+            ],
+            "R": [
+              [
+                -8,
+                0.18
+              ],
+              [
+                -6,
+                0.22
+              ],
+              [
+                -4,
+                0.42
+              ],
+              [
+                -2,
+                0.92
+              ],
+              [
+                0,
+                1.45
+              ],
+              [
+                2,
+                1.72
+              ],
+              [
+                4,
+                1.82
+              ],
+              [
+                6,
+                1.9
+              ],
+              [
+                8,
+                1.98
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "Kodak Vision3 50D": {
+      "type": "color_neg",
+      "iso": 50,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 6,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_vision3_50d",
+        "confidence": "estimated_from_curve"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.16,
+        "mean": 0.41,
+        "max": 0.9,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "light",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "neutral",
+      "color_rgb": [
+        186,
+        186,
+        186
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": {
+        "note": "no adjustment 1/1000-1s",
+        "source": "kodak_vision3_50d"
+      },
+      "notes": "Datasheet gives R/G/B granularity curves only; ~6 sigma*1000 at D=1.0 read from curve.",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.1,
+          "max": 1.0,
+          "average": 0.5
+        },
+        "clustering": {
+          "level": "light",
+          "cluster_size": "2-3_grains",
+          "fractal_dimension": 1.95,
+          "spatial_correlation": 0.05,
+          "cluster_probability": 0.01
+        },
+        "grain_color": {
+          "base_rgb": [
+            186,
+            186,
+            186
+          ],
+          "variation_rgb": {
+            "r": 5,
+            "g": 5,
+            "b": 5
+          },
+          "size_variation_coeff": 0.4,
+          "opacity_variation": 0.5
+        },
+        "halation_text": "low (rem-jet backing reduces halation)",
+        "push": {
+          "processing": [
+            "ECN-2"
+          ],
+          "iso_grain_relationship": "grain minimal at ISO 50",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.35,
+              0.2,
+              0.1
+            ],
+            "underexposure_grain_curve": [
+              1.4,
+              1.1,
+              0.85
+            ],
+            "reciprocity_failure_threshold": 1.1,
+            "latitude_grain_distribution": [
+              0.85,
+              0.7,
+              0.55
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      },
+      "curves": {
+        "sensitometric_curves": {
+          "x_axis": "Camera Stops -8..8",
+          "y_axis": "Density 0..3",
+          "source": "KODAK VISION3 50D 5203 / H-1-5203t, page 4",
+          "confidence": "manual_visual_read",
+          "curves": {
+            "B": [
+              [
+                -8,
+                0.85
+              ],
+              [
+                -6,
+                0.9
+              ],
+              [
+                -4,
+                1.15
+              ],
+              [
+                -2,
+                1.4
+              ],
+              [
+                0,
+                1.67
+              ],
+              [
+                2,
+                1.95
+              ],
+              [
+                4,
+                2.35
+              ],
+              [
+                6,
+                2.55
+              ],
+              [
+                8,
+                2.68
+              ]
+            ],
+            "G": [
+              [
+                -8,
+                0.7
+              ],
+              [
+                -6,
+                0.74
+              ],
+              [
+                -4,
+                0.95
+              ],
+              [
+                -2,
+                1.2
+              ],
+              [
+                0,
+                1.47
+              ],
+              [
+                2,
+                1.75
+              ],
+              [
+                4,
+                2.15
+              ],
+              [
+                6,
+                2.4
+              ],
+              [
+                8,
+                2.52
+              ]
+            ],
+            "R": [
+              [
+                -8,
+                0.1
+              ],
+              [
+                -6,
+                0.14
+              ],
+              [
+                -4,
+                0.3
+              ],
+              [
+                -2,
+                0.48
+              ],
+              [
+                0,
+                0.67
+              ],
+              [
+                2,
+                0.95
+              ],
+              [
+                4,
+                1.45
+              ],
+              [
+                6,
+                1.75
+              ],
+              [
+                8,
+                1.92
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "Fuji Acros 100": {
+      "type": "bw_neg",
+      "iso": 100,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 7,
+        "scale": "fuji_bw_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "fuji_acros",
+        "confidence": "datasheet"
+      },
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 60,
+        "toc_1000_to_1": 200,
+        "source": "manufacturer datasheet"
+      },
+      "morphology": {
+        "family": "sigma",
+        "crystal": "sigma/super-fine",
+        "source": "wikipedia_tabular",
+        "confidence": "datasheet"
+      },
+      "grain_size_um": {
+        "min": 0.19,
+        "mean": 0.47,
+        "max": 1.03,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "none",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "neutral_gray",
+      "color_rgb": [
+        183,
+        183,
+        183
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "Neopan 100 Acros; Super Fine Sigma grain.",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.2,
+          "max": 0.8,
+          "average": 0.4
+        },
+        "clustering": {
+          "level": "none",
+          "cluster_size": null,
+          "fractal_dimension": 1.9,
+          "spatial_correlation": 0.1,
+          "cluster_probability": 0.05
+        },
+        "grain_color": {
+          "base_rgb": [
+            183,
+            183,
+            183
+          ],
+          "variation_rgb": {
+            "r": 6,
+            "g": 6,
+            "b": 6
+          },
+          "size_variation_coeff": 0.4,
+          "opacity_variation": 0.5
+        },
+        "halation_text": "minimal",
+        "push": {
+          "processing": [
+            "B&W",
+            "push 1-2 stops"
+          ],
+          "iso_grain_relationship": "grain extremely fine at ISO 100",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.55,
+              0.4,
+              0.3
+            ],
+            "underexposure_grain_curve": [
+              1.7,
+              1.35,
+              1.0
+            ],
+            "reciprocity_failure_threshold": 1.3,
+            "latitude_grain_distribution": [
+              1.05,
+              0.85,
+              0.7
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Fuji Neopan 400": {
+      "type": "bw_neg",
+      "iso": 400,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 12,
+        "scale": "fuji_bw_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "cubic",
+        "crystal": "cubic_silver_halide",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.36,
+        "mean": 0.9,
+        "max": 1.98,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "light",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "neutral_gray",
+      "color_rgb": [
+        174,
+        174,
+        174
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "No numeric granularity in available AF datasheet; estimated from class (cubic ISO 400).",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.5,
+          "max": 1.8,
+          "average": 1.0
+        },
+        "clustering": {
+          "level": "light",
+          "cluster_size": "2-4_grains",
+          "fractal_dimension": 1.8,
+          "spatial_correlation": 0.2,
+          "cluster_probability": 0.12
+        },
+        "grain_color": {
+          "base_rgb": [
+            174,
+            174,
+            174
+          ],
+          "variation_rgb": {
+            "r": 12,
+            "g": 12,
+            "b": 12
+          },
+          "size_variation_coeff": 0.6,
+          "opacity_variation": 0.6
+        },
+        "halation_text": "low",
+        "push": {
+          "processing": [
+            "B&W",
+            "push 1-2 stops"
+          ],
+          "iso_grain_relationship": "very fine grain at 400",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.8,
+              0.65,
+              0.55
+            ],
+            "underexposure_grain_curve": [
+              2.1,
+              1.7,
+              1.3
+            ],
+            "reciprocity_failure_threshold": 1.8,
+            "latitude_grain_distribution": [
+              1.3,
+              1.1,
+              0.85
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Fuji Neopan 1600": {
+      "type": "bw_neg",
+      "iso": 1600,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 18,
+        "scale": "fuji_bw_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "cubic",
+        "crystal": "cubic_silver_halide",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.56,
+        "mean": 1.4,
+        "max": 3.08,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "moderate",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium-high",
+      "color_cast": "cool_gray",
+      "color_rgb": [
+        169,
+        169,
+        169
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "No numeric granularity in available AF datasheet; estimated from class (fast cubic B&W).",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.8,
+          "max": 2.5,
+          "average": 1.5
+        },
+        "clustering": {
+          "level": "moderate",
+          "cluster_size": "3-5_grains",
+          "fractal_dimension": 1.7,
+          "spatial_correlation": 0.3,
+          "cluster_probability": 0.15
+        },
+        "grain_color": {
+          "base_rgb": [
+            169,
+            169,
+            169
+          ],
+          "variation_rgb": {
+            "r": 16,
+            "g": 16,
+            "b": 16
+          },
+          "size_variation_coeff": 0.8,
+          "opacity_variation": 1.0
+        },
+        "halation_text": "moderate",
+        "push": {
+          "processing": [
+            "B&W",
+            "push to EI 3200+"
+          ],
+          "iso_grain_relationship": "heavy grain at 1600",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              1.0,
+              0.85,
+              0.75
+            ],
+            "underexposure_grain_curve": [
+              2.8,
+              2.3,
+              1.8
+            ],
+            "reciprocity_failure_threshold": 2.2,
+            "latitude_grain_distribution": [
+              1.6,
+              1.3,
+              1.0
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Fuji Pro 160S": {
+      "type": "color_neg",
+      "iso": 160,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 3,
+        "scale": "fuji_colneg_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "fuji_pro160s",
+        "confidence": "datasheet"
+      },
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 63,
+        "toc_1000_to_1": 125,
+        "source": "manufacturer datasheet"
+      },
+      "morphology": {
+        "family": "sigma",
+        "crystal": "sigma/super-fine",
+        "source": "wikipedia_tabular",
+        "confidence": "datasheet"
+      },
+      "grain_size_um": {
+        "min": 0.21,
+        "mean": 0.52,
+        "max": 1.14,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "light",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "low",
+      "color_cast": "neutral",
+      "color_rgb": [
+        175,
+        188,
+        178
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": {
+        "4s": "+1/2 stop",
+        "16s": "+1 stop",
+        "source": "fuji_pro160s"
+      },
+      "notes": "",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.3,
+          "max": 1.2,
+          "average": 0.8
+        },
+        "clustering": {
+          "level": "light",
+          "cluster_size": "2-3_grains",
+          "fractal_dimension": 1.85,
+          "spatial_correlation": 0.15,
+          "cluster_probability": 0.1
+        },
+        "grain_color": {
+          "base_rgb": [
+            175,
+            188,
+            178
+          ],
+          "variation_rgb": {
+            "r": 7,
+            "g": 10,
+            "b": 7
+          },
+          "size_variation_coeff": 0.4,
+          "opacity_variation": 0.5
+        },
+        "halation_text": "very low (optimised for sharpness)",
+        "push": {
+          "processing": [
+            "C-41"
+          ],
+          "iso_grain_relationship": "extremely fine grain (RMS 3)",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.65,
+              0.5,
+              0.4
+            ],
+            "underexposure_grain_curve": [
+              1.75,
+              1.35,
+              1.05
+            ],
+            "reciprocity_failure_threshold": 1.45,
+            "latitude_grain_distribution": [
+              1.1,
+              0.9,
+              0.75
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Fuji Pro 400H": {
+      "type": "color_neg",
+      "iso": 400,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 4,
+        "scale": "fuji_colneg_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "fuji_pro400h",
+        "confidence": "datasheet"
+      },
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 50,
+        "toc_1000_to_1": 125,
+        "source": "manufacturer datasheet"
+      },
+      "morphology": {
+        "family": "sigma",
+        "crystal": "sigma/super-fine",
+        "source": "wikipedia_tabular",
+        "confidence": "datasheet"
+      },
+      "grain_size_um": {
+        "min": 0.34,
+        "mean": 0.85,
+        "max": 1.87,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "light",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "low-medium",
+      "color_cast": "slight green bias",
+      "color_rgb": [
+        172,
+        185,
+        175
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": {
+        "4s": "+1/2 stop",
+        "16s": "+1 stop",
+        "source": "fuji_pro400h"
+      },
+      "notes": "Known for a pastel/green-cyan palette, not neutral colour.",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.4,
+          "max": 1.8,
+          "average": 1.0
+        },
+        "clustering": {
+          "level": "light",
+          "cluster_size": "2-4_grains",
+          "fractal_dimension": 1.8,
+          "spatial_correlation": 0.2,
+          "cluster_probability": 0.12
+        },
+        "grain_color": {
+          "base_rgb": [
+            172,
+            185,
+            175
+          ],
+          "variation_rgb": {
+            "r": 8,
+            "g": 12,
+            "b": 8
+          },
+          "size_variation_coeff": 0.5,
+          "opacity_variation": 0.6
+        },
+        "halation_text": "low",
+        "push": {
+          "processing": [
+            "C-41"
+          ],
+          "iso_grain_relationship": "very fine grain for ISO 400 (Sigma-grain tech)",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.85,
+              0.7,
+              0.6
+            ],
+            "underexposure_grain_curve": [
+              2.2,
+              1.8,
+              1.4
+            ],
+            "reciprocity_failure_threshold": 1.9,
+            "latitude_grain_distribution": [
+              1.35,
+              1.05,
+              0.85
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Fuji Superia 400": {
+      "type": "color_neg",
+      "iso": 400,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 4,
+        "scale": "fuji_colneg_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "fuji_superia400",
+        "confidence": "datasheet"
+      },
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 50,
+        "toc_1000_to_1": 125,
+        "source": "manufacturer datasheet"
+      },
+      "morphology": {
+        "family": "sigma",
+        "crystal": "sigma/super-fine",
+        "source": "wikipedia_tabular",
+        "confidence": "datasheet"
+      },
+      "grain_size_um": {
+        "min": 0.34,
+        "mean": 0.85,
+        "max": 1.87,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "moderate",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "slight green bias",
+      "color_rgb": [
+        170,
+        182,
+        172
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": {
+        "4s": "+1/3 stop",
+        "16s": "+2/3 stop",
+        "64s": "+1 stop",
+        "source": "fuji_superia400"
+      },
+      "notes": "Superia X-TRA 400; 4th cyan-sensitive layer.",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.5,
+          "max": 2.0,
+          "average": 1.2
+        },
+        "clustering": {
+          "level": "moderate",
+          "cluster_size": "3-4_grains",
+          "fractal_dimension": 1.8,
+          "spatial_correlation": 0.2,
+          "cluster_probability": 0.12
+        },
+        "grain_color": {
+          "base_rgb": [
+            170,
+            182,
+            172
+          ],
+          "variation_rgb": {
+            "r": 12,
+            "g": 16,
+            "b": 12
+          },
+          "size_variation_coeff": 0.6,
+          "opacity_variation": 0.6
+        },
+        "halation_text": "moderate",
+        "push": {
+          "processing": [
+            "C-41"
+          ],
+          "iso_grain_relationship": "moderate grain controlled by Sigma-grain tech",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.8,
+              0.65,
+              0.55
+            ],
+            "underexposure_grain_curve": [
+              2.0,
+              1.6,
+              1.25
+            ],
+            "reciprocity_failure_threshold": 1.75,
+            "latitude_grain_distribution": [
+              1.3,
+              1.05,
+              0.85
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Fuji C200": {
+      "type": "color_neg",
+      "iso": 200,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 4,
+        "scale": "fuji_colneg_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "sigma",
+        "crystal": "sigma/super-fine",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.23,
+        "mean": 0.57,
+        "max": 1.25,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "light",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "warm",
+      "color_rgb": [
+        174,
+        186,
+        176
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "Consumer C-41 film; no PIB in archive. Estimated on the Fujifilm colour-negative scale.",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.6,
+          "max": 1.8,
+          "average": 1.0
+        },
+        "clustering": {
+          "level": "light",
+          "cluster_size": "2-4_grains",
+          "fractal_dimension": 1.85,
+          "spatial_correlation": 0.15,
+          "cluster_probability": 0.1
+        },
+        "grain_color": {
+          "base_rgb": [
+            174,
+            186,
+            176
+          ],
+          "variation_rgb": {
+            "r": 10,
+            "g": 14,
+            "b": 10
+          },
+          "size_variation_coeff": 0.6,
+          "opacity_variation": 0.6
+        },
+        "halation_text": "moderate",
+        "push": {
+          "processing": [
+            "C-41"
+          ],
+          "iso_grain_relationship": "grain moderate at ISO 200",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.75,
+              0.6,
+              0.5
+            ],
+            "underexposure_grain_curve": [
+              1.9,
+              1.5,
+              1.15
+            ],
+            "reciprocity_failure_threshold": 1.6,
+            "latitude_grain_distribution": [
+              1.2,
+              1.0,
+              0.8
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Fuji Natura 1600": {
+      "type": "color_neg",
+      "iso": 1600,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 6,
+        "scale": "fuji_colneg_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "sigma",
+        "crystal": "sigma/super-fine",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.53,
+        "mean": 1.33,
+        "max": 2.93,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "heavy",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium-high",
+      "color_cast": "slight green bias",
+      "color_rgb": [
+        168,
+        180,
+        170
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "Japan-market high-speed film; no PIB in archive. Estimated on the Fujifilm colour-negative scale for ISO 1600.",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 1.0,
+          "max": 3.0,
+          "average": 1.8
+        },
+        "clustering": {
+          "level": "heavy",
+          "cluster_size": "3-6_grains",
+          "fractal_dimension": 1.7,
+          "spatial_correlation": 0.3,
+          "cluster_probability": 0.2
+        },
+        "grain_color": {
+          "base_rgb": [
+            168,
+            180,
+            170
+          ],
+          "variation_rgb": {
+            "r": 16,
+            "g": 20,
+            "b": 16
+          },
+          "size_variation_coeff": 0.7,
+          "opacity_variation": 1.0
+        },
+        "halation_text": "moderate",
+        "push": {
+          "processing": [
+            "C-41"
+          ],
+          "iso_grain_relationship": "grain very large at ISO 1600",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              1.1,
+              0.9,
+              0.8
+            ],
+            "underexposure_grain_curve": [
+              2.8,
+              2.3,
+              1.8
+            ],
+            "reciprocity_failure_threshold": 2.5,
+            "latitude_grain_distribution": [
+              1.6,
+              1.25,
+              1.0
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Fuji Velvia 50": {
+      "type": "color_rev",
+      "iso": 50,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 9,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "fuji_velvia50",
+        "confidence": "datasheet"
+      },
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 80,
+        "toc_1000_to_1": 160,
+        "source": "manufacturer datasheet"
+      },
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "datasheet"
+      },
+      "grain_size_um": {
+        "min": 0.16,
+        "mean": 0.41,
+        "max": 0.9,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "none",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "very high",
+      "color_cast": "saturated warm",
+      "color_rgb": [
+        190,
+        180,
+        165
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": {
+        "rated": 50,
+        "ei": [
+          50,
+          100
+        ],
+        "stops": 1,
+        "src": "fuji_velvia50",
+        "confidence": "datasheet"
+      },
+      "push_stops": 1,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.1,
+          "max": 0.5,
+          "average": 0.2
+        },
+        "clustering": {
+          "level": "none",
+          "cluster_size": null,
+          "fractal_dimension": 1.98,
+          "spatial_correlation": 0.02,
+          "cluster_probability": 0.01
+        },
+        "grain_color": {
+          "base_rgb": [
+            190,
+            180,
+            165
+          ],
+          "variation_rgb": {
+            "r": 6,
+            "g": 8,
+            "b": 6
+          },
+          "size_variation_coeff": 0.4,
+          "opacity_variation": 0.6
+        },
+        "halation_text": "minimal",
+        "push": {
+          "processing": [
+            "E-6"
+          ],
+          "iso_grain_relationship": "grain extremely fine at ISO 50",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.55,
+              0.4,
+              0.3
+            ],
+            "underexposure_grain_curve": [
+              1.8,
+              1.45,
+              1.1
+            ],
+            "reciprocity_failure_threshold": 1.4,
+            "latitude_grain_distribution": [
+              1.1,
+              0.9,
+              0.7
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Fuji Velvia 100": {
+      "type": "color_rev",
+      "iso": 100,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 8,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "fuji_velvia100",
+        "confidence": "datasheet"
+      },
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 80,
+        "toc_1000_to_1": 160,
+        "source": "manufacturer datasheet"
+      },
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "datasheet"
+      },
+      "grain_size_um": {
+        "min": 0.18,
+        "mean": 0.45,
+        "max": 0.99,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "none",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "very high",
+      "color_cast": "saturated vibrant",
+      "color_rgb": [
+        188,
+        178,
+        168
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": {
+        "rated": 100,
+        "ei": [
+          100,
+          200
+        ],
+        "stops": 1,
+        "src": "fuji_velvia100",
+        "confidence": "datasheet"
+      },
+      "push_stops": 1,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.1,
+          "max": 0.6,
+          "average": 0.3
+        },
+        "clustering": {
+          "level": "none",
+          "cluster_size": null,
+          "fractal_dimension": 1.95,
+          "spatial_correlation": 0.05,
+          "cluster_probability": 0.01
+        },
+        "grain_color": {
+          "base_rgb": [
+            188,
+            178,
+            168
+          ],
+          "variation_rgb": {
+            "r": 7,
+            "g": 9,
+            "b": 7
+          },
+          "size_variation_coeff": 0.5,
+          "opacity_variation": 0.7
+        },
+        "halation_text": "minimal",
+        "push": {
+          "processing": [
+            "E-6"
+          ],
+          "iso_grain_relationship": "grain extremely fine at ISO 100",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.6,
+              0.45,
+              0.35
+            ],
+            "underexposure_grain_curve": [
+              1.9,
+              1.5,
+              1.15
+            ],
+            "reciprocity_failure_threshold": 1.5,
+            "latitude_grain_distribution": [
+              1.15,
+              0.95,
+              0.75
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Fuji Provia 100F": {
+      "type": "color_rev",
+      "iso": 100,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 8,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "fuji_provia100f",
+        "confidence": "datasheet"
+      },
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 60,
+        "toc_1000_to_1": 140,
+        "source": "manufacturer datasheet"
+      },
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "datasheet"
+      },
+      "grain_size_um": {
+        "min": 0.18,
+        "mean": 0.45,
+        "max": 0.99,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "none",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "faithful neutral",
+      "color_rgb": [
+        182,
+        185,
+        190
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": {
+        "rated": 100,
+        "ei": [
+          100,
+          400
+        ],
+        "stops": 2,
+        "src": "fuji_provia100f",
+        "confidence": "datasheet"
+      },
+      "push_stops": 2,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.1,
+          "max": 0.6,
+          "average": 0.3
+        },
+        "clustering": {
+          "level": "none",
+          "cluster_size": null,
+          "fractal_dimension": 1.95,
+          "spatial_correlation": 0.05,
+          "cluster_probability": 0.01
+        },
+        "grain_color": {
+          "base_rgb": [
+            182,
+            185,
+            190
+          ],
+          "variation_rgb": {
+            "r": 6,
+            "g": 6,
+            "b": 8
+          },
+          "size_variation_coeff": 0.5,
+          "opacity_variation": 0.6
+        },
+        "halation_text": "minimal",
+        "push": {
+          "processing": [
+            "E-6",
+            "push 1-2 stops"
+          ],
+          "iso_grain_relationship": "grain extremely fine at ISO 100",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.6,
+              0.45,
+              0.35
+            ],
+            "underexposure_grain_curve": [
+              1.7,
+              1.35,
+              1.05
+            ],
+            "reciprocity_failure_threshold": 1.5,
+            "latitude_grain_distribution": [
+              1.15,
+              0.95,
+              0.75
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Fuji Provia 400X": {
+      "type": "color_rev",
+      "iso": 400,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 11,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "fuji_provia400x",
+        "confidence": "datasheet"
+      },
+      "resolving_power_lines_mm": {
+        "toc_1_6_to_1": 55,
+        "toc_1000_to_1": 135,
+        "source": "manufacturer datasheet"
+      },
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "datasheet"
+      },
+      "grain_size_um": {
+        "min": 0.32,
+        "mean": 0.81,
+        "max": 1.78,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "none",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "neutral",
+      "color_rgb": [
+        180,
+        182,
+        188
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": {
+        "rated": 400,
+        "ei": [
+          280,
+          1600
+        ],
+        "stops": 2,
+        "src": "fuji_provia400x",
+        "confidence": "datasheet"
+      },
+      "push_stops": 2,
+      "ei_range": {
+        "min": 280,
+        "max": 1600,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.2,
+          "max": 1.0,
+          "average": 0.5
+        },
+        "clustering": {
+          "level": "none",
+          "cluster_size": null,
+          "fractal_dimension": 1.8,
+          "spatial_correlation": 0.2,
+          "cluster_probability": 0.12
+        },
+        "grain_color": {
+          "base_rgb": [
+            180,
+            182,
+            188
+          ],
+          "variation_rgb": {
+            "r": 8,
+            "g": 8,
+            "b": 10
+          },
+          "size_variation_coeff": 0.6,
+          "opacity_variation": 0.7
+        },
+        "halation_text": "low",
+        "push": {
+          "processing": [
+            "E-6",
+            "push 1-2 stops"
+          ],
+          "iso_grain_relationship": "grain fine for ISO 400",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.75,
+              0.6,
+              0.5
+            ],
+            "underexposure_grain_curve": [
+              2.0,
+              1.6,
+              1.25
+            ],
+            "reciprocity_failure_threshold": 1.7,
+            "latitude_grain_distribution": [
+              1.25,
+              1.0,
+              0.8
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Ilford Delta 100": {
+      "type": "bw_neg",
+      "iso": 100,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 7,
+        "scale": "third_party_estimate",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "core_shell",
+        "crystal": "core-shell_tabular",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.18,
+        "mean": 0.45,
+        "max": 0.99,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "none",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium-high",
+      "color_cast": "neutral_gray",
+      "color_rgb": [
+        184,
+        184,
+        184
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": {
+        "min": 50,
+        "max": 200,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "reciprocity": {
+        "formula": "Ta = Tm^1.26 (no adjustment 1/10000-1s)",
+        "source": "ilford_delta100"
+      },
+      "notes": "Ilford does not publish numeric RMS; estimated from class (core-shell tabular ISO 100).",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.2,
+          "max": 0.8,
+          "average": 0.4
+        },
+        "clustering": {
+          "level": "none",
+          "cluster_size": null,
+          "fractal_dimension": 1.9,
+          "spatial_correlation": 0.1,
+          "cluster_probability": 0.05
+        },
+        "grain_color": {
+          "base_rgb": [
+            184,
+            184,
+            184
+          ],
+          "variation_rgb": {
+            "r": 7,
+            "g": 7,
+            "b": 7
+          },
+          "size_variation_coeff": 0.4,
+          "opacity_variation": 0.5
+        },
+        "halation_text": "very low",
+        "push": {
+          "processing": [
+            "B&W",
+            "push to EI 200"
+          ],
+          "iso_grain_relationship": "lowest grain of Delta series",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.5,
+              0.35,
+              0.25
+            ],
+            "underexposure_grain_curve": [
+              1.6,
+              1.25,
+              0.95
+            ],
+            "reciprocity_failure_threshold": 1.3,
+            "latitude_grain_distribution": [
+              1.0,
+              0.8,
+              0.65
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Ilford Delta 400": {
+      "type": "bw_neg",
+      "iso": 400,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 11,
+        "scale": "third_party_estimate",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "core_shell",
+        "crystal": "core-shell_tabular",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.32,
+        "mean": 0.81,
+        "max": 1.78,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "light",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "low-medium",
+      "color_cast": "neutral_gray",
+      "color_rgb": [
+        176,
+        176,
+        176
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": {
+        "min": 200,
+        "max": 3200,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "reciprocity": {
+        "formula": "Ta = Tm^1.26 (no adjustment 1/10000-1s)",
+        "source": "ilford_delta400"
+      },
+      "notes": "Ilford does not publish numeric RMS; estimated from class.",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.4,
+          "max": 2.0,
+          "average": 1.0
+        },
+        "clustering": {
+          "level": "light",
+          "cluster_size": "2-3_grains",
+          "fractal_dimension": 1.8,
+          "spatial_correlation": 0.2,
+          "cluster_probability": 0.12
+        },
+        "grain_color": {
+          "base_rgb": [
+            176,
+            176,
+            176
+          ],
+          "variation_rgb": {
+            "r": 10,
+            "g": 10,
+            "b": 10
+          },
+          "size_variation_coeff": 0.5,
+          "opacity_variation": 0.6
+        },
+        "halation_text": "low",
+        "push": {
+          "processing": [
+            "B&W",
+            "push 1-2 stops"
+          ],
+          "iso_grain_relationship": "very fine grain for ISO 400",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.6,
+              0.45,
+              0.35
+            ],
+            "underexposure_grain_curve": [
+              1.8,
+              1.4,
+              1.1
+            ],
+            "reciprocity_failure_threshold": 1.5,
+            "latitude_grain_distribution": [
+              1.15,
+              0.9,
+              0.7
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Ilford Delta 3200": {
+      "type": "bw_neg",
+      "iso": 3200,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 22,
+        "scale": "third_party_estimate",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "core_shell",
+        "crystal": "core-shell_tabular",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.65,
+        "mean": 1.62,
+        "max": 3.56,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "moderate",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium-high",
+      "color_cast": "neutral_gray",
+      "color_rgb": [
+        168,
+        168,
+        168
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": {
+        "min": 1000,
+        "max": 6400,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "reciprocity": {
+        "formula": "Ta = Tm^1.26 (no adjustment 1/10000-1s)",
+        "source": "ilford_delta3200"
+      },
+      "notes": "Ilford does not publish numeric RMS; estimated from class (nominal ISO 1000, EI 3200).",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.8,
+          "max": 3.0,
+          "average": 2.0
+        },
+        "clustering": {
+          "level": "moderate",
+          "cluster_size": "3-5_grains",
+          "fractal_dimension": 1.7,
+          "spatial_correlation": 0.3,
+          "cluster_probability": 0.15
+        },
+        "grain_color": {
+          "base_rgb": [
+            168,
+            168,
+            168
+          ],
+          "variation_rgb": {
+            "r": 18,
+            "g": 18,
+            "b": 18
+          },
+          "size_variation_coeff": 0.6,
+          "opacity_variation": 1.0
+        },
+        "halation_text": "low",
+        "push": {
+          "processing": [
+            "B&W",
+            "push to EI 3200-12500"
+          ],
+          "iso_grain_relationship": "grain minimal for EI 3200 but clearly visible",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              1.2,
+              1.0,
+              0.9
+            ],
+            "underexposure_grain_curve": [
+              3.2,
+              2.7,
+              2.2
+            ],
+            "reciprocity_failure_threshold": 2.8,
+            "latitude_grain_distribution": [
+              1.8,
+              1.4,
+              1.1
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Ilford HP5 Plus": {
+      "type": "bw_neg",
+      "iso": 400,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 17,
+        "scale": "third_party_estimate",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "cubic",
+        "crystal": "cubic_silver_halide",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.36,
+        "mean": 0.9,
+        "max": 1.98,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "light",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "neutral_gray",
+      "color_rgb": [
+        172,
+        172,
+        172
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": {
+        "min": 400,
+        "max": 3200,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": "Anti-halation backing that clears during development (sheet film).",
+      "reciprocity": {
+        "formula": "Ta = Tm^1.26 (no adjustment 1/10000-1s)",
+        "source": "ilford_hp5"
+      },
+      "notes": "Ilford does not publish numeric RMS; estimated from class (cubic ISO 400).",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.5,
+          "max": 2.5,
+          "average": 1.0
+        },
+        "clustering": {
+          "level": "light",
+          "cluster_size": "2-3_grains",
+          "fractal_dimension": 1.8,
+          "spatial_correlation": 0.2,
+          "cluster_probability": 0.12
+        },
+        "grain_color": {
+          "base_rgb": [
+            172,
+            172,
+            172
+          ],
+          "variation_rgb": {
+            "r": 14,
+            "g": 14,
+            "b": 14
+          },
+          "size_variation_coeff": 0.8,
+          "opacity_variation": 0.8
+        },
+        "halation_text": "minimal halation",
+        "push": {
+          "processing": [
+            "B&W",
+            "push 1-3 stops"
+          ],
+          "iso_grain_relationship": "grain increases with higher exposure index",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.85,
+              0.7,
+              0.6
+            ],
+            "underexposure_grain_curve": [
+              2.2,
+              1.8,
+              1.3
+            ],
+            "reciprocity_failure_threshold": 1.8,
+            "latitude_grain_distribution": [
+              1.35,
+              1.05,
+              0.85
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Ilford FP4 Plus": {
+      "type": "bw_neg",
+      "iso": 125,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 11,
+        "scale": "third_party_estimate",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "cubic",
+        "crystal": "cubic_silver_halide",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.22,
+        "mean": 0.55,
+        "max": 1.21,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "none",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "neutral_gray",
+      "color_rgb": [
+        182,
+        182,
+        182
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": {
+        "min": 50,
+        "max": 200,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": "Anti-halation backing that clears during development (sheet film).",
+      "reciprocity": {
+        "formula": "Ta = Tm^1.26 (no adjustment 1/10000-1s)",
+        "source": "ilford_fp4"
+      },
+      "notes": "Ilford does not publish numeric RMS; estimated from class.",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.3,
+          "max": 1.0,
+          "average": 0.5
+        },
+        "clustering": {
+          "level": "none",
+          "cluster_size": null,
+          "fractal_dimension": 1.9,
+          "spatial_correlation": 0.1,
+          "cluster_probability": 0.05
+        },
+        "grain_color": {
+          "base_rgb": [
+            182,
+            182,
+            182
+          ],
+          "variation_rgb": {
+            "r": 8,
+            "g": 8,
+            "b": 8
+          },
+          "size_variation_coeff": 0.6,
+          "opacity_variation": 0.6
+        },
+        "halation_text": "low",
+        "push": {
+          "processing": [
+            "B&W",
+            "push 1-2 stops"
+          ],
+          "iso_grain_relationship": "grain minimal at ISO 125",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.45,
+              0.3,
+              0.2
+            ],
+            "underexposure_grain_curve": [
+              1.5,
+              1.2,
+              0.9
+            ],
+            "reciprocity_failure_threshold": 1.2,
+            "latitude_grain_distribution": [
+              0.95,
+              0.8,
+              0.65
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Ilford Pan F Plus 50": {
+      "type": "bw_neg",
+      "iso": 50,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 7,
+        "scale": "third_party_estimate",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": null,
+        "confidence": "estimated"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "cubic",
+        "crystal": "cubic_silver_halide",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.18,
+        "mean": 0.45,
+        "max": 0.99,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "light",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "high",
+      "color_cast": "neutral_gray",
+      "color_rgb": [
+        186,
+        186,
+        186
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": {
+        "min": 25,
+        "max": 50,
+        "source": "manufacturer datasheet"
+      },
+      "anti_halation": null,
+      "reciprocity": {
+        "formula": "Ta = Tm^1.26 (no adjustment 1/10000-1s)",
+        "source": "ilford_panf"
+      },
+      "notes": "Ilford does not publish numeric RMS; estimated from class (slow cubic).",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.2,
+          "max": 0.8,
+          "average": 0.4
+        },
+        "clustering": {
+          "level": "light",
+          "cluster_size": "2-3_grains",
+          "fractal_dimension": 1.95,
+          "spatial_correlation": 0.05,
+          "cluster_probability": 0.01
+        },
+        "grain_color": {
+          "base_rgb": [
+            186,
+            186,
+            186
+          ],
+          "variation_rgb": {
+            "r": 5,
+            "g": 5,
+            "b": 5
+          },
+          "size_variation_coeff": 0.3,
+          "opacity_variation": 0.4
+        },
+        "halation_text": "very low",
+        "push": {
+          "processing": [
+            "B&W"
+          ],
+          "iso_grain_relationship": "grain extremely fine at ISO 50",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.4,
+              0.25,
+              0.15
+            ],
+            "underexposure_grain_curve": [
+              1.3,
+              1.0,
+              0.8
+            ],
+            "reciprocity_failure_threshold": 1.0,
+            "latitude_grain_distribution": [
+              0.85,
+              0.7,
+              0.55
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Agfa CT Precisa 100": {
+      "type": "color_rev",
+      "iso": 100,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 10,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "agfa_films",
+        "confidence": "derived"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.18,
+        "mean": 0.45,
+        "max": 0.99,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "none",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "very high",
+      "color_cast": "cool",
+      "color_rgb": [
+        184,
+        184,
+        184
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "AgfaPhoto-era reversal film. Value taken from Agfa's own RSX II 100 reversal class (RMS 10).",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.1,
+          "max": 0.5,
+          "average": 0.2
+        },
+        "clustering": {
+          "level": "none",
+          "cluster_size": null,
+          "fractal_dimension": 1.95,
+          "spatial_correlation": 0.05,
+          "cluster_probability": 0.01
+        },
+        "grain_color": {
+          "base_rgb": [
+            184,
+            184,
+            184
+          ],
+          "variation_rgb": {
+            "r": 6,
+            "g": 6,
+            "b": 6
+          },
+          "size_variation_coeff": 0.5,
+          "opacity_variation": 0.5
+        },
+        "halation_text": "low",
+        "push": {
+          "processing": [
+            "E-6"
+          ],
+          "iso_grain_relationship": "grain very low at ISO 100",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.6,
+              0.45,
+              0.35
+            ],
+            "underexposure_grain_curve": [
+              1.8,
+              1.4,
+              1.1
+            ],
+            "reciprocity_failure_threshold": 1.4,
+            "latitude_grain_distribution": [
+              1.15,
+              0.9,
+              0.75
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Agfa Vista 200": {
+      "type": "color_neg",
+      "iso": 200,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 4.5,
+        "scale": "fuji_colneg_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "agfa_films",
+        "confidence": "derived"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "cubic",
+        "crystal": "cubic_silver_halide",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.24,
+        "mean": 0.6,
+        "max": 1.32,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "light",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "warm (slight magenta bias)",
+      "color_rgb": [
+        175,
+        180,
+        185
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "AgfaPhoto-branded consumer film. Value from Agfa's Optima II 200 colour-negative class (RMS 4.5).",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.6,
+          "max": 2.0,
+          "average": 1.0
+        },
+        "clustering": {
+          "level": "light",
+          "cluster_size": "2-4_grains",
+          "fractal_dimension": 1.85,
+          "spatial_correlation": 0.15,
+          "cluster_probability": 0.1
+        },
+        "grain_color": {
+          "base_rgb": [
+            175,
+            180,
+            185
+          ],
+          "variation_rgb": {
+            "r": 10,
+            "g": 12,
+            "b": 14
+          },
+          "size_variation_coeff": 0.6,
+          "opacity_variation": 0.6
+        },
+        "halation_text": "moderate",
+        "push": {
+          "processing": [
+            "C-41"
+          ],
+          "iso_grain_relationship": "grain fine at ISO 200",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.75,
+              0.6,
+              0.5
+            ],
+            "underexposure_grain_curve": [
+              1.9,
+              1.5,
+              1.2
+            ],
+            "reciprocity_failure_threshold": 1.6,
+            "latitude_grain_distribution": [
+              1.25,
+              1.0,
+              0.8
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "Agfa Vista 400": {
+      "type": "color_neg",
+      "iso": 400,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 4.5,
+        "scale": "fuji_colneg_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "agfa_films",
+        "confidence": "derived"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "cubic",
+        "crystal": "cubic_silver_halide",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.36,
+        "mean": 0.9,
+        "max": 1.98,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Cubic/sigma emulsion: class range from emulsion literature (cubic reference grains ~1-1.4 um) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "moderate",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "neutral",
+      "color_rgb": [
+        172,
+        176,
+        182
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": null,
+      "notes": "AgfaPhoto-branded consumer film. Value from Agfa's Optima II 400 colour-negative class (RMS 4.5).",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.7,
+          "max": 2.5,
+          "average": 1.3
+        },
+        "clustering": {
+          "level": "moderate",
+          "cluster_size": "2-4_grains",
+          "fractal_dimension": 1.8,
+          "spatial_correlation": 0.2,
+          "cluster_probability": 0.12
+        },
+        "grain_color": {
+          "base_rgb": [
+            172,
+            176,
+            182
+          ],
+          "variation_rgb": {
+            "r": 12,
+            "g": 14,
+            "b": 16
+          },
+          "size_variation_coeff": 0.7,
+          "opacity_variation": 0.7
+        },
+        "halation_text": "moderate",
+        "push": {
+          "processing": [
+            "C-41"
+          ],
+          "iso_grain_relationship": "grain moderate at ISO 400",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.85,
+              0.7,
+              0.6
+            ],
+            "underexposure_grain_curve": [
+              2.2,
+              1.8,
+              1.4
+            ],
+            "reciprocity_failure_threshold": 1.8,
+            "latitude_grain_distribution": [
+              1.4,
+              1.1,
+              0.9
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "CineStill 50D": {
+      "type": "color_neg",
+      "iso": 50,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 6,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_vision3_50d",
+        "confidence": "derived"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.16,
+        "mean": 0.41,
+        "max": 0.9,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "light",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "neutral",
+      "color_rgb": [
+        186,
+        186,
+        186
+      ],
+      "halation": {
+        "enabled": true,
+        "color": "#ff3b1f",
+        "radius_um": 120,
+        "source": "wikipedia_halation",
+        "confidence": "derived"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": "Rem-jet anti-halation layer removed, producing halation.",
+      "reciprocity": null,
+      "notes": "Rebadged Kodak Vision3 50D (ECN-2) with rem-jet removed; granularity derived from Vision3 50D.",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.1,
+          "max": 1.0,
+          "average": 0.5
+        },
+        "clustering": {
+          "level": "light",
+          "cluster_size": "2-3_grains",
+          "fractal_dimension": 1.35,
+          "spatial_correlation": 0.18,
+          "cluster_probability": 0.12
+        },
+        "grain_color": {
+          "base_rgb": [
+            186,
+            186,
+            186
+          ],
+          "variation_rgb": {
+            "r": 5,
+            "g": 5,
+            "b": 5
+          },
+          "size_variation_coeff": 0.4,
+          "opacity_variation": 0.5
+        },
+        "halation_text": "soft orange halation around highlights",
+        "push": {
+          "processing": [
+            "C-41 (rem-jet removed)"
+          ],
+          "iso_grain_relationship": "fine grain at 50",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.4,
+              0.25,
+              0.15
+            ],
+            "underexposure_grain_curve": [
+              1.5,
+              1.2,
+              0.9
+            ],
+            "reciprocity_failure_threshold": 1.2,
+            "latitude_grain_distribution": [
+              0.9,
+              0.75,
+              0.6
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "CineStill 800T": {
+      "type": "color_neg",
+      "iso": 800,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 7,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_vision3_500t",
+        "confidence": "derived"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.4,
+        "mean": 0.99,
+        "max": 2.18,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "heavy",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium-high",
+      "color_cast": "tungsten (warm cast)",
+      "color_rgb": [
+        180,
+        172,
+        155
+      ],
+      "halation": {
+        "enabled": true,
+        "color": "#ff3b1f",
+        "radius_um": 120,
+        "source": "wikipedia_halation",
+        "confidence": "derived"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": "Rem-jet anti-halation layer removed, producing strong halation.",
+      "reciprocity": null,
+      "notes": "Rebadged Kodak Vision3 500T (ECN-2), rated ISO 800, rem-jet removed -> strong halation.",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.5,
+          "max": 2.0,
+          "average": 1.2
+        },
+        "clustering": {
+          "level": "heavy",
+          "cluster_size": "3-5_grains",
+          "fractal_dimension": 1.45,
+          "spatial_correlation": 0.28,
+          "cluster_probability": 0.18
+        },
+        "grain_color": {
+          "base_rgb": [
+            180,
+            172,
+            155
+          ],
+          "variation_rgb": {
+            "r": 12,
+            "g": 15,
+            "b": 12
+          },
+          "size_variation_coeff": 0.6,
+          "opacity_variation": 0.8
+        },
+        "halation_text": "strong red/orange halation around highlights",
+        "push": {
+          "processing": [
+            "C-41 (rem-jet removed)"
+          ],
+          "iso_grain_relationship": "grain high at ISO 800",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.7,
+              0.55,
+              0.45
+            ],
+            "underexposure_grain_curve": [
+              1.9,
+              1.5,
+              1.2
+            ],
+            "reciprocity_failure_threshold": 1.7,
+            "latitude_grain_distribution": [
+              1.2,
+              1.0,
+              0.8
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    }
+  }
+}

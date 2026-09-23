@@ -42,9 +42,6 @@ class FilmGrainGenerator {
                 filmStockSelect.appendChild(optgroup);
             });
             
-            // Skip GPU info loading for now to avoid overhead
-            // this.loadGpuInfo();
-            
             // Generate initial grain after loading stocks
             this.updateFilmInfo();
             this.generateInitialGrain();
@@ -56,25 +53,6 @@ class FilmGrainGenerator {
         }
     }
 
-    async loadGpuInfo() {
-        try {
-            const gpuInfo = await invoke('get_gpu_info');
-            const infoElement = document.getElementById('generationInfo');
-            if (infoElement) {
-                // Add GPU info to the generation info display
-                const gpuInfoDiv = document.createElement('div');
-                gpuInfoDiv.style.fontSize = '12px';
-                gpuInfoDiv.style.color = '#888';
-                gpuInfoDiv.style.marginTop = '5px';
-                gpuInfoDiv.textContent = `🚀 ${gpuInfo}`;
-                infoElement.appendChild(gpuInfoDiv);
-            }
-            console.log('GPU Info:', gpuInfo);
-        } catch (error) {
-            console.error('Failed to get GPU info:', error);
-        }
-    }
-    
     async updateFilmInfo() {
         const filmStock = document.getElementById('filmStock').value;
         if (!filmStock) return;
@@ -89,6 +67,13 @@ class FilmGrainGenerator {
             document.getElementById('filmInfoUsers').textContent = filmInfo.famous_users.join(', ');
             document.getElementById('filmInfoEra').textContent = filmInfo.era;
             document.getElementById('filmInfoPrice').textContent = filmInfo.price_category;
+            const src = (v) => (v === null || v === undefined || v === '') ? '—' : v;
+            document.getElementById('filmInfoIso').textContent = src(filmInfo.iso);
+            document.getElementById('filmInfoGraininess').textContent = src(filmInfo.graininess);
+            document.getElementById('filmInfoMorphology').textContent = src(filmInfo.morphology);
+            document.getElementById('filmInfoGrainSize').textContent = src(filmInfo.grain_size_um);
+            document.getElementById('filmInfoPush').textContent = src(filmInfo.push_range);
+            document.getElementById('filmInfoResolving').textContent = src(filmInfo.resolving_power);
             
             document.getElementById('filmInfoDetails').style.display = 'block';
             
@@ -354,11 +339,11 @@ class FilmGrainGenerator {
     
     async regenerateGrain() {
         const params = this.getGrainParameters();
-        
+        const regenerateBtn = document.getElementById('regenerateBtn');
+        const originalText = regenerateBtn.textContent;
+
         try {
             // Show loading state immediately
-            const regenerateBtn = document.getElementById('regenerateBtn');
-            const originalText = regenerateBtn.textContent;
             regenerateBtn.textContent = 'Generating...';
             regenerateBtn.disabled = true;
             
@@ -492,10 +477,10 @@ class FilmGrainGenerator {
         const info = document.getElementById('performanceInfo');
         info.innerHTML = `Generation time: ${result.generation_time_ms}ms | Grains: ${result.grain_count.toLocaleString()}`;
         
-        // Add performance indicator
-        const perfIndicator = result.generation_time_ms < 100 ? '🚀 GPU' : 
+        // Add performance indicator (CPU multi-threaded rendering)
+        const perfIndicator = result.generation_time_ms < 100 ? '🚀 Instant' : 
                              result.generation_time_ms < 500 ? '⚡ Fast' : 
-                             result.generation_time_ms < 2000 ? '🔄 CPU' : '🐌 Slow';
+                             result.generation_time_ms < 2000 ? '🔄 Normal' : '🐌 Slow';
         info.innerHTML += ` | ${perfIndicator}`;
     }
     
@@ -558,6 +543,8 @@ class FilmGrainGenerator {
             // Load image from file
             const reader = new FileReader();
             reader.onload = (e) => {
+                // Keep the raw base64 (no data-URL prefix) for the Rust composite save
+                this.uploadedImageBase64 = String(e.target.result).split(',')[1] || e.target.result;
                 img.src = e.target.result;
             };
             reader.readAsDataURL(file);
@@ -615,7 +602,7 @@ class FilmGrainGenerator {
                 grainData: this.currentImageData,
                 grainWidth: params.width,
                 grainHeight: params.height,
-                baseImageData: this.uploadedImage,
+                baseImageData: this.uploadedImageBase64,
                 path: filename
             });
             

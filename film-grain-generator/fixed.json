@@ -49,32 +49,34 @@
       "Soft tonal rendition"
     ],
     "film_info": {
-      "description": "Fujifilm Neopan 400 is an ISO 400 B&W film known for its very fine grain, high sharpness and good pushability.",
+      "description": "Fujifilm Neopan 400 is a black-and-white ISO 400 film with moderate grain, good sharpness and strong pushability.",
       "primary_uses": [
-        "general photography",
-        "push processing"
+        "street",
+        "documentary",
+        "general B&W"
       ],
       "characteristics": [
-        "fine grain",
-        "sharp details",
-        "good latitude"
+        "moderate grain",
+        "good sharpness",
+        "pushable"
       ],
       "famous_users": [
-        "Contemporary analog shooters"
+        "Street and documentary photographers"
       ],
       "ideal_conditions": [
-        "mixed lighting",
-        "normal daylight"
+        "daylight",
+        "low light",
+        "mixed light"
       ],
       "processing": [
-        "normal",
-        "push up to 2 stops"
+        "B&W",
+        "push 1-2 stops"
       ],
-      "era": "2008-2018",
+      "era": "1990s-2018 (discontinued)",
       "price_category": "mid-range",
       "alternatives": [
-        "Ilford HP5 Plus",
-        "Kodak Portra 800 (for color)"
+        "Kodak Tri-X 400",
+        "Ilford HP5 Plus"
       ]
     },
     "technical_specs": {
@@ -137,34 +139,35 @@
       "Smooth tonal range"
     ],
     "film_info": {
-      "description": "Kodak T-Max 100 is an ISO 100 B&W film with extremely fine grain and very high sharpness.",
+      "description": "Kodak T-Max 100 is a tabular-grain (T-GRAIN) ISO 100 black-and-white film with extremely fine grain and very high sharpness.",
       "primary_uses": [
-        "portrait",
         "landscape",
-        "studio",
-        "product"
+        "architecture",
+        "fine art",
+        "copy work"
       ],
       "characteristics": [
-        "ultrafine grain",
-        "high sharpness",
-        "wide latitude"
+        "ultra-fine grain",
+        "very high sharpness",
+        "wide exposure latitude"
       ],
       "famous_users": [
-        "Edward Weston"
+        "Landscape, architectural and fine-art photographers"
       ],
       "ideal_conditions": [
-        "bright daylight",
-        "studio flash",
-        "fine detail"
+        "daylight",
+        "studio",
+        "tripod work"
       ],
       "processing": [
-        "normal"
+        "B&W",
+        "push 1-2 stops"
       ],
       "era": "1986-present",
       "price_category": "premium",
       "alternatives": [
-        "Ilford FP4 Plus",
-        "Fuji Acros 100"
+        "Ilford Delta 100",
+        "Kodak T-Max 400"
       ]
     },
     "technical_specs": {
@@ -227,32 +230,34 @@
       "Good push latitude to EI 800"
     ],
     "film_info": {
-      "description": "Fujifilm Superia 400 is a consumer ISO 400 colour negative film offering vibrant colours and decent grain for everyday use.",
+      "description": "Fujicolor Superia X-TRA 400 is a consumer ISO 400 color negative film with vivid color and a fourth cyan-sensitive layer for better color under fluorescent light.",
       "primary_uses": [
-        "travel",
-        "family snapshots",
-        "general photography"
+        "everyday photography",
+        "street",
+        "snapshots"
       ],
       "characteristics": [
         "moderate grain",
-        "vivid colours",
-        "high speed"
+        "vivid color",
+        "good latitude",
+        "green bias in shadows"
       ],
       "famous_users": [
-        "Casual film shooters"
+        "Casual and street photographers"
       ],
       "ideal_conditions": [
         "daylight",
-        "flash indoors"
+        "mixed light",
+        "fluorescent"
       ],
       "processing": [
-        "normal"
+        "C-41"
       ],
       "era": "1998-present",
       "price_category": "budget",
       "alternatives": [
         "Kodak UltraMax 400",
-        "Kodak Portra 400"
+        "AgfaPhoto Vista 400"
       ]
     },
     "technical_specs": {
@@ -315,33 +320,35 @@
       "Wide tonal range"
     ],
     "film_info": {
-      "description": "Ilford Delta 3200 is a high-speed (EI 3200) B&W film designed for low-light work, combining high sensitivity with an unobtrusive grain structure and wide tonal range.",
+      "description": "Ilford Delta 3200 is a very high-speed black-and-white film, nominally ISO 1000 but designed to be exposed and processed at EI 3200 and above, with prominent grain.",
       "primary_uses": [
-        "concerts",
-        "indoor low-light",
-        "action"
+        "low light",
+        "concert",
+        "documentary"
       ],
       "characteristics": [
-        "high grain",
-        "good detail in low light",
-        "wide latitude"
+        "very high speed",
+        "prominent grain",
+        "wide exposure latitude",
+        "pushable to EI 6400+"
       ],
       "famous_users": [
-        "Documentary photographers"
+        "Low-light and documentary photographers"
       ],
       "ideal_conditions": [
-        "very low light",
-        "spot-lit subjects"
+        "night",
+        "indoor ambient",
+        "low light"
       ],
       "processing": [
-        "normal",
-        "push up to 1-2 stops"
+        "B&W",
+        "push to EI 3200-12500"
       ],
-      "era": "2006-present",
+      "era": "1998-present",
       "price_category": "premium",
       "alternatives": [
-        "Kodak Tri-X 400 (pushed)",
-        "Kodak T-Max 3200"
+        "Kodak T-Max P3200",
+        "Fujifilm Neopan 1600"
       ]
     },
     "technical_specs": {
@@ -404,29 +411,33 @@
       "Fine grain and high latitude"
     ],
     "film_info": {
-      "description": "Kodak Vision3 50D is a low-speed color negative motion picture film optimized for daylight, with fine grain and wide dynamic range.",
+      "description": "Kodak Vision3 50D is a daylight-balanced ISO 50 color negative motion-picture film with extremely fine grain and wide dynamic range.",
       "primary_uses": [
-        "cinema production (daylight)"
+        "cinema",
+        "daylight",
+        "high-end production"
       ],
       "characteristics": [
-        "fine grain",
-        "natural colors",
-        "extended highlight latitude"
+        "extremely fine grain",
+        "wide dynamic range",
+        "daylight balance",
+        "low ISO"
       ],
       "famous_users": [
         "Cinematographers"
       ],
       "ideal_conditions": [
-        "daylight shooting",
-        "controlled environments"
+        "bright daylight",
+        "studio"
       ],
       "processing": [
-        "ECN-2 (motion picture process)"
+        "ECN-2"
       ],
-      "era": "2007-present",
-      "price_category": "premium (cinema)",
+      "era": "2008-present",
+      "price_category": "premium",
       "alternatives": [
-        "Vision3 250D (in motion form)"
+        "CineStill 50D",
+        "Kodak Vision3 500T"
       ]
     },
     "technical_specs": {
@@ -489,35 +500,35 @@
       "High shadow contrast, wide exposure latitude"
     ],
     "film_info": {
-      "description": "Iconic high-speed black-and-white film known for its fine grain, high sharpness and wide exposure latitude.",
+      "description": "Kodak Tri-X 400 is the classic photojournalism black-and-white film, known for its distinctive, relatively coarse grain, high contrast and very wide exposure latitude.",
       "primary_uses": [
-        "street photography",
         "photojournalism",
+        "street",
         "documentary",
         "low light"
       ],
       "characteristics": [
-        "fine grain",
-        "high sharpness",
-        "wide latitude",
+        "prominent/coarse grain",
+        "high contrast",
+        "very wide exposure latitude",
         "push-friendly"
       ],
       "famous_users": [
-        "Robert Frank",
         "Garry Winogrand",
+        "Robert Frank",
         "Henri Cartier-Bresson"
       ],
       "ideal_conditions": [
-        "mixed lighting",
+        "mixed light",
         "low light",
         "indoor ambient",
         "flash photography"
       ],
       "processing": [
-        "normal",
-        "push 1-2 stops"
+        "B&W",
+        "push 1-3 stops"
       ],
-      "era": "1954-present",
+      "era": "1940 (sheets); 1954 (35 mm)-present",
       "price_category": "mid-range",
       "alternatives": [
         "Ilford HP5 Plus",
@@ -584,34 +595,36 @@
       "High fidelity and sharpness"
     ],
     "film_info": {
-      "description": "Kodak Ektachrome E100 is a daylight-balanced E6 slide film with extremely fine grain and vibrant colors.",
+      "description": "Kodak Ektachrome E100 is a daylight-balanced E-6 slide film reintroduced in 2018, with fine grain, neutral color and accurate skin tones.",
       "primary_uses": [
+        "slide",
         "landscape",
-        "nature",
-        "product",
-        "fashion"
+        "fashion",
+        "product"
       ],
       "characteristics": [
         "fine grain",
-        "vibrant colors",
-        "neutral tones",
-        "high contrast"
+        "neutral color",
+        "accurate skin tones",
+        "moderate saturation"
       ],
       "famous_users": [
-        "William Eggleston"
+        "Professional and slide photographers"
       ],
       "ideal_conditions": [
-        "bright daylight",
-        "evening sun"
+        "daylight",
+        "studio",
+        "controlled light"
       ],
       "processing": [
-        "E-6 process"
+        "E-6",
+        "push 1-2 stops"
       ],
       "era": "2018-present (revived)",
       "price_category": "premium",
       "alternatives": [
-        "Fuji Velvia 50",
-        "Provia 100F"
+        "Fujichrome Provia 100F",
+        "Fujichrome Velvia 100"
       ]
     },
     "technical_specs": {
@@ -674,33 +687,34 @@
       "High resolution and contrast"
     ],
     "film_info": {
-      "description": "Fuji Velvia 50 is a daylight E6 slide film famous for extremely high color saturation, high contrast, and very fine grain.",
+      "description": "Fujichrome Velvia 50 is a daylight E-6 slide film famous for extremely high color saturation, high contrast and ultra-fine grain.",
       "primary_uses": [
         "landscape",
         "nature",
-        "scenery",
-        "nature photography"
+        "fine art"
       ],
       "characteristics": [
-        "extremely fine grain",
-        "very high saturation",
-        "exceptional sharpness"
+        "extremely high saturation",
+        "high contrast",
+        "ultra-fine grain",
+        "excellent sharpness"
       ],
       "famous_users": [
-        "Famous landscape photographers"
+        "Landscape and nature photographers"
       ],
       "ideal_conditions": [
-        "bright daylight",
-        "sunny skies"
+        "daylight",
+        "sunrise/sunset",
+        "bright outdoor light"
       ],
       "processing": [
         "E-6"
       ],
-      "era": "1990-2005, revived 2007-present",
+      "era": "1990-2005; reintroduced 2007-present",
       "price_category": "premium",
       "alternatives": [
-        "Fuji Velvia 100",
-        "Kodak E100VS (Ektachrome)"
+        "Fujichrome Velvia 100",
+        "Fujichrome Provia 100F"
       ]
     },
     "technical_specs": {
@@ -763,32 +777,35 @@
       "Long tonal response curve"
     ],
     "film_info": {
-      "description": "Fujifilm Neopan Acros 100 is a professional ISO 100 B&W film with ultra-fine grain and superb sharpness.",
+      "description": "Fujifilm Neopan Acros 100 is a black-and-white film using Fujifilm's Super Fine Sigma grain, known for ultra-fine grain, excellent sharpness and excellent reciprocity characteristics.",
       "primary_uses": [
-        "studio",
-        "portrait",
-        "scientific"
+        "landscape",
+        "long exposure",
+        "fine-art B&W"
       ],
       "characteristics": [
         "extremely fine grain",
         "high sharpness",
-        "wide latitude"
+        "excellent reciprocity",
+        "smooth tonality"
       ],
       "famous_users": [
-        "Specialist photographers"
+        "Landscape and fine-art photographers"
       ],
       "ideal_conditions": [
-        "bright light",
-        "digital scanning"
+        "daylight",
+        "studio",
+        "long exposure"
       ],
       "processing": [
-        "normal"
+        "B&W",
+        "push 1-2 stops"
       ],
-      "era": "2013-present",
-      "price_category": "premium",
+      "era": "1998-2018; Fujifilm Acros II 2019-present",
+      "price_category": "mid-range",
       "alternatives": [
-        "Kodak T-Max 100",
-        "Ilford FP4 Plus"
+        "Ilford Delta 100",
+        "Kodak T-Max 100"
       ]
     },
     "technical_specs": {
@@ -851,29 +868,30 @@
       "Reduced noise in highlights"
     ],
     "film_info": {
-      "description": "Ilford Delta 400 is a medium-speed (ISO 400) B&W film using T-grain emulsion, offering exceptionally fine grain and mild contrast.",
+      "description": "Ilford Delta 400 is a tabular-grain (core-shell) ISO 400 black-and-white film with fine grain, smooth tonality and good pushability.",
       "primary_uses": [
-        "general photography",
-        "street",
-        "studio"
+        "documentary",
+        "available light",
+        "general B&W"
       ],
       "characteristics": [
-        "fine grain",
-        "smooth tones",
-        "wide latitude"
+        "fine grain for ISO 400",
+        "smooth tonality",
+        "pushable to EI 3200"
       ],
       "famous_users": [
-        "Paul Graham"
+        "Documentary photographers"
       ],
       "ideal_conditions": [
-        "mixed lighting",
-        "interiors"
+        "daylight",
+        "low light",
+        "mixed light"
       ],
       "processing": [
-        "normal",
-        "push 1 stop"
+        "B&W",
+        "push 1-2 stops"
       ],
-      "era": "2007-present",
+      "era": "1992-present",
       "price_category": "premium",
       "alternatives": [
         "Kodak T-Max 400",
@@ -940,32 +958,32 @@
       "Moderate grain"
     ],
     "film_info": {
-      "description": "Agfa Vista 200 is a popular budget ISO 200 color negative film with fine grain and vibrant colors.",
+      "description": "AgfaPhoto Vista 200 is a budget consumer ISO 200 color negative film with vivid color and moderate grain.",
       "primary_uses": [
-        "general photography",
-        "outdoor",
-        "daylight"
+        "everyday photography",
+        "snapshots",
+        "travel"
       ],
       "characteristics": [
-        "fine grain",
+        "moderate grain",
         "vivid color",
-        "easy exposures"
+        "wide exposure latitude"
       ],
       "famous_users": [
         "Amateur photographers"
       ],
       "ideal_conditions": [
         "daylight",
-        "flash"
+        "mixed light"
       ],
       "processing": [
-        "normal"
+        "C-41"
       ],
-      "era": "2013-present",
+      "era": "2005-~2019 (discontinued)",
       "price_category": "budget",
       "alternatives": [
-        "Fuji Superia 200",
-        "Kodak Gold 200"
+        "Kodak Gold 200",
+        "Fujifilm C200"
       ]
     },
     "technical_specs": {
@@ -1028,28 +1046,30 @@
       "High resolution for large enlargements"
     ],
     "film_info": {
-      "description": "Ilford Delta 100 is an ISO 100 B&W film with exceptionally fine grain and very high sharpness, ideal for maximum detail.",
+      "description": "Ilford Delta 100 is a tabular-grain (core-shell) ISO 100 black-and-white film with ultra-fine grain and very high resolution.",
       "primary_uses": [
         "landscape",
-        "studio",
-        "architecture"
+        "architecture",
+        "fine-art B&W"
       ],
       "characteristics": [
-        "fine grain",
-        "maximum sharpness",
-        "rich tonality"
+        "ultra-fine grain",
+        "very high resolution",
+        "wide tonal range"
       ],
       "famous_users": [
-        "Ansel Adams (symbolic)"
+        "Landscape and fine-art photographers"
       ],
       "ideal_conditions": [
-        "bright light",
-        "controlled conditions"
+        "daylight",
+        "studio",
+        "tripod work"
       ],
       "processing": [
-        "normal"
+        "B&W",
+        "push to EI 200"
       ],
-      "era": "2007-present",
+      "era": "1992-present",
       "price_category": "premium",
       "alternatives": [
         "Kodak T-Max 100",
@@ -1116,32 +1136,32 @@
       "Deep saturation"
     ],
     "film_info": {
-      "description": "Agfa CT Precisa 100 is a daylight E6 slide film known for very high color saturation and contrast.",
+      "description": "Agfa CT Precisa 100 is a daylight-balanced E-6 color reversal (slide) film known for saturated color and strong contrast.",
       "primary_uses": [
-        "nature",
         "landscape",
-        "advertising"
+        "travel",
+        "general slide photography"
       ],
       "characteristics": [
         "fine grain",
-        "very high saturation",
+        "high color saturation",
         "strong contrast"
       ],
       "famous_users": [
-        "Commercial photographers"
+        "Slide-film enthusiasts"
       ],
       "ideal_conditions": [
-        "bright sunlight",
-        "controlled lighting"
+        "daylight",
+        "bright outdoor light"
       ],
       "processing": [
         "E-6"
       ],
-      "era": "1977-2007",
+      "era": "1990s-2005 (Agfa); later sold under the AgfaPhoto brand",
       "price_category": "mid-range",
       "alternatives": [
-        "Fuji Velvia 50",
-        "Kodak E100VS"
+        "Fujichrome Provia 100F",
+        "Kodak Ektachrome E100"
       ]
     },
     "technical_specs": {
@@ -1204,32 +1224,32 @@
       "Moderate grain"
     ],
     "film_info": {
-      "description": "Fujifilm C200 is an affordable ISO 200 color negative film for general use with balanced color and moderate grain.",
+      "description": "Fujicolor C200 is an affordable ISO 200 color negative film for everyday use, with balanced color and moderate grain.",
       "primary_uses": [
-        "general photography",
-        "travel",
-        "portraits"
+        "everyday photography",
+        "snapshots",
+        "travel"
       ],
       "characteristics": [
         "moderate grain",
-        "rich colors",
-        "wide latitude"
+        "vivid color",
+        "wide exposure latitude"
       ],
       "famous_users": [
         "Casual photographers"
       ],
       "ideal_conditions": [
         "daylight",
-        "flash"
+        "mixed light"
       ],
       "processing": [
-        "normal"
+        "C-41"
       ],
-      "era": "2009-present",
+      "era": "2000s-present",
       "price_category": "budget",
       "alternatives": [
         "Kodak Gold 200",
-        "Fuji Superia 400 (for more speed)"
+        "AgfaPhoto Vista 200"
       ]
     },
     "technical_specs": {
@@ -1292,33 +1312,35 @@
       "Warm, saturated colour palette"
     ],
     "film_info": {
-      "description": "Kodak Portra 800 is a high-speed colour negative film known for fine grain (for its speed) and warm, saturated tones.",
+      "description": "Kodak Portra 800 is a professional ISO 800 color negative film with fine grain for its speed, natural skin tones and warm-neutral color.",
       "primary_uses": [
-        "event",
-        "low-light portrait",
-        "available-light photography"
+        "low light",
+        "wedding",
+        "portrait"
       ],
       "characteristics": [
-        "fine grain (for 800)",
-        "warm tones",
+        "fine grain for ISO 800",
+        "natural skin tones",
+        "warm-neutral color",
         "wide latitude"
       ],
       "famous_users": [
-        "Ansel Adams (late colour work)"
+        "Wedding and low-light portrait photographers"
       ],
       "ideal_conditions": [
         "low light",
-        "indoor concerts",
-        "evening"
+        "indoor ambient",
+        "overcast"
       ],
       "processing": [
-        "normal"
+        "C-41",
+        "push 1 stop"
       ],
       "era": "1998-present",
       "price_category": "premium",
       "alternatives": [
-        "Fuji Natura 1600",
-        "CineStill 800T"
+        "Kodak Portra 400",
+        "Fujifilm Natura 1600"
       ]
     },
     "technical_specs": {
@@ -1381,34 +1403,34 @@
       "Strong exposure latitude"
     ],
     "film_info": {
-      "description": "Kodak Portra 160 is a low-speed color negative film known for its very fine grain, natural skin tones and wide exposure latitude.",
+      "description": "Kodak Portra 160 is a professional ISO 160 color negative film with extremely fine grain, natural skin tones and low saturation.",
       "primary_uses": [
         "portrait",
         "wedding",
-        "fashion",
-        "daylight"
+        "fashion"
       ],
       "characteristics": [
-        "fine grain",
-        "neutral colors",
-        "wide latitude",
-        "soft contrast"
+        "extremely fine grain",
+        "natural skin tones",
+        "soft contrast",
+        "wide latitude"
       ],
       "famous_users": [
-        "Annie Leibovitz"
+        "Portrait and wedding photographers"
       ],
       "ideal_conditions": [
-        "bright daylight",
-        "portrait lighting"
+        "studio",
+        "daylight",
+        "controlled light"
       ],
       "processing": [
-        "normal"
+        "C-41"
       ],
       "era": "1998-present",
       "price_category": "premium",
       "alternatives": [
-        "Fuji Pro 160S",
-        "Kodak Portra 400 (for more speed)"
+        "Kodak Portra 400",
+        "Fujifilm Pro 160S"
       ]
     },
     "technical_specs": {
@@ -1418,7 +1440,7 @@
       "halation": "low",
       "cross_process_effects": "overexposure yields warmer tones",
       "age_effects": "color shifts if expired",
-      "scanner_artifacts": "very fine grain, minimal moir\u00e9"
+      "scanner_artifacts": "very fine grain, minimal moiré"
     }
   },
   "CineStill 50D": {
@@ -1471,22 +1493,24 @@
       "CineLook in still film"
     ],
     "film_info": {
-      "description": "CineStill 50D is a modified motion-picture film (based on Vision3 50D) repurposed for still photography, offering fine grain and unique highlight halation.",
+      "description": "CineStill 50D is Kodak Vision3 50D motion-picture film with the rem-jet backing removed so it can be developed in C-41, giving extremely fine grain and subtle halation.",
       "primary_uses": [
-        "nighttime indoor",
-        "evening scenes"
+        "cinematic looks",
+        "daylight photography",
+        "fine art"
       ],
       "characteristics": [
-        "fine grain",
-        "slight orange halation",
-        "neutral tones"
+        "extremely fine grain",
+        "ISO 50",
+        "subtle red halation",
+        "neutral daylight balance"
       ],
       "famous_users": [
-        "Experimental photographers"
+        "Cinema-style and experimental photographers"
       ],
       "ideal_conditions": [
-        "daylight (for diffusion)",
-        "creative portraits"
+        "bright daylight",
+        "studio flash"
       ],
       "processing": [
         "C-41 (rem-jet removed)"
@@ -1494,8 +1518,8 @@
       "era": "2014-present",
       "price_category": "premium",
       "alternatives": [
-        "Vision3 50D (in motion form)",
-        "Portra 160 (analog still)"
+        "Kodak Vision3 50D",
+        "CineStill 800T"
       ]
     },
     "technical_specs": {
@@ -1558,38 +1582,41 @@
       "Grainy look at 800 speed"
     ],
     "film_info": {
-      "description": "CineStill 800T is a variant of a tungsten-balanced motion-picture film (Vision3 500T) for still use, ISO 800, known for its fast speed, halation, and color fidelity.",
+      "description": "CineStill 800T is Kodak Vision3 500T motion-picture film with the rem-jet backing removed, rated at ISO 800 for stills and tungsten-balanced (3200 K), famous for its red halation around highlights.",
       "primary_uses": [
-        "night photography",
-        "low-light indoor without flash"
+        "night and low light",
+        "neon/urban scenes",
+        "cinematic looks"
       ],
       "characteristics": [
-        "high grain",
-        "blue tungsten cast",
-        "halation effect"
+        "tungsten balance (3200 K)",
+        "strong halation",
+        "visible grain",
+        "high speed"
       ],
       "famous_users": [
-        "Experimental photographers"
+        "Night and street photographers"
       ],
       "ideal_conditions": [
-        "under tungsten lights",
-        "night scenes"
+        "tungsten light",
+        "night",
+        "neon"
       ],
       "processing": [
-        "C-41"
+        "C-41 (rem-jet removed)"
       ],
       "era": "2013-present",
       "price_category": "premium",
       "alternatives": [
-        "Portra 800",
-        "Ilford Delta 3200"
+        "Kodak Vision3 500T",
+        "CineStill 50D"
       ]
     },
     "technical_specs": {
       "crystal_structure": "T-Grain",
       "emulsion_layers": 3,
       "iso_grain_relationship": "grain high at ISO 800",
-      "halation": "cyan halation around highlights",
+      "halation": "strong red/orange halation around highlights",
       "cross_process_effects": "N/A",
       "age_effects": "sensitive to moisture",
       "scanner_artifacts": "blue halation and strong grain in scans"
@@ -1645,32 +1672,33 @@
       "Balanced colour palette"
     ],
     "film_info": {
-      "description": "Kodak Gold 200 is an ISO 200 colour negative film designed for everyday shooting, offering good sharpness and resolution for consumer use.",
+      "description": "Kodak Gold 200 is a consumer ISO 200 color negative film known for warm golden tones and a forgiving exposure latitude.",
       "primary_uses": [
-        "daylight snapshots",
-        "family events",
+        "everyday photography",
+        "snapshots",
         "travel"
       ],
       "characteristics": [
+        "warm golden tones",
         "moderate grain",
-        "medium sharpness",
-        "warm colours"
+        "good latitude"
       ],
       "famous_users": [
         "Casual photographers"
       ],
       "ideal_conditions": [
         "daylight",
-        "flash indoors"
+        "golden hour",
+        "mixed light"
       ],
       "processing": [
-        "normal"
+        "C-41"
       ],
-      "era": "1989-present",
+      "era": "1986-present",
       "price_category": "budget",
       "alternatives": [
-        "Fuji C200",
-        "Kodak UltraMax 400"
+        "Kodak UltraMax 400",
+        "Fujifilm C200"
       ]
     },
     "technical_specs": {
@@ -1733,30 +1761,35 @@
       "Discontinued, unique look"
     ],
     "film_info": {
-      "description": "Fujifilm Neopan 1600 is a high-speed (ISO 1600) B&W film with noticeable grain and strong tonality; discontinued but prized for its distinctive rendering.",
+      "description": "Fujifilm Neopan 1600 is a high-speed ISO 1600 black-and-white film with prominent grain and strong tonality, prized for available-light work.",
       "primary_uses": [
-        "night photography",
-        "action"
+        "low light",
+        "documentary",
+        "concert and street"
       ],
       "characteristics": [
-        "high grain",
-        "push-processing capable"
+        "high speed",
+        "prominent grain",
+        "push-processing capable",
+        "strong contrast"
       ],
       "famous_users": [
-        "Rare due to limited availability"
+        "Available-light and documentary photographers"
       ],
       "ideal_conditions": [
-        "very low light"
+        "low light",
+        "night",
+        "indoor ambient"
       ],
       "processing": [
-        "normal",
-        "push 1-2 stops"
+        "B&W",
+        "push to EI 3200+"
       ],
-      "era": "2008-2015 (discontinued)",
+      "era": "1990s-2013 (discontinued)",
       "price_category": "mid-range",
       "alternatives": [
         "Ilford Delta 3200",
-        "Cinestill 800T"
+        "Kodak T-Max 400"
       ]
     },
     "technical_specs": {
@@ -1819,33 +1852,36 @@
       "Balanced contrast"
     ],
     "film_info": {
-      "description": "Fujichrome Provia 100F is a professional ISO 100 slide film with ultrafine grain and medium color saturation.",
+      "description": "Fujichrome Provia 100F is a professional ISO 100 E-6 slide film with ultra-fine grain and neutral, faithful color reproduction.",
       "primary_uses": [
-        "product",
         "landscape",
-        "nature",
-        "portrait"
+        "architecture",
+        "product",
+        "slide"
       ],
       "characteristics": [
-        "super-fine grain",
-        "faithful colors",
-        "wide latitude"
+        "ultra-fine grain",
+        "neutral accurate color",
+        "good reciprocity",
+        "pushable"
       ],
       "famous_users": [
-        "Professional photographers"
+        "Professional and landscape photographers"
       ],
       "ideal_conditions": [
-        "studio lighting",
-        "outdoors in balanced light"
+        "daylight",
+        "studio",
+        "controlled light"
       ],
       "processing": [
-        "E-6"
+        "E-6",
+        "push 1-2 stops"
       ],
-      "era": "1989-present",
+      "era": "1994-present",
       "price_category": "premium",
       "alternatives": [
-        "Fuji Velvia 100",
-        "Kodak E100"
+        "Fujichrome Velvia 100",
+        "Kodak Ektachrome E100"
       ]
     },
     "technical_specs": {
@@ -1905,35 +1941,38 @@
     "distinctive_traits": [
       "Professional portrait film",
       "Fine grain for ISO 400",
-      "Natural\u2014but slightly cool\u2014colour tone"
+      "Natural—but slightly cool—colour tone"
     ],
     "film_info": {
-      "description": "Fujicolor Pro 400H is a professional ISO 400 colour film prized for smooth fine grain and accurate colour reproduction.",
+      "description": "Fujicolor Pro 400H is a professional ISO 400 color negative film known for its airy pastel palette, slight green-cyan cast and wide exposure latitude.",
       "primary_uses": [
         "wedding",
         "portrait",
-        "fashion"
+        "fashion",
+        "editorial"
       ],
       "characteristics": [
-        "fine grain",
-        "neutral colours",
+        "fine grain for ISO 400",
+        "pastel/airy color",
+        "slight green-cyan cast",
         "wide latitude"
       ],
       "famous_users": [
-        "National Geographic photographers"
+        "Wedding and portrait photographers"
       ],
       "ideal_conditions": [
-        "studio flash",
-        "bright ambient light"
+        "daylight",
+        "overcast",
+        "studio"
       ],
       "processing": [
-        "normal"
+        "C-41"
       ],
-      "era": "1995-2021 (discontinued)",
+      "era": "2004-2021 (discontinued)",
       "price_category": "premium",
       "alternatives": [
         "Kodak Portra 400",
-        "Fuji Superia 400"
+        "Fujifilm Pro 160S"
       ]
     },
     "technical_specs": {
@@ -1996,33 +2035,36 @@
       "Neutral colors with gentle contrast"
     ],
     "film_info": {
-      "description": "Kodak Portra 400 is a versatile ISO 400 color negative film famous for very fine grain and natural skin tones.",
+      "description": "Kodak Portra 400 is a professional ISO 400 color negative film with very fine grain, natural skin tones and wide exposure latitude.",
       "primary_uses": [
         "portrait",
         "wedding",
-        "general photography"
+        "editorial",
+        "travel"
       ],
       "characteristics": [
-        "fine grain",
-        "neutral color",
-        "wide latitude"
+        "very fine grain",
+        "natural color",
+        "wide latitude",
+        "excellent skin tones"
       ],
       "famous_users": [
-        "Mario Testino"
+        "Portrait, wedding and editorial photographers"
       ],
       "ideal_conditions": [
         "daylight",
-        "studio flash",
-        "moderate light"
+        "studio",
+        "mixed light"
       ],
       "processing": [
-        "normal"
+        "C-41",
+        "push 1-2 stops"
       ],
       "era": "1998-present",
       "price_category": "premium",
       "alternatives": [
-        "Fuji Pro 400H",
-        "Kodak UltraMax 400"
+        "Kodak Portra 160",
+        "Fujifilm Pro 400H"
       ]
     },
     "technical_specs": {
@@ -2085,31 +2127,33 @@
       "Very high colour precision"
     ],
     "film_info": {
-      "description": "Kodak Ektar 100 is a professional colour negative film delivering extremely fine grain and very high colour saturation.",
+      "description": "Kodak Ektar 100 is a professional ISO 100 color negative film with extremely fine grain and very high color saturation.",
       "primary_uses": [
         "landscape",
         "nature",
-        "bright outdoor scenes"
+        "commercial"
       ],
       "characteristics": [
         "extremely fine grain",
-        "vivid colour",
-        "high saturation"
+        "very high saturation",
+        "vivid color",
+        "excellent scanability"
       ],
       "famous_users": [
-        "David Doubilet"
+        "Landscape and nature photographers"
       ],
       "ideal_conditions": [
-        "bright sunlight",
-        "vivid scenery"
+        "daylight",
+        "bright outdoor light"
       ],
       "processing": [
-        "normal"
+        "C-41"
       ],
       "era": "2008-present",
       "price_category": "premium",
       "alternatives": [
-        "Fujifilm Velvia 50"
+        "Kodak Portra 160",
+        "Fujifilm Pro 160S"
       ]
     },
     "technical_specs": {
@@ -2172,29 +2216,34 @@
       "Wide highlight latitude"
     ],
     "film_info": {
-      "description": "Kodak Vision3 500T is a high-speed tungsten-balanced motion picture film featuring improved grain and extended highlight latitude.",
+      "description": "Kodak Vision3 500T is a tungsten-balanced (3200 K) ISO 500 color negative motion-picture film with fine grain and wide dynamic range.",
       "primary_uses": [
-        "cinema (low-light, tungsten)"
+        "cinema",
+        "low light",
+        "tungsten lighting"
       ],
       "characteristics": [
-        "higher grain",
-        "rich color",
-        "wide dynamic range"
+        "fine grain",
+        "wide dynamic range",
+        "tungsten balance",
+        "high speed"
       ],
       "famous_users": [
-        "Hollywood cinematographers"
+        "Cinematographers"
       ],
       "ideal_conditions": [
-        "very low light",
-        "night scenes"
+        "tungsten light",
+        "night",
+        "studio"
       ],
       "processing": [
         "ECN-2"
       ],
-      "era": "2012-present",
+      "era": "2007-present",
       "price_category": "premium",
       "alternatives": [
-        "Vision3 250D (tungsten with filter)"
+        "CineStill 800T",
+        "Kodak Vision3 50D"
       ]
     },
     "technical_specs": {
@@ -2257,32 +2306,34 @@
       "Accurate color"
     ],
     "film_info": {
-      "description": "Fujichrome Provia 400X is an ISO 400 slide film offering fine grain and vivid, true-to-life color.",
+      "description": "Fujichrome Provia 400X is a professional ISO 400 E-6 slide film offering fine grain and vivid, accurate color for its speed.",
       "primary_uses": [
-        "professional photography",
-        "fast-paced action",
-        "nature"
+        "nature",
+        "travel",
+        "low-light slide"
       ],
       "characteristics": [
-        "fine grain for 400",
-        "rich color",
-        "good dynamic range"
+        "fine grain for ISO 400",
+        "vivid accurate color",
+        "pushable"
       ],
       "famous_users": [
-        "Specialized slide film users"
+        "Slide-film photographers"
       ],
       "ideal_conditions": [
-        "mixed lighting",
-        "low light with flash"
+        "daylight",
+        "low light",
+        "overcast"
       ],
       "processing": [
-        "E-6"
+        "E-6",
+        "push 1-2 stops"
       ],
-      "era": "2021-present (limited)",
+      "era": "2006-2013 (discontinued)",
       "price_category": "premium",
       "alternatives": [
-        "Provia 100F",
-        "Velvia 100"
+        "Fujichrome Provia 100F",
+        "Kodak Ektachrome E100"
       ]
     },
     "technical_specs": {
@@ -2345,35 +2396,35 @@
       "High sharpness"
     ],
     "film_info": {
-      "description": "Kodak T-Max 400 is a professional ISO 400 B&W film with exceptionally fine grain due to its T-grain emulsion.",
+      "description": "Kodak T-Max 400 is a tabular-grain (T-GRAIN) ISO 400 black-and-white film with exceptionally fine grain and high sharpness for its speed.",
       "primary_uses": [
-        "portrait",
-        "landscape",
-        "general photography",
-        "low light"
+        "documentary",
+        "available light",
+        "fine art"
       ],
       "characteristics": [
-        "fine grain",
+        "fine grain for ISO 400",
         "high sharpness",
-        "smooth tones"
+        "smooth tonality",
+        "pushable"
       ],
       "famous_users": [
-        "Sebasti\u00e3o Salgado"
+        "Documentary and fine-art photographers"
       ],
       "ideal_conditions": [
-        "low to moderate light",
-        "scenic",
-        "fine-detail"
+        "daylight",
+        "low light",
+        "mixed light"
       ],
       "processing": [
-        "normal",
+        "B&W",
         "push 1-2 stops"
       ],
       "era": "1986-present",
       "price_category": "premium",
       "alternatives": [
         "Ilford Delta 400",
-        "Kodak Tri-X 400"
+        "Kodak T-Max 100"
       ]
     },
     "technical_specs": {
@@ -2436,33 +2487,31 @@
       "Good push tolerance"
     ],
     "film_info": {
-      "description": "Ilford HP5 Plus 400 is a high-speed, fine-grain B&W film with medium contrast and outstanding sharpness.",
+      "description": "Ilford HP5 Plus is a classic cubic-grain ISO 400 black-and-white film with a moderately pronounced grain structure and very wide exposure latitude.",
       "primary_uses": [
-        "journalism",
         "documentary",
-        "low light",
-        "general use"
+        "street",
+        "photojournalism"
       ],
       "characteristics": [
-        "fine grain",
-        "medium contrast",
-        "wide latitude",
-        "pushable"
+        "pronounced grain",
+        "good sharpness",
+        "very wide latitude",
+        "pushable to EI 3200"
       ],
       "famous_users": [
-        "Don McCullin",
-        "Steve McCurry"
+        "Documentary and street photographers"
       ],
       "ideal_conditions": [
+        "daylight",
         "low light",
-        "mixed lighting",
-        "high-contrast scenes"
+        "mixed light"
       ],
       "processing": [
-        "normal",
-        "push 1-2 stops"
+        "B&W",
+        "push 1-3 stops"
       ],
-      "era": "1970s-present",
+      "era": "1976 (HP5); 1989-present (HP5 Plus)",
       "price_category": "mid-range",
       "alternatives": [
         "Kodak Tri-X 400",
@@ -2529,32 +2578,33 @@
       "Very fine grain"
     ],
     "film_info": {
-      "description": "Fuji Velvia 100 is a daylight slide film with very high color saturation and fine grain, similar in character to Velvia 50.",
+      "description": "Fujichrome Velvia 100 is a daylight E-6 slide film with very high color saturation, high contrast and fine grain.",
       "primary_uses": [
         "landscape",
-        "advertising",
-        "scenery"
+        "nature",
+        "fine art"
       ],
       "characteristics": [
-        "fine grain",
-        "vivid color",
-        "high contrast"
+        "very high saturation",
+        "high contrast",
+        "fine grain"
       ],
       "famous_users": [
-        "Fine art photographers"
+        "Landscape and nature photographers"
       ],
       "ideal_conditions": [
-        "bright sun",
-        "vivid subjects"
+        "daylight",
+        "sunrise/sunset",
+        "bright outdoor light"
       ],
       "processing": [
         "E-6"
       ],
-      "era": "2005-present",
+      "era": "2005-2021 (discontinued in most markets)",
       "price_category": "premium",
       "alternatives": [
-        "Fuji Velvia 50",
-        "Provia 100F"
+        "Fujichrome Velvia 50",
+        "Fujichrome Provia 100F"
       ]
     },
     "technical_specs": {
@@ -2617,33 +2667,33 @@
       "Excellent skin-tone reproduction"
     ],
     "film_info": {
-      "description": "Fujicolor Pro 160S is a professional ISO 160 colour film delivering exceptionally fine grain, smooth tones and generous latitude.",
+      "description": "Fujicolor Pro 160S is a professional ISO 160 color negative film made for portraits and weddings, with ultra-fine grain and smooth, pastel skin tones.",
       "primary_uses": [
-        "wedding",
         "portrait",
+        "wedding",
         "fashion"
       ],
       "characteristics": [
-        "fine grain",
+        "ultra-fine grain",
         "smooth pastel tones",
-        "wide latitude"
+        "wide exposure latitude"
       ],
       "famous_users": [
-        "Fashion photographers"
+        "Portrait and wedding photographers"
       ],
       "ideal_conditions": [
-        "indoor",
-        "available light",
-        "mixed lighting"
+        "studio",
+        "daylight",
+        "controlled light"
       ],
       "processing": [
-        "normal"
+        "C-41"
       ],
-      "era": "2000-2015",
+      "era": "2004-~2011 (discontinued)",
       "price_category": "premium",
       "alternatives": [
         "Kodak Portra 160",
-        "Fuji Natura 1600 (for more speed)"
+        "Fujifilm Pro 400H"
       ]
     },
     "technical_specs": {
@@ -2706,33 +2756,33 @@
       "Saturated colour palette"
     ],
     "film_info": {
-      "description": "Kodak UltraMax 400 is a high-speed colour negative film aimed at consumers, offering fine grain and vibrant colour for its speed.",
+      "description": "Kodak UltraMax 400 is a consumer ISO 400 color negative film with warm, saturated color and good exposure latitude.",
       "primary_uses": [
-        "low-light snapshots",
-        "indoor without flash",
-        "general photography"
+        "everyday photography",
+        "snapshots",
+        "low light"
       ],
       "characteristics": [
-        "fine grain",
-        "vibrant colours",
-        "high speed"
+        "warm saturated color",
+        "noticeable grain",
+        "good latitude"
       ],
       "famous_users": [
-        "Snap-happy tourists"
+        "Casual photographers"
       ],
       "ideal_conditions": [
+        "daylight",
         "low light",
-        "flash photography",
-        "indoor events"
+        "mixed light"
       ],
       "processing": [
-        "normal"
+        "C-41"
       ],
-      "era": "2007-present",
+      "era": "1997-present",
       "price_category": "budget",
       "alternatives": [
-        "Fuji Superia 400",
-        "Kodak Portra 400"
+        "Kodak Gold 200",
+        "Fujifilm Superia 400"
       ]
     },
     "technical_specs": {
@@ -2795,32 +2845,32 @@
       "Bright color palette"
     ],
     "film_info": {
-      "description": "Agfa Vista 400 is a budget ISO 400 color negative film with high sharpness and saturated colors, aimed at general photography.",
+      "description": "AgfaPhoto Vista 400 is a budget consumer ISO 400 color negative film with saturated color and visibly coarser grain than the 200-speed version.",
       "primary_uses": [
+        "everyday photography",
         "low light",
-        "indoor flash",
-        "general"
+        "street"
       ],
       "characteristics": [
-        "fine grain (for ISO 400)",
-        "vibrant colors",
-        "good sharpness"
+        "visible grain",
+        "saturated color",
+        "good exposure latitude"
       ],
       "famous_users": [
-        "Street photographers (budget)"
+        "Amateur photographers"
       ],
       "ideal_conditions": [
-        "mixed lighting",
-        "flash required"
+        "daylight",
+        "low light"
       ],
       "processing": [
-        "normal"
+        "C-41"
       ],
-      "era": "2013-present",
+      "era": "2005-~2019 (discontinued)",
       "price_category": "budget",
       "alternatives": [
-        "Fuji Superia 400",
-        "Kodak UltraMax 400"
+        "Kodak UltraMax 400",
+        "Fujifilm Superia 400"
       ]
     },
     "technical_specs": {
@@ -2883,32 +2933,33 @@
       "Unique color palette"
     ],
     "film_info": {
-      "description": "Fujifilm Natura 1600 is a specialized ISO 1600 color negative film for low-light, known for its unique color rendition and visible grain.",
+      "description": "Fujicolor Natura 1600 is a high-speed ISO 1600 color negative film developed for low-light and night photography, with visible grain and a distinctive color rendition.",
       "primary_uses": [
-        "nightlife",
-        "indoor no-flash",
-        "party"
+        "low light",
+        "night photography",
+        "available light"
       ],
       "characteristics": [
-        "high grain",
-        "vivid colors",
-        "wide latitude"
+        "high speed (ISO 1600)",
+        "visible grain",
+        "distinctive color"
       ],
       "famous_users": [
-        "Japanese street photographers"
+        "Low-light and night photographers"
       ],
       "ideal_conditions": [
-        "low light",
-        "evening"
+        "night",
+        "indoor ambient",
+        "low light"
       ],
       "processing": [
-        "normal"
+        "C-41"
       ],
-      "era": "2013-2019",
+      "era": "2005-2019 (discontinued)",
       "price_category": "premium",
       "alternatives": [
         "Kodak Portra 800",
-        "CineStill 800T"
+        "Fujifilm Superia 400"
       ]
     },
     "technical_specs": {
@@ -2971,34 +3022,34 @@
       "High definition at ISO 125"
     ],
     "film_info": {
-      "description": "Ilford FP4 Plus is a medium-speed (ISO 125) all-purpose B&W film with very fine grain and outstanding sharpness.",
+      "description": "Ilford FP4 Plus is a classic cubic-grain ISO 125 black-and-white film with fine grain, good sharpness and wide exposure latitude.",
       "primary_uses": [
-        "portraits",
-        "street",
-        "architecture",
-        "landscape"
-      ],
-      "characteristics": [
-        "very fine grain",
-        "medium contrast",
-        "wide latitude"
-      ],
-      "famous_users": [
-        "Annie Leibovitz (some early work)"
-      ],
-      "ideal_conditions": [
-        "good light",
+        "general B&W",
+        "fine art",
         "studio"
       ],
-      "processing": [
-        "normal",
-        "push 1 stop if needed"
+      "characteristics": [
+        "fine grain",
+        "medium contrast",
+        "wide exposure latitude"
       ],
-      "era": "1968-present",
+      "famous_users": [
+        "General and fine-art photographers"
+      ],
+      "ideal_conditions": [
+        "daylight",
+        "studio",
+        "mixed light"
+      ],
+      "processing": [
+        "B&W",
+        "push 1-2 stops"
+      ],
+      "era": "1968 (FP4); 1990-present (FP4 Plus)",
       "price_category": "mid-range",
       "alternatives": [
-        "Kodak T-Max 100",
-        "Ilford Delta 100"
+        "Ilford Delta 100",
+        "Kodak T-Max 100"
       ]
     },
     "technical_specs": {
@@ -3061,32 +3112,34 @@
       "Ideal for high-resolution fine-detail work"
     ],
     "film_info": {
-      "description": "Ilford Pan F Plus is a slow-speed (ISO 50) B&W film offering exceptionally fine grain, razor-sharp detail and high contrast.",
+      "description": "Ilford Pan F Plus 50 is a slow ISO 50 black-and-white film with ultra-fine grain, high sharpness and high contrast.",
       "primary_uses": [
-        "studio",
         "landscape",
-        "product"
+        "studio",
+        "fine art"
       ],
       "characteristics": [
         "ultra-fine grain",
-        "extreme sharpness",
-        "narrow latitude"
+        "high sharpness",
+        "high contrast",
+        "narrow exposure latitude"
       ],
       "famous_users": [
-        "Historical fine-art photographers"
+        "Landscape and studio photographers"
       ],
       "ideal_conditions": [
-        "very bright light",
-        "controlled exposure"
+        "daylight",
+        "studio",
+        "tripod work"
       ],
       "processing": [
-        "normal"
+        "B&W"
       ],
-      "era": "1935-present",
+      "era": "1959 (Pan F); 1994-present (Pan F Plus)",
       "price_category": "premium",
       "alternatives": [
-        "Fuji Neopan Acros 100",
-        "Ilford FP4 Plus"
+        "Kodak T-Max 100",
+        "Ilford Delta 100"
       ]
     },
     "technical_specs": {
