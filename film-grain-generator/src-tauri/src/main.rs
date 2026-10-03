@@ -1,3 +1,6 @@
+// Hides the Windows console window in release builds; `tauri dev` keeps the console.
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
 use serde::{Deserialize, Serialize};
 use image::{ImageBuffer, Rgba, RgbaImage};
 use rand::prelude::*;
