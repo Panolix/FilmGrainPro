@@ -9,6 +9,10 @@ class FilmGrainGenerator {
         this.uploadedImageWidth = 0;
         this.uploadedImageHeight = 0;
         this.updateTimeout = null;
+        this.generationId = 0;
+        this.loadingHideTimeout = null;
+        this.loadingAnimTimeouts = [];
+        this.regenerateLabel = document.getElementById('regenerateBtn').textContent;
         
         this.initializeControls();
     }
@@ -340,7 +344,7 @@ class FilmGrainGenerator {
     async regenerateGrain() {
         const params = this.getGrainParameters();
         const regenerateBtn = document.getElementById('regenerateBtn');
-        const originalText = regenerateBtn.textContent;
+        const requestId = ++this.generationId;
 
         try {
             // Show loading state immediately
@@ -352,9 +356,15 @@ class FilmGrainGenerator {
             
             // Force browser to render the loading bar before heavy computation
             await new Promise(resolve => setTimeout(resolve, 50));
-            
+
+            // A newer request has superseded this one while waiting.
+            if (requestId !== this.generationId) return;
+
             // Call Rust backend for high-performance grain generation
             const result = await invoke('generate_grain', { params });
+
+            // Ignore results from superseded requests so stale grain never wins.
+            if (requestId !== this.generationId) return;
             
             // Convert the raw data to ImageData and display
             this.displayGrainResult(result);
@@ -365,12 +375,14 @@ class FilmGrainGenerator {
             // Hide loading bar
             this.hideLoadingBar();
             
-            regenerateBtn.textContent = originalText;
+            regenerateBtn.textContent = this.regenerateLabel;
             regenerateBtn.disabled = false;
             
         } catch (error) {
+            if (requestId !== this.generationId) return;
             console.error('Error generating grain:', error);
             this.hideLoadingBar();
+            regenerateBtn.textContent = this.regenerateLabel;
             regenerateBtn.disabled = false;
             alert('Error generating grain: ' + error);
         }
@@ -380,6 +392,14 @@ class FilmGrainGenerator {
         const loadingBar = document.getElementById('loadingBar');
         const loadingText = document.getElementById('loadingText');
         const loadingProgress = document.getElementById('loadingProgress');
+        
+        // Cancel any pending hide or in-flight progress animation from a previous run
+        if (this.loadingHideTimeout) {
+            clearTimeout(this.loadingHideTimeout);
+            this.loadingHideTimeout = null;
+        }
+        this.loadingAnimTimeouts.forEach(clearTimeout);
+        this.loadingAnimTimeouts = [];
         
         loadingText.textContent = text;
         loadingProgress.style.width = '0%';
@@ -392,15 +412,15 @@ class FilmGrainGenerator {
         requestAnimationFrame(() => {
             loadingProgress.style.width = '20%';
             
-            setTimeout(() => {
+            this.loadingAnimTimeouts.push(setTimeout(() => {
                 loadingProgress.style.width = '40%';
-            }, 100);
-            setTimeout(() => {
+            }, 100));
+            this.loadingAnimTimeouts.push(setTimeout(() => {
                 loadingProgress.style.width = '70%';
-            }, 200);
-            setTimeout(() => {
+            }, 200));
+            this.loadingAnimTimeouts.push(setTimeout(() => {
                 loadingProgress.style.width = '85%';
-            }, 300);
+            }, 300));
         });
     }
     
@@ -412,8 +432,12 @@ class FilmGrainGenerator {
         loadingProgress.style.width = '100%';
         
         // Hide after a brief moment
-        setTimeout(() => {
+        if (this.loadingHideTimeout) {
+            clearTimeout(this.loadingHideTimeout);
+        }
+        this.loadingHideTimeout = setTimeout(() => {
             loadingBar.style.display = 'none';
+            this.loadingHideTimeout = null;
         }, 200);
     }
     
@@ -548,6 +572,9 @@ class FilmGrainGenerator {
                 img.src = e.target.result;
             };
             reader.readAsDataURL(file);
+
+            // Reset the input so selecting the same file again still fires 'change'
+            event.target.value = '';
             
         } catch (error) {
             console.error('Error loading image:', error);

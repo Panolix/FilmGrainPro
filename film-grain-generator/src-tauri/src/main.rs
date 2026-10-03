@@ -194,6 +194,21 @@ fn variation_data_cached() -> &'static HashMap<String, VariationData> {
     CACHE.get_or_init(|| load_variation_data().unwrap_or_default())
 }
 
+// Raw JSON caches for get_film_info, which needs fields not modelled by FilmStock.
+fn fixed_json_cached() -> &'static serde_json::Value {
+    static CACHE: std::sync::OnceLock<serde_json::Value> = std::sync::OnceLock::new();
+    CACHE.get_or_init(|| {
+        serde_json::from_str(include_str!("../../fixed.json")).unwrap_or(serde_json::Value::Null)
+    })
+}
+
+fn grain_json_cached() -> &'static serde_json::Value {
+    static CACHE: std::sync::OnceLock<serde_json::Value> = std::sync::OnceLock::new();
+    CACHE.get_or_init(|| {
+        serde_json::from_str(include_str!("../../grain_model.json")).unwrap_or(serde_json::Value::Null)
+    })
+}
+
 // Map a published graininess value onto a normalised 0..1 grain index.
 // RMS and PGI use different scales, so normalise within each measurement family.
 fn grain_index(model: Option<&GrainModel>, iso: u32) -> f32 {
@@ -986,9 +1001,16 @@ fn generate_random_positions(params: &GrainParams, count: usize, rng: &mut Threa
 }
 
 fn generate_clustered_positions(params: &GrainParams, count: usize, rng: &mut ThreadRng) -> Vec<(f32, f32)> {
-    let mut positions = Vec::new();
     let cluster_count = (count as f32 * 0.1) as usize; // 10% cluster centers
-    
+
+    // Guard against divide-by-zero when the requested count is too small to
+    // form any cluster centres (falls back to uniform random placement).
+    if cluster_count == 0 {
+        return generate_random_positions(params, count, rng);
+    }
+
+    let mut positions = Vec::new();
+
     // Generate cluster centers
     let cluster_centers: Vec<(f32, f32)> = (0..cluster_count)
         .map(|_| (
@@ -1562,7 +1584,7 @@ struct FilmInfo {
 
 fn fmt_graininess(g: &serde_json::Value) -> Option<String> {
     let metric = g.get("metric")?.as_str()?;
-    let value = g.get("value")?.as_u64()?;
+    let value = g.get("value")?.as_f64()?;
     let scale = g.get("scale").and_then(|v| v.as_str()).unwrap_or("");
     let conf = g.get("confidence").and_then(|v| v.as_str()).unwrap_or("");
     let label = match metric {
@@ -1642,13 +1664,9 @@ fn fmt_resolving(r: &serde_json::Value) -> Option<String> {
 
 #[tauri::command]
 async fn get_film_info(film_name: String) -> Result<FilmInfo, String> {
-    // Comprehensive film info (text) + sourced grain metrics.
-    let json_data = include_str!("../../fixed.json");
-    let stocks_json: serde_json::Value = serde_json::from_str(json_data)
-        .map_err(|e| format!("Failed to parse fixed.json: {}", e))?;
-
-    let grain_json = include_str!("../../grain_model.json");
-    let grain: serde_json::Value = serde_json::from_str(grain_json).unwrap_or(serde_json::Value::Null);
+    // Comprehensive film info (text) + sourced grain metrics (parsed once and cached).
+    let stocks_json = fixed_json_cached();
+    let grain = grain_json_cached();
     let gm = grain.get("films").and_then(|f| f.get(&film_name));
 
     if let Some(stock_data) = stocks_json.get(&film_name) {
@@ -1726,6 +1744,7 @@ fn parse_comprehensive_film_stock(name: &str, data: &serde_json::Value) -> Resul
     let iso = if name.contains("3200") { 3200 }
         else if name.contains("1600") { 1600 }
         else if name.contains("800") { 800 }
+        else if name.contains("500") { 500 }
         else if name.contains("400") { 400 }
         else if name.contains("200") { 200 }
         else if name.contains("160") { 160 }
