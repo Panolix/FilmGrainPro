@@ -373,7 +373,12 @@ async fn generate_grain(params: GrainParams) -> Result<GrainResult, String> {
     apply_halation_effect(&mut grains, stock, &params);
     
     // Render on the CPU (multi-threaded via Rayon)
-    let image_data = render_grains_parallel(&grains, &params, stock)?;
+    let aging = compute_aging_effects(
+        params.film_age_years.unwrap_or(0.0),
+        params.storage_temp.unwrap_or(20.0),
+        &stock.basic_info.film_type,
+    );
+    let image_data = render_grains_parallel(&grains, &params, stock, aging)?;
     
     let generation_time = start_time.elapsed().as_millis();
     
@@ -632,13 +637,12 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_d
             }
         };
         
-        // Sourced grain size: log-normal-ish around the model mean, bounded by min/max.
+        // Sourced grain size: lognormal as declared in grain_model.json (mean-preserving,
+        // with the coarse long tail that the previous normal approximation flattened).
         let size_range_um = match model.and_then(|m| m.grain_size_um.as_ref()) {
             Some(sz) => {
                 let sigma = sz.sigma.unwrap_or(0.35);
-                // Approx N(0,1) from three uniforms (mean 0, variance ~1).
-                let g = (rng.gen::<f32>() + rng.gen::<f32>() + rng.gen::<f32>() - 1.5) * 2.0;
-                (sz.mean * (1.0 + sigma * g)).clamp(sz.min, sz.max)
+                (sz.mean * (sigma * approx_normal(&mut rng) - 0.5 * sigma * sigma).exp()).clamp(sz.min, sz.max)
             }
             None => rng.gen_range(size_min_um..=size_max_um),
         };
@@ -672,13 +676,14 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_d
         let (push_size_mult, push_opacity_mult) = push_response(model, params.exposure_compensation);
         size *= push_size_mult;
 
-        let mut opacity = (base_opacity * contrast_factor * opacity_variation * push_opacity_mult).min(1.0).max(0.05);
+        let mut opacity = (base_opacity * contrast_factor * opacity_variation * push_opacity_mult).clamp(0.05, 1.0);
 
-        // 🚀 ENHANCED: Apply aging effects directly from UI parameters
+        // Aging: fog development and contrast loss raise grain visibility slightly.
         if let Some(age_years) = params.film_age_years {
             if age_years > 0.0 {
                 let storage_temp = params.storage_temp.unwrap_or(20.0);
-                opacity = apply_realistic_aging_effects(opacity, size, age_years, storage_temp, &stock.basic_info.film_type);
+                let aging = compute_aging_effects(age_years, storage_temp, &stock.basic_info.film_type);
+                opacity = (opacity * aging.grain_boost).min(0.85);
             }
         }
 
@@ -715,42 +720,60 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_d
     Ok(grains)
 }
 
-fn apply_realistic_clustering(grains: &mut Vec<Grain>, rng: &mut ThreadRng, width: u32, height: u32, strength: f32, cluster_size_range: (usize, usize)) {
-    let cluster_count = (grains.len() as f32 * strength * 0.1) as usize; // 10% of grains form clusters
-    
-    for _ in 0..cluster_count {
-        if grains.is_empty() { break; }
-        
-        let seed_idx = rng.gen_range(0..grains.len());
-        let seed_grain = grains[seed_idx];
-        
-        // Use cluster size range from JSON data
-        let cluster_size = rng.gen_range(cluster_size_range.0..=cluster_size_range.1);
-        
-        let cluster_spread = seed_grain.size * 2.0;
-        
-        for _ in 0..cluster_size {
-            let distance = rng.gen::<f32>() * cluster_spread;
-            let angle = rng.gen::<f32>() * 2.0 * std::f32::consts::PI;
-            
-            let x = seed_grain.x + angle.cos() * distance;
-            let y = seed_grain.y + angle.sin() * distance;
-            
-            if x >= 0.0 && y >= 0.0 && x < width as f32 && y < height as f32 {
-                grains.push(Grain {
-                    x,
-                    y,
-                    size: seed_grain.size * rng.gen_range(0.8..1.2),
-                    opacity: seed_grain.opacity * rng.gen_range(0.9..1.1),
-                    shape_factor: seed_grain.shape_factor,
-                    halation: seed_grain.halation,
-                });
-            }
-        }
+// Thomas (Neyman-Scott) cluster process: a strength-scaled random subset of grains is
+// repositioned as Gaussian-scattered offspring of randomly chosen parents, so clumps
+// form irregular chains of overlapping grains (as developed silver does) instead of
+// discrete duplicated blobs. Grain count is preserved exactly; the unclustered
+// remainder stays a uniform random background.
+fn apply_realistic_clustering(grains: &mut [Grain], rng: &mut ThreadRng, width: u32, height: u32, strength: f32, cluster_size_range: (usize, usize)) {
+    if grains.is_empty() || strength <= 0.0 {
+        return;
+    }
+    let (_lo, hi) = cluster_size_range;
+    if hi <= 1 {
+        return; // "single_grains": isolated grains by definition
+    }
+
+    let clustered_fraction = (strength * 0.5).clamp(0.05, 0.5);
+    let n_clustered = ((grains.len() as f32 * clustered_fraction) as usize).min(grains.len());
+    if n_clustered == 0 {
+        return;
+    }
+
+    let mean_offspring = (((cluster_size_range.0 + cluster_size_range.1) as f32) * 0.5).max(2.0);
+    let n_parents = ((n_clustered as f32 / mean_offspring).ceil() as usize).max(1);
+
+    // Partial Fisher-Yates shuffle: grains[0..n_clustered] become a uniform random
+    // subset to reposition; the rest keep their independent positions.
+    let n = grains.len();
+    for i in 0..n_clustered {
+        grains.swap(i, rng.gen_range(i..n));
+    }
+
+    // Copy parents out before their slots can be overwritten by offspring.
+    let parents: Vec<Grain> = (0..n_parents)
+        .map(|_| grains[rng.gen_range(0..n)])
+        .collect();
+
+    for g in &mut grains[..n_clustered] {
+        let parent = &parents[rng.gen_range(0..parents.len())];
+        // Offspring spread scales with the parent grain, so clump diameter lands
+        // roughly an order of magnitude above the grain size.
+        let sigma = parent.size * rng.gen_range(1.5..2.5);
+        let dx = approx_normal(rng) * sigma;
+        let dy = approx_normal(rng) * sigma;
+        *g = Grain {
+            x: (parent.x + dx).rem_euclid(width as f32),
+            y: (parent.y + dy).rem_euclid(height as f32),
+            size: (parent.size * rng.gen_range(0.8..1.2)).max(0.3),
+            opacity: (parent.opacity * rng.gen_range(0.9..1.1)).clamp(0.05, 1.0),
+            shape_factor: parent.shape_factor,
+            halation: parent.halation,
+        };
     }
 }
 
-fn render_grains_parallel(grains: &[Grain], params: &GrainParams, stock: &FilmStock) -> Result<Vec<u8>, String> {
+fn render_grains_parallel(grains: &[Grain], params: &GrainParams, stock: &FilmStock, aging: AgingEffects) -> Result<Vec<u8>, String> {
     let render_start = std::time::Instant::now();
     let num_threads = rayon::current_num_threads();
     println!("Rendering {} grains for {} using {} CPU threads", grains.len(), stock.basic_info.name, num_threads);
@@ -764,7 +787,7 @@ fn render_grains_parallel(grains: &[Grain], params: &GrainParams, stock: &FilmSt
     }
     
     // Optimize chunk size for better load balancing
-    let optimal_chunk_size = (grains.len() / (num_threads * 4)).max(100).min(1000);
+    let optimal_chunk_size = (grains.len() / (num_threads * 4)).clamp(100, 1000);
     let grain_chunks: Vec<&[Grain]> = grains.chunks(optimal_chunk_size).collect();
     
     // Process each chunk in parallel with pre-allocated capacity
@@ -785,7 +808,7 @@ fn render_grains_parallel(grains: &[Grain], params: &GrainParams, stock: &FilmSt
     // Apply all rendered pixels to the main image (sequential to avoid race conditions)
     // Try SIMD optimization for large pixel counts
     let total_pixels: usize = rendered_pixels.iter().map(|chunk| chunk.len()).sum();
-    
+
     if total_pixels > 500 {  // Lower threshold for SIMD
         // Use SIMD for medium+ workloads
         println!("🚀 Using SIMD optimization for {} pixels", total_pixels);
@@ -798,7 +821,34 @@ fn render_grains_parallel(grains: &[Grain], params: &GrainParams, stock: &FilmSt
                 if x < params.width && y < params.height {
                     // Use regular pixel access (bounds already checked)
                     let pixel = img.get_pixel_mut(x, y);
-                    blend_pixel_fast(pixel, color);
+                    blend_pixel(pixel, color);
+                }
+            }
+        }
+    }
+
+    // Aging base fog: a faint, slightly noisy veil that lifts the black point, the
+    // way an aged negative scans milky. Fresh film contributes almost nothing;
+    // decades of warm storage go visibly grey (warm-grey for colour film, whose
+    // blue-sensitive dyes fade first).
+    if aging.fog_density > 0.001 {
+        let warm = aging.warm_shift;
+        let veil_rgb = [
+            (255.0 * (1.0 - 0.10 * warm)) as u8,
+            (255.0 * (1.0 - 0.22 * warm)) as u8,
+            (255.0 * (1.0 - 0.40 * warm)) as u8,
+        ];
+        // Veil brightness over black: ~1.5 code values per 0.01 D of fog, capped so
+        // extreme fog reads as milky grey rather than washing the frame out. The
+        // small deterministic noise keeps the veil from looking synthetically flat.
+        let base_alpha = (aging.fog_density * 0.6 * 255.0).min(70.0);
+        for y in 0..params.height {
+            for x in 0..params.width {
+                let n = hash01(x, y);
+                let a = (base_alpha * (0.85 + 0.3 * n)) as u8;
+                if a > 0 {
+                    let pixel = img.get_pixel_mut(x, y);
+                    blend_pixel(pixel, Rgba([veil_rgb[0], veil_rgb[1], veil_rgb[2], a]));
                 }
             }
         }
@@ -854,7 +904,7 @@ fn render_grain_to_pixels(grain: &Grain, stock: &FilmStock, params: &GrainParams
     // Gamma-mapped so the opacity slider has effect without saturating immediately.
     let alpha = ((grain.opacity.powf(0.8)) * 255.0).clamp(20.0, 255.0) as u8;
     // Pre-allocate pixels vector with estimated capacity
-    let estimated_pixels = ((radius * radius) as f32 * 3.14159) as usize;
+    let estimated_pixels = ((radius * radius) as f32 * std::f32::consts::PI) as usize;
     let mut pixels = Vec::with_capacity(estimated_pixels);
     
     // Optimized grain rendering with fewer calculations
@@ -986,12 +1036,29 @@ fn parse_json_cluster_size_range(cluster_size: &str) -> (usize, usize) {
 // 🚀 NEW: Generate pattern-based grain positions using JSON pattern data
 fn generate_pattern_based_positions(pattern: &str, params: &GrainParams, count: usize, rng: &mut ThreadRng) -> Vec<(f32, f32)> {
     match pattern {
-        "random" => generate_random_positions(params, count, rng),
-        "clustered" => generate_clustered_positions(params, count, rng),
+        // Clustering is handled in one place, by apply_realistic_clustering's
+        // Thomas process; "clustered" films start from uniform random positions too.
+        "clustered" => generate_random_positions(params, count, rng),
         "regular" => generate_regular_positions(params, count, rng),
         "poisson" => generate_poisson_positions(params, count, rng),
         _ => generate_random_positions(params, count, rng), // Default
     }
+}
+
+// Approximate N(0,1) from three uniforms (mean 0, variance 1).
+fn approx_normal(rng: &mut ThreadRng) -> f32 {
+    (rng.gen::<f32>() + rng.gen::<f32>() + rng.gen::<f32>() - 1.5) * 2.0
+}
+
+// Cheap deterministic per-pixel noise in 0..1 (stateless, so row-iteration and
+// parallel callers stay consistent). Two multiply-xorshift rounds give proper
+// bit avalanche - a single multiply leaves visible banding for small coordinates.
+fn hash01(x: u32, y: u32) -> f32 {
+    let mut h = x.wrapping_mul(0x9E37_79B1) ^ y.wrapping_mul(0x85EB_CA77);
+    h ^= h >> 13;
+    h = h.wrapping_mul(0xC2B2_AE3D);
+    h ^= h >> 16;
+    (h >> 8) as f32 / 16_777_216.0
 }
 
 fn generate_random_positions(params: &GrainParams, count: usize, rng: &mut ThreadRng) -> Vec<(f32, f32)> {
@@ -1001,43 +1068,6 @@ fn generate_random_positions(params: &GrainParams, count: usize, rng: &mut Threa
             rng.gen::<f32>() * params.height as f32,
         ))
         .collect()
-}
-
-fn generate_clustered_positions(params: &GrainParams, count: usize, rng: &mut ThreadRng) -> Vec<(f32, f32)> {
-    let cluster_count = (count as f32 * 0.1) as usize; // 10% cluster centers
-
-    // Guard against divide-by-zero when the requested count is too small to
-    // form any cluster centres (falls back to uniform random placement).
-    if cluster_count == 0 {
-        return generate_random_positions(params, count, rng);
-    }
-
-    let mut positions = Vec::new();
-
-    // Generate cluster centers
-    let cluster_centers: Vec<(f32, f32)> = (0..cluster_count)
-        .map(|_| (
-            rng.gen::<f32>() * params.width as f32,
-            rng.gen::<f32>() * params.height as f32,
-        ))
-        .collect();
-    
-    // Distribute grains around cluster centers
-    for i in 0..count {
-        if i < cluster_centers.len() {
-            positions.push(cluster_centers[i]);
-        } else {
-            let center = cluster_centers[i % cluster_centers.len()];
-            let angle = rng.gen::<f32>() * 2.0 * std::f32::consts::PI;
-            let distance = rng.gen::<f32>() * 50.0; // Cluster radius
-            
-            let x = (center.0 + angle.cos() * distance).clamp(0.0, params.width as f32);
-            let y = (center.1 + angle.sin() * distance).clamp(0.0, params.height as f32);
-            positions.push((x, y));
-        }
-    }
-    
-    positions
 }
 
 fn generate_regular_positions(params: &GrainParams, count: usize, rng: &mut ThreadRng) -> Vec<(f32, f32)> {
@@ -1070,8 +1100,8 @@ fn generate_regular_positions(params: &GrainParams, count: usize, rng: &mut Thre
 
 fn generate_poisson_positions(params: &GrainParams, count: usize, rng: &mut ThreadRng) -> Vec<(f32, f32)> {
     // Simplified Poisson disk sampling
-    let mut positions = Vec::new();
-    let min_distance = 3.0; // Minimum distance between grains
+    let mut positions: Vec<(f32, f32)> = Vec::new();
+    let min_distance: f32 = 3.0; // Minimum distance between grains
     let max_attempts = 30;
     
     while positions.len() < count {
@@ -1088,7 +1118,7 @@ fn generate_poisson_positions(params: &GrainParams, count: usize, rng: &mut Thre
             for &(px, py) in &positions {
                 let dx = candidate.0 - px;
                 let dy = candidate.1 - py;
-                if ((dx * dx + dy * dy) as f32).sqrt() < min_distance {
+                if (dx * dx + dy * dy).sqrt() < min_distance {
                     valid = false;
                     break;
                 }
@@ -1237,38 +1267,41 @@ fn get_iso_irregularity_factor(iso: u32) -> f32 {
 }
 
 // 🚀 NEW: Apply realistic aging effects based on UI parameters
-fn apply_realistic_aging_effects(opacity: f32, _size: f32, age_years: f32, storage_temp: f32, film_type: &str) -> f32 {
-    // Storage condition multiplier
-    let storage_multiplier = if storage_temp < 10.0 { 
-        0.3 // Refrigerated storage (much slower aging)
-    } else if storage_temp < 20.0 {
-        0.6 // Cool storage
-    } else {
-        1.0 // Room temperature storage
+#[derive(Debug, Clone, Copy)]
+struct AgingEffects {
+    /// Uniform base-fog veil density in D units, 0 (fresh) .. ~0.5 (heavily fogged).
+    fog_density: f32,
+    /// 0 = neutral veil, 1 = fully warm-shifted veil (colour films only).
+    warm_shift: f32,
+    /// Small relative boost to grain visibility as fog lowers scene contrast.
+    grain_boost: f32,
+}
+
+// Physical-ish aging model. Storage temperature follows the Q10 rule (chemical fog
+// grows roughly twice as fast per +10 °C, so freezer storage is ~14x slower than
+// room temperature). Fog rises exponentially toward a floor - base fog cannot exceed
+// ~0.4-0.5 D no matter the age - instead of scaling grain opacity without bound.
+// B&W emulsions fog markedly slower than colour film's three dye layers.
+fn compute_aging_effects(age_years: f32, storage_temp: f32, film_type: &str) -> AgingEffects {
+    if age_years <= 0.0 {
+        return AgingEffects { fog_density: 0.0, warm_shift: 0.0, grain_boost: 1.0 };
+    }
+
+    let rate = 2.0f32.powf((storage_temp - 20.0) / 10.0);
+    let effective_age = age_years * rate;
+
+    let (tau_years, fog_max) = match film_type {
+        "color" => (12.0, 0.45),
+        _ => (25.0, 0.35),
     };
-    
-    let effective_age = age_years * storage_multiplier;
-    
-    // Film type aging characteristics
-    let aging_factor = match film_type {
-        "color" => {
-            // Color films age more noticeably
-            // Increased fog, color shifts, more prominent grain
-            (effective_age * 0.12).min(0.6) // Max 60% aging effect
-        },
-        "bw" => {
-            // B&W films age more gracefully
-            // Slight increase in grain, minimal fog
-            (effective_age * 0.08).min(0.4) // Max 40% aging effect
-        },
-        _ => (effective_age * 0.1).min(0.5), // Default
-    };
-    
-    // Apply aging to opacity (more prominent grain with age)
-    let aged_opacity = opacity * (1.0 + aging_factor * 0.3);
-    
-    // Cap opacity to prevent over-aging
-    aged_opacity.min(0.85)
+    let fog_density = fog_max * (1.0 - (-effective_age / tau_years).exp());
+
+    // Dye fading in colour film strikes blue-sensitive dyes first -> warm drift.
+    let warm_shift = if film_type == "color" { (fog_density / fog_max).min(1.0) } else { 0.0 };
+
+    let grain_boost = 1.0 + 0.25 * (fog_density / fog_max);
+
+    AgingEffects { fog_density, warm_shift, grain_boost }
 }
 
 fn apply_color_crossover(grain_color: &mut [f32; 3], crossover: &ColorCrossover) {
@@ -1290,26 +1323,32 @@ fn apply_color_crossover(grain_color: &mut [f32; 3], crossover: &ColorCrossover)
     }
 }
 
+// Standard source-over compositing with unpremultiplied RGBA storage: overlapping
+// grains accumulate coverage toward opacity instead of saturating, and the stored
+// RGB stays the grain colour so saved overlays composite cleanly over any content.
 fn blend_pixel(base_pixel: &mut Rgba<u8>, new_pixel: Rgba<u8>) {
-    let blend_factor = new_pixel[3] as f32 / 255.0;
-    base_pixel[0] = ((base_pixel[0] as f32 * (1.0 - blend_factor)) + (new_pixel[0] as f32 * blend_factor)) as u8;
-    base_pixel[1] = ((base_pixel[1] as f32 * (1.0 - blend_factor)) + (new_pixel[1] as f32 * blend_factor)) as u8;
-    base_pixel[2] = ((base_pixel[2] as f32 * (1.0 - blend_factor)) + (new_pixel[2] as f32 * blend_factor)) as u8;
-    base_pixel[3] = ((base_pixel[3] as f32).max(new_pixel[3] as f32)) as u8;
-}
-
-#[inline(always)]
-fn blend_pixel_fast(base_pixel: &mut Rgba<u8>, new_pixel: Rgba<u8>) {
-    if new_pixel[3] == 0 { return; } // Skip transparent pixels
-    
-    // Use integer math for better performance
-    let alpha = new_pixel[3] as u16;
-    let inv_alpha = 255 - alpha;
-    
-    base_pixel[0] = (((base_pixel[0] as u16 * inv_alpha) + (new_pixel[0] as u16 * alpha)) >> 8) as u8;
-    base_pixel[1] = (((base_pixel[1] as u16 * inv_alpha) + (new_pixel[1] as u16 * alpha)) >> 8) as u8;
-    base_pixel[2] = (((base_pixel[2] as u16 * inv_alpha) + (new_pixel[2] as u16 * alpha)) >> 8) as u8;
-    base_pixel[3] = ((base_pixel[3] as u16 + alpha).min(255)) as u8;
+    let sa = new_pixel[3] as u32;
+    if sa == 0 {
+        return;
+    }
+    if sa == 255 {
+        *base_pixel = new_pixel;
+        return;
+    }
+    let da = base_pixel[3] as u32;
+    let out_a = (sa + da * (255 - sa) / 255).min(255);
+    let src_num = sa * 255;
+    let dst_num = da * (255 - sa);
+    let den = out_a * 255;
+    let mix = |s: u8, d: u8| -> u8 {
+        (((s as u32 * src_num + d as u32 * dst_num) + den / 2) / den) as u8
+    };
+    *base_pixel = Rgba([
+        mix(new_pixel[0], base_pixel[0]),
+        mix(new_pixel[1], base_pixel[1]),
+        mix(new_pixel[2], base_pixel[2]),
+        out_a as u8,
+    ]);
 }
 
 
@@ -2056,6 +2095,44 @@ mod tests {
         assert!(op("Kodak Tri-X 400", -2.0) < 1.0);
     }
 
+    #[test]
+    fn aging_fog_grows_monotonically_and_saturates() {
+        let f = |age: f32| compute_aging_effects(age, 20.0, "bw_neg").fog_density;
+        assert_eq!(f(0.0), 0.0, "fresh film has no fog");
+        assert!(f(1.0) > 0.0);
+        assert!(f(5.0) > f(1.0));
+        assert!(f(20.0) > f(5.0));
+        // Fog cannot exceed its floor no matter the age.
+        let extreme = compute_aging_effects(200.0, 20.0, "bw_neg");
+        assert!(extreme.fog_density <= 0.35 + 1e-4);
+        assert!(extreme.grain_boost < 1.3, "grain boost stays a minor term");
+    }
+
+    #[test]
+    fn cold_storage_slows_fog_per_q10() {
+        let fog_at = |temp: f32| compute_aging_effects(10.0, temp, "color_neg").fog_density;
+        let freezer = fog_at(-18.0);
+        let fridge = fog_at(4.0);
+        let room = fog_at(20.0);
+        let hot = fog_at(30.0);
+        assert!(freezer < fridge && fridge < room && room < hot);
+        // Q10: ~4 °C is 16 °C below room -> rate factor 2^-1.6 ≈ 0.33.
+        assert!(fridge < room * 0.5, "fridge storage should halve fog growth");
+        // Freezer (~-18 °C) should suppress fog by more than 10x vs room.
+        assert!(freezer < room * 0.1);
+    }
+
+    #[test]
+    fn colour_film_fogs_faster_and_warmer_than_bw() {
+        // film_type strings follow basic_info.film_type ("color" / "bw"), as passed
+        // by the render call site.
+        let color = compute_aging_effects(10.0, 20.0, "color");
+        let bw = compute_aging_effects(10.0, 20.0, "bw");
+        assert!(color.fog_density > bw.fog_density);
+        assert!(color.warm_shift > 0.0, "colour film drifts warm with age");
+        assert_eq!(bw.warm_shift, 0.0, "B&W fog stays neutral");
+    }
+
     /// End-to-end render: generate + rasterise a handful of films, assert the output
     /// contains visible grain with the expected ordering, and write preview PNGs.
     #[test]
@@ -2069,7 +2146,8 @@ mod tests {
             let grains = generate_grains_advanced(stock, &p, None, models.get(name)).unwrap();
             let mean_op = grains.iter().map(|g| g.opacity).sum::<f32>() / grains.len() as f32;
             let mean_size = grains.iter().map(|g| g.size).sum::<f32>() / grains.len() as f32;
-            let data = render_grains_parallel(&grains, &p, stock).unwrap();
+            let aging = compute_aging_effects(0.0, 20.0, &stock.basic_info.film_type);
+            let data = render_grains_parallel(&grains, &p, stock, aging).unwrap();
             let npx = data.len() / 4;
             let mut a_sum: u64 = 0;
             for i in 0..npx {
@@ -2110,7 +2188,8 @@ mod tests {
         ] {
             let stock = &stocks[name];
             let grains = generate_grains_advanced(stock, &p, None, models.get(name)).unwrap();
-            let data = render_grains_parallel(&grains, &p, stock).unwrap();
+            let aging = compute_aging_effects(0.0, 20.0, &stock.basic_info.film_type);
+            let data = render_grains_parallel(&grains, &p, stock, aging).unwrap();
             let mut img: RgbaImage =
                 ImageBuffer::from_raw(p.width, p.height, data).expect("valid image buffer");
             for px in img.pixels_mut() {
@@ -2122,6 +2201,25 @@ mod tests {
             }
             let file = out.join(format!("{}.png", name.replace(' ', "_")));
             img.save(&file).expect("preview should save");
+        }
+
+        // Aged previews: room-storage B&W and colour, to eyeball the fog veil.
+        for (name, suffix) in [("Kodak Tri-X 400", "aged15y_bw"), ("CineStill 800T", "aged15y_color")] {
+            let stock = &stocks[name];
+            let grains = generate_grains_advanced(stock, &p, None, models.get(name)).unwrap();
+            let aging = compute_aging_effects(15.0, 20.0, &stock.basic_info.film_type);
+            let data = render_grains_parallel(&grains, &p, stock, aging).unwrap();
+            let mut img: RgbaImage =
+                ImageBuffer::from_raw(p.width, p.height, data).expect("valid image buffer");
+            for px in img.pixels_mut() {
+                let a = px[3] as u16;
+                px[0] = ((px[0] as u16 * a) / 255) as u8;
+                px[1] = ((px[1] as u16 * a) / 255) as u8;
+                px[2] = ((px[2] as u16 * a) / 255) as u8;
+                px[3] = 255;
+            }
+            let file = out.join(format!("{}_{}.png", name.replace(' ', "_"), suffix));
+            img.save(&file).expect("aged preview should save");
         }
     }
 

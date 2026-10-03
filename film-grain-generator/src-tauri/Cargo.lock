@@ -903,7 +903,7 @@ dependencies = [
 
 [[package]]
 name = "film-grain-generator"
-version = "2.2.2"
+version = "2.2.3"
 dependencies = [
  "base64 0.21.7",
  "dirs 5.0.1",
