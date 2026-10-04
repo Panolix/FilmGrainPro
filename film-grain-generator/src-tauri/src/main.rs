@@ -590,8 +590,13 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_d
         _ => (stock.size_metrics.min_size_um, stock.size_metrics.max_size_um),
     };
 
-    // Use film stock's actual density as base, then apply user density multiplier
+    // The canvas is a film frame, not a fixed texture: a larger canvas is just a
+    // higher-resolution scan of the same frame. Grain count stays at the 1024px
+    // baseline (so extending the canvas never changes how dense the grain looks)
+    // while the grain itself grows in pixels with the canvas (see size below).
     let canvas_area_ratio = (params.width * params.height) as f32 / (1024.0 * 1024.0);
+    let canvas_linear_scale = canvas_area_ratio.sqrt().max(1.0);
+    let resolved_area_ratio = canvas_area_ratio.min(1.0);
     let user_density_multiplier = params.grain_density as f32 / 1000.0; // Convert from 0.5-5.0 range
 
     // Count is calibrated from the sourced grain size instead of the unpublished
@@ -605,7 +610,7 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_d
         .max(0.2);
     let size_scale = (0.9 / mean_size_um).powi(2).clamp(0.3, 3.0);
     let final_grain_count =
-        (70000.0 * canvas_area_ratio * user_density_multiplier * size_scale) as usize;
+        (70000.0 * resolved_area_ratio * user_density_multiplier * size_scale) as usize;
     println!("Grain: {} | index {:.2} | mean {:.2} um | {:.1}x | {} grains",
              stock.basic_info.name, gi, mean_size_um, user_density_multiplier, final_grain_count);
 
@@ -648,7 +653,12 @@ fn generate_grains_advanced(stock: &FilmStock, params: &GrainParams, variation_d
         };
         let shape_size_factor = get_shape_size_factor(&shape_key, &mut rng);
         let base_size = size_range_um * 0.5 * shape_size_factor;
-        let mut size = (base_size * size_factor * params.size_multiplier).max(0.3);
+        // The 0.56px floor matches the single-pixel splat used by the rasteriser,
+        // scaled with the canvas so the smallest grains keep the same apparent
+        // size relative to the frame at every resolution.
+        let min_render_size = 0.56 * canvas_linear_scale;
+        let mut size = (base_size * size_factor * params.size_multiplier * canvas_linear_scale)
+            .max(min_render_size);
 
         // Amplitude anchored on published graininess: fine-grained films stay subtle,
         // coarse-grained films render stronger. The opacity slider still scales it.
@@ -867,16 +877,6 @@ thread_local! {
 }
 
 fn render_grain_to_pixels(grain: &Grain, stock: &FilmStock, params: &GrainParams) -> Vec<(u32, u32, Rgba<u8>)> {
-    let center_x = grain.x as i32;
-    let center_y = grain.y as i32;
-    let radius = grain.size as i32;
-    
-    // Early bounds check - skip grains completely outside canvas
-    if center_x + radius < 0 || center_y + radius < 0 || 
-       center_x - radius >= params.width as i32 || center_y - radius >= params.height as i32 {
-        return Vec::new();
-    }
-    
     // 🚀 NEW: Enhanced color film simulation with multi-layer rendering
     let (mut final_r, mut final_g, mut final_b) = if stock.basic_info.film_type == "color" {
         render_color_film_grain(grain, stock, params)
@@ -903,67 +903,77 @@ fn render_grain_to_pixels(grain: &Grain, stock: &FilmStock, params: &GrainParams
     // apply the JSON contrast multiplier again here (it double-counted it previously).
     // Gamma-mapped so the opacity slider has effect without saturating immediately.
     let alpha = ((grain.opacity.powf(0.8)) * 255.0).clamp(20.0, 255.0) as u8;
-    // Pre-allocate pixels vector with estimated capacity
-    let estimated_pixels = ((radius * radius) as f32 * std::f32::consts::PI) as usize;
-    let mut pixels = Vec::with_capacity(estimated_pixels);
-    
-    // Optimized grain rendering with fewer calculations
-    let grain_size_sq = grain.size * grain.size;
-    let shape_factor_inv = 1.0 / grain.shape_factor;
-    
-    // 🆕 ENHANCEMENT 6: Enhanced edge rendering based on JSON edge_type
-    let edge_softness = get_json_edge_softness(&stock.grain_structure.edge_type);
-    
-    for dy in -radius..=radius {
-        let dy_sq = (dy * dy) as f32;
+
+    // Semi-axes of the grain ellipse in pixels (shape_factor squashes the x axis).
+    let r_y = grain.size;
+    let r_x = (grain.size * grain.shape_factor).max(0.05);
+    let r_max = r_x.max(r_y);
+    let mut pixels = Vec::new();
+
+    // Grains smaller than a pixel either vanish or rasterise as axis-aligned
+    // blocks/bars, so they are splatted as a single crisp pixel instead.
+    if r_max < 0.7 {
+        let x = grain.x.floor() as i32;
+        let y = grain.y.floor() as i32;
+        if x >= 0 && y >= 0 && (x as u32) < params.width && (y as u32) < params.height {
+            pixels.push((x as u32, y as u32, Rgba([final_r, final_g, final_b, alpha])));
+        }
+        return pixels;
+    }
+
+    let center_x = grain.x.floor() as i32;
+    let center_y = grain.y.floor() as i32;
+    // One pixel of margin on top of the grain plus the anti-aliased edge band.
+    let edge_softness = get_json_edge_softness(&stock.grain_structure.edge_type).clamp(0.4, 2.0);
+    let extent = (r_max + edge_softness + 1.0).ceil() as i32;
+
+    // Early bounds check - skip grains completely outside canvas
+    if center_x + extent < 0 || center_y + extent < 0 ||
+       center_x - extent >= params.width as i32 || center_y - extent >= params.height as i32 {
+        return Vec::new();
+    }
+
+    let cx = grain.x;
+    let cy = grain.y;
+
+    for dy in -extent..=extent {
         let y = center_y + dy;
-        
-        // Skip entire row if outside bounds
         if y < 0 || y >= params.height as i32 {
             continue;
         }
-        
-        for dx in -radius..=radius {
+        let py = y as f32 + 0.5;
+
+        for dx in -extent..=extent {
             let x = center_x + dx;
-            
-            // Quick bounds check
             if x < 0 || x >= params.width as i32 {
                 continue;
             }
-            
-            // Fast distance calculation with shape factor
-            let adjusted_dx = dx as f32 * shape_factor_inv;
-            let distance_sq = adjusted_dx * adjusted_dx + dy_sq;
-            
-            if distance_sq <= grain_size_sq {
-                // Enhanced edge calculation using JSON edge_type data
-                let distance = distance_sq.sqrt();
-                let edge_alpha = if stock.grain_structure.edge_type == "soft" {
-                    if distance > grain.size * 0.6 {
-                        ((grain.size - distance) / (grain.size * 0.4 * edge_softness)).max(0.0)
-                    } else {
-                        1.0
-                    }
-                } else if stock.grain_structure.edge_type == "hard" {
-                    if distance > grain.size * 0.98 { 0.0 } else { 1.0 }
-                } else {
-                    // Sharp edge (default) with configurable softness
-                    if distance > grain.size * 0.85 {
-                        ((grain.size - distance) / (grain.size * 0.15 * edge_softness)).max(0.0)
-                    } else {
-                        1.0
-                    }
-                };
-                
-                let final_alpha = (alpha as f32 * edge_alpha) as u8;
-                
-                if final_alpha > 10 {
-                    pixels.push((x as u32, y as u32, Rgba([final_r, final_g, final_b, final_alpha])));
-                }
+            let px = x as f32 + 0.5;
+
+            // Normalised elliptical distance: < 1 inside, 1 on the edge.
+            let ddx = px - cx;
+            let ddy = py - cy;
+            let q = ((ddx / r_x).powi(2) + (ddy / r_y).powi(2)).sqrt();
+
+            // Approximate distance from the pixel centre to the grain edge, in
+            // pixels (gradient of the implicit ellipse function). This gives a
+            // round, anti-aliased dot instead of the old snapped boxes and bars.
+            let d_px = if q < 1e-4 {
+                r_x.min(r_y)
+            } else {
+                let grad = ((ddx / (r_x * r_x)).powi(2) + (ddy / (r_y * r_y)).powi(2)).sqrt();
+                (1.0 - q) * q / grad
+            };
+            let edge_alpha = (0.5 + d_px / edge_softness).clamp(0.0, 1.0);
+
+            let final_alpha = (alpha as f32 * edge_alpha) as u8;
+
+            if final_alpha > 6 {
+                pixels.push((x as u32, y as u32, Rgba([final_r, final_g, final_b, final_alpha])));
             }
         }
     }
-    
+
     pixels
 }
 
@@ -2221,6 +2231,47 @@ mod tests {
             let file = out.join(format!("{}_{}.png", name.replace(' ', "_"), suffix));
             img.save(&file).expect("aged preview should save");
         }
+    }
+
+    /// The canvas is a film frame: a larger canvas is a finer scan of the same
+    /// frame, so grain count must not change and grain size must scale with the
+    /// canvas. Otherwise extending the canvas turns grain into sub-pixel speckle
+    /// that aliases into box/line patterns when the canvas is displayed scaled.
+    #[test]
+    fn grain_is_resolution_independent() {
+        let stocks = load_film_stock_data().expect("fixed.json parses");
+        let models = grain_models();
+        let stats = |w: u32, h: u32| {
+            let mut p = params();
+            p.width = w;
+            p.height = h;
+            let grains = generate_grains_advanced(&stocks["Kodak Tri-X 400"], &p, None, models.get("Kodak Tri-X 400"))
+                .expect("generation should succeed");
+            let mean = grains.iter().map(|g| g.size).sum::<f32>() / grains.len() as f32;
+            (grains.len(), mean)
+        };
+
+        let (n_lo, s_lo) = stats(1024, 1024);
+        let (n_hi, s_hi) = stats(2048, 2048);
+        assert_eq!(n_lo, n_hi, "grain count must not grow with canvas resolution");
+        assert!(
+            (s_hi / s_lo - 2.0).abs() < 0.05,
+            "grain size should double when the canvas doubles: {:.2} -> {:.2}",
+            s_lo, s_hi
+        );
+
+        // Below the 1024 baseline the grain keeps its pixel size and the count
+        // scales with area, so the look is unchanged.
+        let (n_small, s_small) = stats(512, 512);
+        assert!(
+            (n_small as f32 / n_lo as f32 - 0.25).abs() < 0.01,
+            "small canvases keep area-scaled density"
+        );
+        assert!(
+            (s_small / s_lo - 1.0).abs() < 0.05,
+            "small canvases keep the baseline grain size: {:.3} vs {:.3}",
+            s_small, s_lo
+        );
     }
 
     #[test]

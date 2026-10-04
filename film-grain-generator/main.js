@@ -1,5 +1,41 @@
 import { invoke } from '@tauri-apps/api/core';
 
+// The density slider is mapped piecewise-linearly so each printed tick
+// (0.5x, 1.0x, 2.0x, 3.0x, 5.0x) sits at its true position under the track.
+const DENSITY_STOPS = [
+    { pos: 0, value: 0.5 },
+    { pos: 25, value: 1.0 },
+    { pos: 50, value: 2.0 },
+    { pos: 75, value: 3.0 },
+    { pos: 100, value: 5.0 }
+];
+
+function densityFromSlider(pos) {
+    for (let i = 0; i < DENSITY_STOPS.length - 1; i++) {
+        const a = DENSITY_STOPS[i];
+        const b = DENSITY_STOPS[i + 1];
+        if (pos <= b.pos) {
+            const t = (pos - a.pos) / (b.pos - a.pos);
+            return a.value + t * (b.value - a.value);
+        }
+    }
+    return DENSITY_STOPS[DENSITY_STOPS.length - 1].value;
+}
+
+function sliderFromDensity(value) {
+    const last = DENSITY_STOPS[DENSITY_STOPS.length - 1];
+    const v = Math.max(DENSITY_STOPS[0].value, Math.min(last.value, value));
+    for (let i = 0; i < DENSITY_STOPS.length - 1; i++) {
+        const a = DENSITY_STOPS[i];
+        const b = DENSITY_STOPS[i + 1];
+        if (v <= b.value) {
+            const t = (v - a.value) / (b.value - a.value);
+            return a.pos + t * (b.pos - a.pos);
+        }
+    }
+    return last.pos;
+}
+
 class FilmGrainGenerator {
     constructor() {
         this.canvas = document.getElementById('grainCanvas');
@@ -116,7 +152,7 @@ class FilmGrainGenerator {
                 'grainIntensity': 0,
                 'grainSize': 1.0,
                 'contrast': 100,
-                'grainDensity': 1000,
+                'grainDensity': 25,
                 'canvasWidth': 1024,
                 'canvasHeight': 1024,
                 'filmAge': 0
@@ -131,7 +167,7 @@ class FilmGrainGenerator {
                 } else if (sliderId === 'grainSize') {
                     displayValue += 'x';
                 } else if (sliderId === 'grainDensity') {
-                    displayValue = (parseFloat(displayValue) / 1000.0).toFixed(1) + 'x';
+                    displayValue = densityFromSlider(parseFloat(displayValue)).toFixed(1) + 'x';
                 } else if (sliderId === 'filmAge') {
                     displayValue = displayValue == '0' ? 'Fresh' : displayValue + 'y';
                 }
@@ -163,10 +199,13 @@ class FilmGrainGenerator {
             
             // Click value display to edit
             valueDisplay.addEventListener('click', () => {
-                const currentValue = slider.value;
-                const min = parseFloat(slider.min);
-                const max = parseFloat(slider.max);
-                const step = parseFloat(slider.step) || 1;
+                // Density edits happen in multiplier units (0.5x-5.0x), not slider position.
+                const isDensity = sliderId === 'grainDensity';
+                const sliderValue = parseFloat(slider.value);
+                const currentValue = isDensity ? densityFromSlider(sliderValue) : sliderValue;
+                const min = isDensity ? DENSITY_STOPS[0].value : parseFloat(slider.min);
+                const max = isDensity ? DENSITY_STOPS[DENSITY_STOPS.length - 1].value : parseFloat(slider.max);
+                const step = isDensity ? 0.1 : (parseFloat(slider.step) || 1);
                 
                 const input = document.createElement('input');
                 input.type = 'number';
@@ -200,8 +239,9 @@ class FilmGrainGenerator {
                     if (isNaN(newValue)) newValue = currentValue;
                     newValue = Math.max(min, Math.min(max, newValue));
                     
-                    slider.value = newValue;
-                    updateDisplay(newValue);
+                    const newSliderValue = isDensity ? sliderFromDensity(newValue) : newValue;
+                    slider.value = newSliderValue;
+                    updateDisplay(newSliderValue);
                     
                     input.remove();
                     
@@ -447,7 +487,7 @@ class FilmGrainGenerator {
             exposure_compensation: parseFloat(document.getElementById('grainIntensity').value),
             size_multiplier: parseFloat(document.getElementById('grainSize').value),
             contrast: parseFloat(document.getElementById('contrast').value),
-            grain_density: parseInt(document.getElementById('grainDensity').value), // Direct multiplier value
+            grain_density: Math.round(densityFromSlider(parseFloat(document.getElementById('grainDensity').value)) * 1000),
             width: parseInt(document.getElementById('canvasWidth').value),
             height: parseInt(document.getElementById('canvasHeight').value),
             background: 'transparent',
