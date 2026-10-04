@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Build a sourced grain-characterisation dataset for the 35 film stocks in the app.
+Build a sourced grain-characterisation dataset for the 37 film stocks in the app.
 
 Outputs (written to this tools/ directory):
   - grain_data.json : per-film grain model data with a source reference per field
@@ -84,6 +84,18 @@ SOURCES = {
         "title": "KODAK VISION3 50D 5203 - Technical Information TI2657",
         "url": "https://125px.com/docs/motionpicture/kodak_2018/5203_ti2657.pdf",
         "provides": "Diffuse RMS granularity curves (R/G/B, 48 um aperture) - curve only, no single value",
+    },
+    "kodak_vision3_250d": {
+        "title": "KODAK VISION3 250D 5207/7207 - Technical Information H-1-5207 (March 2026, AHU revision)",
+        "url": "https://www.kodak.com/content/products-brochures/motion-picture/KODAK-VISION3-250D-5207-7207-technical-information.pdf",
+        "provides": "Diffuse RMS granularity curves (R/G/B, 48 um aperture) - curve only; EI 250 daylight / 64 tungsten (80A); "
+                    "anti-halation undercoat (AHU) replaces the remjet backing (no halation); reciprocity 1/1000-1 s",
+    },
+    "cinestill_400d": {
+        "title": "CineStill 400Dynamic product launch (March 2022)",
+        "url": "https://cinestillfilm.com/blogs/news/more-color-film-introducing-cinestill-400dynamic",
+        "provides": "ISO 400 daylight colour negative based on Vision3 250D without rem-jet, designed for C-41; "
+                    "EI 200-800 (push to 3200); soft red halation",
     },
     "fuji_velvia50": {
         "title": "FUJICHROME Velvia 50 Professional [RVP50] - Product Information Bulletin",
@@ -213,6 +225,17 @@ FILMS = [
          grain=("rms_diffuse", 6, "reverse_rms_48um", "kodak_vision3_50d"), conf="estimated_from_curve",
          cluster="light", contrast="medium", hal=False,
          note="Datasheet gives R/G/B granularity curves only; ~6 sigma*1000 at D=1.0 read from curve."),
+    dict(name="Kodak Vision3 250D", type="color_neg", iso=250, morph="tabular",
+         grain=("rms_diffuse", 6.5, "reverse_rms_48um", "kodak_vision3_250d"), conf="estimated_from_curve",
+         cluster="light", contrast="medium", hal=False,
+         note="Datasheet gives R/G/B granularity curves only (H-1-5207, March 2026 AHU revision); ~6.5 "
+              "sigma*1000 at D=1.0 read from the curve, between the app's Vision3 50D (6) and 500T (7) "
+              "reads. AHU undercoat replaces remjet; no halation."),
+    dict(name="CineStill 400D", type="color_neg", iso=400, morph="tabular",
+         grain=("rms_diffuse", 6.5, "reverse_rms_48um", "kodak_vision3_250d"), conf="derived",
+         cluster="moderate", contrast="medium", hal=True,
+         note="Based on Kodak Vision3 250D with rem-jet removed and designed for C-41; granularity derived "
+              "from Vision3 250D. Rated ISO 400 (EI 200-800, push to 3200); soft red halation."),
     # ---- Fujifilm B&W ----------------------------------------------------
     dict(name="Fuji Acros 100", type="bw_neg", iso=100, morph="sigma",
          grain=("rms_diffuse", 7, "fuji_bw_rms_48um", "fuji_acros"), conf="datasheet",
@@ -344,6 +367,7 @@ ANTI_HALATION = {
     "Ilford FP4 Plus": "Anti-halation backing that clears during development (sheet film).",
     "CineStill 50D": "Rem-jet anti-halation layer removed, producing halation.",
     "CineStill 800T": "Rem-jet anti-halation layer removed, producing strong halation.",
+    "CineStill 400D": "Rem-jet anti-halation layer removed, producing halation.",
 }
 RESOLVING = {
     "Kodak T-Max 100":    (63, 200),
@@ -374,12 +398,13 @@ RECIPROCITY = {
     "Kodak T-Max 400": {"1/10000s": "+1/3 stop", "10s": "+1/3 stop", "100s": "+1 stop", "source": "kodak_f4043"},
     "Kodak Vision3 500T": {"10s": "+1 stop", "source": "kodak_vision3_500t"},
     "Kodak Vision3 50D": {"note": "no adjustment 1/1000-1s", "source": "kodak_vision3_50d"},
+    "Kodak Vision3 250D": {"note": "no adjustment 1/1000-1s", "source": "kodak_vision3_250d"},
 }
 
 # ---------------------------------------------------------------------------
 # 3. Derived grain size model (NOT manufacturer data) -----------------------
 # ---------------------------------------------------------------------------
-ISO_SIZE = {50: 0.45, 100: 0.50, 125: 0.55, 160: 0.55, 200: 0.60,
+ISO_SIZE = {50: 0.45, 100: 0.50, 125: 0.55, 160: 0.55, 200: 0.60, 250: 0.70,
             400: 0.90, 500: 0.95, 800: 1.10, 1600: 1.40, 3200: 1.80}
 FAMILY_FACTOR = {"tabular": 0.9, "core_shell": 0.9, "sigma": 0.95, "cubic": 1.0}
 
@@ -509,7 +534,7 @@ for f in FILMS:
 out = {
     "schema_version": 1,
     "generated": datetime.date.today().isoformat(),
-    "description": "Sourced grain characterisation for the app's 35 film stocks. "
+    "description": "Sourced grain characterisation for the app's 37 film stocks. "
                    "'datasheet' = manufacturer-published value; 'derived' = computed from a "
                    "published parent film; 'estimated' = not published, literature/class based.",
     "sources": SOURCES,

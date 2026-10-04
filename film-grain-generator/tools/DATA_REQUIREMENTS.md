@@ -16,10 +16,10 @@ Generated from `grain_data.json`. This lists, per film, which grain-relevant fie
 
 ## Graininess coverage
 
-- datasheet: 17  |  derived: 6  |  estimated from curve: 2  |  estimated: 10
+- datasheet: 17  |  derived: 7  |  estimated from curve: 3  |  estimated: 10
 
 - **Black & white** (12): datasheet=4, estimated=8
-- **Colour negative** (17): datasheet=9, derived=4, estimated=2, estimated_from_curve=2
+- **Colour negative** (19): datasheet=9, derived=5, estimated=2, estimated_from_curve=3
 - **Colour slide** (6): datasheet=4, derived=2
 
 ## Per-film status
@@ -29,6 +29,7 @@ Generated from `grain_data.json`. This lists, per film, which grain-relevant fie
 | Agfa CT Precisa 100 | Colour slide | 10 rms_diffuse | derived | estimated | estimated | unverified | - | - |
 | Agfa Vista 200 | Colour negative | 4.5 rms_diffuse | derived | estimated | estimated | unverified | - | - |
 | Agfa Vista 400 | Colour negative | 4.5 rms_diffuse | derived | estimated | estimated | unverified | - | - |
+| CineStill 400D | Colour negative | 6.5 rms_diffuse | derived | estimated | estimated | unverified | yes | - |
 | CineStill 50D | Colour negative | 6 rms_diffuse | derived | estimated | estimated | unverified | yes | - |
 | CineStill 800T | Colour negative | 7 rms_diffuse | derived | estimated | estimated | unverified | yes | - |
 | Fuji Acros 100 | Black & white | 7 rms_diffuse | datasheet | estimated | estimated | n/a | - | - |
@@ -59,6 +60,7 @@ Generated from `grain_data.json`. This lists, per film, which grain-relevant fie
 | Kodak T-Max 400 | Black & white | 10 rms_diffuse | datasheet | estimated | estimated | n/a | - | yes |
 | Kodak Tri-X 400 | Black & white | 17 rms_diffuse | datasheet | estimated | estimated | n/a | - | yes |
 | Kodak UltraMax 400 | Colour negative | 46 pgi | datasheet | estimated | estimated | unverified | - | - |
+| Kodak Vision3 250D | Colour negative | 6.5 rms_diffuse | estimated_from_curve | estimated | estimated | unverified | - | - |
 | Kodak Vision3 500T | Colour negative | 7 rms_diffuse | estimated_from_curve | estimated | estimated | unverified | - | - |
 | Kodak Vision3 50D | Colour negative | 6 rms_diffuse | estimated_from_curve | estimated | estimated | unverified | - | - |
 

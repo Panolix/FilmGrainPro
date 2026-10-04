@@ -64,6 +64,19 @@
     },
     "color_notes": "World's finest grain, neutral color balance"
   },
+  "Kodak Vision3 250D": {
+    "base_grain_color": {
+      "r": 186,
+      "g": 186,
+      "b": 186
+    },
+    "color_variation": {
+      "r": 6,
+      "g": 6,
+      "b": 6
+    },
+    "color_notes": "Daylight neutral balance, DLT keeps shadows clean"
+  },
   "Kodak Tri-X 400": {
     "base_grain_color": {
       "r": 175,
@@ -232,6 +245,19 @@
       "b": 12
     },
     "color_notes": "Tungsten balanced with characteristic halation effects"
+  },
+  "CineStill 400D": {
+    "base_grain_color": {
+      "r": 184,
+      "g": 179,
+      "b": 168
+    },
+    "color_variation": {
+      "r": 8,
+      "g": 10,
+      "b": 8
+    },
+    "color_notes": "Daylight balanced, warm skin tones with soft red halation"
   },
   "Kodak Gold 200": {
     "base_grain_color": {

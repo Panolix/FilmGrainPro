@@ -17,6 +17,7 @@ Most of these stocks are discontinued and cannot be scanned, so the fields no ma
 | Agfa CT Precisa 100 | Slide | 100 | 0.30 | 0.45 | none | (184, 184, 184) | ok |
 | Agfa Vista 200 | Colour neg | 200 | 1.30 | 0.60 | light | (175, 180, 185) | size high |
 | Agfa Vista 400 | Colour neg | 400 | 1.60 | 0.90 | moderate | (172, 176, 182) | size high |
+| CineStill 400D | Colour neg | 400 | 1.05 | 0.81 | moderate | (184, 179, 168) | ok |
 | CineStill 50D | Colour neg | 50 | 0.55 | 0.41 | light | (186, 186, 186) | ok |
 | CineStill 800T | Colour neg | 800 | 1.25 | 0.99 | heavy | (180, 172, 155) | ok |
 | Fuji Acros 100 | B&W | 100 | 0.50 | 0.47 | none | (183, 183, 183) | ok |
@@ -47,6 +48,7 @@ Most of these stocks are discontinued and cannot be scanned, so the fields no ma
 | Kodak T-Max 400 | B&W | 400 | 0.95 | 0.81 | none | (180, 180, 180) | ok |
 | Kodak Tri-X 400 | B&W | 400 | 1.75 | 0.90 | moderate | (175, 175, 175) | size high |
 | Kodak UltraMax 400 | Colour neg | 400 | 1.50 | 0.81 | moderate | (185, 175, 160) | size high |
+| Kodak Vision3 250D | Colour neg | 250 | 0.82 | 0.63 | light | (186, 186, 186) | ok |
 | Kodak Vision3 500T | Colour neg | 500 | 1.40 | 0.85 | moderate | (182, 175, 158) | ok |
 | Kodak Vision3 50D | Colour neg | 50 | 0.55 | 0.41 | light | (186, 186, 186) | ok |
 

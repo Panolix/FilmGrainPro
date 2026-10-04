@@ -173,5 +173,15 @@
     "size_variation_coeff": 0.4,
     "opacity_variation": 0.5,
     "notes": "Slow-speed Vision3 stock shares micro-structure with Ektar; ultra-fine platelets and low dye load keep both coefficients restrained[16]."
+  },
+  "Kodak Vision3 250D": {
+    "size_variation_coeff": 0.5,
+    "opacity_variation": 0.6,
+    "notes": "Medium-speed Vision3 T-grain with Dye Layering Technology; grain held between 50D and 500T with reduced shadow variability[16][17]."
+  },
+  "CineStill 400D": {
+    "size_variation_coeff": 0.5,
+    "opacity_variation": 0.6,
+    "notes": "Rem-jet-stripped Vision3 250D rated at 400; C-41 processing and halation raise optical-density spread versus the parent stock[12][17]."
   }
 }

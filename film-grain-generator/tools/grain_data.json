@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated": "2026-09-23",
-  "description": "Sourced grain characterisation for the app's 35 film stocks. 'datasheet' = manufacturer-published value; 'derived' = computed from a published parent film; 'estimated' = not published, literature/class based.",
+  "generated": "2026-10-04",
+  "description": "Sourced grain characterisation for the app's 37 film stocks. 'datasheet' = manufacturer-published value; 'derived' = computed from a published parent film; 'estimated' = not published, literature/class based.",
   "sources": {
     "kodak_f4017": {
       "title": "KODAK PROFESSIONAL TRI-X 400 Film - Technical Data F-4017 (2007)",
@@ -67,6 +67,16 @@
       "title": "KODAK VISION3 50D 5203 - Technical Information TI2657",
       "url": "https://125px.com/docs/motionpicture/kodak_2018/5203_ti2657.pdf",
       "provides": "Diffuse RMS granularity curves (R/G/B, 48 um aperture) - curve only, no single value"
+    },
+    "kodak_vision3_250d": {
+      "title": "KODAK VISION3 250D 5207/7207 - Technical Information H-1-5207 (March 2026, AHU revision)",
+      "url": "https://www.kodak.com/content/products-brochures/motion-picture/KODAK-VISION3-250D-5207-7207-technical-information.pdf",
+      "provides": "Diffuse RMS granularity curves (R/G/B, 48 um aperture) - curve only; EI 250 daylight / 64 tungsten (80A); anti-halation undercoat (AHU) replaces the remjet backing (no halation); reciprocity 1/1000-1 s"
+    },
+    "cinestill_400d": {
+      "title": "CineStill 400Dynamic product launch (March 2022)",
+      "url": "https://cinestillfilm.com/blogs/news/more-color-film-introducing-cinestill-400dynamic",
+      "provides": "ISO 400 daylight colour negative based on Vision3 250D without rem-jet, designed for C-41; EI 200-800 (push to 3200); soft red halation"
     },
     "fuji_velvia50": {
       "title": "FUJICHROME Velvia 50 Professional [RVP50] - Product Information Bulletin",
@@ -1948,6 +1958,229 @@
             ]
           }
         }
+      }
+    },
+    "Kodak Vision3 250D": {
+      "type": "color_neg",
+      "iso": 250,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 6.5,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_vision3_250d",
+        "confidence": "estimated_from_curve"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.25,
+        "mean": 0.63,
+        "max": 1.39,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "light",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "neutral",
+      "color_rgb": [
+        186,
+        186,
+        186
+      ],
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": null,
+      "reciprocity": {
+        "note": "no adjustment 1/1000-1s",
+        "source": "kodak_vision3_250d"
+      },
+      "notes": "Datasheet gives R/G/B granularity curves only (H-1-5207, March 2026 AHU revision); ~6.5 sigma*1000 at D=1.0 read from the curve, between the app's Vision3 50D (6) and 500T (7) reads. AHU undercoat replaces remjet; no halation.",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.25,
+          "max": 1.39,
+          "average": 0.63
+        },
+        "clustering": {
+          "level": "light",
+          "cluster_size": "2-3_grains",
+          "fractal_dimension": 1.85,
+          "spatial_correlation": 0.15,
+          "cluster_probability": 0.08
+        },
+        "grain_color": {
+          "base_rgb": [
+            186,
+            186,
+            186
+          ],
+          "variation_rgb": {
+            "r": 6,
+            "g": 6,
+            "b": 6
+          },
+          "size_variation_coeff": 0.5,
+          "opacity_variation": 0.6
+        },
+        "halation_text": "none (rem-jet / AHU undercoat)",
+        "push": {
+          "processing": [
+            "ECN-2"
+          ],
+          "iso_grain_relationship": "grain reduced in shadows by DLT",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.4,
+              0.25,
+              0.15
+            ],
+            "underexposure_grain_curve": [
+              1.35,
+              1.05,
+              0.8
+            ],
+            "reciprocity_failure_threshold": 1.1,
+            "latitude_grain_distribution": [
+              0.85,
+              0.7,
+              0.55
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
+      }
+    },
+    "CineStill 400D": {
+      "type": "color_neg",
+      "iso": 400,
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 6.5,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_vision3_250d",
+        "confidence": "derived"
+      },
+      "resolving_power_lines_mm": null,
+      "morphology": {
+        "family": "tabular",
+        "crystal": "tabular_silver_halide_T-grain",
+        "source": "wikipedia_tabular",
+        "confidence": "documented_general"
+      },
+      "grain_size_um": {
+        "min": 0.32,
+        "mean": 0.81,
+        "max": 1.78,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "clustering": {
+        "level": "moderate",
+        "source": "app_baseline (unverified)",
+        "confidence": "estimated"
+      },
+      "contrast_level": "medium",
+      "color_cast": "neutral",
+      "color_rgb": [
+        184,
+        179,
+        168
+      ],
+      "halation": {
+        "enabled": true,
+        "color": "#ff3b1f",
+        "radius_um": 120,
+        "source": "wikipedia_halation",
+        "confidence": "derived"
+      },
+      "push": null,
+      "push_stops": null,
+      "ei_range": null,
+      "anti_halation": "Rem-jet anti-halation layer removed, producing halation.",
+      "reciprocity": null,
+      "notes": "Based on Kodak Vision3 250D with rem-jet removed and designed for C-41; granularity derived from Vision3 250D. Rated ISO 400 (EI 200-800, push to 3200); soft red halation.",
+      "app_baseline": {
+        "grain_size_um": {
+          "min": 0.32,
+          "max": 1.78,
+          "average": 0.81
+        },
+        "clustering": {
+          "level": "moderate",
+          "cluster_size": "2-4_grains",
+          "fractal_dimension": 1.4,
+          "spatial_correlation": 0.22,
+          "cluster_probability": 0.15
+        },
+        "grain_color": {
+          "base_rgb": [
+            184,
+            179,
+            168
+          ],
+          "variation_rgb": {
+            "r": 8,
+            "g": 10,
+            "b": 8
+          },
+          "size_variation_coeff": 0.5,
+          "opacity_variation": 0.6
+        },
+        "halation_text": "soft red/orange halation around highlights",
+        "push": {
+          "processing": [
+            "C-41 (rem-jet removed)"
+          ],
+          "iso_grain_relationship": "moderate grain at ISO 400",
+          "exposure_response": {
+            "overexposure_grain_curve": [
+              0.5,
+              0.35,
+              0.2
+            ],
+            "underexposure_grain_curve": [
+              1.55,
+              1.2,
+              0.9
+            ],
+            "reciprocity_failure_threshold": 1.3,
+            "latitude_grain_distribution": [
+              0.9,
+              0.72,
+              0.55
+            ]
+          }
+        },
+        "source": "app repo baseline (fixed.json/color.json/variation.json/more.json/imagecolors.json)",
+        "confidence": "unverified"
       }
     },
     "Fuji Acros 100": {

@@ -99,6 +99,26 @@
       "cluster_probability": 0.01
     }
   },
+  "Kodak Vision3 250D": {
+    "color_crossover": {
+      "red_to_green": 0.04,
+      "red_to_blue": 0.025,
+      "green_to_red": 0.03,
+      "green_to_blue": 0.04,
+      "blue_to_red": 0.015,
+      "blue_to_green": 0.015
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.03,
+      "contrast_loss_per_year": 0.01,
+      "storage_temp_factor": 0.02
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.85,
+      "spatial_correlation": 0.15,
+      "cluster_probability": 0.08
+    }
+  },
   "Kodak Tri-X 400": {
     "color_crossover": {
       "red_to_green": 1.0,
@@ -357,6 +377,26 @@
       "fractal_dimension": 1.45,
       "spatial_correlation": 0.28,
       "cluster_probability": 0.18
+    }
+  },
+  "CineStill 400D": {
+    "color_crossover": {
+      "red_to_green": 0.09,
+      "red_to_blue": 0.08,
+      "green_to_red": 0.10,
+      "green_to_blue": 0.15,
+      "blue_to_red": 0.05,
+      "blue_to_green": 0.09
+    },
+    "aging_effects": {
+      "grain_increase_per_year": 0.10,
+      "contrast_loss_per_year": 0.05,
+      "storage_temp_factor": 0.018
+    },
+    "clustering_data": {
+      "fractal_dimension": 1.40,
+      "spatial_correlation": 0.22,
+      "cluster_probability": 0.15
     }
   },
   "Kodak Gold 200": {

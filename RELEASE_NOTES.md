@@ -1,32 +1,35 @@
-# Film Grain Generator v2.2.5
+# Film Grain Generator v2.3.0
 
-A **grain texture and UI correctness** release. The generated grain now looks
-like film grain at every canvas resolution instead of a grid of blocks.
+Two new film stocks, bringing the library to **37 emulsions** — and completing
+the Kodak VISION3 family.
 
-## Grain rendering
-- **Round, anti-aliased grain.** The rasteriser sampled pixels on integer
-  offsets with a truncated radius, so grains came out as axis-aligned boxes,
-  bars and plus-shapes — clearly visible as box/line patterns at large canvas
-  sizes. Grain is now drawn as smooth elliptical dots with the film's edge
-  softness, so the texture reads as actual grain.
-- **Canvas resolution no longer changes the look.** The canvas is treated as a
-  film frame: extending width/height keeps the same grain count and scales the
-  grain's pixel size with the canvas, instead of turning the texture into
-  one-pixel speckle that aliased badly when displayed scaled. Smaller canvases
-  keep the existing baseline look.
-- Sub-pixel grains render as a single crisp pixel rather than a snapped cross.
+## New film stocks
+- **Kodak Vision3 250D (5207).** The daylight-balanced medium-speed cinema
+  stock, joining the existing VISION3 50D and 500T entries. Modelled from the
+  current H-1-5207 datasheet (March 2026 AHU revision): fine T-Grain with Dye
+  Layering Technology, ECN-2, and **no halation** — the anti-halation undercoat
+  (AHU) replaces the traditional rem-jet backing without changing the look.
+  Graininess (~6.5 rms at D=1.0) was read from the datasheet's granularity
+  curves, placing it between the 50D and 500T reads.
+- **CineStill 400D.** The rem-jet-stripped VISION3 250D rated at ISO 400,
+  designed for C-41 processing, with warm skin tones and soft red halation.
+  Grain derived from its VISION3 parent and the ISO 400 grain-size model,
+  consistent with the existing CineStill 50D and 800T entries.
 
-## UI
-- **Density slider ticks now tell the truth.** The 0.5x/1.0x/2.0x/3.0x/5.0x
-  labels were evenly spaced under a linear slider, so the "1.0x" mark was
-  actually at ~1.6x. The slider is now mapped piecewise so every tick sits at
-  its true value; click-to-type editing also takes multiplier values.
+Both films appear automatically in the dropdown (Kodak / CineStill under
+Color Negative Films) with full film-info panels, grain model, colour,
+clustering and push/aging data.
 
-## Internal
-- New regression test for the resolution-independent grain model; all 18 tests
-  pass.
+## Data pipeline
+- `tools/build_grain_data.py` now sources the two new stocks
+  (`kodak_vision3_250d`, `cinestill_400d`), adds an ISO 250 grain-size model
+  key, reciprocity and anti-halation entries; regenerated
+  `grain_data.json`, `grain_model.json`, `SOURCES.md`, `data_audit.md`,
+  `DATA_REQUIREMENTS.md` and `ESTIMATION.md`.
+- All 18 tests pass, including automatic coverage checks that every dropdown
+  film has a grain model, and preview renders for both new stocks.
 
 ## Notes
 - macOS build is unsigned; Gatekeeper may warn on first launch.
 
-**Full changelog**: compare from `v2.2.4`.
+**Full changelog**: compare from `v2.2.5`.

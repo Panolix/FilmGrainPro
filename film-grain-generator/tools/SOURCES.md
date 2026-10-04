@@ -67,6 +67,16 @@ Collected to characterise the 35 film stocks. Primary sources are manufacturer d
 - https://125px.com/docs/motionpicture/kodak_2018/5203_ti2657.pdf
 - Provides: Diffuse RMS granularity curves (R/G/B, 48 um aperture) - curve only, no single value
 
+## kodak_vision3_250d
+- **KODAK VISION3 250D 5207/7207 - Technical Information H-1-5207 (March 2026, AHU revision)**
+- https://www.kodak.com/content/products-brochures/motion-picture/KODAK-VISION3-250D-5207-7207-technical-information.pdf
+- Provides: Diffuse RMS granularity curves (R/G/B, 48 um aperture) - curve only; EI 250 daylight / 64 tungsten (80A); anti-halation undercoat (AHU) replaces the remjet backing (no halation); reciprocity 1/1000-1 s
+
+## cinestill_400d
+- **CineStill 400Dynamic product launch (March 2022)**
+- https://cinestillfilm.com/blogs/news/more-color-film-introducing-cinestill-400dynamic
+- Provides: ISO 400 daylight colour negative based on Vision3 250D without rem-jet, designed for C-41; EI 200-800 (push to 3200); soft red halation
+
 ## fuji_velvia50
 - **FUJICHROME Velvia 50 Professional [RVP50] - Product Information Bulletin**
 - https://125px.com/docs/film/fuji/velvia_50_datasheet.pdf

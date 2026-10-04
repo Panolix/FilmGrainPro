@@ -2195,6 +2195,8 @@ mod tests {
             "Fuji Acros 100",
             "Ilford HP5 Plus",
             "CineStill 800T",
+            "Kodak Vision3 250D",
+            "CineStill 400D",
         ] {
             let stock = &stocks[name];
             let grains = generate_grains_advanced(stock, &p, None, models.get(name)).unwrap();

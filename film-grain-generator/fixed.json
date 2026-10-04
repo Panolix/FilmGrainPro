@@ -1622,6 +1622,98 @@
       "scanner_artifacts": "blue halation and strong grain in scans"
     }
   },
+  "CineStill 400D": {
+    "grain_characteristics": {
+      "size_um": {
+        "min": 0.32,
+        "max": 1.78,
+        "average": 0.81
+      },
+      "shape": "tabular",
+      "edge_type": "soft",
+      "aspect_ratio": 3.0
+    },
+    "density_distribution": {
+      "grains_per_mm2": 800000,
+      "pattern": "random",
+      "clustering": "moderate",
+      "cluster_size": "2-4_grains"
+    },
+    "visual_properties": {
+      "opacity_range": {
+        "min": 0.2,
+        "max": 0.6
+      },
+      "contrast": "medium",
+      "color_cast": "neutral",
+      "prominence": {
+        "highlights": "medium",
+        "shadows": "medium",
+        "midtones": "medium"
+      }
+    },
+    "digital_simulation": {
+      "grains_per_1024px": 500,
+      "pixel_size_range": {
+        "min": 1,
+        "max": 5
+      },
+      "overlay_opacity": {
+        "min": 0.15,
+        "max": 0.6
+      },
+      "color_variation": 0.08,
+      "blend_mode": "multiply",
+      "placement": "random"
+    },
+    "distinctive_traits": [
+      "Modified Vision3 250D (rem-jet removed)",
+      "Soft red halation around highlights",
+      "Designed for C-41 from the start"
+    ],
+    "film_info": {
+      "description": "CineStill 400D is a daylight-balanced ISO 400 film based on Kodak Vision3 250D with the rem-jet layer removed, designed for C-41 processing, with warm skin tones and soft red halation.",
+      "primary_uses": [
+        "everyday",
+        "events",
+        "portraits",
+        "cinematic looks"
+      ],
+      "characteristics": [
+        "fine grain",
+        "wide dynamic range",
+        "warm skin tones",
+        "soft red halation"
+      ],
+      "famous_users": [
+        "Street and portrait photographers"
+      ],
+      "ideal_conditions": [
+        "daylight",
+        "overcast",
+        "mixed light"
+      ],
+      "processing": [
+        "C-41 (rem-jet removed)"
+      ],
+      "era": "2022-present",
+      "price_category": "premium",
+      "alternatives": [
+        "Kodak Vision3 250D",
+        "CineStill 800T",
+        "CineStill 50D"
+      ]
+    },
+    "technical_specs": {
+      "crystal_structure": "T-Grain",
+      "emulsion_layers": 3,
+      "iso_grain_relationship": "moderate grain at ISO 400",
+      "halation": "soft red/orange halation around highlights",
+      "cross_process_effects": "N/A",
+      "age_effects": "stable base",
+      "scanner_artifacts": "halation appears in scans"
+    }
+  },
   "Kodak Gold 200": {
     "grain_characteristics": {
       "size_um": {
@@ -2164,6 +2256,98 @@
       "cross_process_effects": "over-exposure yields glowing highlights",
       "age_effects": "colour shift toward magenta when expired",
       "scanner_artifacts": "almost no visible grain; very sharp scans"
+    }
+  },
+  "Kodak Vision3 250D": {
+    "grain_characteristics": {
+      "size_um": {
+        "min": 0.25,
+        "max": 1.39,
+        "average": 0.63
+      },
+      "shape": "tabular",
+      "edge_type": "soft",
+      "aspect_ratio": 3.0
+    },
+    "density_distribution": {
+      "grains_per_mm2": 800000,
+      "pattern": "random",
+      "clustering": "light",
+      "cluster_size": "2-3_grains"
+    },
+    "visual_properties": {
+      "opacity_range": {
+        "min": 0.2,
+        "max": 0.5
+      },
+      "contrast": "medium",
+      "color_cast": "neutral",
+      "prominence": {
+        "highlights": "medium",
+        "shadows": "medium",
+        "midtones": "medium"
+      }
+    },
+    "digital_simulation": {
+      "grains_per_1024px": 400,
+      "pixel_size_range": {
+        "min": 1,
+        "max": 5
+      },
+      "overlay_opacity": {
+        "min": 0.15,
+        "max": 0.55
+      },
+      "color_variation": 0.05,
+      "blend_mode": "multiply",
+      "placement": "random"
+    },
+    "distinctive_traits": [
+      "Cinema daylight film with Dye Layering Technology",
+      "Anti-halation undercoat (AHU, no rem-jet)",
+      "Wide highlight latitude"
+    ],
+    "film_info": {
+      "description": "Kodak Vision3 250D is a daylight-balanced ISO 250 color negative motion-picture film with fine grain, Dye Layering Technology for cleaner shadows, and wide highlight latitude.",
+      "primary_uses": [
+        "cinema",
+        "daylight",
+        "documentary",
+        "commercial"
+      ],
+      "characteristics": [
+        "fine grain",
+        "wide dynamic range",
+        "daylight balance",
+        "clean shadows"
+      ],
+      "famous_users": [
+        "Cinematographers"
+      ],
+      "ideal_conditions": [
+        "daylight",
+        "studio",
+        "high-contrast scenes"
+      ],
+      "processing": [
+        "ECN-2"
+      ],
+      "era": "2009-present",
+      "price_category": "premium",
+      "alternatives": [
+        "CineStill 400D",
+        "Kodak Vision3 50D",
+        "Kodak Vision3 500T"
+      ]
+    },
+    "technical_specs": {
+      "crystal_structure": "T-Grain with Dye Layering Technology",
+      "emulsion_layers": 3,
+      "iso_grain_relationship": "grain reduced in shadows by DLT",
+      "halation": "none (rem-jet / AHU undercoat)",
+      "cross_process_effects": "N/A",
+      "age_effects": "store cold for long-term keeping",
+      "scanner_artifacts": "designed for digital scanning"
     }
   },
   "Kodak Vision3 500T": {

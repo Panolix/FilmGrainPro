@@ -304,6 +304,67 @@
       "mixed_lighting_variation": 1.05
     }
   },
+  "Kodak Vision3 250D": {
+    "luminance_response": {
+      "shadow_grain_boost": 1.25,
+      "midtone_grain_normal": 0.65,
+      "highlight_grain_reduction": 0.25,
+      "grain_size_curve": [
+        0.75,
+        0.65,
+        0.5
+      ],
+      "clustering_by_brightness": [
+        0.85,
+        0.7,
+        0.55
+      ]
+    },
+    "color_response": {
+      "red_grain_visibility": 0.95,
+      "green_grain_visibility": 0.9,
+      "blue_grain_visibility": 0.9,
+      "saturation_effect": 0.65,
+      "skin_tone_optimization": 0.85,
+      "sky_enhancement": 1.1
+    },
+    "contrast_response": {
+      "high_contrast_grain_boost": 1.2,
+      "low_contrast_grain_reduction": 0.75,
+      "edge_proximity_enhancement": 1.25,
+      "detail_preservation_factor": 1.05
+    },
+    "exposure_response": {
+      "overexposure_grain_curve": [
+        0.4,
+        0.25,
+        0.15
+      ],
+      "underexposure_grain_curve": [
+        1.35,
+        1.05,
+        0.8
+      ],
+      "reciprocity_failure_threshold": 1.1,
+      "latitude_grain_distribution": [
+        0.85,
+        0.7,
+        0.55
+      ]
+    },
+    "subject_optimization": {
+      "portrait_grain_reduction": 0.75,
+      "landscape_grain_enhancement": 1.05,
+      "architecture_grain_sharpening": 1.15,
+      "night_grain_boost": 1.2
+    },
+    "lighting_response": {
+      "tungsten_grain_warmth": 0.95,
+      "daylight_grain_neutral": 1.0,
+      "fluorescent_grain_shift": 0.95,
+      "mixed_lighting_variation": 1.1
+    }
+  },
   "Kodak Tri-X 400": {
     "luminance_response": {
       "shadow_grain_boost": 2.5,
@@ -1095,6 +1156,67 @@
       "daylight_grain_neutral": 0.85,
       "fluorescent_grain_shift": 0.9,
       "mixed_lighting_variation": 1.3
+    }
+  },
+  "CineStill 400D": {
+    "luminance_response": {
+      "shadow_grain_boost": 1.45,
+      "midtone_grain_normal": 0.8,
+      "highlight_grain_reduction": 0.35,
+      "grain_size_curve": [
+        0.85,
+        0.7,
+        0.55
+      ],
+      "clustering_by_brightness": [
+        1.0,
+        0.8,
+        0.6
+      ]
+    },
+    "color_response": {
+      "red_grain_visibility": 1.0,
+      "green_grain_visibility": 0.9,
+      "blue_grain_visibility": 0.95,
+      "saturation_effect": 0.75,
+      "skin_tone_optimization": 0.9,
+      "sky_enhancement": 1.15
+    },
+    "contrast_response": {
+      "high_contrast_grain_boost": 1.3,
+      "low_contrast_grain_reduction": 0.8,
+      "edge_proximity_enhancement": 1.3,
+      "detail_preservation_factor": 1.0
+    },
+    "exposure_response": {
+      "overexposure_grain_curve": [
+        0.5,
+        0.35,
+        0.2
+      ],
+      "underexposure_grain_curve": [
+        1.55,
+        1.2,
+        0.9
+      ],
+      "reciprocity_failure_threshold": 1.3,
+      "latitude_grain_distribution": [
+        0.9,
+        0.72,
+        0.55
+      ]
+    },
+    "subject_optimization": {
+      "portrait_grain_reduction": 0.75,
+      "landscape_grain_enhancement": 1.1,
+      "architecture_grain_sharpening": 1.2,
+      "night_grain_boost": 1.3
+    },
+    "lighting_response": {
+      "tungsten_grain_warmth": 1.0,
+      "daylight_grain_neutral": 1.0,
+      "fluorescent_grain_shift": 1.0,
+      "mixed_lighting_variation": 1.25
     }
   },
   "Kodak Gold 200": {

@@ -525,6 +525,80 @@
         "confidence": "datasheet"
       }
     },
+    "Kodak Vision3 250D": {
+      "iso": 250,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 6.5,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_vision3_250d",
+        "confidence": "estimated_from_curve"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.25,
+        "mean": 0.63,
+        "max": 1.39,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": null,
+      "halation": {
+        "enabled": false,
+        "color": null,
+        "radius_um": 0,
+        "source": "wikipedia_halation",
+        "confidence": "datasheet"
+      }
+    },
+    "CineStill 400D": {
+      "iso": 400,
+      "type": "color_neg",
+      "graininess": {
+        "metric": "rms_diffuse",
+        "value": 6.5,
+        "scale": "reverse_rms_48um",
+        "at_density": 1.0,
+        "aperture_um": 48,
+        "source": "kodak_vision3_250d",
+        "confidence": "derived"
+      },
+      "morphology": {
+        "family": "tabular"
+      },
+      "grain_size_um": {
+        "min": 0.32,
+        "mean": 0.81,
+        "max": 1.78,
+        "distribution": "lognormal",
+        "sigma": 0.35,
+        "confidence": "estimated",
+        "basis": "Tabular emulsion: class data from Kodak's T-Grain paper (diameter up to ~2.3 um, thickness ~0.12 um, product aspect 3:1-5:1) scaled by ISO; not a per-film measurement.",
+        "source": "kodak_tgrain_paper"
+      },
+      "push": null,
+      "ei_range": null,
+      "resolving_power_lines_mm": null,
+      "anti_halation": "Rem-jet anti-halation layer removed, producing halation.",
+      "halation": {
+        "enabled": true,
+        "color": "#ff3b1f",
+        "radius_um": 120,
+        "source": "wikipedia_halation",
+        "confidence": "derived"
+      }
+    },
     "Fuji Acros 100": {
       "iso": 100,
       "type": "bw_neg",

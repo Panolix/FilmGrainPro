@@ -16,6 +16,8 @@ Current app data in `fixed.json` / `color.json` never carried a graininess metri
 | Kodak Ektachrome E100 | T-grain | tabular | 500000 | 8 rms_diffuse |
 | Kodak Vision3 500T | tabular | tabular | 900000 | 7 rms_diffuse |
 | Kodak Vision3 50D | tabular | tabular | 700000 | 6 rms_diffuse |
+| Kodak Vision3 250D | tabular | tabular | 800000 | 6.5 rms_diffuse |
+| CineStill 400D | tabular | tabular | 800000 | 6.5 rms_diffuse |
 | Fuji Acros 100 | Sigma grain | sigma | 950000 | 7 rms_diffuse |
 | Fuji Neopan 400 | Sigma grain | cubic | 800000 | 12 rms_diffuse |
 | Fuji Neopan 1600 | Sigma grain | cubic | 900000 | 18 rms_diffuse |
