@@ -84,3 +84,21 @@ jobs:
           prerelease: false
           args: ${{ matrix.args }}
           includeUpdaterJson: false
+
+      - name: Fix DMG volume icon and re-upload
+        if: matrix.platform == 'macos-latest'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd film-grain-generator
+          shopt -s nullglob
+          dmgs=(src-tauri/target/release/bundle/dmg/*.dmg src-tauri/target/*/release/bundle/dmg/*.dmg)
+          if [ ${#dmgs[@]} -eq 0 ]; then
+            echo "No DMG found"
+            exit 1
+          fi
+          tag="${{ github.event.release.tag_name || github.ref_name }}"
+          for dmg in "${dmgs[@]}"; do
+            bash scripts/fix-dmg-volume-icon.sh "$dmg"
+            gh release upload "$tag" "$dmg" --clobber
+          done

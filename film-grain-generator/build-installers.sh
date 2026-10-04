@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 echo "🎬 Film Grain Generator - Building Installers"
 echo "============================================="
 echo ""
@@ -16,6 +18,18 @@ npm install
 # Build for current platform
 echo "🔨 Building installer for current platform..."
 npm run tauri build
+
+# Replace the DMG volume icon with a rounded-corner version so the mounted
+# installer icon matches the app icon instead of showing hard square edges
+if [ "$(uname -s)" = "Darwin" ]; then
+    echo "🖼️  Fixing DMG volume icons..."
+    shopt -s nullglob
+    DMGS=(src-tauri/target/release/bundle/dmg/*.dmg src-tauri/target/*/release/bundle/dmg/*.dmg)
+    shopt -u nullglob
+    for dmg in "${DMGS[@]}"; do
+        bash "$SCRIPT_DIR/scripts/fix-dmg-volume-icon.sh" "$dmg"
+    done
+fi
 
 echo ""
 echo "✅ Build complete!"
