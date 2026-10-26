@@ -1,4 +1,5 @@
 import { invoke } from '@tauri-apps/api/core';
+import { listen } from '@tauri-apps/api/event';
 
 // The density slider is mapped piecewise-linearly so each printed tick
 // (0.5x, 1.0x, 2.0x, 3.0x, 5.0x) sits at its true position under the track.
@@ -36,6 +37,24 @@ function sliderFromDensity(value) {
     return last.pos;
 }
 
+// Same alpha-weighted, mean-centered dark grain as the gray MOV converter.
+// Display code 512 as 50% RGB gray rather than applying a video range transform.
+function grayGrainPreview(data) {
+    let sum = 0;
+    const valueAt = i => (0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2])
+        / 255 * data[i + 3] / 255;
+    for (let i = 0; i < data.length; i += 4) sum += valueAt(i);
+    const mean = sum / (data.length / 4);
+    const output = new Uint8ClampedArray(data.length);
+    for (let i = 0; i < data.length; i += 4) {
+        const y = Math.max(0, Math.min(1023, Math.round(512 - (valueAt(i) - mean) * 511)));
+        const display = Math.round(y * 255 / 1023);
+        output[i] = output[i + 1] = output[i + 2] = display;
+        output[i + 3] = 255;
+    }
+    return output;
+}
+
 class FilmGrainGenerator {
     constructor() {
         this.canvas = document.getElementById('grainCanvas');
@@ -51,6 +70,7 @@ class FilmGrainGenerator {
         this.regenerateLabel = document.getElementById('regenerateBtn').textContent;
         
         this.initializeControls();
+        this.loadAppSettings();
     }
     
     async loadFilmStocks() {
@@ -298,6 +318,25 @@ class FilmGrainGenerator {
         document.getElementById('saveBtn').addEventListener('click', () => {
             this.saveImage();
         });
+        document.getElementById('saveMovBtn').addEventListener('click', () => this.saveGrainMov());
+        document.getElementById('saveSettingsBtn').addEventListener('click', () => this.saveAppSettings());
+        document.getElementById('browseFfmpegBtn').addEventListener('click',
+            () => this.browseSettingsDirectory('ffmpegDirectory', 'browseFfmpegBtn'));
+        document.getElementById('browseOutputBtn').addEventListener('click',
+            () => this.browseSettingsDirectory('outputDirectory', 'browseOutputBtn'));
+        document.getElementById('previewMode').addEventListener('change', () => {
+            if (this.currentImageData) this.displayGrainResult({
+                data: this.currentImageData, width: this.canvas.width, height: this.canvas.height
+            });
+        });
+        document.getElementById('cancelMovBtn').addEventListener('click', async () => {
+            try {
+                await invoke('cancel_grain_mov');
+                document.getElementById('movStatus').textContent = 'Cancelling…';
+            } catch (error) {
+                document.getElementById('movStatus').textContent = String(error);
+            }
+        });
 
         document.getElementById('saveCompositeBtn').addEventListener('click', () => {
             this.saveCompositeImage();
@@ -507,7 +546,9 @@ class FilmGrainGenerator {
         const imageData = new ImageData(new Uint8ClampedArray(data), width, height);
         
         // If there's an uploaded image, use it as background instead of black
-        if (this.uploadedImage && this.uploadedImageElement) {
+        if (document.getElementById('previewMode').value === 'neutral_gray') {
+            this.ctx.putImageData(new ImageData(grayGrainPreview(data), width, height), 0, 0);
+        } else if (this.uploadedImage && this.uploadedImageElement) {
             console.log('Drawing uploaded image as background');
             
             // Draw uploaded image as background
@@ -619,6 +660,99 @@ class FilmGrainGenerator {
         } catch (error) {
             console.error('Error loading image:', error);
             alert('Error loading image: ' + error);
+        }
+    }
+
+    async loadAppSettings() {
+        try {
+            const settings = await invoke('get_app_settings');
+            document.getElementById('ffmpegDirectory').value = settings.ffmpeg_directory;
+            document.getElementById('outputDirectory').value = settings.output_directory;
+        } catch (error) {
+            document.getElementById('settingsStatus').textContent = String(error);
+        }
+    }
+
+    async browseSettingsDirectory(field, buttonId) {
+        const button = document.getElementById(buttonId);
+        button.disabled = true;
+        try {
+            const path = await invoke('choose_settings_directory', {
+                initial: document.getElementById(field).value
+            });
+            if (path !== null) {
+                document.getElementById(field).value = path;
+                document.getElementById('settingsStatus').textContent = 'Click Save Settings To Apply.';
+            }
+        } catch (error) {
+            document.getElementById('settingsStatus').textContent = String(error);
+        } finally {
+            button.disabled = false;
+        }
+    }
+
+    async saveAppSettings() {
+        const button = document.getElementById('saveSettingsBtn');
+        button.disabled = true;
+        try {
+            await invoke('save_app_settings', { settings: {
+                ffmpeg_directory: document.getElementById('ffmpegDirectory').value,
+                output_directory: document.getElementById('outputDirectory').value
+            } });
+            document.getElementById('settingsStatus').textContent = 'Settings Saved. Applies To The Next Export.';
+        } catch (error) {
+            document.getElementById('settingsStatus').textContent = String(error);
+        } finally {
+            button.disabled = false;
+        }
+    }
+
+    async saveGrainMov() {
+        if (this.exportingMov) return;
+        const params = this.getGrainParameters();
+        const resolution = document.getElementById('movResolution').value;
+        if (resolution !== 'canvas') {
+            [params.width, params.height] = resolution.split('x').map(Number);
+        }
+        const options = {
+            fps: Number(document.getElementById('movFps').value),
+            seconds: Number(document.getElementById('movSeconds').value),
+            mode: document.getElementById('movMode').value
+        };
+        const status = document.getElementById('movStatus');
+        if (!Number.isInteger(options.seconds) || options.seconds < 1 || options.seconds > 60) {
+            status.textContent = 'Duration must be a whole number from 1 to 60 seconds.';
+            return;
+        }
+        this.exportingMov = true;
+        const button = document.getElementById('saveMovBtn');
+        const cancel = document.getElementById('cancelMovBtn');
+        const progress = document.getElementById('movProgress');
+        button.disabled = true;
+        button.textContent = 'Exporting MOV…';
+        cancel.style.display = 'block';
+        progress.style.display = 'block';
+        progress.max = options.fps * options.seconds;
+        progress.value = 0;
+        status.textContent = 'Preparing MOV Export…';
+        let unlisten;
+        try {
+            unlisten = await listen('grain-mov-progress', ({ payload }) => {
+                progress.max = payload.total;
+                progress.value = payload.frame;
+                status.textContent = payload.frame === payload.total
+                    ? 'Finalizing MOV…' : `Generating Frame ${payload.frame} / ${payload.total}`;
+            });
+            const path = await invoke('save_grain_mov', { params, options });
+            status.textContent = 'Saved: ' + path;
+        } catch (error) {
+            status.textContent = String(error);
+        } finally {
+            if (unlisten) unlisten();
+            this.exportingMov = false;
+            button.disabled = false;
+            button.textContent = '🎞 Save Grain MOV';
+            cancel.style.display = 'none';
         }
     }
 

@@ -1,0 +1,9 @@
+{
+  "identifier": "main-events",
+  "description": "Receive MOV export progress in the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:event:allow-listen",
+    "core:event:allow-unlisten"
+  ]
+}

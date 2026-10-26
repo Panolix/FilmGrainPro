@@ -1,0 +1,62 @@
+name: Windows MOV Build And Tests
+
+on:
+  push:
+    branches: ['test/**']
+  pull_request:
+    paths:
+      - 'film-grain-generator/**'
+      - '.github/workflows/windows-test.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: film-grain-generator/src-tauri
+      - name: Prepare FFmpeg
+        shell: pwsh
+        run: |
+          Invoke-WebRequest https://github.com/GyanD/codexffmpeg/releases/download/9.0.2/ffmpeg-9.0.2-essentials_build.zip -OutFile ffmpeg.zip -MaximumRetryCount 3 -RetryIntervalSec 5
+          Expand-Archive ffmpeg.zip -DestinationPath ffmpeg-dist
+          $bin = (Get-ChildItem ffmpeg-dist -Filter ffmpeg.exe -Recurse | Select-Object -First 1).Directory.FullName
+          $bin >> $env:GITHUB_PATH
+      - name: Install frontend dependencies
+        working-directory: film-grain-generator
+        run: npm install
+      - name: Build frontend
+        working-directory: film-grain-generator
+        run: npm run build
+      - name: Test MOV generation and encoding
+        working-directory: film-grain-generator/src-tauri
+        run: |
+          cargo test --locked app_settings::tests -- --nocapture
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo test --locked mov_export::tests -- --nocapture
+      - name: Build Windows application
+        working-directory: film-grain-generator
+        run: npm run tauri build -- --no-bundle
+      - name: Package portable test build
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path portable | Out-Null
+          Copy-Item film-grain-generator/src-tauri/target/release/film-grain-generator.exe portable/film-grain-generator.exe
+          Copy-Item LICENSE portable/
+          Copy-Item MOV_EXPORT.md portable/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: FilmGrainPro-Windows-MOV-${{ github.run_number }}-${{ github.sha }}
+          path: portable/
+          if-no-files-found: error
+          retention-days: 14
