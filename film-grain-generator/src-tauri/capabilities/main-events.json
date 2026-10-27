@@ -7,6 +7,16 @@
   "permissions": [
     "core:event:allow-listen",
     "core:event:allow-unlisten",
-    "core:window:allow-destroy"
+    "core:window:allow-destroy",
+    "core:window:allow-show",
+    "core:window:allow-available-monitors",
+    "core:window:allow-set-position",
+    "core:window:allow-set-size",
+    "core:window:allow-maximize",
+    "core:window:allow-is-maximized",
+    "core:window:allow-is-minimized",
+    "core:window:allow-outer-position",
+    "core:window:allow-inner-size",
+    "core:window:allow-scale-factor"
   ]
 }

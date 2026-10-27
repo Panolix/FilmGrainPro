@@ -1,6 +1,6 @@
 import { invoke } from '@tauri-apps/api/core';
 import { listen } from '@tauri-apps/api/event';
-import { getCurrentWindow } from '@tauri-apps/api/window';
+import { getCurrentWindow, availableMonitors, PhysicalPosition, LogicalSize } from '@tauri-apps/api/window';
 
 // The density slider is mapped piecewise-linearly so each printed tick
 // (0.5x, 1.0x, 2.0x, 3.0x, 5.0x) sits at its true position under the track.
@@ -90,6 +90,14 @@ class FilmGrainGenerator {
             panel.appendChild(button);
         });
         await this.loadAppSettings();
+        try {
+            await this.restoreWindowState();
+        } catch (error) {
+            document.getElementById('settingsStatus').textContent = 'Cannot Restore Window: ' + error;
+        } finally {
+            await getCurrentWindow().show();
+        }
+        await this.trackWindowState();
         this.refreshParameterDisplays();
         await this.updateFilmInfo();
         this.restoringSettings = false;
@@ -103,6 +111,8 @@ class FilmGrainGenerator {
                 // Blur commits an in-place numeric editor before taking the snapshot.
                 document.activeElement?.blur();
                 clearTimeout(this.settingsSaveTimer);
+                clearTimeout(this.windowSaveTimer);
+                await this.captureWindowState();
                 await this.persistSettings();
                 await getCurrentWindow().destroy();
             } catch (error) {
@@ -111,6 +121,64 @@ class FilmGrainGenerator {
             }
         });
         this.regenerateGrain();
+    }
+
+    // Position uses physical desktop coordinates (including negative monitors).
+    // Size uses logical client dimensions so DPI changes do not inflate the UI.
+    fitWindowState(state, monitors) {
+        if (!state || ![state.x, state.y, state.width, state.height].every(Number.isFinite)
+            || state.width < 320 || state.height < 240 || !monitors.length) return null;
+        let monitor = monitors[0], best = 0;
+        for (const candidate of monitors) {
+            const { position: p, size: s, scaleFactor: scale } = candidate;
+            const overlap = Math.max(0, Math.min(state.x + state.width * scale, p.x + s.width) - Math.max(state.x, p.x)) *
+                Math.max(0, Math.min(state.y + state.height * scale, p.y + s.height) - Math.max(state.y, p.y));
+            if (overlap > best) { best = overlap; monitor = candidate; }
+        }
+        const { position: p, size: s, scaleFactor: scale } = monitor;
+        // Leave room for native window borders, title bar and desktop taskbars.
+        const width = Math.min(state.width, Math.max(320, (s.width - 32) / scale));
+        const height = Math.min(state.height, Math.max(240, (s.height - 100) / scale));
+        return { x: Math.round(Math.max(p.x, Math.min(state.x, p.x + s.width - width * scale - 16))),
+            y: Math.round(Math.max(p.y, Math.min(state.y, p.y + s.height - height * scale - 80))),
+            width, height, maximized: state.maximized === true };
+    }
+
+    async restoreWindowState() {
+        const state = this.fitWindowState(this.windowState, await availableMonitors());
+        if (!state) { this.windowState = null; return; }
+        this.windowState = state;
+        const win = getCurrentWindow();
+        await win.setPosition(new PhysicalPosition(state.x, state.y));
+        await win.setSize(new LogicalSize(state.width, state.height));
+        if (state.maximized) await win.maximize();
+    }
+
+    async captureWindowState() {
+        const win = getCurrentWindow();
+        if (await win.isMinimized()) return;
+        const maximized = await win.isMaximized();
+        if (maximized && this.windowState) {
+            this.windowState = { ...this.windowState, maximized: true };
+            return;
+        }
+        const [position, size, scale] = await Promise.all([win.outerPosition(), win.innerSize(), win.scaleFactor()]);
+        this.windowState = { x: position.x, y: position.y, width: size.width / scale,
+            height: size.height / scale, maximized };
+    }
+
+    async trackWindowState() {
+        await this.captureWindowState();
+        const changed = () => {
+            clearTimeout(this.windowSaveTimer);
+            this.windowSaveTimer = setTimeout(async () => {
+                if (this.closing) return;
+                try { await this.captureWindowState(); this.scheduleSettingsSave(); }
+                catch (error) { document.getElementById('settingsStatus').textContent = String(error); }
+            }, 200);
+        };
+        await getCurrentWindow().onMoved(changed);
+        await getCurrentWindow().onResized(changed);
     }
 
     refreshParameterDisplays() {
@@ -157,7 +225,8 @@ class FilmGrainGenerator {
             }
         }
         return { ffmpeg_directory: document.getElementById('ffmpegDirectory').value,
-            output_directory: document.getElementById('outputDirectory').value, ui_values };
+            output_directory: document.getElementById('outputDirectory').value, ui_values,
+            window_state: this.windowState || null };
     }
 
     scheduleSettingsSave() {
@@ -823,6 +892,7 @@ class FilmGrainGenerator {
             document.getElementById('ffmpegDirectory').value = settings.ffmpeg_directory;
             document.getElementById('outputDirectory').value = settings.output_directory;
             this.applyValues(settings.ui_values || {});
+            this.windowState = settings.window_state;
         } catch (error) {
             document.getElementById('settingsStatus').textContent = String(error);
         }

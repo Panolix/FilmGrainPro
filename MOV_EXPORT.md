@@ -69,3 +69,5 @@ Fit scales the image for viewing and can smooth fine grain. Use 100% — Actual 
 Frames are independently randomized, so preview and MOV share grain characteristics rather than identical particles. The preview is displayed in 8-bit RGBA and does not simulate ProRes compression or another application's compositing. Grain strength and the resolution-dependent grain algorithm are unchanged.
 
 At 100%, hold the primary mouse button and drag to pan in any direction. Scrollbars are hidden. Releasing the button ends the drag, including outside the preview.
+
+The main window also remembers its normal size, desktop position and maximized state in the portable settings file. Minimized bounds are ignored. On a changed display layout, saved bounds are constrained to an available monitor. Parameter-page Restore Defaults does not reset window placement.

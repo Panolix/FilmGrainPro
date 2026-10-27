@@ -6,7 +6,18 @@ use std::path::{Path, PathBuf};
 pub struct AppSettings {
     pub ffmpeg_directory: String,
     pub output_directory: String,
+    pub window_state: Option<WindowState>,
     pub ui_values: std::collections::BTreeMap<String, String>,
+}
+
+#[derive(Default, Serialize, Deserialize)]
+#[serde(default)]
+pub struct WindowState {
+    pub x: f64,
+    pub y: f64,
+    pub width: f64,
+    pub height: f64,
+    pub maximized: bool,
 }
 
 fn settings_path() -> Result<PathBuf, String> {
@@ -165,12 +176,16 @@ mod tests {
         std::fs::create_dir_all(&root).unwrap();
         let path = root.join("settings.json");
         let mut settings = AppSettings::default();
+        settings.window_state = Some(WindowState { x: -1400.0, y: 100.0, width: 1400.0, height: 900.0, maximized: true });
         settings.ui_values.insert("grainSize".into(), "0.5".into());
         settings.ui_values.insert("movResolution".into(), "3840x2160".into());
         write_settings(&path, &settings).unwrap();
         settings.ui_values.insert("grainSize".into(), "0.8".into());
         write_settings(&path, &settings).unwrap();
         assert_eq!(read_settings(&path).unwrap().ui_values["grainSize"], "0.8");
+        let state = read_settings(&path).unwrap().window_state.unwrap();
+        assert_eq!(state.x, -1400.0);
+        assert!(state.maximized);
         assert!(!path.with_extension("json.tmp").exists());
         assert_eq!(settings_path().unwrap(), std::env::current_exe().unwrap().with_file_name("settings.json"));
         std::fs::write(&path, br#"{"ffmpeg_directory":"","output_directory":""}"#).unwrap();
