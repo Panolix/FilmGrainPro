@@ -1,5 +1,6 @@
 import { invoke } from '@tauri-apps/api/core';
 import { listen } from '@tauri-apps/api/event';
+import { getCurrentWindow } from '@tauri-apps/api/window';
 
 // The density slider is mapped piecewise-linearly so each printed tick
 // (0.5x, 1.0x, 2.0x, 3.0x, 5.0x) sits at its true position under the track.
@@ -69,10 +70,110 @@ class FilmGrainGenerator {
         this.loadingAnimTimeouts = [];
         this.regenerateLabel = document.getElementById('regenerateBtn').textContent;
         
-        this.initializeControls();
-        this.loadAppSettings();
+        this.initialize();
     }
     
+    async initialize() {
+        this.restoringSettings = true;
+        this.saveQueue = Promise.resolve();
+        await this.initializeControls();
+        this.pageDefaults = {};
+        document.querySelectorAll('.tab-panel').forEach(panel => {
+            this.pageDefaults[panel.id] = {};
+            panel.querySelectorAll('input:not([type="file"]), select').forEach(el => {
+                this.pageDefaults[panel.id][el.id] = el.value;
+            });
+            const button = document.createElement('button');
+            button.className = 'regenerate-btn';
+            button.textContent = 'Restore Defaults';
+            button.addEventListener('click', () => this.restorePageDefaults(panel.id));
+            panel.appendChild(button);
+        });
+        await this.loadAppSettings();
+        this.refreshParameterDisplays();
+        await this.updateFilmInfo();
+        this.restoringSettings = false;
+        document.querySelector('.controls').addEventListener('input', () => this.scheduleSettingsSave());
+        document.querySelector('.controls').addEventListener('change', () => this.scheduleSettingsSave());
+        await getCurrentWindow().onCloseRequested(async event => {
+            event.preventDefault();
+            if (this.closing) return;
+            this.closing = true;
+            try {
+                // Blur commits an in-place numeric editor before taking the snapshot.
+                document.activeElement?.blur();
+                clearTimeout(this.settingsSaveTimer);
+                await this.persistSettings();
+                await getCurrentWindow().destroy();
+            } catch (error) {
+                this.closing = false;
+                alert('Cannot Save Settings. The Window Will Remain Open.\n' + error);
+            }
+        });
+        this.regenerateGrain();
+    }
+
+    refreshParameterDisplays() {
+        for (const id of ['grainIntensity', 'grainSize', 'contrast', 'grainDensity', 'canvasWidth', 'canvasHeight', 'filmAge']) {
+            const value = document.getElementById(id).value;
+            let label = value;
+            if (id === 'grainDensity') label = densityFromSlider(Number(value)).toFixed(1) + 'x';
+            if (id === 'grainSize') label += 'x';
+            if (id === 'contrast') label += '%';
+            if (id === 'grainIntensity' && Number(value) > 0) label = '+' + value;
+            if (id === 'filmAge') label = Number(value) === 0 ? 'Fresh' : value + 'y';
+            document.getElementById(id + 'Value').textContent = label;
+        }
+        this.updatePreviewView();
+    }
+
+    applyValues(values) {
+        for (const [id, value] of Object.entries(values)) {
+            const el = document.getElementById(id);
+            if (!el || !Object.values(this.pageDefaults).some(page => id in page) || typeof value !== 'string') continue;
+            if (el.tagName === 'SELECT' && !Array.from(el.options).some(option => option.value === value)) continue;
+            if (el.type === 'number' || el.type === 'range') {
+                const number = Number(value);
+                if (value.trim() === '' || !Number.isFinite(number) || number < Number(el.min) || number > Number(el.max)) continue;
+                if (el.step && el.step !== 'any' && Math.abs((number - Number(el.min || 0)) / Number(el.step) - Math.round((number - Number(el.min || 0)) / Number(el.step))) > 1e-6) continue;
+            }
+            el.value = value;
+        }
+    }
+
+    restorePageDefaults(page) {
+        this.applyValues(this.pageDefaults[page]);
+        this.refreshParameterDisplays();
+        this.updateFilmInfo();
+        this.regenerateGrain();
+        this.scheduleSettingsSave();
+    }
+
+    settingsSnapshot() {
+        const ui_values = {};
+        for (const page of Object.values(this.pageDefaults)) {
+            for (const id of Object.keys(page)) {
+                if (id !== 'ffmpegDirectory' && id !== 'outputDirectory') ui_values[id] = document.getElementById(id).value;
+            }
+        }
+        return { ffmpeg_directory: document.getElementById('ffmpegDirectory').value,
+            output_directory: document.getElementById('outputDirectory').value, ui_values };
+    }
+
+    scheduleSettingsSave() {
+        if (this.restoringSettings || !this.pageDefaults) return;
+        clearTimeout(this.settingsSaveTimer);
+        this.settingsSaveTimer = setTimeout(() => this.persistSettings().catch(error => {
+            document.getElementById('settingsStatus').textContent = String(error);
+        }), 400);
+    }
+
+    persistSettings() {
+        const settings = this.settingsSnapshot();
+        this.saveQueue = this.saveQueue.catch(() => {}).then(() => invoke('save_app_settings', { settings }));
+        return this.saveQueue;
+    }
+
     async loadFilmStocks() {
         try {
             // Get categorized film stocks from backend
@@ -102,14 +203,11 @@ class FilmGrainGenerator {
                 filmStockSelect.appendChild(optgroup);
             });
             
-            // Generate initial grain after loading stocks
-            this.updateFilmInfo();
-            this.generateInitialGrain();
+            // Initial grain is generated after portable settings have been restored.
             
         } catch (error) {
             console.error('Failed to load film stocks:', error);
-            // Fall back to generating with default stock
-            this.generateInitialGrain();
+            // Keep the built-in stock list if dynamic loading fails.
         }
     }
 
@@ -420,11 +518,9 @@ class FilmGrainGenerator {
         this.regenerateGrain();
     }
 
-    async generateInitialGrain() {
-        await this.regenerateGrain();
-    }
-    
     async regenerateGrain() {
+        if (this.restoringSettings) return;
+        this.scheduleSettingsSave();
         const params = this.getMovParameters();
         const regenerateBtn = document.getElementById('regenerateBtn');
         const requestId = ++this.generationId;
@@ -726,6 +822,7 @@ class FilmGrainGenerator {
             const settings = await invoke('get_app_settings');
             document.getElementById('ffmpegDirectory').value = settings.ffmpeg_directory;
             document.getElementById('outputDirectory').value = settings.output_directory;
+            this.applyValues(settings.ui_values || {});
         } catch (error) {
             document.getElementById('settingsStatus').textContent = String(error);
         }
@@ -740,7 +837,8 @@ class FilmGrainGenerator {
             });
             if (path !== null) {
                 document.getElementById(field).value = path;
-                document.getElementById('settingsStatus').textContent = 'Click Save Settings To Apply.';
+                this.scheduleSettingsSave();
+                document.getElementById('settingsStatus').textContent = 'Settings Will Be Saved Automatically.';
             }
         } catch (error) {
             document.getElementById('settingsStatus').textContent = String(error);
@@ -753,10 +851,7 @@ class FilmGrainGenerator {
         const button = document.getElementById('saveSettingsBtn');
         button.disabled = true;
         try {
-            await invoke('save_app_settings', { settings: {
-                ffmpeg_directory: document.getElementById('ffmpegDirectory').value,
-                output_directory: document.getElementById('outputDirectory').value
-            } });
+            await this.persistSettings();
             document.getElementById('settingsStatus').textContent = 'Settings Saved. Applies To The Next Export.';
         } catch (error) {
             document.getElementById('settingsStatus').textContent = String(error);

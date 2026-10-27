@@ -1,9 +1,12 @@
 {
   "identifier": "main-events",
   "description": "Receive MOV export progress in the main window",
-  "windows": ["main"],
+  "windows": [
+    "main"
+  ],
   "permissions": [
     "core:event:allow-listen",
-    "core:event:allow-unlisten"
+    "core:event:allow-unlisten",
+    "core:window:allow-destroy"
   ]
 }

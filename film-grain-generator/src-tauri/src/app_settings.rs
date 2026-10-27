@@ -6,11 +6,34 @@ use std::path::{Path, PathBuf};
 pub struct AppSettings {
     pub ffmpeg_directory: String,
     pub output_directory: String,
+    pub ui_values: std::collections::BTreeMap<String, String>,
 }
 
 fn settings_path() -> Result<PathBuf, String> {
-    Ok(dirs::config_dir().ok_or("Configuration directory is unavailable.")?
-        .join("FilmGrainPro").join("settings.json"))
+    Ok(std::env::current_exe().map_err(|e| format!("Cannot locate application: {e}"))?
+        .with_file_name("settings.json"))
+}
+
+fn write_settings(path: &Path, settings: &AppSettings) -> Result<(), String> {
+    let bytes = serde_json::to_vec_pretty(settings).map_err(|e| e.to_string())?;
+    let temporary = path.with_extension("json.tmp");
+    std::fs::write(&temporary, bytes).map_err(|e| format!("Cannot save portable settings beside the application: {e}"))?;
+    replace_file(&temporary, path).map_err(|e| format!("Cannot replace portable settings: {e}"))
+}
+
+#[cfg(not(windows))]
+fn replace_file(from: &Path, to: &Path) -> std::io::Result<()> { std::fs::rename(from, to) }
+
+#[cfg(windows)]
+fn replace_file(from: &Path, to: &Path) -> std::io::Result<()> {
+    use std::os::windows::ffi::OsStrExt;
+    #[link(name = "kernel32")]
+    extern "system" { fn MoveFileExW(from: *const u16, to: *const u16, flags: u32) -> i32; }
+    let from: Vec<u16> = from.as_os_str().encode_wide().chain(Some(0)).collect();
+    let to: Vec<u16> = to.as_os_str().encode_wide().chain(Some(0)).collect();
+    if unsafe { MoveFileExW(from.as_ptr(), to.as_ptr(), 0x1 | 0x8) } == 0 {
+        Err(std::io::Error::last_os_error())
+    } else { Ok(()) }
 }
 
 fn read_settings(path: &Path) -> Result<AppSettings, String> {
@@ -23,13 +46,23 @@ fn read_settings(path: &Path) -> Result<AppSettings, String> {
 
 #[tauri::command]
 pub fn get_app_settings() -> Result<AppSettings, String> {
-    read_settings(&settings_path()?)
+    let path = settings_path()?;
+    if path.exists() { return read_settings(&path); }
+    if let Some(legacy) = dirs::config_dir().map(|p| p.join("FilmGrainPro").join("settings.json")) {
+        if legacy.exists() {
+            let settings = read_settings(&legacy)?;
+            write_settings(&path, &settings)?;
+            return Ok(settings);
+        }
+    }
+    Ok(AppSettings::default())
 }
 
 fn executable_name() -> &'static str {
     if cfg!(windows) { "ffmpeg.exe" } else { "ffmpeg" }
 }
 
+#[cfg(test)]
 fn validate(settings: &AppSettings) -> Result<(), String> {
     if !settings.ffmpeg_directory.is_empty() {
         let path = Path::new(&settings.ffmpeg_directory);
@@ -48,12 +81,9 @@ fn validate(settings: &AppSettings) -> Result<(), String> {
 
 #[tauri::command]
 pub fn save_app_settings(settings: AppSettings) -> Result<(), String> {
-    validate(&settings)?;
-    let path = settings_path()?;
-    std::fs::create_dir_all(path.parent().ok_or("Invalid configuration path.")?)
-        .map_err(|e| format!("Cannot create configuration directory: {e}"))?;
-    let bytes = serde_json::to_vec_pretty(&settings).map_err(|e| e.to_string())?;
-    std::fs::write(path, bytes).map_err(|e| format!("Cannot save settings: {e}"))
+    static SAVE_LOCK: std::sync::Mutex<()> = std::sync::Mutex::new(());
+    let _guard = SAVE_LOCK.lock().map_err(|e| e.to_string())?;
+    write_settings(&settings_path()?, &settings)
 }
 
 pub fn output_directory() -> Result<PathBuf, String> {
@@ -61,7 +91,9 @@ pub fn output_directory() -> Result<PathBuf, String> {
     let path = if settings.output_directory.is_empty() {
         dirs::download_dir().ok_or("Downloads directory is unavailable.")?
     } else {
-        PathBuf::from(settings.output_directory)
+        let path = PathBuf::from(settings.output_directory);
+        if !path.is_absolute() { return Err("Select an absolute output directory.".into()); }
+        path
     };
     if !path.is_dir() { return Err(format!("Output directory is unavailable: {}", path.display())); }
     Ok(path)
@@ -70,6 +102,9 @@ pub fn output_directory() -> Result<PathBuf, String> {
 pub fn ffmpeg_path() -> Result<PathBuf, String> {
     let settings = get_app_settings()?;
     if !settings.ffmpeg_directory.is_empty() {
+        if !Path::new(&settings.ffmpeg_directory).is_absolute() {
+            return Err("Select an absolute FFmpeg directory.".into());
+        }
         let path = Path::new(&settings.ffmpeg_directory).join(executable_name());
         return if path.is_file() { Ok(path) }
             else { Err(format!("Configured FFmpeg is unavailable: {}", path.display())) };
@@ -125,6 +160,25 @@ fn choose_directory(_initial: String) -> Result<Option<String>, String> {
 mod tests {
     use super::*;
     #[test]
+    fn portable_values_round_trip_and_replace_existing_file() {
+        let root = std::env::temp_dir().join(format!("FGG_portable_{}", std::process::id()));
+        std::fs::create_dir_all(&root).unwrap();
+        let path = root.join("settings.json");
+        let mut settings = AppSettings::default();
+        settings.ui_values.insert("grainSize".into(), "0.5".into());
+        settings.ui_values.insert("movResolution".into(), "3840x2160".into());
+        write_settings(&path, &settings).unwrap();
+        settings.ui_values.insert("grainSize".into(), "0.8".into());
+        write_settings(&path, &settings).unwrap();
+        assert_eq!(read_settings(&path).unwrap().ui_values["grainSize"], "0.8");
+        assert!(!path.with_extension("json.tmp").exists());
+        assert_eq!(settings_path().unwrap(), std::env::current_exe().unwrap().with_file_name("settings.json"));
+        std::fs::write(&path, br#"{"ffmpeg_directory":"","output_directory":""}"#).unwrap();
+        assert!(read_settings(&path).unwrap().ui_values.is_empty());
+        std::fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
     fn paths_round_trip_and_invalid_settings_are_rejected() {
         let root = std::env::temp_dir().join(format!("FGP_设置_&_'_({})", std::process::id()));
         std::fs::create_dir_all(&root).unwrap();
@@ -135,6 +189,7 @@ mod tests {
         let settings = AppSettings {
             ffmpeg_directory: root.to_string_lossy().into_owned(),
             output_directory: root.to_string_lossy().into_owned(),
+            ..AppSettings::default()
         };
         assert!(validate(&settings).is_ok());
         std::fs::write(&config, serde_json::to_vec(&settings).unwrap()).unwrap();

@@ -43,15 +43,16 @@ Transparent compositing still uses ProRes 4444 with alpha.
 ## Directories And FFmpeg
 
 In **Settings**, choose the directory containing FFmpeg and an output directory,
-then click **Save Settings**. Paths can also be entered manually. Folder browsing
+and they are saved automatically. **Save Settings** also saves immediately. Paths can be entered manually. Folder browsing
 is available on Windows; other platforms use manual path entry.
 
 The output directory applies to PNG and MOV exports. Leave it empty to use
 Downloads. Leave the FFmpeg directory empty to search beside the executable,
 then PATH. An explicitly configured FFmpeg path takes precedence.
 
-Settings are stored in the user configuration directory under
-FilmGrainPro/settings.json (on Windows, %APPDATA%/FilmGrainPro/settings.json).
+Settings are stored in `settings.json` beside the executable. Keep the application in a writable folder. On first use, existing user-directory settings are imported if no portable settings file exists. The original file is retained as a backup.
+
+Basic, Advanced, Settings and Output values are remembered automatically, including the selected film, preview view and MOV options. Changes are saved shortly after editing and flushed before normal window close. Each page has its own **Restore Defaults** button that resets only that page. Uploaded images, generated frames and temporary export progress are not persisted. Invalid saved menu or numeric values fall back to defaults. Save errors are reported; normal close stays open if the final save fails.
 Saved changes apply to subsequent exports.
 
 FFmpeg is required for MOV export and is not bundled. PNG export does not
