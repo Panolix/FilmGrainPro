@@ -62,7 +62,8 @@ jobs:
           retention-days: 14
 
   publish:
-    if: github.repository == 'rampageX/FilmGrainPro' && github.event_name == 'push' && startsWith(github.event.head_commit.message, 'release(fgg): v2.3.2')
+    if: >-
+      github.repository == 'rampageX/FilmGrainPro' && github.event_name == 'push' && startsWith(github.event.head_commit.message, 'release(fgg): v2.3.2')
     needs: windows
     runs-on: windows-latest
     permissions:
