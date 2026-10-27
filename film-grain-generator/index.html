@@ -247,6 +247,16 @@
             padding: 0 320px; /* Space for UI panels */
         }
 
+        #previewViewport {
+            width: 100%;
+            height: 82vh;
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #previewViewport.native { display: block; }
+        #previewViewport .grain-canvas { max-width: none; max-height: none; flex: none; }
         .grain-canvas {
             max-width: 100%;
             max-height: 82vh;
@@ -410,8 +420,17 @@
                     <label for="previewMode">Preview Background</label>
                     <select id="previewMode">
                         <option value="original">Original — Black / Uploaded Image</option>
-                        <option value="neutral_gray">50% Gray + Dark Grain</option>
+                        <option value="neutral_gray" selected>50% Gray + Dark Grain</option>
                     </select>
+                </div>
+                <div class="control-group">
+                    <label for="previewZoom">Preview View</label>
+                    <select id="previewZoom">
+                        <option value="fit">Fit</option>
+                        <option value="native">100% — Actual Pixels</option>
+                    </select>
+                    <p style="font-size:12px;color:#aaa">Preview Uses MOV Resolution. Select Current Canvas In Output To Use Canvas Width / Height. At 100%, Scroll To Inspect The Grain.</p>
+                    <div id="previewInfo" role="status" style="font-size:12px;color:#ccc"></div>
                 </div>
                 <button class="regenerate-btn" id="regenerateBtn">Regenerate Grain</button>
             </div>
@@ -485,7 +504,7 @@
                     </select>
                     <label for="movMode">MOV Type</label>
                     <select id="movMode">
-                        <option value="neutral_gray">Overlay — Neutral Gray (ProRes 422 HQ)</option>
+                        <option value="neutral_gray" selected>Overlay — Neutral Gray (ProRes 422 HQ)</option>
                         <option value="neutral_gray_4444">Overlay — Neutral Gray (ProRes 4444)</option>
                         <option value="transparent">Transparent — Alpha Overlay</option>
                     </select>
@@ -508,7 +527,9 @@
     </div>
 
     <div class="hero-container">
-        <canvas id="grainCanvas" class="grain-canvas" width="1024" height="1024"></canvas>
+        <div id="previewViewport">
+            <canvas id="grainCanvas" class="grain-canvas" width="1024" height="1024"></canvas>
+        </div>
         <div class="loading-bar" id="loadingBar">
             <div class="loading-progress" id="loadingProgress"></div>
             <div class="loading-text" id="loadingText">Generating grain...</div>

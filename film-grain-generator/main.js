@@ -329,6 +329,16 @@ class FilmGrainGenerator {
                 data: this.currentImageData, width: this.canvas.width, height: this.canvas.height
             });
         });
+        document.getElementById('movResolution').addEventListener('change', () => this.regenerateGrain());
+        document.getElementById('movMode').addEventListener('change', () => {
+            document.getElementById('previewMode').value =
+                document.getElementById('movMode').value === 'transparent' ? 'original' : 'neutral_gray';
+            if (this.currentImageData) this.displayGrainResult({
+                data: this.currentImageData, width: this.canvas.width, height: this.canvas.height
+            });
+        });
+        document.getElementById('previewZoom').addEventListener('change', () => this.updatePreviewView());
+        window.addEventListener('resize', () => this.updatePreviewView());
         document.getElementById('cancelMovBtn').addEventListener('click', async () => {
             try {
                 await invoke('cancel_grain_mov');
@@ -406,22 +416,15 @@ class FilmGrainGenerator {
     }
     
     updateCanvasSize() {
-        const width = parseInt(document.getElementById('canvasWidth').value);
-        const height = parseInt(document.getElementById('canvasHeight').value);
-        
-        this.canvas.width = width;
-        this.canvas.height = height;
-        
-        // Regenerate grain with new size
         this.regenerateGrain();
     }
-    
+
     async generateInitialGrain() {
         await this.regenerateGrain();
     }
     
     async regenerateGrain() {
-        const params = this.getGrainParameters();
+        const params = this.getMovParameters();
         const regenerateBtn = document.getElementById('regenerateBtn');
         const requestId = ++this.generationId;
 
@@ -535,6 +538,30 @@ class FilmGrainGenerator {
         };
     }
     
+    getMovParameters() {
+        const params = this.getGrainParameters();
+        const resolution = document.getElementById('movResolution').value;
+        if (resolution !== 'canvas') {
+            [params.width, params.height] = resolution.split('x').map(Number);
+        }
+        return params;
+    }
+
+    updatePreviewView() {
+        const viewport = document.getElementById('previewViewport');
+        const native = document.getElementById('previewZoom').value === 'native';
+        const ratio = window.devicePixelRatio || 1;
+        const scale = native ? 1 / ratio : Math.min(
+            viewport.clientWidth / this.canvas.width,
+            viewport.clientHeight / this.canvas.height, 1 / ratio);
+        this.canvas.style.width = `${this.canvas.width * scale}px`;
+        this.canvas.style.height = `${this.canvas.height * scale}px`;
+        viewport.classList.toggle('native', native);
+        document.getElementById('previewInfo').textContent =
+            `${this.canvas.width} × ${this.canvas.height} | ${Math.round(scale * ratio * 100)}% | ` +
+            (native ? 'One Image Pixel Per Display Pixel' : 'Fit — Fine Grain May Be Smoothed');
+    }
+
     displayGrainResult(result) {
         const { data, width, height } = result;
         
@@ -576,6 +603,7 @@ class FilmGrainGenerator {
         
         // Store original transparent data for saving (unchanged)
         this.currentImageData = data;
+        this.updatePreviewView();
     }
     
     updatePerformanceInfo(result) {
@@ -610,6 +638,7 @@ class FilmGrainGenerator {
                 this.uploadedImageElement = img;
                 this.uploadedImage = true; // Flag to indicate image is loaded
                 
+                this.currentImageData = null;
                 // Store image dimensions and auto-resize canvas
                 this.uploadedImageWidth = img.naturalWidth;
                 this.uploadedImageHeight = img.naturalHeight;
@@ -709,11 +738,7 @@ class FilmGrainGenerator {
 
     async saveGrainMov() {
         if (this.exportingMov) return;
-        const params = this.getGrainParameters();
-        const resolution = document.getElementById('movResolution').value;
-        if (resolution !== 'canvas') {
-            [params.width, params.height] = resolution.split('x').map(Number);
-        }
+        const params = this.getMovParameters();
         const options = {
             fps: Number(document.getElementById('movFps').value),
             seconds: Number(document.getElementById('movSeconds').value),
@@ -772,8 +797,8 @@ class FilmGrainGenerator {
             // Save to Downloads folder (simplified approach)
             await invoke('save_grain_image', {
                 data: this.currentImageData,
-                width: params.width,
-                height: params.height,
+                width: this.canvas.width,
+                height: this.canvas.height,
                 path: filename
             });
             
@@ -801,8 +826,8 @@ class FilmGrainGenerator {
             // Composite image with grain in Rust backend
             await invoke('save_composite_image', {
                 grainData: this.currentImageData,
-                grainWidth: params.width,
-                grainHeight: params.height,
+                grainWidth: this.canvas.width,
+                grainHeight: this.canvas.height,
                 baseImageData: this.uploadedImageBase64,
                 path: filename
             });
