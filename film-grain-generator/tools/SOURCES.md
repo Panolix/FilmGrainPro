@@ -1,6 +1,6 @@
 # Grain data sources
 
-Collected to characterise the 35 film stocks. Primary sources are manufacturer data sheets; anything not published by the manufacturer is marked `estimated`/`derived`.
+Collected to characterise the 37 film stocks. Primary sources are manufacturer data sheets; anything not published by the manufacturer is marked `estimated`/`derived`.
 
 ## kodak_f4017
 - **KODAK PROFESSIONAL TRI-X 400 Film - Technical Data F-4017 (2007)**

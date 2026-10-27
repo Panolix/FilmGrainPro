@@ -1,5 +1,5 @@
 #!/bin/bash
-# Simple Command Line Film Grain Generator Installer
+# Simple Command Line FilmGrainPro Installer
 # This is a fallback installer that doesn't require GUI
 
 # Get the directory where this script is located
@@ -7,13 +7,13 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd "$SCRIPT_DIR"
 
 # Set terminal title and clear screen
-echo -e "\033]0;🎬 Film Grain Generator - Simple Installer\007"
+echo -e "\033]0;🎬 FilmGrainPro - Simple Installer\007"
 clear
 
-echo "🎬 Film Grain Generator - Simple Installer"
+echo "🎬 FilmGrainPro - Simple Installer"
 echo "=========================================="
 echo ""
-echo "This installer will build and install Film Grain Generator"
+echo "This installer will build and install FilmGrainPro"
 echo "without requiring a GUI interface."
 echo ""
 
@@ -80,7 +80,7 @@ echo "✅ Project structure found"
 echo ""
 
 # Ask user to continue
-echo "🚀 Ready to build and install Film Grain Generator!"
+echo "🚀 Ready to build and install FilmGrainPro!"
 echo ""
 echo "This process will:"
 echo "• Install npm dependencies"
@@ -111,7 +111,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo ""
-echo "🔨 Building Film Grain Generator..."
+echo "🔨 Building FilmGrainPro..."
 echo "This will take several minutes..."
 echo ""
 
@@ -129,7 +129,7 @@ echo ""
 echo "📱 Installing to Applications folder..."
 
 # Check if app was built
-APP_PATH="src-tauri/target/release/bundle/macos/Film Grain Generator.app"
+APP_PATH="src-tauri/target/release/bundle/macos/FilmGrainPro.app"
 if [ ! -d "$APP_PATH" ]; then
     echo "❌ Built app not found at: $APP_PATH"
     echo ""
@@ -139,9 +139,9 @@ if [ ! -d "$APP_PATH" ]; then
 fi
 
 # Remove existing installation
-if [ -d "/Applications/Film Grain Generator.app" ]; then
+if [ -d "/Applications/FilmGrainPro.app" ]; then
     echo "🗑️  Removing existing installation..."
-    rm -rf "/Applications/Film Grain Generator.app"
+    rm -rf "/Applications/FilmGrainPro.app"
 fi
 
 # Copy new app
@@ -153,8 +153,8 @@ if [ $? -eq 0 ]; then
     echo "🎉 Installation Complete!"
     echo "========================"
     echo ""
-    echo "Film Grain Generator has been installed to:"
-    echo "/Applications/Film Grain Generator.app"
+    echo "FilmGrainPro has been installed to:"
+    echo "/Applications/FilmGrainPro.app"
     echo ""
     echo "You can now:"
     echo "• Launch from Applications folder"
@@ -163,11 +163,11 @@ if [ $? -eq 0 ]; then
     echo ""
     
     # Ask if user wants to launch
-    echo "Would you like to launch Film Grain Generator now? (y/n)"
+    echo "Would you like to launch FilmGrainPro now? (y/n)"
     read -r response
     if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
-        echo "🚀 Launching Film Grain Generator..."
-        open "/Applications/Film Grain Generator.app"
+        echo "🚀 Launching FilmGrainPro..."
+        open "/Applications/FilmGrainPro.app"
     fi
     
     echo ""

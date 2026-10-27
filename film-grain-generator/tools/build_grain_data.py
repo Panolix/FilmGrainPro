@@ -580,7 +580,7 @@ with io.open(os.path.join(ROOT, "grain_model.json"), "w", encoding="utf-8") as f
 # 5. SOURCES.md
 # ---------------------------------------------------------------------------
 lines = ["# Grain data sources", "",
-         "Collected to characterise the 35 film stocks. Primary sources are manufacturer "
+         "Collected to characterise the 37 film stocks. Primary sources are manufacturer "
          "data sheets; anything not published by the manufacturer is marked `estimated`/`derived`.", ""]
 for sid, s in SOURCES.items():
     lines += [f"## {sid}", f"- **{s['title']}**", f"- {s['url']}", f"- Provides: {s['provides']}", ""]

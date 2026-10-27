@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-🎬 Film Grain Generator - Universal Installer
+🎬 FilmGrainPro - Universal Installer
 Cross-platform installer that works on macOS, Windows, and Linux
 Just double-click this file to install!
 """
@@ -27,7 +27,7 @@ class FilmGrainInstaller:
     def show_gui(self):
         """Show the GUI installer"""
         self.root = tk.Tk()
-        self.root.title("🎬 Film Grain Generator Installer")
+        self.root.title("🎬 FilmGrainPro Installer")
         self.root.geometry("600x500")
         self.root.resizable(False, False)
         
@@ -45,7 +45,7 @@ class FilmGrainInstaller:
         main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
         
         # Title
-        title_label = ttk.Label(main_frame, text="🎬 Film Grain Generator", 
+        title_label = ttk.Label(main_frame, text="🎬 FilmGrainPro", 
                                font=("Arial", 20, "bold"))
         title_label.grid(row=0, column=0, columnspan=2, pady=(0, 10))
         
@@ -93,7 +93,7 @@ This installer will:
         button_frame = ttk.Frame(main_frame)
         button_frame.grid(row=6, column=0, columnspan=2, pady=(10, 0))
         
-        self.install_button = ttk.Button(button_frame, text="🚀 Install Film Grain Generator", 
+        self.install_button = ttk.Button(button_frame, text="🚀 Install FilmGrainPro", 
                                         command=self.start_installation, style="Accent.TButton")
         self.install_button.pack(side=tk.LEFT, padx=(0, 10))
         
@@ -114,7 +114,7 @@ This installer will:
         y = (self.root.winfo_screenheight() // 2) - (500 // 2)
         self.root.geometry(f"600x500+{x}+{y}")
         
-        self.log("🎬 Film Grain Generator Installer Ready")
+        self.log("🎬 FilmGrainPro Installer Ready")
         self.log(f"Platform: {self.system}")
         self.log("Click 'Install' to begin...")
         
@@ -263,7 +263,7 @@ This installer will:
     
     def build_application(self):
         """Build the Tauri application"""
-        self.log("🔨 Building Film Grain Generator...")
+        self.log("🔨 Building FilmGrainPro...")
         self.log("This may take several minutes...")
         
         try:
@@ -314,8 +314,8 @@ This installer will:
     
     def install_macos(self):
         """Install on macOS"""
-        app_path = Path("film-grain-generator/src-tauri/target/release/bundle/macos/Film Grain Generator.app")
-        install_path = Path("/Applications/Film Grain Generator.app")
+        app_path = Path("film-grain-generator/src-tauri/target/release/bundle/macos/FilmGrainPro.app")
+        install_path = Path("/Applications/FilmGrainPro.app")
         
         if not app_path.exists():
             self.log(f"❌ Built app not found at: {app_path}")
@@ -344,7 +344,7 @@ This installer will:
     def install_windows(self):
         """Install on Windows"""
         # Look for MSI installer
-        msi_pattern = "film-grain-generator/src-tauri/target/release/bundle/msi/Film Grain Generator_*.msi"
+        msi_pattern = "film-grain-generator/src-tauri/target/release/bundle/msi/FilmGrainPro_*.msi"
         msi_files = list(Path(".").glob(msi_pattern))
         
         if not msi_files:
@@ -377,7 +377,7 @@ This installer will:
         
         if appimage_files:
             appimage_path = appimage_files[0]
-            install_path = Path.home() / "Applications" / "Film Grain Generator.AppImage"
+            install_path = Path.home() / "Applications" / "FilmGrainPro.AppImage"
             
             try:
                 # Create Applications directory if it doesn't exist
@@ -409,7 +409,7 @@ This installer will:
     
     def show_completion_dialog(self):
         """Show completion dialog with launch option"""
-        message = "🎉 Film Grain Generator has been installed successfully!\n\n"
+        message = "🎉 FilmGrainPro has been installed successfully!\n\n"
         
         if self.system == "Darwin":
             message += "You can now:\n"
@@ -420,7 +420,7 @@ This installer will:
         elif self.system == "Windows":
             message += "You can now:\n"
             message += "• Launch from Start Menu\n"
-            message += "• Search for 'Film Grain Generator'\n"
+            message += "• Search for 'FilmGrainPro'\n"
             message += "• Use Desktop shortcut (if created)\n\n"
             message += "Would you like to launch the app now?"
         else:  # Linux
@@ -434,20 +434,20 @@ This installer will:
         """Launch the installed application"""
         try:
             if self.system == "Darwin":
-                subprocess.run(["open", "/Applications/Film Grain Generator.app"])
+                subprocess.run(["open", "/Applications/FilmGrainPro.app"])
             elif self.system == "Windows":
                 # Try to find and launch the installed app
-                subprocess.run(["start", "Film Grain Generator"], shell=True)
+                subprocess.run(["start", "FilmGrainPro"], shell=True)
             else:  # Linux
                 # Try common launch methods
                 try:
                     subprocess.run(["film-grain-generator"])
                 except:
-                    appimage_path = Path.home() / "Applications" / "Film Grain Generator.AppImage"
+                    appimage_path = Path.home() / "Applications" / "FilmGrainPro.AppImage"
                     if appimage_path.exists():
                         subprocess.run([str(appimage_path)])
             
-            self.log("🚀 Launched Film Grain Generator!")
+            self.log("🚀 Launched FilmGrainPro!")
         except Exception as e:
             self.log(f"❌ Failed to launch app: {e}")
 

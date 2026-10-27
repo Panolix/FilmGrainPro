@@ -6,13 +6,13 @@ Generated from `grain_data.json`. This lists, per film, which grain-relevant fie
 
 | Field | Used for | Current source | Status |
 |---|---|---|---|
-| Graininess (RMS/PGI at D=1.0) | grain amplitude | datasheet / class-derived / estimated | 17/35 datasheet |
+| Graininess (RMS/PGI at D=1.0) | grain amplitude | datasheet / class-derived / estimated | 17/37 datasheet |
 | Grain size distribution (mean, spread) | grain size + count | literature/ISO model | **all estimated** |
 | Morphology (tabular/cubic/core-shell/sigma) | grain shape | datasheets + general docs | good |
 | Clustering probability / correlation length | cluster pass | app_baseline | **all unverified** |
 | Grain colour (per-channel for colour stocks) | grain tint | color.json | **all unverified** |
-| Halation (radius, intensity) | highlight glow | derived; CineStill only | 2 films only |
-| Push response (stops, EI, grain increase) | exposure slider | datasheet (partial) | ~11/35 |
+| Halation (radius, intensity) | highlight glow | derived; CineStill only | 3 films |
+| Push response (stops, EI, grain increase) | exposure slider | datasheet (partial) | 15/37 |
 
 ## Graininess coverage
 
@@ -69,7 +69,7 @@ Generated from `grain_data.json`. This lists, per film, which grain-relevant fie
 1. **Grain size distribution per film (mean + spread, µm).** Not published by any manufacturer; currently a single literature/ISO model. Needed for grain size AND count to differ correctly between films. Obtain by **scan measurement** of each stock (autocorrelation / power-spectral density) - see `MEASUREMENT.md`.
 2. **Clustering (probability + correlation length).** Currently the unverified `fixed.json`/`more.json` baseline. Needed for authentic grain clumping. Obtain by measuring spatial statistics from scans.
 3. **Per-channel grain colour for colour negative and slide films.** Currently the unverified `color.json` values. Derive from datasheet spectral-sensitivity curves (the spectral pages we can digitise) or measure per-channel variance from scans.
-4. **Graininess for the 10 estimated + 6 derived films.** Ilford (6), Fuji Neopan 400/1600, Fuji C200/Natura are the estimated ones; Agfa/Vision3/CineStill are derived from published parents. Datasheets for Ilford publish no numeric RMS, so these need measurement or a documented third-party value.
+4. **Graininess for the 10 estimated + 7 derived + 3 curve-estimated films.** Ilford (6), Fuji Neopan 400/1600, Fuji C200/Natura are the estimated ones; Agfa/CineStill/Ektachrome are derived from published parents; the Vision3 stocks are estimated from datasheet curves. Datasheets for Ilford publish no numeric RMS, so these need measurement or a documented third-party value.
 5. **Halation radius/intensity for CineStill** (and any other halating stock). Currently derived; measure from a highlight on real footage/scans.
 6. **Push-response curves (grain vs push) for more films.** Datasheet push tables exist for Kodak B&W, Portra 800, E100, Provia/Velvia; extend to the rest, and to the exposure-slider mapping.
 

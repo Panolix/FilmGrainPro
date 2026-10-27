@@ -52,13 +52,13 @@ lines.append("Generated from `grain_data.json`. This lists, per film, which grai
 lines.append("## Fields the renderer needs\n")
 lines.append("| Field | Used for | Current source | Status |")
 lines.append("|---|---|---|---|")
-lines.append("| Graininess (RMS/PGI at D=1.0) | grain amplitude | datasheet / class-derived / estimated | 17/35 datasheet |")
+lines.append(f"| Graininess (RMS/PGI at D=1.0) | grain amplitude | datasheet / class-derived / estimated | {gi['datasheet']}/{len(rows)} datasheet |")
 lines.append("| Grain size distribution (mean, spread) | grain size + count | literature/ISO model | **all estimated** |")
 lines.append("| Morphology (tabular/cubic/core-shell/sigma) | grain shape | datasheets + general docs | good |")
 lines.append("| Clustering probability / correlation length | cluster pass | app_baseline | **all unverified** |")
 lines.append("| Grain colour (per-channel for colour stocks) | grain tint | color.json | **all unverified** |")
-lines.append("| Halation (radius, intensity) | highlight glow | derived; CineStill only | 2 films only |")
-lines.append("| Push response (stops, EI, grain increase) | exposure slider | datasheet (partial) | ~11/35 |")
+lines.append(f"| Halation (radius, intensity) | highlight glow | derived; CineStill only | {sum(1 for r in rows if r['halation'] == 'yes')} films |")
+lines.append(f"| Push response (stops, EI, grain increase) | exposure slider | datasheet (partial) | {sum(1 for r in rows if r['push'] == 'yes')}/{len(rows)} |")
 lines.append("")
 
 lines.append("## Graininess coverage\n")
@@ -91,10 +91,12 @@ lines.append("2. **Clustering (probability + correlation length).** Currently th
 lines.append("3. **Per-channel grain colour for colour negative and slide films.** Currently the "
              "unverified `color.json` values. Derive from datasheet spectral-sensitivity curves "
              "(the spectral pages we can digitise) or measure per-channel variance from scans.")
-lines.append("4. **Graininess for the 10 estimated + 6 derived films.** Ilford (6), Fuji Neopan "
-             "400/1600, Fuji C200/Natura are the estimated ones; Agfa/Vision3/CineStill are "
-             "derived from published parents. Datasheets for Ilford publish no numeric RMS, so "
-             "these need measurement or a documented third-party value.")
+lines.append(f"4. **Graininess for the {gi['estimated']} estimated + {gi['derived']} derived + "
+             f"{gi['estimated_from_curve']} curve-estimated films.** Ilford (6), Fuji Neopan "
+             "400/1600, Fuji C200/Natura are the estimated ones; Agfa/CineStill/Ektachrome are "
+             "derived from published parents; the Vision3 stocks are estimated from datasheet "
+             "curves. Datasheets for Ilford publish no numeric RMS, so these need measurement "
+             "or a documented third-party value.")
 lines.append("5. **Halation radius/intensity for CineStill** (and any other halating stock). "
              "Currently derived; measure from a highlight on real footage/scans.")
 lines.append("6. **Push-response curves (grain vs push) for more films.** Datasheet push tables "

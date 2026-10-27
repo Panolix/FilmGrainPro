@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-10-04",
+  "generated": "2026-10-27",
   "description": "Sourced grain characterisation for the app's 37 film stocks. 'datasheet' = manufacturer-published value; 'derived' = computed from a published parent film; 'estimated' = not published, literature/class based.",
   "sources": {
     "kodak_f4017": {
