@@ -102,7 +102,10 @@ fn encoder(path: &std::path::Path, width: u32, height: u32, fps: u32, mode: MovM
             "-threads", "4", "-f", "mov"])
         .stdin(Stdio::piped()).stdout(Stdio::null()).stderr(Stdio::piped());
     if !matches!(mode, MovMode::Transparent) {
-        command.args(["-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709"]);
+        // ProRes writes frame properties into its headers. Tag frames as well
+        // as the output stream so FFmpeg 8+ keeps all three BT.709 fields.
+        command.args(["-vf", "setparams=range=limited:color_primaries=bt709:color_trc=bt709:colorspace=bt709",
+            "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709"]);
     }
     #[cfg(windows)]
     {
