@@ -35,7 +35,7 @@ A professional desktop application for generating **authentic film grain overlay
 
 ### 💾 **Export Options**
 - **Transparent PNG**: Perfect for overlay use in photo/video editing
-- **Grain MOV**: Export randomized grain sequences as neutral-gray or transparent ProRes 4444 video
+- **Grain MOV**: Export randomized grain sequences as neutral-gray ProRes 422 HQ / 4444 or transparent ProRes 4444 video
 - **Directory Settings**: Configure FFmpeg and output locations; FFmpeg is not bundled
 - **High Resolution**: Up to 2048x2048 output
 - **Professional Quality**: Ready for commercial design work

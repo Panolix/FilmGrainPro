@@ -478,14 +478,15 @@
                 <div class="control-group" style="margin-top:16px">
                     <label for="movResolution">MOV Resolution</label>
                     <select id="movResolution">
-                        <option value="4096x2160">4K DCI (4096 × 2160)</option>
                         <option value="3840x2160">4K UHD (3840 × 2160)</option>
+                        <option value="4096x2160">4K DCI (4096 × 2160)</option>
                         <option value="1920x1080">Full HD (1920 × 1080)</option>
                         <option value="canvas">Current Canvas</option>
                     </select>
                     <label for="movMode">MOV Type</label>
                     <select id="movMode">
-                        <option value="neutral_gray">Overlay — Neutral Gray</option>
+                        <option value="neutral_gray">Overlay — Neutral Gray (ProRes 422 HQ)</option>
+                        <option value="neutral_gray_4444">Overlay — Neutral Gray (ProRes 4444)</option>
                         <option value="transparent">Transparent — Alpha Overlay</option>
                     </select>
                     <label for="movFps">Frame Rate</label>
@@ -495,7 +496,7 @@
                     <label for="movSeconds">Duration (Seconds)</label>
                     <input id="movSeconds" type="number" min="1" max="60" step="1" value="10"
                            style="box-sizing:border-box;width:100%;background:#222;color:white;border:1px solid #444;padding:8px;border-radius:4px">
-                    <p style="font-size:12px;color:#aaa;line-height:1.5">Uses the selected film and grain settings. Every frame is newly generated. ProRes 4444 MOV uses the output directory in Settings. Choose Neutral Gray for overlay blending or Alpha for transparent compositing.</p>
+                    <p style="font-size:12px;color:#aaa;line-height:1.5">Choose the resolution of your final video to avoid resizing the grain during compositing. Neutral Gray uses 10-bit ProRes 422 HQ by default; ProRes 4444 is also available. Alpha requires ProRes 4444. Every frame uses the selected film and grain settings. Files save to the output directory in Settings.</p>
                     <progress id="movProgress" max="240" value="0" style="width:100%;display:none"></progress>
                     <div id="movStatus" role="status" aria-live="polite" style="font-size:12px;color:#ccc;overflow-wrap:anywhere"></div>
                     <button class="regenerate-btn" id="cancelMovBtn" style="display:none">Cancel MOV Export</button>
