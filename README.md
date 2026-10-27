@@ -6,6 +6,8 @@ A professional desktop application for generating **authentic film grain overlay
 ![License](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-blue)
 ![Built with](https://img.shields.io/badge/Built%20with-Rust%20%7C%20Tauri%20%7C%20JavaScript-orange)
 
+Windows portable fork release: [FGG v2.3.3](https://github.com/rampageX/FilmGrain-Generator/releases/tag/v2.3.3). See [Changelog](CHANGELOG.md) and [MOV Export](MOV_EXPORT.md). New fork features are validated on Windows only.
+
 ## 📸 **App Overview**
 
 ![Film Grain Generator Interface](Images%20Readme/Overview.png)
