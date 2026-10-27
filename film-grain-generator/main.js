@@ -339,6 +339,7 @@ class FilmGrainGenerator {
         });
         document.getElementById('previewZoom').addEventListener('change', () => this.updatePreviewView());
         window.addEventListener('resize', () => this.updatePreviewView());
+        this.setupPreviewPanning();
         document.getElementById('cancelMovBtn').addEventListener('click', async () => {
             try {
                 await invoke('cancel_grain_mov');
@@ -545,6 +546,34 @@ class FilmGrainGenerator {
             [params.width, params.height] = resolution.split('x').map(Number);
         }
         return params;
+    }
+
+    setupPreviewPanning() {
+        const viewport = document.getElementById('previewViewport');
+        let drag = null;
+        const stop = (event) => {
+            if (!drag || event.pointerId !== drag.id) return;
+            drag = null;
+            viewport.classList.remove('dragging');
+            if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+        };
+        viewport.addEventListener('pointerdown', (event) => {
+            if (drag || event.button !== 0 || document.getElementById('previewZoom').value !== 'native') return;
+            drag = { id: event.pointerId, x: event.clientX, y: event.clientY,
+                left: viewport.scrollLeft, top: viewport.scrollTop };
+            viewport.setPointerCapture(event.pointerId);
+            viewport.classList.add('dragging');
+            event.preventDefault();
+        });
+        viewport.addEventListener('pointermove', (event) => {
+            if (!drag || event.pointerId !== drag.id) return;
+            if (document.getElementById('previewZoom').value !== 'native') { stop(event); return; }
+            viewport.scrollLeft = drag.left - (event.clientX - drag.x);
+            viewport.scrollTop = drag.top - (event.clientY - drag.y);
+        });
+        viewport.addEventListener('pointerup', stop);
+        viewport.addEventListener('pointercancel', stop);
+        viewport.addEventListener('lostpointercapture', stop);
     }
 
     updatePreviewView() {

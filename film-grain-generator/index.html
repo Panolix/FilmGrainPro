@@ -250,12 +250,13 @@
         #previewViewport {
             width: 100%;
             height: 82vh;
-            overflow: auto;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        #previewViewport.native { display: block; }
+        #previewViewport.native { display: block; cursor: grab; touch-action: none; user-select: none; }
+        #previewViewport.native.dragging { cursor: grabbing; }
         #previewViewport .grain-canvas { max-width: none; max-height: none; flex: none; }
         .grain-canvas {
             max-width: 100%;
@@ -429,7 +430,7 @@
                         <option value="fit">Fit</option>
                         <option value="native">100% — Actual Pixels</option>
                     </select>
-                    <p style="font-size:12px;color:#aaa">Preview Uses MOV Resolution. Select Current Canvas In Output To Use Canvas Width / Height. At 100%, Scroll To Inspect The Grain.</p>
+                    <p style="font-size:12px;color:#aaa">Preview Uses MOV Resolution. Select Current Canvas In Output To Use Canvas Width / Height. At 100%, Drag The Image To Inspect The Grain.</p>
                     <div id="previewInfo" role="status" style="font-size:12px;color:#ccc"></div>
                 </div>
                 <button class="regenerate-btn" id="regenerateBtn">Regenerate Grain</button>

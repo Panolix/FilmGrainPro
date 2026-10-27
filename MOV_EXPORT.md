@@ -63,6 +63,8 @@ after the encoder finishes writing the container.
 
 The preview and MOV export now generate grain at the same selected MOV resolution using the same grain parameters. Choose Current Canvas to use Canvas Width / Height. Changing the MOV resolution regenerates the preview; changing MOV type selects the matching preview background. Preview Background can still be changed for comparison.
 
-Fit scales the image for viewing and can smooth fine grain. Use 100% — Actual Pixels and scroll to inspect grain at one image pixel per physical display pixel, including on high-DPI displays. The preview reports its generated dimensions and display scale. PNG saves the generated preview at its actual dimensions, preserving transparent grain data.
+Fit scales the image for viewing and can smooth fine grain. Use 100% — Actual Pixels and drag the image to inspect grain at one image pixel per physical display pixel, including on high-DPI displays. The preview reports its generated dimensions and display scale. PNG saves the generated preview at its actual dimensions, preserving transparent grain data.
 
 Frames are independently randomized, so preview and MOV share grain characteristics rather than identical particles. The preview is displayed in 8-bit RGBA and does not simulate ProRes compression or another application's compositing. Grain strength and the resolution-dependent grain algorithm are unchanged.
+
+At 100%, hold the primary mouse button and drag to pan in any direction. Scrollbars are hidden. Releasing the button ends the drag, including outside the preview.
