@@ -1,8 +1,12 @@
-# Film Grain Generator v2.3.1
+# FGG v2.3.2
 
-Maintenance release: refreshed the GitHub Actions used to build and publish installers (checkout v7, setup-node v7, tauri-action v1). No changes to the app or film database.
+- Export independently randomized grain sequences to MOV with progress and cancellation.
+- Neutral-gray monochrome overlay defaults to 10-bit ProRes 422 HQ; ProRes 4444 and transparent alpha export remain available.
+- Choose Full HD, 4K UHD, 4K DCI or canvas resolution, frame rate and duration.
+- Switch the preview to 50% gray with dark grain.
+- Configure external FFmpeg and output directories in Settings. FFmpeg is not bundled.
 
-## Notes
-- macOS build is unsigned; Gatekeeper may warn on first launch.
+Windows x64 portable release. Extract and run `film-grain-generator.exe`.
+Windows build and settings/encoding tests run before publication. Other platforms have not been validated for this release.
 
-**Full changelog**: compare from `v2.3.0`.
+FGG is the short name used for this fork. Original FilmGrainPro branding, executable name, author attribution and license are retained.

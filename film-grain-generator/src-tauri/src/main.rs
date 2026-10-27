@@ -8,6 +8,9 @@ use rayon::prelude::*;
 use std::collections::HashMap;
 use base64::{Engine as _, engine::general_purpose};
 
+mod mov_export;
+mod app_settings;
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct FilmStock {
     basic_info: BasicInfo,
@@ -351,6 +354,10 @@ struct Grain {
 
 #[tauri::command]
 async fn generate_grain(params: GrainParams) -> Result<GrainResult, String> {
+    generate_grain_frame(&params)
+}
+
+fn generate_grain_frame(params: &GrainParams) -> Result<GrainResult, String> {
     let start_time = std::time::Instant::now();
     
     // Data files are parsed once and cached across calls (see film_stocks_cached etc.)
@@ -1404,8 +1411,7 @@ async fn save_grain_image(data: Vec<u8>, width: u32, height: u32, path: String) 
         .ok_or("Failed to create image from data")?;
     
     // Save to Downloads folder
-    let downloads_dir = dirs::download_dir()
-        .ok_or("Could not find Downloads directory")?;
+    let downloads_dir = app_settings::output_directory()?;
     
     let full_path = downloads_dir.join(&path);
     println!("Saving to: {:?}", full_path);
@@ -1604,8 +1610,7 @@ async fn save_composite_image(
     }
     
     // Save the composite image
-    let downloads_dir = dirs::download_dir()
-        .ok_or("Could not find Downloads directory")?;
+    let downloads_dir = app_settings::output_directory()?;
     
     let file_path = downloads_dir.join(&path);
     
@@ -1613,7 +1618,7 @@ async fn save_composite_image(
         .map_err(|e| format!("Failed to save composite image: {}", e))?;
     
     println!("Composite image saved to: {:?}", file_path);
-    Ok(format!("Composite image saved to Downloads/{}", path))
+    Ok(format!("Composite image saved to {}", file_path.display()))
 }
 
 #[derive(Debug, Serialize)]
@@ -1887,8 +1892,9 @@ fn parse_comprehensive_film_stock(name: &str, data: &serde_json::Value) -> Resul
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 fn main() {
     tauri::Builder::default()
+        .manage(mov_export::ExportState::default())
         .plugin(tauri_plugin_shell::init())
-        .invoke_handler(tauri::generate_handler![generate_grain, save_grain_image, get_categorized_film_stocks, get_film_info, save_composite_image])
+        .invoke_handler(tauri::generate_handler![generate_grain, save_grain_image, get_categorized_film_stocks, get_film_info, save_composite_image, mov_export::save_grain_mov, mov_export::cancel_grain_mov, app_settings::get_app_settings, app_settings::save_app_settings, app_settings::choose_settings_directory])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }// Performance optimizations applied - 8x faster rendering
@@ -2298,3 +2304,4 @@ mod tests {
         assert_eq!(d, [0.7, 0.7, 0.7]);
     }
 }
+

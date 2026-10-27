@@ -1,0 +1,60 @@
+# MOV Export
+
+In **Output**, click **Save Grain MOV** to generate a sequence of independently
+randomized grain frames. The default is 3840 × 2160, 24 fps, 10 seconds,
+encoded as 10-bit ProRes 422 HQ for neutral-gray overlay. Resolution, frame rate and duration are configurable.
+The selected film and grain parameters are captured when export starts.
+Uploaded images are not included.
+
+## Output Types
+
+- **Overlay — Neutral Gray**: dark monochrome particles on a gray background,
+  intended for overlay blending. The texture is centered on 10-bit Y=512,
+  with neutral chroma and per-frame mean correction to avoid brightness drift.
+  Overall fog and color tint are removed. This is the recommended output for
+  monochrome overlay: neutral chroma is written directly as 4:2:2, without alpha.
+- **Overlay — Neutral Gray (ProRes 4444)**: retains the previous gray export
+  format for workflows requiring 4:4:4. It uses the same luma conversion.
+- **Transparent — Alpha Overlay**: preserves the generator's RGBA appearance
+  for normal alpha compositing.
+
+In **Basic**, **Preview Background** switches between the original view and
+**50% Gray + Dark Grain**. The gray preview uses the same conversion as gray
+MOV export. Switching reuses the current grain frame. Final appearance
+depends on the source footage and blending strength.
+
+## Choosing A Resolution
+
+Choose **Full HD** for 1920 × 1080 footage or **4K UHD** for 3840 × 2160 footage.
+Use **4K DCI** for 4096 × 2160 projects. Frames are generated at that resolution,
+not generated at 4K and then resized. Grain size is measured in output pixels,
+so adjust Size Multiplier when changing resolution to match the look you want.
+Choose the intended frame rate to minimize later frame duplication or dropping.
+
+The saved MOV is ready to select as an overlay plate; no HEVC cache or separate
+transcoding step is required. ProRes 422 HQ is an intraframe, lossy codec, not a
+lossless archive. Neutral chroma means chroma subsampling does not discard
+colored grain, because this mode deliberately generates monochrome grain.
+The compositor may still convert decoded pixels to its own working format
+(e.g. P010) and scale when its output dimensions differ. This export does not
+remove those necessary processing steps or guarantee a speedup on every system.
+Transparent compositing still uses ProRes 4444 with alpha.
+
+## Directories And FFmpeg
+
+In **Settings**, choose the directory containing FFmpeg and an output directory,
+then click **Save Settings**. Paths can also be entered manually. Folder browsing
+is available on Windows; other platforms use manual path entry.
+
+The output directory applies to PNG and MOV exports. Leave it empty to use
+Downloads. Leave the FFmpeg directory empty to search beside the executable,
+then PATH. An explicitly configured FFmpeg path takes precedence.
+
+Settings are stored in the user configuration directory under
+FilmGrainPro/settings.json (on Windows, %APPDATA%/FilmGrainPro/settings.json).
+Saved changes apply to subsequent exports.
+
+FFmpeg is required for MOV export and is not bundled. PNG export does not
+require FFmpeg. Files are streamed one frame at a time to limit memory use.
+Cancellation removes the partial MOV. The final saved path is displayed
+after the encoder finishes writing the container.
