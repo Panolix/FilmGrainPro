@@ -60,3 +60,26 @@ jobs:
           path: portable/
           if-no-files-found: error
           retention-days: 14
+
+  publish:
+    if: github.repository == 'rampageX/FilmGrainPro' && github.event_name == 'push' && startsWith(github.event.head_commit.message, 'release(fgg): v2.3.2')
+    needs: windows
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: FilmGrainPro-Windows-MOV-${{ github.run_number }}-${{ github.sha }}
+          path: portable
+      - name: Publish FGG Windows portable release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          Compress-Archive -Path portable/* -DestinationPath FGG_v2.3.2_Windows_x64.zip
+          $hash = (Get-FileHash FGG_v2.3.2_Windows_x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  FGG_v2.3.2_Windows_x64.zip" | Set-Content FGG_v2.3.2_Windows_x64.zip.sha256 -Encoding ascii
+          gh release create v2.3.2 FGG_v2.3.2_Windows_x64.zip FGG_v2.3.2_Windows_x64.zip.sha256 --target $env:GITHUB_SHA --title "FGG v2.3.2" --notes-file RELEASE_NOTES.md --latest
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
