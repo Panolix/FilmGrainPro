@@ -223,6 +223,7 @@ fn grain_index(model: Option<&GrainModel>, iso: u32) -> f32 {
                     _ => match g.scale.as_deref() {
                         Some("fuji_colneg_rms_48um") => (3.0, 5.0),
                         Some("reverse_rms_48um") => (6.0, 12.0),
+                        Some("ilford_bw_rms_48um") => (6.0, 22.0),
                         _ => (6.0, 22.0), // B&W RMS and third-party estimates
                     },
                 };
@@ -1753,6 +1754,7 @@ fn fmt_graininess(g: &serde_json::Value) -> Option<String> {
         _ => {
             let origin = match scale {
                 "kodak_bw_rms_48um" => "Kodak B&W",
+                "ilford_bw_rms_48um" => "Ilford B&W",
                 "fuji_bw_rms_48um" => "Fujifilm B&W",
                 "fuji_colneg_rms_48um" => "Fujifilm colour negative",
                 "reverse_rms_48um" => "reversal film",

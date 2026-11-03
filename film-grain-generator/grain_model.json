@@ -410,8 +410,8 @@
         "scale": "reverse_rms_48um",
         "at_density": 1.0,
         "aperture_um": 48,
-        "source": "kodak_e4024",
-        "confidence": "derived"
+        "source": "kodak_e4000",
+        "confidence": "datasheet"
       },
       "morphology": {
         "family": "tabular"
@@ -846,8 +846,8 @@
         "scale": "fuji_colneg_rms_48um",
         "at_density": 1.0,
         "aperture_um": 48,
-        "source": null,
-        "confidence": "estimated"
+        "source": "fuji_af3_0249e",
+        "confidence": "datasheet"
       },
       "morphology": {
         "family": "sigma"
@@ -1243,12 +1243,12 @@
       "type": "bw_neg",
       "graininess": {
         "metric": "rms_diffuse",
-        "value": 17,
-        "scale": "third_party_estimate",
+        "value": 16,
+        "scale": "ilford_bw_rms_48um",
         "at_density": 1.0,
         "aperture_um": 48,
-        "source": null,
-        "confidence": "estimated"
+        "source": "ilford_hp5_mp",
+        "confidence": "datasheet"
       },
       "morphology": {
         "family": "cubic"
@@ -1284,12 +1284,12 @@
       "type": "bw_neg",
       "graininess": {
         "metric": "rms_diffuse",
-        "value": 11,
-        "scale": "third_party_estimate",
+        "value": 10,
+        "scale": "ilford_bw_rms_48um",
         "at_density": 1.0,
         "aperture_um": 48,
-        "source": null,
-        "confidence": "estimated"
+        "source": "ilford_fp4_mp",
+        "confidence": "datasheet"
       },
       "morphology": {
         "family": "cubic"

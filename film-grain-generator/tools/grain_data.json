@@ -3,6 +3,26 @@
   "generated": "2026-10-27",
   "description": "Sourced grain characterisation for the app's 37 film stocks. 'datasheet' = manufacturer-published value; 'derived' = computed from a published parent film; 'estimated' = not published, literature/class based.",
   "sources": {
+    "kodak_e4000": {
+      "title": "KODAK PROFESSIONAL EKTACHROME Film E100 - Technical Data E-4000 (rev. 8-18)",
+      "url": "https://business.kodakmoments.com/sites/default/files/files/products/e4000_ektachrome_100.pdf",
+      "provides": "Diffuse RMS granularity 8 (48 um aperture, gross diffuse density 1.0)"
+    },
+    "ilford_hp5_mp": {
+      "title": "ILFORD HP5 Plus negative motion picture film - Fact Sheet",
+      "url": "https://bioskoplab.wordpress.com/wp-content/uploads/2011/10/hp5mpic.pdf",
+      "provides": "Diffuse RMS granularity 16 (Kodak D-96, 6 min at 75F)"
+    },
+    "ilford_fp4_mp": {
+      "title": "ILFORD FP4 Plus negative motion picture film - Fact Sheet",
+      "url": "https://bioskoplab.wordpress.com/wp-content/uploads/2011/10/fp4mpic.pdf",
+      "provides": "Diffuse RMS granularity 10 (Kodak D-96, 5.5 min at 75F)"
+    },
+    "fuji_af3_0249e": {
+      "title": "FUJICOLOR C200 - Product Information Bulletin AF3-0249E",
+      "url": "https://asset.fujifilm.com/www/us/files/2019-09/cce1e1943550fc3e76c22411066f0100/films_c200_datasheet_01.pdf",
+      "provides": "Diffuse RMS granularity 4 (48 um aperture, density 1.0 above minimum density); resolving power 50/125"
+    },
     "kodak_f4017": {
       "title": "KODAK PROFESSIONAL TRI-X 400 Film - Technical Data F-4017 (2007)",
       "url": "https://125px.com/docs/film/kodak/f4017-400TX-2007.pdf",
@@ -1371,8 +1391,8 @@
         "scale": "reverse_rms_48um",
         "at_density": 1.0,
         "aperture_um": 48,
-        "source": "kodak_e4024",
-        "confidence": "derived"
+        "source": "kodak_e4000",
+        "confidence": "datasheet"
       },
       "resolving_power_lines_mm": null,
       "morphology": {
@@ -2884,8 +2904,8 @@
         "scale": "fuji_colneg_rms_48um",
         "at_density": 1.0,
         "aperture_um": 48,
-        "source": null,
-        "confidence": "estimated"
+        "source": "fuji_af3_0249e",
+        "confidence": "datasheet"
       },
       "resolving_power_lines_mm": null,
       "morphology": {
@@ -3952,12 +3972,12 @@
       "iso": 400,
       "graininess": {
         "metric": "rms_diffuse",
-        "value": 17,
-        "scale": "third_party_estimate",
+        "value": 16,
+        "scale": "ilford_bw_rms_48um",
         "at_density": 1.0,
         "aperture_um": 48,
-        "source": null,
-        "confidence": "estimated"
+        "source": "ilford_hp5_mp",
+        "confidence": "datasheet"
       },
       "resolving_power_lines_mm": null,
       "morphology": {
@@ -4070,12 +4090,12 @@
       "iso": 125,
       "graininess": {
         "metric": "rms_diffuse",
-        "value": 11,
-        "scale": "third_party_estimate",
+        "value": 10,
+        "scale": "ilford_bw_rms_48um",
         "at_density": 1.0,
         "aperture_um": 48,
-        "source": null,
-        "confidence": "estimated"
+        "source": "ilford_fp4_mp",
+        "confidence": "datasheet"
       },
       "resolving_power_lines_mm": null,
       "morphology": {
