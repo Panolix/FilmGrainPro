@@ -1,6 +1,6 @@
 # 🎬 Film Grain Generator
 
-A professional desktop application for generating **authentic film grain overlays** with scientifically accurate characteristics based on exactly 35 real film stocks.
+A professional desktop application for generating **authentic film grain overlays** with scientifically informed characteristics based on 37 real film stocks.
 
 ![Platform Support](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)
 ![License](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-blue)
@@ -17,7 +17,7 @@ Windows portable fork release: [FGG v2.3.3](https://github.com/rampageX/FilmGrai
 ## ✨ Features
 
 ### 🎞️ **Authentic Film Simulation**
-- **35 Real Film Stocks**: Complete database including Kodak, Fuji, Ilford, Agfa, and CineStill films
+- **37 Real Film Stocks**: Complete database including Kodak, Fuji, Ilford, Agfa, and CineStill films
 - **Scientifically Accurate**: Based on actual film stock technical specifications
 - **Realistic Grain Characteristics**: Authentic sizes, shapes, densities, and clustering patterns
 - **Film-Specific Colors**: Each stock has its unique grain color signature
@@ -212,3 +212,7 @@ See the [LICENSE](LICENSE) file for complete terms.
 **Made with ❤️ for film photography enthusiasts and digital artists**
 
 *Create authentic film grain overlays that actually look like real film - because your art deserves better than generic noise.*
+
+### Development Branch — Upstream v2.3.4 Adaptation
+
+The development branch adds a three-column layout, clearer film-data provenance and diagnostic preview backgrounds. Optical Softening in Advanced is enabled by default and can be switched off; it applies to preview, PNG and MOV generation. Small-grain rendering and cluster spread are adapted from [FilmGrainPro v2.3.4](https://github.com/Panolix/FilmGrainPro/commit/c18c0112aca936f3ec5ed5c56c2a6b40253ee52b) by Panagiotis Smponias. Our video export, executable name, portable settings and window memory are retained. See [MOV Export](MOV_EXPORT.md) for the distinction between diagnostic backgrounds and neutral-gray video output.

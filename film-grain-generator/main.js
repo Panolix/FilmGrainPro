@@ -56,6 +56,31 @@ function grayGrainPreview(data) {
     return output;
 }
 
+const LUMINANCE_STOPS = ['#000000', '#404040', '#767676', '#c0c0c0', '#ffffff'];
+const SKIN_STOPS = ['#3b2219', '#6b4433', '#9c6b4e', '#c68b59', '#e0ac69', '#f1d3b6'];
+
+// Horizontal tonal ramp. Used for both the luminance reference and the skin range.
+function drawRamp(ctx, width, height, stops) {
+    const ramp = ctx.createLinearGradient(0, 0, width, 0);
+    stops.forEach((colour, i) => ramp.addColorStop(i / (stops.length - 1), colour));
+    ctx.fillStyle = ramp;
+    ctx.fillRect(0, 0, width, height);
+}
+
+// Coverage view: alpha as greyscale, so grain structure can be judged without a
+// background colour or blend mode getting in the way.
+function alphaMatte(data, width, height) {
+    const out = new Uint8ClampedArray(width * height * 4);
+    for (let i = 0; i < width * height; i++) {
+        const a = data[i * 4 + 3];
+        out[i * 4] = a;
+        out[i * 4 + 1] = a;
+        out[i * 4 + 2] = a;
+        out[i * 4 + 3] = 255;
+    }
+    return new ImageData(out, width, height);
+}
+
 class FilmGrainGenerator {
     constructor() {
         this.canvas = document.getElementById('grainCanvas');
@@ -296,6 +321,9 @@ class FilmGrainGenerator {
             document.getElementById('filmInfoPrice').textContent = filmInfo.price_category;
             const src = (v) => (v === null || v === undefined || v === '') ? '—' : v;
             document.getElementById('filmInfoIso').textContent = src(filmInfo.iso);
+            document.getElementById('filmInfoQuality').textContent = src(filmInfo.data_quality);
+            document.getElementById('filmInfoIndex').textContent = src(filmInfo.relative_index);
+            document.getElementById('filmInfoClustering').textContent = src(filmInfo.clustering);
             document.getElementById('filmInfoGraininess').textContent = src(filmInfo.graininess);
             document.getElementById('filmInfoMorphology').textContent = src(filmInfo.morphology);
             document.getElementById('filmInfoGrainSize').textContent = src(filmInfo.grain_size_um);
@@ -496,6 +524,10 @@ class FilmGrainGenerator {
                 data: this.currentImageData, width: this.canvas.width, height: this.canvas.height
             });
         });
+        document.getElementById('opticalSoftening').addEventListener('change', () => this.regenerateGrain());
+        document.getElementById('previewBlend').addEventListener('change', () => {
+            if (this.currentImageData) this.displayGrainResult({data: this.currentImageData, width: this.canvas.width, height: this.canvas.height});
+        });
         document.getElementById('movResolution').addEventListener('change', () => this.regenerateGrain());
         document.getElementById('movMode').addEventListener('change', () => {
             document.getElementById('previewMode').value =
@@ -695,6 +727,7 @@ class FilmGrainGenerator {
             exposure_compensation: parseFloat(document.getElementById('grainIntensity').value),
             size_multiplier: parseFloat(document.getElementById('grainSize').value),
             contrast: parseFloat(document.getElementById('contrast').value),
+            optical_softening: document.getElementById('opticalSoftening').value === 'on',
             grain_density: Math.round(densityFromSlider(parseFloat(document.getElementById('grainDensity').value)) * 1000),
             width: parseInt(document.getElementById('canvasWidth').value),
             height: parseInt(document.getElementById('canvasHeight').value),
@@ -766,35 +799,36 @@ class FilmGrainGenerator {
         // Create ImageData from the raw RGBA data
         const imageData = new ImageData(new Uint8ClampedArray(data), width, height);
         
-        // If there's an uploaded image, use it as background instead of black
-        if (document.getElementById('previewMode').value === 'neutral_gray') {
+        const mode = document.getElementById('previewMode').value;
+        const respond = document.getElementById('previewBlend').value === 'luminance';
+        this.ctx.globalAlpha = 1;
+        this.ctx.globalCompositeOperation = 'source-over';
+        const diagnostic = !['neutral_gray', 'alpha'].includes(mode);
+        document.getElementById('previewBlend').disabled = !diagnostic;
+        if (mode === 'neutral_gray') {
+            // Keep the exact mean-centred conversion used for neutral-gray MOV.
             this.ctx.putImageData(new ImageData(grayGrainPreview(data), width, height), 0, 0);
-        } else if (this.uploadedImage && this.uploadedImageElement) {
-            console.log('Drawing uploaded image as background');
-            
-            // Draw uploaded image as background
-            this.ctx.drawImage(this.uploadedImageElement, 0, 0, this.canvas.width, this.canvas.height);
-            
-            // Create temporary canvas for grain to preserve transparency
-            const tempCanvas = document.createElement('canvas');
-            tempCanvas.width = width;
-            tempCanvas.height = height;
-            const tempCtx = tempCanvas.getContext('2d');
-            tempCtx.putImageData(imageData, 0, 0);
-            
-            // Draw grain on top preserving its transparency
-            this.ctx.drawImage(tempCanvas, 0, 0);
-            
-            console.log('Grain drawn on top of uploaded image');
+        } else if (mode === 'alpha') {
+            this.ctx.putImageData(alphaMatte(data, width, height), 0, 0);
         } else {
-            // No uploaded image, use black background as before
-            this.ctx.fillStyle = '#000000';
-            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-            
-            // Draw the transparent grain on top
-            this.ctx.putImageData(imageData, 0, 0);
+            if (mode === 'original' && this.uploadedImage && this.uploadedImageElement) {
+                this.ctx.drawImage(this.uploadedImageElement, 0, 0, width, height);
+            } else if (mode === 'ramp') {
+                drawRamp(this.ctx, width, height, LUMINANCE_STOPS);
+            } else if (mode === 'skin') {
+                drawRamp(this.ctx, width, height, SKIN_STOPS);
+            } else {
+                this.ctx.fillStyle = mode === 'gray18' ? '#767676' : '#000000';
+                this.ctx.fillRect(0, 0, width, height);
+            }
+            const layer = document.createElement('canvas');
+            layer.width = width; layer.height = height;
+            layer.getContext('2d').putImageData(imageData, 0, 0);
+            this.ctx.globalCompositeOperation = respond ? 'overlay' : 'source-over';
+            this.ctx.drawImage(layer, 0, 0);
+            this.ctx.globalCompositeOperation = 'source-over';
         }
-        
+
         // Store original transparent data for saving (unchanged)
         this.currentImageData = data;
         this.updatePreviewView();

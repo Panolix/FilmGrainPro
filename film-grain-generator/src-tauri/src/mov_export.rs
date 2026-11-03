@@ -203,10 +203,26 @@ mod tests {
     use super::*;
     fn params() -> GrainParams {
         GrainParams { film_stock: "Kodak Tri-X 400".into(), exposure_compensation: 0.0,
-            size_multiplier: 1.0, contrast: 100.0, grain_density: 1000,
+            size_multiplier: 1.0, contrast: 100.0, optical_softening: false, grain_density: 1000,
             width: 512, height: 512, background: "transparent".into(),
             film_age_years: Some(0.0), storage_temp: Some(20.0) }
     }
+    #[test]
+    fn softened_gray_frame_stays_centered_and_neutral() {
+        let mut p = params();
+        p.optical_softening = true;
+        let frame = generate_grain_frame(&p).unwrap();
+        for mode in [MovMode::NeutralGray, MovMode::NeutralGray4444] {
+            let bytes = gray_texture(&frame.data, mode);
+            let samples: Vec<u16> = bytes.chunks_exact(2).map(|p| u16::from_le_bytes([p[0],p[1]])).collect();
+            let n = (p.width*p.height) as usize;
+            let mean = samples[..n].iter().map(|v| *v as f64).sum::<f64>()/n as f64;
+            assert!((mean-512.0).abs()<1.0);
+            assert!(samples[n..].iter().all(|v| *v==512));
+            assert!(samples[..n].iter().any(|v| *v<512));
+        }
+    }
+
     #[test]
     fn mov_limits() {
         let mut p = params();

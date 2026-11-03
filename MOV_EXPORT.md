@@ -71,3 +71,13 @@ Frames are independently randomized, so preview and MOV share grain characterist
 At 100%, hold the primary mouse button and drag to pan in any direction. Scrollbars are hidden. Releasing the button ends the drag, including outside the preview.
 
 The main window also remembers its normal size, desktop position and maximized state in the portable settings file. Minimized bounds are ignored. On a changed display layout, saved bounds are constrained to an available monitor. Parameter-page Restore Defaults does not reset window placement.
+
+## Optical Softening And Preview Backgrounds
+
+Advanced now has an Optical Softening On / Off selector (On by default). It is saved with the other parameters and reset by Advanced Restore Defaults. The same backend setting is used for preview generation, PNG and every MOV frame. Off bypasses only the full-frame optical Gaussian; the improved small-grain rasterizer and wider cluster distribution remain active. This is a rendering change: softening can reduce visible grain peaks even though opacity, density and size controls are unchanged.
+
+The Gaussian follows the upstream output-scale sigma (0.45 times the canvas scale). It operates on premultiplied RGBA, then returns straight RGBA, avoiding dark fringes around transparency. The two passes run on the existing Rayon CPU thread pool. This does not use the GPU.
+
+The default 50% Gray + Dark Grain view still matches the mean-centered neutral-gray MOV conversion. Additional 18% Gray, luminance and skin ramps, and Alpha Matte are diagnostic views. Background Response uses browser overlay compositing only, does not change PNG/MOV data and is disabled for the neutral-gray reference and Alpha Matte. It is not a preview of another application's video compositing pipeline.
+
+The film panel distinguishes manufacturer measurements, derived values and model estimates. The relative grain index is not a physical measurement. Layout and rendering changes are adapted from upstream FilmGrainPro v2.3.4 by Panagiotis Smponias: https://github.com/Panolix/FilmGrainPro/commit/c18c0112aca936f3ec5ed5c56c2a6b40253ee52b .

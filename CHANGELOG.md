@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Adapt upstream v2.3.4 three-column layout, film-data provenance, diagnostic backgrounds, small-grain splatting and wider clump spread.
+- Add a saved Optical Softening On / Off control shared by preview, PNG and MOV (default On). Parallelize the upstream premultiplied-alpha Gaussian on the existing CPU pool.
+- Retain portable settings, window placement, actual-pixel drag panning, MOV resolution alignment and neutral-gray export.
+- Add renderer/reference, settings and neutral-gray softening checks plus a 4K CPU timing check.
+
+
 ## v2.3.3 — 2026-10-27
 
 - Align preview generation with MOV resolution and add actual-pixel inspection with drag panning.

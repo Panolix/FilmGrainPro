@@ -8,17 +8,21 @@ function fixture(invoke = async () => {}, win = {}) {
     let source = fs.readFileSync(path.join(__dirname, '../main.js'), 'utf8').replace(/^import .*;$/gm, '');
     source = source.slice(0, source.indexOf('// Initialize the application')) + '\nglobalThis.Generator = FilmGrainGenerator;';
     const fields = {
+        opticalSoftening: { value: 'on', tagName: 'SELECT', options: [{value:'on'},{value:'off'}] },
+        grainDensity: { value:'25' }, grainIntensity: { value:'0' }, contrast:{value:'100'},
+        canvasWidth:{value:'1024'}, canvasHeight:{value:'1024'}, filmAge:{value:'0'}, storageType:{value:'20'},
+        movResolution:{value:'3840x2160'},
         grainSize: { value: '1', type: 'range', min: '0.2', max: '5', step: '0.1' },
         filmStock: { value: 'Stock A', tagName: 'SELECT', options: [{value: 'Stock A'}, {value: 'Stock B'}] },
         movSeconds: { value: '10', type: 'number', min: '1', max: '60', step: '1' },
         ffmpegDirectory: { value: '' }, outputDirectory: { value: '' }
     };
-    const context = { getCurrentWindow: () => win, document: { getElementById: id => fields[id] }, invoke, clearTimeout };
+    const context = { densityFromSlider: () => 1, getCurrentWindow: () => win, document: { getElementById: id => fields[id] }, invoke, clearTimeout };
     vm.createContext(context);
     vm.runInContext(source, context);
     const app = Object.create(context.Generator.prototype);
     app.pageDefaults = { 'basic-tab': { grainSize: '1', filmStock: 'Stock A' },
-        'output-tab': { movSeconds: '10' }, 'settings-tab': { ffmpegDirectory: '', outputDirectory: '' } };
+        'advanced-tab': { opticalSoftening:'on' }, 'output-tab': { movSeconds: '10' }, 'settings-tab': { ffmpegDirectory: '', outputDirectory: '' } };
     app.saveQueue = Promise.resolve();
     app.refreshParameterDisplays = app.updateFilmInfo = app.regenerateGrain = app.scheduleSettingsSave = () => {};
     return { app, fields };
@@ -111,4 +115,17 @@ test('maximized and minimized windows preserve the last normal bounds', async ()
     assert.equal(app.windowState.height, 800);
     assert.equal(app.windowState.x, -1000);
     assert.equal(app.windowState.maximized, false);
+});
+
+test('softening survives snapshots and is shared by preview and MOV parameters', () => {
+    const {app, fields} = fixture();
+    assert.equal(app.getGrainParameters().optical_softening, true);
+    app.applyValues({opticalSoftening:'off'});
+    assert.equal(app.settingsSnapshot().ui_values.opticalSoftening,'off');
+    assert.equal(app.getGrainParameters().optical_softening,false);
+    assert.equal(app.getMovParameters().optical_softening,false);
+    fields.movSeconds.value='30';
+    app.restorePageDefaults('advanced-tab');
+    assert.equal(app.getMovParameters().optical_softening,true);
+    assert.equal(fields.movSeconds.value,'30');
 });
