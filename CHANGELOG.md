@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.3.5 — 2026-11-03
+
+- Fix MOV export refusing its own reserved temporary file after the filename change.
+- Test real FFmpeg encoding into reserved files for all three MOV modes with softening on and off.
+- Keep existing-export protection, short collision suffixes and PNG filenames unchanged.
+
 ## v2.3.4 — 2026-11-03
 
 - Explain why Background Response is disabled in neutral-gray and Alpha Matte previews.

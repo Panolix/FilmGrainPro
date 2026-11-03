@@ -92,7 +92,9 @@ fn encoder(path: &std::path::Path, width: u32, height: u32, fps: u32, mode: MovM
         MovMode::NeutralGray4444 => ("yuv444p10le", "yuv444p10le", "4"),
         MovMode::Transparent => ("rgba", "yuva444p10le", "4"),
     };
-    command.args(["-hide_banner", "-loglevel", "error", "-nostdin", "-n",
+    // The caller exclusively reserves the partial file; FFmpeg must replace that placeholder.
+    // Existing final exports are protected by reserve_output, not FFmpeg overwrite policy.
+    command.args(["-hide_banner", "-loglevel", "error", "-nostdin", "-y",
         "-f", "rawvideo", "-pixel_format", input_format, "-video_size"])
         .arg(format!("{width}x{height}"))
         .args(["-framerate", &fps.to_string(), "-i", "pipe:0",
@@ -245,6 +247,39 @@ mod tests {
         assert!(soft_second.to_string_lossy().ends_with("_2_Soft.mov"));
         assert_eq!(std::fs::read(plain).unwrap(),b"existing");
         assert!(partial.exists());
+        std::fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn reserved_partial_encodes_all_modes_with_and_without_softening() {
+        let root = std::env::temp_dir().join(format!("FGG_reserved_encode_{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&root);
+        std::fs::create_dir_all(&root).unwrap();
+        for soft in [false, true] {
+            let mut p = params();
+            p.optical_softening = soft;
+            for mode in [MovMode::NeutralGray, MovMode::NeutralGray4444, MovMode::Transparent] {
+                let (output, partial) = reserve_output(&root, &p, 24).unwrap();
+                assert_eq!(std::fs::metadata(&partial).unwrap().len(), 0);
+                let frame = generate_grain_frame(&p).unwrap();
+                let data = match mode {
+                    MovMode::Transparent => frame.data,
+                    _ => gray_texture(&frame.data, mode),
+                };
+                let mut child = encoder(&partial, p.width, p.height, 24, mode).unwrap().spawn().unwrap();
+                child.stdin.take().unwrap().write_all(&data).unwrap();
+                let result = child.wait_with_output().unwrap();
+                assert!(result.status.success(), "{}", String::from_utf8_lossy(&result.stderr));
+                std::fs::rename(&partial, &output).unwrap();
+                let probe = Command::new("ffprobe").args(["-v", "error", "-show_entries",
+                    "stream=codec_name,nb_frames", "-of", "json"]).arg(&output).output().unwrap();
+                assert!(probe.status.success());
+                let json: serde_json::Value = serde_json::from_slice(&probe.stdout).unwrap();
+                assert_eq!(json["streams"][0]["codec_name"], "prores");
+                assert_eq!(json["streams"][0]["nb_frames"], "1");
+            }
+        }
+        assert_eq!(std::fs::read_dir(&root).unwrap().count(), 6);
         std::fs::remove_dir_all(root).unwrap();
     }
 
