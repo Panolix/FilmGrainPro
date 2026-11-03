@@ -3,7 +3,7 @@
 A professional desktop application for generating **authentic film grain overlays** with scientifically informed characteristics based on 37 real film stocks.
 
 ![Platform Support](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)
-![License](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-blue)
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-blue.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 ![Built with](https://img.shields.io/badge/Built%20with-Rust%20%7C%20Tauri%20%7C%20JavaScript-orange)
 
 ## 📸 **App Overview**
@@ -38,7 +38,7 @@ A professional desktop application for generating **authentic film grain overlay
 - **Transparent PNG**: Perfect for overlay use in photo/video editing
 - **Composite Export**: Upload your own image and save image + grain together
 - **High Resolution**: Up to 2048x2048 output
-- **Professional Quality**: Ready for commercial design work
+- **Professional Quality**: Studio-grade output
 
 ## 🎯 **What Makes It Realistic?**
 
@@ -197,7 +197,15 @@ Contributions are welcome! Areas for improvement:
 
 ## 📄 **License**
 
-This project is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) - free for personal and educational use. Commercial use requires permission.
+This project is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+**Source-available, not open source.** You may download, use, fork, modify and
+share it for non-commercial purposes, provided you credit **Panagiotis
+Smponias**, link back to this repository, state what you changed, and license
+your version under the same terms.
+
+**Commercial use requires a paid license** — see [COMMERCIAL.md](COMMERCIAL.md).
+Attribution, share-alike and trademark terms: [NOTICE](NOTICE).
 
 See the [LICENSE](LICENSE) file for complete terms.
 

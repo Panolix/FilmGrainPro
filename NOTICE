@@ -1,0 +1,68 @@
+# NOTICE
+
+## Work
+
+- **Title:** FilmGrainPro
+- **Author:** Panagiotis Smponias
+- **Original source:** https://github.com/Panolix/FilmGrainPro
+- **Website:** https://cityframe-photography.com
+- **License:** CC BY-NC-SA 4.0 — see [LICENSE](LICENSE)
+
+Copyright (c) 2025-2026 Panagiotis Smponias. All rights reserved except as
+expressly granted by the license.
+
+## What you may do
+
+Copy, share, fork, modify, remix and redistribute this work for
+**non-commercial purposes**, provided you meet the conditions below.
+
+## Attribution you must give
+
+When you share this work or anything derived from it, you must:
+
+1. credit the original author, **Panagiotis Smponias**, and the original
+   project name **FilmGrainPro**;
+2. link to the original source,
+   https://github.com/Panolix/FilmGrainPro, and to the license;
+3. clearly state what you changed;
+4. keep this NOTICE and the copyright notice intact.
+
+A clear way to do it:
+
+> This is a fork of FilmGrainPro by Panagiotis Smponias
+> (https://github.com/Panolix/FilmGrainPro), modified by <your name>.
+
+## Share-alike
+
+If you remix, transform or build upon this work, you must distribute your
+contribution under CC BY-NC-SA 4.0, so everyone downstream keeps the same
+freedoms you received. You may not relicense a derivative under MIT, Apache,
+proprietary terms, or any other license.
+
+We also ask that you publish the source of your modified version. Share-alike
+only means something if people can read and rebuild the code, not just run a
+binary.
+
+## Commercial use
+
+Commercial use is not granted by this license. Under CC BY-NC-SA 4.0,
+"NonCommercial" means not primarily intended for or directed toward
+commercial advantage or monetary compensation. If you intend to sell the app
+or a fork, bundle it into a paid product, or use it to deliver paid work, you
+need a separate written license — see [COMMERCIAL.md](COMMERCIAL.md).
+
+If you are unsure whether your use counts as commercial, ask before shipping.
+
+## Trademarks
+
+The license grants copyright and similar rights only. It does not grant
+trademark, name or logo rights. "FilmGrainPro", "City Frame Photography" and
+the project logo remain the property of Panagiotis Smponias. Forks must use a
+different name, must not use the logo, and must not imply endorsement by or
+affiliation with the original author.
+
+## Contributions
+
+By submitting a pull request or patch you agree to [CLA.md](CLA.md). That
+agreement is what lets the maintainer keep offering commercial licenses;
+without it, a single merged outside contribution would block that permanently.
