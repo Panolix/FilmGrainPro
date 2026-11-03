@@ -767,9 +767,9 @@ fn apply_realistic_clustering(grains: &mut [Grain], rng: &mut ThreadRng, width: 
 
     for g in &mut grains[..n_clustered] {
         let parent = &parents[rng.gen_range(0..parents.len())];
-        // Offspring spread scales with the parent grain, so clump diameter lands
-        // roughly an order of magnitude above the grain size.
-        let sigma = parent.size * rng.gen_range(1.5..2.5);
+        // Offspring spread scales with the parent grain; widened so clumps read as
+        // visible clusters roughly an order of magnitude above a single grain.
+        let sigma = parent.size * rng.gen_range(2.0..3.5);
         let dx = approx_normal(rng) * sigma;
         let dy = approx_normal(rng) * sigma;
         *g = Grain {
@@ -780,6 +780,76 @@ fn apply_realistic_clustering(grains: &mut [Grain], rng: &mut ThreadRng, width: 
             shape_factor: parent.shape_factor,
             halation: parent.halation,
         };
+    }
+}
+
+// Optical / MTF softening for the rendered plate. Premultiplied so spreading alpha
+// onto previously transparent pixels does not darken the grain colour.
+fn blur_rgba(img: &mut RgbaImage, sigma: f32) {
+    if !(sigma > 0.05) {
+        return;
+    }
+    let radius = (sigma * 3.0).ceil() as i32;
+    if radius < 1 {
+        return;
+    }
+    let mut kernel: Vec<f32> = (-radius..=radius)
+        .map(|i| (-((i * i) as f32) / (2.0 * sigma * sigma)).exp())
+        .collect();
+    let sum: f32 = kernel.iter().sum();
+    if sum <= 0.0 {
+        return;
+    }
+    for k in &mut kernel {
+        *k /= sum;
+    }
+
+    let (w, h) = img.dimensions();
+    let n = (w * h) as usize;
+
+    // Horizontal pass, premultiplied.
+    let mut tmp = vec![0f32; n * 4];
+    for y in 0..h {
+        for x in 0..w {
+            let mut acc = [0f32; 4];
+            for (ki, k) in kernel.iter().enumerate() {
+                let sx = (x as i32 + ki as i32 - radius).clamp(0, w as i32 - 1) as u32;
+                let p = img.get_pixel(sx, y);
+                let a = p[3] as f32;
+                acc[0] += p[0] as f32 * a / 255.0 * k;
+                acc[1] += p[1] as f32 * a / 255.0 * k;
+                acc[2] += p[2] as f32 * a / 255.0 * k;
+                acc[3] += a * k;
+            }
+            let o = ((y * w + x) as usize) * 4;
+            tmp[o..o + 4].copy_from_slice(&acc);
+        }
+    }
+
+    // Vertical pass, then unpremultiply back into the image.
+    for y in 0..h {
+        for x in 0..w {
+            let mut acc = [0f32; 4];
+            for (ki, k) in kernel.iter().enumerate() {
+                let sy = (y as i32 + ki as i32 - radius).clamp(0, h as i32 - 1) as u32;
+                let idx = ((sy * w + x) as usize) * 4;
+                for c in 0..4 {
+                    acc[c] += tmp[idx + c] * k;
+                }
+            }
+            let p = img.get_pixel_mut(x, y);
+            let a = acc[3].clamp(0.0, 255.0);
+            p[3] = a.round() as u8;
+            if a > 0.5 {
+                p[0] = ((acc[0] / a * 255.0).clamp(0.0, 255.0)).round() as u8;
+                p[1] = ((acc[1] / a * 255.0).clamp(0.0, 255.0)).round() as u8;
+                p[2] = ((acc[2] / a * 255.0).clamp(0.0, 255.0)).round() as u8;
+            } else {
+                p[0] = 0;
+                p[1] = 0;
+                p[2] = 0;
+            }
+        }
     }
 }
 
@@ -864,6 +934,14 @@ fn render_grains_parallel(grains: &[Grain], params: &GrainParams, stock: &FilmSt
         }
     }
     
+    // Optical / MTF softening. Real grain is low-pass filtered by the taking lens,
+    // the emulsion's own MTF and the scanner, so hard-edged digital dots look wrong
+    // even when the statistics are right. Sigma is in output pixels and scales with
+    // the canvas, matching how grain size scales, so the texture keeps the same
+    // character at every resolution.
+    let canvas_scale = ((params.width * params.height) as f32 / (1024.0 * 1024.0)).sqrt().max(1.0);
+    blur_rgba(&mut img, 0.45 * canvas_scale);
+
     let render_time = render_start.elapsed().as_millis();
     println!("⏱️ Render breakdown: {}ms total, {:.1} grains/ms", render_time, grains.len() as f32 / render_time as f32);
     
@@ -910,13 +988,41 @@ fn render_grain_to_pixels(grain: &Grain, stock: &FilmStock, params: &GrainParams
     let r_max = r_x.max(r_y);
     let mut pixels = Vec::new();
 
-    // Grains smaller than a pixel either vanish or rasterise as axis-aligned
-    // blocks/bars, so they are splatted as a single crisp pixel instead.
-    if r_max < 0.7 {
-        let x = grain.x.floor() as i32;
-        let y = grain.y.floor() as i32;
-        if x >= 0 && y >= 0 && (x as u32) < params.width && (y as u32) < params.height {
-            pixels.push((x as u32, y as u32, Rgba([final_r, final_g, final_b, alpha])));
+    // Grains below a pixel used to vanish or rasterise as a hard plus-shaped block.
+    // Splat them across a 3x3 sub-pixel Gaussian instead, so a single-pixel grain
+    // reads as a soft round dot at any zoom.
+    if r_max < 1.0 {
+        let sigma = r_max.max(0.35);
+        let x0 = grain.x.floor() as i32;
+        let y0 = grain.y.floor() as i32;
+        let mut weights = [0f32; 9];
+        let mut weight_sum = 0.0f32;
+        for dy in -1i32..=1 {
+            for dx in -1i32..=1 {
+                let px = (x0 + dx) as f32 + 0.5;
+                let py = (y0 + dy) as f32 + 0.5;
+                let d2 = (px - grain.x).powi(2) + (py - grain.y).powi(2);
+                let w = (-d2 / (2.0 * sigma * sigma)).exp();
+                weights[((dy + 1) * 3 + (dx + 1)) as usize] = w;
+                weight_sum += w;
+            }
+        }
+        if weight_sum <= 0.0 {
+            return pixels;
+        }
+        for dy in -1i32..=1 {
+            for dx in -1i32..=1 {
+                let x = x0 + dx;
+                let y = y0 + dy;
+                if x < 0 || y < 0 || x >= params.width as i32 || y >= params.height as i32 {
+                    continue;
+                }
+                let w = weights[((dy + 1) * 3 + (dx + 1)) as usize] / weight_sum;
+                let a = (alpha as f32 * w).round() as u8;
+                if a > 0 {
+                    pixels.push((x as u32, y as u32, Rgba([final_r, final_g, final_b, a])));
+                }
+            }
         }
         return pixels;
     }
@@ -1628,8 +1734,11 @@ struct FilmInfo {
     // Sourced grain metrics (manufacturer datasheets where available)
     iso: Option<u32>,
     graininess: Option<String>,
+    relative_index: Option<String>,
+    data_quality: String,
     morphology: Option<String>,
     grain_size_um: Option<String>,
+    clustering: Option<String>,
     push_range: Option<String>,
     resolving_power: Option<String>,
 }
@@ -1714,6 +1823,42 @@ fn fmt_resolving(r: &serde_json::Value) -> Option<String> {
     Some(format!("{} / {} lines/mm (1.6:1 / 1000:1)", a, b))
 }
 
+// Provenance of the grain numbers, so the UI never implies measurement where
+// there is only a literature-based estimate.
+fn fmt_quality(gm: Option<&serde_json::Value>) -> String {
+    let conf = gm
+        .and_then(|g| g.get("graininess"))
+        .and_then(|g| g.get("confidence"))
+        .and_then(|v| v.as_str())
+        .unwrap_or("estimated");
+    match conf {
+        "datasheet" => "Measured - manufacturer datasheet".to_string(),
+        "derived" => "Derived - computed from a published parent emulsion".to_string(),
+        "estimated_from_curve" => "Modelled - read from a published granularity curve".to_string(),
+        _ => "Modelled - class / literature estimate".to_string(),
+    }
+}
+
+// The renderer normalises published RMS and PGI values onto a 0..1 scale so
+// different metrics can share one amplitude control. That index is relative:
+// it is not a density measurement and must not be presented as one.
+fn fmt_index(model: Option<&GrainModel>, iso: u32) -> Option<String> {
+    let model = model?;
+    let index = grain_index(Some(model), iso);
+    Some(format!("{:.2} / 1.00 (relative scale, not a physical measurement)", index))
+}
+
+fn fmt_clustering(stock: &serde_json::Value) -> Option<String> {
+    let d = stock.get("density_distribution")?;
+    let level = d.get("clustering").and_then(|v| v.as_str()).unwrap_or("unknown");
+    let cluster = d.get("cluster_size").and_then(|v| v.as_str()).unwrap_or("");
+    Some(if cluster.is_empty() {
+        format!("{} (estimated)", level)
+    } else {
+        format!("{} - {} (estimated)", level, cluster.replace('_', " "))
+    })
+}
+
 #[tauri::command]
 async fn get_film_info(film_name: String) -> Result<FilmInfo, String> {
     // Comprehensive film info (text) + sourced grain metrics (parsed once and cached).
@@ -1741,8 +1886,14 @@ async fn get_film_info(film_name: String) -> Result<FilmInfo, String> {
                 price_category: film_info.get("price_category").and_then(|v| v.as_str()).unwrap_or("mid-range").to_string(),
                 iso: gm.and_then(|g| g.get("iso")).and_then(|v| v.as_u64()).map(|v| v as u32),
                 graininess: gm.and_then(|g| g.get("graininess")).and_then(fmt_graininess),
+                relative_index: fmt_index(
+                    grain_models().get(&film_name),
+                    gm.and_then(|g| g.get("iso")).and_then(|v| v.as_u64()).unwrap_or(400) as u32,
+                ),
+                data_quality: fmt_quality(gm),
                 morphology: gm.and_then(|g| g.get("morphology")).and_then(fmt_morphology),
                 grain_size_um: gm.and_then(|g| g.get("grain_size_um")).and_then(fmt_size),
+                clustering: fmt_clustering(stock_data),
                 push_range: gm.and_then(|g| {
                     fmt_push(g.get("push"), g.get("ei_range"))
                 }),

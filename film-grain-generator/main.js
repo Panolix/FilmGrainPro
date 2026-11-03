@@ -36,6 +36,34 @@ function sliderFromDensity(value) {
     return last.pos;
 }
 
+// Backgrounds are drawn as flat fills or horizontal ramps; the old
+// transparency checkerboard is gone in favour of the alpha-matte view.
+
+const LUMINANCE_STOPS = ['#000000', '#404040', '#767676', '#c0c0c0', '#ffffff'];
+const SKIN_STOPS = ['#3b2219', '#6b4433', '#9c6b4e', '#c68b59', '#e0ac69', '#f1d3b6'];
+
+// Horizontal tonal ramp. Used for both the luminance reference and the skin range.
+function drawRamp(ctx, width, height, stops) {
+    const ramp = ctx.createLinearGradient(0, 0, width, 0);
+    stops.forEach((colour, i) => ramp.addColorStop(i / (stops.length - 1), colour));
+    ctx.fillStyle = ramp;
+    ctx.fillRect(0, 0, width, height);
+}
+
+// Coverage view: alpha as greyscale, so grain structure can be judged without a
+// background colour or blend mode getting in the way.
+function alphaMatte(data, width, height) {
+    const out = new Uint8ClampedArray(width * height * 4);
+    for (let i = 0; i < width * height; i++) {
+        const a = data[i * 4 + 3];
+        out[i * 4] = a;
+        out[i * 4 + 1] = a;
+        out[i * 4 + 2] = a;
+        out[i * 4 + 3] = 255;
+    }
+    return new ImageData(out, width, height);
+}
+
 class FilmGrainGenerator {
     constructor() {
         this.canvas = document.getElementById('grainCanvas');
@@ -109,9 +137,12 @@ class FilmGrainGenerator {
             document.getElementById('filmInfoPrice').textContent = filmInfo.price_category;
             const src = (v) => (v === null || v === undefined || v === '') ? '—' : v;
             document.getElementById('filmInfoIso').textContent = src(filmInfo.iso);
+            document.getElementById('filmInfoQuality').textContent = src(filmInfo.data_quality);
             document.getElementById('filmInfoGraininess').textContent = src(filmInfo.graininess);
+            document.getElementById('filmInfoIndex').textContent = src(filmInfo.relative_index);
             document.getElementById('filmInfoMorphology').textContent = src(filmInfo.morphology);
             document.getElementById('filmInfoGrainSize').textContent = src(filmInfo.grain_size_um);
+            document.getElementById('filmInfoClustering').textContent = src(filmInfo.clustering);
             document.getElementById('filmInfoPush').textContent = src(filmInfo.push_range);
             document.getElementById('filmInfoResolving').textContent = src(filmInfo.resolving_power);
             
@@ -302,6 +333,24 @@ class FilmGrainGenerator {
         document.getElementById('saveCompositeBtn').addEventListener('click', () => {
             this.saveCompositeImage();
         });
+
+        document.getElementById('previewMode').addEventListener('change', () => {
+            // Luminance response only makes sense when there is something visible
+            // to respond to; black and the alpha matte default to flat.
+            const mode = document.getElementById('previewMode').value;
+            document.getElementById('previewBlend').value = (mode === 'black' || mode === 'alpha') ? 'flat' : 'luminance';
+            if (this.currentImageData) this.displayGrainResult({
+                data: this.currentImageData, width: this.canvas.width, height: this.canvas.height
+            });
+        });
+        document.getElementById('previewBlend').addEventListener('change', () => {
+            if (this.currentImageData) this.displayGrainResult({
+                data: this.currentImageData, width: this.canvas.width, height: this.canvas.height
+            });
+        });
+        document.getElementById('previewZoom').addEventListener('change', () => this.updatePreviewView());
+        window.addEventListener('resize', () => this.updatePreviewView());
+        this.setupPreviewPanning();
 
         // Tab functionality
         this.initializeTabs();
@@ -498,43 +547,92 @@ class FilmGrainGenerator {
     
     displayGrainResult(result) {
         const { data, width, height } = result;
-        
-        // Set canvas size
+
         this.canvas.width = width;
         this.canvas.height = height;
-        
-        // Create ImageData from the raw RGBA data
-        const imageData = new ImageData(new Uint8ClampedArray(data), width, height);
-        
-        // If there's an uploaded image, use it as background instead of black
-        if (this.uploadedImage && this.uploadedImageElement) {
-            console.log('Drawing uploaded image as background');
-            
-            // Draw uploaded image as background
-            this.ctx.drawImage(this.uploadedImageElement, 0, 0, this.canvas.width, this.canvas.height);
-            
-            // Create temporary canvas for grain to preserve transparency
-            const tempCanvas = document.createElement('canvas');
-            tempCanvas.width = width;
-            tempCanvas.height = height;
-            const tempCtx = tempCanvas.getContext('2d');
-            tempCtx.putImageData(imageData, 0, 0);
-            
-            // Draw grain on top preserving its transparency
-            this.ctx.drawImage(tempCanvas, 0, 0);
-            
-            console.log('Grain drawn on top of uploaded image');
+
+        const ctx = this.ctx;
+        const mode = document.getElementById('previewMode').value;
+        const respond = document.getElementById('previewBlend').value === 'luminance';
+
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = 'source-over';
+
+        if (mode === 'alpha') {
+            ctx.putImageData(alphaMatte(data, width, height), 0, 0);
         } else {
-            // No uploaded image, use black background as before
-            this.ctx.fillStyle = '#000000';
-            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-            
-            // Draw the transparent grain on top
-            this.ctx.putImageData(imageData, 0, 0);
+            if (mode === 'image' && this.uploadedImage && this.uploadedImageElement) {
+                ctx.drawImage(this.uploadedImageElement, 0, 0, width, height);
+            } else if (mode === 'ramp') {
+                drawRamp(ctx, width, height, LUMINANCE_STOPS);
+            } else if (mode === 'skin') {
+                drawRamp(ctx, width, height, SKIN_STOPS);
+            } else if (mode === 'gray18') {
+                ctx.fillStyle = '#767676';
+                ctx.fillRect(0, 0, width, height);
+            } else {
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(0, 0, width, height);
+            }
+
+            // putImageData ignores blend modes, so stage the grain on a scratch canvas.
+            const grainLayer = document.createElement('canvas');
+            grainLayer.width = width;
+            grainLayer.height = height;
+            grainLayer.getContext('2d').putImageData(
+                new ImageData(new Uint8ClampedArray(data), width, height), 0, 0);
+
+            ctx.globalCompositeOperation = respond ? 'overlay' : 'source-over';
+            ctx.drawImage(grainLayer, 0, 0);
+            ctx.globalCompositeOperation = 'source-over';
         }
-        
+
         // Store original transparent data for saving (unchanged)
         this.currentImageData = data;
+        this.updatePreviewView();
+    }
+
+    updatePreviewView() {
+        const viewport = document.getElementById('previewViewport');
+        const native = document.getElementById('previewZoom').value === 'native';
+        const ratio = window.devicePixelRatio || 1;
+        const scale = native ? 1 / ratio : Math.min(
+            viewport.clientWidth / this.canvas.width,
+            viewport.clientHeight / this.canvas.height, 1 / ratio);
+        this.canvas.style.width = `${this.canvas.width * scale}px`;
+        this.canvas.style.height = `${this.canvas.height * scale}px`;
+        viewport.classList.toggle('native', native);
+        document.getElementById('previewInfo').textContent =
+            `${this.canvas.width} × ${this.canvas.height} | ${Math.round(scale * ratio * 100)}% | ` +
+            (native ? 'One Image Pixel Per Display Pixel' : 'Fit — Fine Grain May Be Smoothed');
+    }
+
+    setupPreviewPanning() {
+        const viewport = document.getElementById('previewViewport');
+        let drag = null;
+        const stop = (event) => {
+            if (!drag || event.pointerId !== drag.id) return;
+            drag = null;
+            viewport.classList.remove('dragging');
+            if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+        };
+        viewport.addEventListener('pointerdown', (event) => {
+            if (drag || event.button !== 0 || document.getElementById('previewZoom').value !== 'native') return;
+            drag = { id: event.pointerId, x: event.clientX, y: event.clientY,
+                left: viewport.scrollLeft, top: viewport.scrollTop };
+            viewport.setPointerCapture(event.pointerId);
+            viewport.classList.add('dragging');
+            event.preventDefault();
+        });
+        viewport.addEventListener('pointermove', (event) => {
+            if (!drag || event.pointerId !== drag.id) return;
+            if (document.getElementById('previewZoom').value !== 'native') { stop(event); return; }
+            viewport.scrollLeft = drag.left - (event.clientX - drag.x);
+            viewport.scrollTop = drag.top - (event.clientY - drag.y);
+        });
+        viewport.addEventListener('pointerup', stop);
+        viewport.addEventListener('pointercancel', stop);
+        viewport.addEventListener('lostpointercapture', stop);
     }
     
     updatePerformanceInfo(result) {
