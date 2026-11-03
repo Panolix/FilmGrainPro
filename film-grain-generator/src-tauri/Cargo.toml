@@ -1,7 +1,7 @@
 [package]
 name = "film-grain-generator"
 version = "2.3.1"
-description = "Film Grain Generator - Professional film grain effects"
+description = "FilmGrainPro - Professional film grain effects"
 authors = ["Panagiotis Smponias"]
 license = "CC-BY-NC-SA-4.0"
 repository = "https://github.com/Panolix/FilmGrainPro"

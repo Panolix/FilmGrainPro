@@ -59,7 +59,7 @@ jobs:
           
           # Create release notes
           cat > release_notes.md << EOF
-          🎬 Film Grain Generator v$NEW_VERSION
+          🎬 FilmGrainPro v$NEW_VERSION
           
           ## What's Changed
           
@@ -130,7 +130,7 @@ jobs:
         uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ steps.new_version.outputs.version }}
-          name: 'Film Grain Generator v${{ steps.new_version.outputs.version }}'
+          name: 'FilmGrainPro v${{ steps.new_version.outputs.version }}'
           body: ${{ steps.release_notes.outputs.notes }}
           draft: false
           prerelease: false

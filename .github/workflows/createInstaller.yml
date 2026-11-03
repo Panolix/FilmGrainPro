@@ -78,7 +78,7 @@ jobs:
         with:
           projectPath: './film-grain-generator'
           tagName: ${{ github.event.release.tag_name || github.ref_name }}
-          releaseName: 'Film Grain Generator v__VERSION__'
+          releaseName: 'FilmGrainPro v__VERSION__'
           releaseBody: ${{ steps.notes.outputs.body }}
           releaseDraft: false
           prerelease: false
