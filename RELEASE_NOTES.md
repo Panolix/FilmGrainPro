@@ -1,8 +1,21 @@
-# FilmGrainPro v2.3.1
+# FilmGrainPro v2.3.2
 
-Maintenance release: refreshed the GitHub Actions used to build and publish installers (checkout v7, setup-node v7, tauri-action v1). No changes to the app or film database.
+Naming fix. The installed executable, the release download and the release
+title now use the same name as the app itself.
 
-## Notes
-- macOS build is unsigned; Gatekeeper may warn on first launch.
+## Changed
 
-**Full changelog**: compare from `v2.3.0`.
+- The bundled binary is `FilmGrainPro.exe` (Windows) and `FilmGrainPro.app`
+  (macOS) instead of `film-grain-generator`, matching the install folder and
+  the Start Menu entry.
+- Release titles and generated release notes say **FilmGrainPro** rather than
+  "Film Grain Generator".
+- The document title and Rust package description were updated to match.
+
+## Upgrading
+
+This installs alongside the old build. If you still have **Film Grain
+Generator** (v2.1.0) in Settings → Apps, uninstall it — that entry comes from
+an older release and is not removed automatically.
+
+No changes to grain rendering, the film database or export quality.
