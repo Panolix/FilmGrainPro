@@ -10,13 +10,13 @@ A professional desktop application for generating **authentic film grain overlay
 
 ![FilmGrainPro Interface](Images%20Readme/Overview.png)
 
-*Professional interface featuring: **Left** - Film stock info panel with technical specifications, **Center** - Live grain generation canvas, **Right** - Precision toolbox with sliders and selectors, **Bottom** - Real-time performance metrics showing grain count and generation speed. (Screenshots predate the 2.2 grain-model rewrite; current output differs.)*
+*Professional interface featuring: **Left** - Film stock info panel with technical specifications, **Center** - Live grain generation canvas, **Right** - Precision toolbox with sliders and selectors, **Bottom** - Real-time performance metrics showing grain count and generation speed. (Screenshots predate the 2.3.4 interface refresh; the current build uses a three-column layout with a persistent action bar, and renders different grain.)*
 
 ## ✨ Features
 
 ### 🎞️ **Authentic Film Simulation**
 - **37 Real Film Stocks**: Complete database including Kodak, Fuji, Ilford, Agfa, and CineStill films
-- **Scientifically Informed**: Grain amplitude driven by published RMS/PGI granularity where available
+- **Scientifically Informed**: Grain amplitude driven by manufacturer-published RMS/PGI granularity for 21 of the 37 stocks; the rest are derived or literature-based and labelled accordingly
 - **Realistic Grain Characteristics**: Film-specific sizes, shapes, densities, and clustering patterns
 - **Film-Specific Colors**: Each stock has its own grain color signature
 
@@ -33,6 +33,12 @@ A professional desktop application for generating **authentic film grain overlay
 - **Grain Density**: 0.5x-5.0x multiplier (film stock dependent)
 - **Film Age & Storage**: 0-10 years of simulated aging, fridge or room temperature
 - **Canvas Size**: 512-2048px output resolution
+
+### 🔍 **Preview & Inspection**
+- **Preview Backgrounds**: None (black), 18% gray, luminance ramp, skin tone ramp, alpha matte, or the uploaded image
+- **Background Response**: optionally let preview grain follow the brightness underneath it — weakest in deep shadow and pure white, strongest in the midtones. Preview compositing only; the exported PNG stays neutral
+- **1:1 Inspection**: switch between Fit and 100% actual pixels, then drag to pan across the grain
+- **Data Provenance**: the film panel states whether each stock's granularity is **Measured**, **Derived** or **Modelled**, and shows the published value with its measurement conditions
 
 ### 💾 **Export Options**
 - **Transparent PNG**: Perfect for overlay use in photo/video editing
@@ -57,6 +63,8 @@ This isn't just random noise - it's a **grain model grounded in published film d
 - **Color Accuracy**: Authentic color casts per film stock (CineStill 800T warm, Fuji green bias, etc.)
 - **Aging Simulation**: Q10-based fog/colour-shift model with storage temperature effects (fridge vs room temp)
 - **Exposure Effects**: Published push/pull data where available, otherwise class-based grain growth
+- **Optical Softening**: the rendered plate is low-pass filtered at output scale, the way lens, emulsion MTF and a scanner soften real grain
+- **Sub-Pixel Grains**: grains smaller than a pixel are splatted with a soft 3×3 kernel instead of a single hard pixel, which removes the plus-shaped artefacts visible at high zoom
 
 ### **37 Film Stocks Included:**
 
@@ -130,11 +138,14 @@ The installer will check for these and guide you through any missing requirement
    - **Grain Density Multiplier**: 0.5x-5.0x grain count
    - **Grain Size Multiplier**: 0.2x-5.0x grain size
    - **Grain Opacity**: 20-100% visibility
+   - **Preview Background**: inspect the grain over black, 18% gray, a luminance ramp, a skin tone ramp, an alpha matte, or your own image
+   - **Background Response**: optionally let preview grain follow the brightness underneath it
+   - **Preview View**: Fit, or 100% actual pixels with drag to pan
 4. **Optional** — Advanced tab: exposure compensation (-2 to +2 stops), film age (0-10 years), storage temperature, canvas size (512-2048px)
-5. **Click "Regenerate Grain"** to see results (double-click a slider to reset it, or click its value to type an exact number)
-6. **Export**: "Save Grain Only" writes a transparent PNG; upload an image on the Output tab to composite it with the grain instead
+5. **Click "Regenerate Grain"** — it stays at the bottom of the panel on every tab. Double-click a slider to reset it, or click its value to type an exact number. **Reset All** restores every control to its startup value.
+6. **Export**: "Save Grain Only" writes a transparent PNG at the canvas resolution; upload an image on the Output tab to composite it with the grain instead
 
-The left-hand info panel shows the selected stock's sourced metrics (ISO, graininess, morphology, push range) where published.
+The left-hand info panel shows the selected stock's metrics with provenance — whether its granularity is **Measured**, **Derived** or **Modelled** — alongside ISO, morphology, grain size, clustering and push range.
 
 ## 🎨 **Usage Examples**
 
