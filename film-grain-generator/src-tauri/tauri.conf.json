@@ -1,7 +1,7 @@
 {
   "productName": "FilmGrainPro",
   "mainBinaryName": "FilmGrainPro",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "identifier": "com.filmgrain.generator",
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "FilmGrainPro - Film Grain Simulator",
+        "title": "FilmGrainPro",
         "width": 1400,
         "height": 900,
         "resizable": true,
