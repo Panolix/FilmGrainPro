@@ -236,6 +236,36 @@
             background: #3d6a3d;
         }
 
+        .controls-footer {
+            display: flex;
+            gap: 8px;
+            padding: 10px 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.35);
+        }
+
+        .controls-footer .regenerate-btn,
+        .controls-footer .reset-btn {
+            flex: 1;
+            width: auto;
+            margin: 0;
+        }
+
+        .reset-btn {
+            background: #2a2a2a;
+            border: 1px solid #555;
+            color: #ddd;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        .reset-btn:hover {
+            background: #3a3a3a;
+        }
+
         .hero-container {
             grid-column: 2;
             grid-row: 1;
@@ -458,8 +488,6 @@
                     </select>
                     <div id="previewInfo" role="status" style="font-size:12px;color:#ccc"></div>
                 </div>
-
-                <button class="regenerate-btn" id="regenerateBtn">Regenerate Grain</button>
             </div>
 
             <!-- Advanced Tab -->
@@ -504,6 +532,11 @@
                 <button class="save-btn" id="saveBtn">💾 Save Grain Only</button>
                 <button class="save-btn" id="saveCompositeBtn" style="display: none;">💾 Save Image + Grain</button>
             </div>
+        </div>
+
+        <div class="controls-footer">
+            <button class="regenerate-btn" id="regenerateBtn">Regenerate Grain</button>
+            <button class="reset-btn" id="resetAllBtn">Reset All</button>
         </div>
     </div>
 

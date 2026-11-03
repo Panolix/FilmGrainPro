@@ -1,24 +1,16 @@
-# FilmGrainPro v2.3.5
+# FilmGrainPro v2.3.6
 
-Data patch. No changes to rendering, layout or grain parameters.
+UI patch. No changes to grain rendering or the film database.
 
-## Measured granularity
+## Fixed
 
-Four stocks moved from modelled/derived to manufacturer-published values:
+- **Regenerate Grain could be hidden.** Adding the preview controls in v2.3.4 pushed
+  the button below the fold, so it sat behind a scroll in the Basic tab. It now
+  lives in a fixed footer at the bottom of the controls panel and stays available
+  from every tab.
 
-- **Kodak Ektachrome E100** — RMS 8 (Kodak E-4000, 48 um aperture, density 1.0)
-- **Ilford HP5 Plus** — RMS 16 (Ilford negative motion picture fact sheet, Kodak D-96)
-- **Ilford FP4 Plus** — RMS 10 (Ilford negative motion picture fact sheet, Kodak D-96)
-- **Fujicolor C200** — RMS 4 (Fuji PIB AF3-0249E, 48 um aperture, density 1.0 above minimum)
+## Added
 
-Coverage is now **21 of 37** stocks with manufacturer-published granularity, up from 17.
-
-## Notes
-
-- The Ilford figures are published for the motion-picture version of each film and
-  measured in Kodak D-96. The measurement condition is recorded alongside the
-  value, because RMS granularity is developer-dependent.
-- Added an "Ilford B&W" scale label so the information panel no longer attributes
-  Ilford measurements to Kodak.
-- Grain size and clustering remain modelled estimates; nothing here changes how
-  grain is rendered.
+- **Reset All** button, next to Regenerate. Restores the film stock, all sliders,
+  the storage setting and the three preview controls to their startup values,
+  then regenerates the grain and refreshes the film information panel.

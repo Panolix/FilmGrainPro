@@ -112,13 +112,47 @@ class FilmGrainGenerator {
             
             // Generate initial grain after loading stocks
             this.updateFilmInfo();
+            this.captureControlDefaults();
             this.generateInitialGrain();
             
         } catch (error) {
             console.error('Failed to load film stocks:', error);
             // Fall back to generating with default stock
+            this.captureControlDefaults();
             this.generateInitialGrain();
         }
+    }
+
+    // Snapshot the control values once the film list is populated, so "Reset All"
+    // restores the same state the app started in.
+    captureControlDefaults() {
+        this.controlDefaults = {};
+        document.querySelectorAll('.controls input, .controls select').forEach(el => {
+            if (el.type === 'file' || !el.id) return;
+            this.controlDefaults[el.id] = el.value;
+        });
+    }
+
+    resetAllDefaults() {
+        const defaults = this.controlDefaults;
+        if (!defaults) return;
+
+        Object.entries(defaults).forEach(([id, value]) => {
+            const el = document.getElementById(id);
+            if (el && el.type !== 'file') el.value = value;
+        });
+
+        // Background Response is implied by the background choice.
+        document.getElementById('previewMode').dispatchEvent(new Event('change'));
+
+        // Refresh the value labels. The canvas sliders also trigger a regeneration.
+        ['grainDensity', 'grainSize', 'contrast', 'grainIntensity', 'filmAge', 'canvasWidth', 'canvasHeight']
+            .forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.dispatchEvent(new Event('input'));
+            });
+
+        this.updateFilmInfo();
     }
 
     async updateFilmInfo() {
@@ -324,6 +358,10 @@ class FilmGrainGenerator {
 
         document.getElementById('regenerateBtn').addEventListener('click', () => {
             this.regenerateGrain();
+        });
+
+        document.getElementById('resetAllBtn').addEventListener('click', () => {
+            this.resetAllDefaults();
         });
         
         document.getElementById('saveBtn').addEventListener('click', () => {
