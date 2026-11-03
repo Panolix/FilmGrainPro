@@ -1,6 +1,9 @@
 # Changelog
 
-## Unreleased
+## v2.3.4 — 2026-11-03
+
+- Explain why Background Response is disabled in neutral-gray and Alpha Matte previews.
+- Simplify MOV filenames and append _Soft when optical softening is enabled; keep existing files using short numbered suffixes on collision. PNG naming is unchanged.
 
 - Adapt upstream v2.3.4 three-column layout, film-data provenance, diagnostic backgrounds, small-grain splatting and wider clump spread.
 - Add a saved Optical Softening On / Off control shared by preview, PNG and MOV (default On). Parallelize the upstream premultiplied-alpha Gaussian on the existing CPU pool.

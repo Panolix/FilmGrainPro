@@ -805,6 +805,13 @@ class FilmGrainGenerator {
         this.ctx.globalCompositeOperation = 'source-over';
         const diagnostic = !['neutral_gray', 'alpha'].includes(mode);
         document.getElementById('previewBlend').disabled = !diagnostic;
+        const responseHint = mode === 'neutral_gray'
+            ? 'Unavailable In 50% Gray Mode: This View Matches Neutral-Gray MOV. Choose 18% Gray, A Ramp Or Original To Enable. Preview Only; Exports Are Unchanged.'
+            : mode === 'alpha'
+                ? 'Unavailable In Alpha Matte: This View Shows Coverage Only. Choose 18% Gray, A Ramp Or Original To Enable.'
+                : 'Preview Only: On Uses Brightness-Dependent Overlay Blending. PNG And MOV Exports Are Unchanged; This Does Not Simulate Video Compositing.';
+        document.getElementById('previewBlendHint').textContent = responseHint;
+        document.getElementById('previewBlend').parentElement.title = responseHint;
         if (mode === 'neutral_gray') {
             // Keep the exact mean-centred conversion used for neutral-gray MOV.
             this.ctx.putImageData(new ImageData(grayGrainPreview(data), width, height), 0, 0);

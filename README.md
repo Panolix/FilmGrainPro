@@ -6,7 +6,7 @@ A professional desktop application for generating **authentic film grain overlay
 ![License](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-blue)
 ![Built with](https://img.shields.io/badge/Built%20with-Rust%20%7C%20Tauri%20%7C%20JavaScript-orange)
 
-Windows portable fork release: [FGG v2.3.3](https://github.com/rampageX/FilmGrain-Generator/releases/tag/v2.3.3). See [Changelog](CHANGELOG.md) and [MOV Export](MOV_EXPORT.md). New fork features are validated on Windows only.
+Windows portable fork release: [Film Grain Generator v2.3.4](https://github.com/rampageX/FilmGrain-Generator/releases/tag/v2.3.4). See [Changelog](CHANGELOG.md) and [MOV Export](MOV_EXPORT.md). New fork features are validated on Windows only.
 
 ## 📸 **App Overview**
 
@@ -213,6 +213,6 @@ See the [LICENSE](LICENSE) file for complete terms.
 
 *Create authentic film grain overlays that actually look like real film - because your art deserves better than generic noise.*
 
-### Development Branch — Upstream v2.3.4 Adaptation
+### v2.3.4 — Upstream Rendering And Layout Adaptation
 
-The development branch adds a three-column layout, clearer film-data provenance and diagnostic preview backgrounds. Optical Softening in Advanced is enabled by default and can be switched off; it applies to preview, PNG and MOV generation. Small-grain rendering and cluster spread are adapted from [FilmGrainPro v2.3.4](https://github.com/Panolix/FilmGrainPro/commit/c18c0112aca936f3ec5ed5c56c2a6b40253ee52b) by Panagiotis Smponias. Our video export, executable name, portable settings and window memory are retained. See [MOV Export](MOV_EXPORT.md) for the distinction between diagnostic backgrounds and neutral-gray video output.
+This release adds a three-column layout, clearer film-data provenance and diagnostic preview backgrounds. Optical Softening in Advanced is enabled by default and can be switched off; it applies to preview, PNG and MOV generation. Small-grain rendering and cluster spread are adapted from [FilmGrainPro v2.3.4](https://github.com/Panolix/FilmGrainPro/commit/c18c0112aca936f3ec5ed5c56c2a6b40253ee52b) by Panagiotis Smponias. Our video export, executable name, portable settings and window memory are retained. See [MOV Export](MOV_EXPORT.md) for the distinction between diagnostic backgrounds and neutral-gray video output.

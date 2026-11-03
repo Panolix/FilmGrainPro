@@ -4,7 +4,6 @@ use std::{
     io::{Read, Write},
     process::{Command, Stdio},
     sync::{atomic::{AtomicBool, Ordering}, Arc},
-    time::{SystemTime, UNIX_EPOCH},
 };
 use tauri::Emitter;
 
@@ -116,20 +115,41 @@ fn encoder(path: &std::path::Path, width: u32, height: u32, fps: u32, mode: MovM
     Ok(command)
 }
 
+// Reserve a temporary filename before encoding so repeated exports never reuse
+// an existing final or in-progress MOV. Numeric suffixes appear only on collision.
+fn reserve_output(folder: &std::path::Path, params: &GrainParams, fps: u32)
+    -> Result<(std::path::PathBuf, std::path::PathBuf), String> {
+    let stock: String = params.film_stock.chars()
+        .map(|c| if c.is_ascii_alphanumeric() { c } else { '_' }).collect();
+    let stem = format!("{stock}_{}x{}_{fps}fps", params.width, params.height);
+    let soft = if params.optical_softening { "_Soft" } else { "" };
+    for index in 1u32.. {
+        let suffix = if index == 1 { String::new() } else { format!("_{index}") };
+        let output = folder.join(format!("{stem}{suffix}{soft}.mov"));
+        if output.exists() { continue; }
+        let partial = output.with_extension("partial.mov");
+        match std::fs::OpenOptions::new().write(true).create_new(true).open(&partial) {
+            Ok(_) => return Ok((output, partial)),
+            Err(error) if error.kind() == std::io::ErrorKind::AlreadyExists => continue,
+            Err(error) => return Err(format!("Cannot prepare MOV output: {error}")),
+        }
+    }
+    Err("No available MOV filename.".into())
+}
+
 fn export(params: GrainParams, options: MovOptions, cancelled: Arc<AtomicBool>,
           progress: impl Fn(u32, u32)) -> Result<String, String> {
     let total = validate(&params, &options)?;
     // Fail before starting an encoder if the film stock is invalid.
     let first = generate_grain_frame(&params)?;
     let folder = crate::app_settings::output_directory()?;
-    let stamp = SystemTime::now().duration_since(UNIX_EPOCH).map_err(|e| e.to_string())?.as_nanos();
-    let stock: String = params.film_stock.chars()
-        .map(|c| if c.is_ascii_alphanumeric() { c } else { '_' }).collect();
-    let output = folder.join(format!("grain_{stock}_{}x{}_{}fps_{stamp}.mov",
-                                    params.width, params.height, options.fps));
-    let partial = output.with_extension("partial.mov");
-    let mut child = encoder(&partial, params.width, params.height, options.fps, options.mode)?.spawn()
-        .map_err(|e| format!("Cannot start FFmpeg: {e}. Choose the FFmpeg directory in Settings (or place ffmpeg beside FilmGrainPro / add it to PATH)."))?;
+    let (output, partial) = reserve_output(&folder, &params, options.fps)?;
+    let command = encoder(&partial, params.width, params.height, options.fps, options.mode);
+    let mut child = match command.and_then(|mut command| command.spawn().map_err(|e|
+        format!("Cannot start FFmpeg: {e}. Choose the FFmpeg directory in Settings (or place ffmpeg beside FilmGrainPro / add it to PATH)."))) {
+        Ok(child) => child,
+        Err(error) => { let _ = std::fs::remove_file(&partial); return Err(error); }
+    };
     let mut stderr = child.stderr.take().ok_or("FFmpeg stderr is unavailable.")?;
     // Drain continuously so encoder errors cannot block the raw-video pipe.
     let reader = std::thread::spawn(move || {
@@ -207,6 +227,27 @@ mod tests {
             width: 512, height: 512, background: "transparent".into(),
             film_age_years: Some(0.0), storage_temp: Some(20.0) }
     }
+    #[test]
+    fn mov_names_mark_softening_and_avoid_overwrite() {
+        let root = std::env::temp_dir().join(format!("FGG_names_{}",std::process::id()));
+        let _ = std::fs::remove_dir_all(&root);
+        std::fs::create_dir_all(&root).unwrap();
+        let mut p = params(); p.width=3840; p.height=2160;
+        let (plain, partial) = reserve_output(&root,&p,24).unwrap();
+        assert_eq!(plain.file_name().unwrap().to_str().unwrap(),"Kodak_Tri_X_400_3840x2160_24fps.mov");
+        std::fs::write(&plain,b"existing").unwrap();
+        let (second, _) = reserve_output(&root,&p,24).unwrap();
+        assert_eq!(second.file_name().unwrap().to_str().unwrap(),"Kodak_Tri_X_400_3840x2160_24fps_2.mov");
+        p.optical_softening=true;
+        let (soft, _) = reserve_output(&root,&p,24).unwrap();
+        assert_eq!(soft.file_name().unwrap().to_str().unwrap(),"Kodak_Tri_X_400_3840x2160_24fps_Soft.mov");
+        let (soft_second, _) = reserve_output(&root,&p,24).unwrap();
+        assert!(soft_second.to_string_lossy().ends_with("_2_Soft.mov"));
+        assert_eq!(std::fs::read(plain).unwrap(),b"existing");
+        assert!(partial.exists());
+        std::fs::remove_dir_all(root).unwrap();
+    }
+
     #[test]
     fn softened_gray_frame_stays_centered_and_neutral() {
         let mut p = params();

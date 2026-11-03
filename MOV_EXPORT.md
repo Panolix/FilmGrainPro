@@ -81,3 +81,5 @@ The Gaussian follows the upstream output-scale sigma (0.45 times the canvas scal
 The default 50% Gray + Dark Grain view still matches the mean-centered neutral-gray MOV conversion. Additional 18% Gray, luminance and skin ramps, and Alpha Matte are diagnostic views. Background Response uses browser overlay compositing only, does not change PNG/MOV data and is disabled for the neutral-gray reference and Alpha Matte. It is not a preview of another application's video compositing pipeline.
 
 The film panel distinguishes manufacturer measurements, derived values and model estimates. The relative grain index is not a physical measurement. Layout and rendering changes are adapted from upstream FilmGrainPro v2.3.4 by Panagiotis Smponias: https://github.com/Panolix/FilmGrainPro/commit/c18c0112aca936f3ec5ed5c56c2a6b40253ee52b .
+
+MOV filenames use `Film_Stock_3840x2160_24fps.mov`, or `Film_Stock_3840x2160_24fps_Soft.mov` with Optical Softening enabled. The `grain_` prefix and timestamp suffix are removed. Existing or in-progress names are preserved by using `_2`, `_3`, etc., before `_Soft` where applicable. PNG filenames retain their previous format.
